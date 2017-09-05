@@ -9,6 +9,6 @@ package br.com.gt.model;
  *
  * @author lucas
  */
-public class Acessorio {
+public class Cliente extends PessoaFisica{
     
 }

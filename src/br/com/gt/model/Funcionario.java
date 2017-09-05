@@ -5,10 +5,30 @@
  */
 package br.com.gt.model;
 
+import java.util.Date;
+
 /**
  *
  * @author lucas
  */
-public class Funcionario {
-    
+public class Funcionario extends PessoaFisica{
+    private Date dataAdmissao;
+    private Usuario usuario;
+
+    public Date getDataAdmissao() {
+        return dataAdmissao;
+    }
+
+    public void setDataAdmissao(Date dataAdmissao) {
+        this.dataAdmissao = dataAdmissao;
+    }
+
+    public Usuario getUsuario() {
+        return usuario;
+    }
+
+    public void setUsuario(Usuario usuario) {
+        this.usuario = usuario;
+    }
+
 }
