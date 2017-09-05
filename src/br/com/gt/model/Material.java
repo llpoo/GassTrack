@@ -5,19 +5,28 @@
  */
 package br.com.gt.model;
 
-import java.util.List;
-
+//import java.util.List;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
 /**
  *
  * @author lucas
  */
+@Entity
 public class Material {
-       private long id;
-       private int quantidadeAtual;
-       private int estoqueMinimo;
-       private double precoUnitario;
-       private boolean isAcessorio;
-       private List<Venda> vendas;
+    @Id
+    @GeneratedValue
+    private long id;
+    @Column
+    private int quantidadeAtual;
+    @Column
+    private int estoqueMinimo;
+    @Column
+    private double precoUnitario;
+    @Column
+    private boolean isAcessorio;
 
     public long getId() {
         return id;
@@ -58,14 +67,4 @@ public class Material {
     public void setIsAcessorio(boolean isAcessorio) {
         this.isAcessorio = isAcessorio;
     }
-
-    public List<Venda> getVendas() {
-        return vendas;
-    }
-
-    public void setVendas(List<Venda> vendas) {
-        this.vendas = vendas;
-    }
-       
-       
 }

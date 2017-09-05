@@ -5,13 +5,23 @@
  */
 package br.com.gt.model;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+
 /**
  *
  * @author lucas
  */
+@Entity
 public class Usuario {
+    @Id
+    @GeneratedValue
     private long id;
+    @Column
     private String usuario;
+    @Column
     private String senha;
 
     public long getId() {
