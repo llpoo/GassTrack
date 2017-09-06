@@ -40,23 +40,33 @@ made subject to such option by the copyright holder.
 Contributor(s):
 -->
 <hibernate-configuration>
-  <session-factory>
+    <session-factory>
     <property name="hibernate.dialect">org.hibernate.dialect.PostgreSQLDialect</property>
     <property name="hibernate.connection.driver_class">org.postgresql.Driver</property>
     <property name="hibernate.connection.url">jdbc:postgresql://localhost:5432/gtdb</property>
     <property name="hibernate.connection.username">postgres</property>
     <property name="hibernate.connection.password">root</property>
-    <property name="hibernate.show_sql">true</property>
-    <property name="hibernate.format_sql">true</property>
-    <property name="hibernate.connection.provider_class">org.hibernate.connection.C3P0ConnectionProvider</property>
-    <mapping class="br.com.gt.model.Aquisicao" file="" jar="" package="" resource="Aquisicao"/>
-    <mapping class="br.com.gt.model.Cliente" resource="Cliente"/>
-    <mapping class="br.com.gt.model.Endereco" resource="Endereco"/>
-    <mapping class="br.com.gt.model.Fornecedor" resource="Fornecedor"/>
-    <mapping class="br.com.gt.model.Funcionario" resource="Funcionario"/>
-    <mapping class="br.com.gt.model.Material" resource="Material"/>
-    <mapping class="br.com.gt.model.Usuario" resource="Usuario"/>
-    <mapping class="br.com.gt.model.Venda" resource="Venda"/>
-    <mapping class="br.com.gt.model.Pessoa" resource="Pessoa"/>
-  </session-factory>
+    <property name="show_sql">true</property>
+    <property name="format_sql">true</property>
+    <property name="c3p0.acquire_increment">1</property>
+    <property name="c3p0.idle_test_period">100</property>
+    <!-- seconds -->
+    <property name="c3p0.max_size">100</property>
+    <property name="c3p0.max_statements">0</property>
+    <property name="c3p0.min_size">10</property>
+    <property name="c3p0.timeout">0</property>
+    <!-- seconds -->
+    <property name="connection.provider_class">org.hibernate.connection.C3P0ConnectionProvider</property>
+    <!-- MAPEAMENTO DAS CLASSES -->
+    <mapping class="br.com.gt.model.Aquisicao"/>
+    <mapping class="br.com.gt.model.Cliente"/>
+    <mapping class="br.com.gt.model.Endereco"/>
+    <mapping class="br.com.gt.model.Fornecedor"/>
+    <mapping class="br.com.gt.model.Funcionario"/>
+    <mapping class="br.com.gt.model.Material"/>
+    <mapping class="br.com.gt.model.Pessoa"/>
+    <mapping class="br.com.gt.model.PessoaFisica"/>
+    <mapping class="br.com.gt.model.Usuario"/>
+    <mapping class="br.com.gt.model.Venda"/>
+    </session-factory>
 </hibernate-configuration>

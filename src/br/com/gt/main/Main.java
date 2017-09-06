@@ -7,6 +7,8 @@ package br.com.gt.main;
 
 import br.com.gt.controller.LoginController;
 import javax.swing.JOptionPane;
+import org.hibernate.cfg.Configuration;
+import org.hibernate.tool.hbm2ddl.SchemaUpdate;
 
 
 
@@ -21,6 +23,11 @@ public class Main {
      */
     public static void main(String[] args) {
         // TODO code application logic here
+        Configuration cfg = new Configuration();
+        cfg.configure();
+        SchemaUpdate se = new SchemaUpdate(cfg);
+        se.execute(true, true);
+        
         LoginController controleLogin = new LoginController();
     }
     

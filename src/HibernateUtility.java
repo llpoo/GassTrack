@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package br.com.gt.controller.hibernate;
+
 
 import br.com.gt.model.Aquisicao;
 import br.com.gt.model.Cliente;
@@ -30,31 +30,38 @@ import org.hibernate.service.ServiceRegistryBuilder;
  */
 public class HibernateUtility {
 
-    private static final SessionFactory sessionFactory;
+    private static SessionFactory sessionFactory;
     
     static {
-		Configuration configuration = new Configuration();
+        try {
+            Configuration configuration = new Configuration();
 		
                 
                 // Mapeamento das classes
-		configuration.addAnnotatedClass(Aquisicao.class);
-		configuration.addAnnotatedClass(Cliente.class);
+                configuration.addAnnotatedClass(Aquisicao.class);
+                configuration.addAnnotatedClass(Cliente.class);
                 configuration.addAnnotatedClass(Endereco.class);
                 configuration.addAnnotatedClass(Fornecedor.class);
                 configuration.addAnnotatedClass(Funcionario.class);
                 configuration.addAnnotatedClass(Material.class);
-                configuration.addAnnotatedClass(Usuario.class);
-                configuration.addAnnotatedClass(Venda.class);
                 configuration.addAnnotatedClass(Pessoa.class);
                 configuration.addAnnotatedClass(PessoaFisica.class);
-                
+		configuration.addAnnotatedClass(Usuario.class);
+                configuration.addAnnotatedClass(Pessoa.class);
+                configuration.addAnnotatedClass(Venda.class);
+		
 		configuration.configure();
 		ServiceRegistryBuilder serviceRegistryBuilder = new ServiceRegistryBuilder().applySettings(configuration.getProperties());
 		ServiceRegistry serviceRegistry = serviceRegistryBuilder.build();
 		sessionFactory = configuration.buildSessionFactory(serviceRegistry);
-	}
-
-	public static Session getSession() {
+        } catch (Throwable ex) {
+            // Log the exception. 
+            System.err.println("Initial SessionFactory creation failed." + ex);
+            throw new ExceptionInInitializerError(ex);
+        }
+    }
+    
+    public static Session getSession() {
 		Session session = sessionFactory.openSession();
 		return session;
 	}
