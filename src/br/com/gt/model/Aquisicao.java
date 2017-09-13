@@ -5,35 +5,21 @@
  */
 package br.com.gt.model;
 
-import java.util.Date;
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToOne;
+import java.util.Date;;
 
 /**
  *
  * @author lucas
  */
-@Entity
+
 public class Aquisicao {
-    @Id
-    @GeneratedValue
+    
     private long id;
-    @Column
     private Date data;
-    @OneToOne(cascade = CascadeType.ALL)
     private Material material;
-    @Column
     private double valorUitario;
-    @Column
     private int quantidadeMaterial;
-    @Column
     private double valorTotal;
-    @ManyToOne
     private Fornecedor fornecedor;
 
     public long getId() {

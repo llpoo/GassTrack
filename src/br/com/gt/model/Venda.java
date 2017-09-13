@@ -7,37 +7,20 @@ package br.com.gt.model;
 
 import java.util.Date;
 import java.util.List;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
 
 /**
  *
  * @author lucas
  */
-@Entity
 public class Venda {
-    @Id
     private long id;
-    @Column
     private Date dataAbertura;
-    @Column
     private Date dataPagametno;
-    @Column
     private boolean situacao;
-    @Column
     private double valorMaoDeObra;
-    @Column
     private double valorTotal;
-    @Column
     private double desconto;
-    @Column (length = 300)
     private String Descricao;
-    @ManyToMany
-    @JoinTable(name="venda_tem_materiais", joinColumns={@JoinColumn(name="venda_id")}, inverseJoinColumns={@JoinColumn(name="material_id")})
     private List<Material> materiais;
 
     public long getId() {

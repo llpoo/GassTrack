@@ -1,14 +1,16 @@
+package br.com.gt.main;
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package br.com.gt.main;
+
 
 import br.com.gt.controller.LoginController;
+import br.com.gt.jdbc.ConnectionFactory;
+import java.sql.Connection;
 import javax.swing.JOptionPane;
-import org.hibernate.cfg.Configuration;
-import org.hibernate.tool.hbm2ddl.SchemaUpdate;
 
 
 
@@ -23,12 +25,9 @@ public class Main {
      */
     public static void main(String[] args) {
         // TODO code application logic here
-        Configuration cfg = new Configuration();
-        cfg.configure();
-        SchemaUpdate se = new SchemaUpdate(cfg);
-        se.execute(true, true);
+        Connection connection = ConnectionFactory.getConnection();
         
-        LoginController controleLogin = new LoginController();
+        LoginController controleLogin = new LoginController(connection);
     }
     
 }

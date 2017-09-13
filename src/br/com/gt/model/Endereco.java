@@ -5,31 +5,18 @@
  */
 package br.com.gt.model;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
 
 /**
  *
  * @author lucas
  */
-@Entity
 public class Endereco {
-    @Id
-    @GeneratedValue
     private long id;
-    @Column
     private String estado;
-    @Column
     private String cidade;
-    @Column
     private String cep;
-    @Column
     private String rua;
-    @Column
     private String numero;
-    @Column
     private String complemento;
 
     public long getId() {

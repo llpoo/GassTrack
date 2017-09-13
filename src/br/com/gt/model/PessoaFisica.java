@@ -5,20 +5,13 @@
  */
 package br.com.gt.model;
 
-import javax.persistence.Column;
-import javax.persistence.DiscriminatorValue;
-import javax.persistence.Entity;
 
 /**
  *
  * @author lucas
  */
-@Entity
-@DiscriminatorValue("F")
 public class PessoaFisica extends Pessoa{
-    @Column
     private String rg;
-    @Column
     private String cpf;
 
     public String getRg() {

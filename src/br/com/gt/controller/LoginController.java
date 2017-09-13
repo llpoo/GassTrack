@@ -5,6 +5,7 @@ package br.com.gt.controller;
 import br.com.gt.view.login.LoginView;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.Connection;
 
 /**
  *
@@ -13,8 +14,10 @@ import java.awt.event.ActionListener;
 public class LoginController implements ActionListener{
 
     private LoginView telaLogin;
+    Connection connection;
     
-    public LoginController() {
+    public LoginController(Connection con) {
+        connection = con;
         telaLogin = new LoginView();
         adicionaEventos();
         this.telaLogin.setVisible(true);

@@ -5,13 +5,11 @@
  */
 package br.com.gt.model;
 
-import javax.persistence.Entity;
 
 /**
  *
  * @author lucas
  */
-@Entity
 public class Cliente extends PessoaFisica{
     
 }
