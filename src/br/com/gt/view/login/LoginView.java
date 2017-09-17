@@ -5,7 +5,7 @@
  */
 package br.com.gt.view.login;
 
-import br.com.gt.view.lookandfeel.LAF;
+import br.com.gt.view.lookandfeel.JFrameLAF;
 import java.awt.Toolkit;
 import static java.lang.Thread.sleep;
 import java.util.logging.Level;
@@ -19,7 +19,7 @@ import javax.swing.JTextField;
  *
  * @author lucas
  */
-public class LoginView extends LAF {
+public class LoginView extends JFrameLAF {
 
     public JButton getCancelarBtn(){
         return cancelarBtn;

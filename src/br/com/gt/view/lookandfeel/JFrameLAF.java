@@ -16,23 +16,23 @@ import javax.swing.UnsupportedLookAndFeelException;
  *
  * @author lucas
  */
-public class LAF extends javax.swing.JFrame {
+public class JFrameLAF extends javax.swing.JFrame {
 
     /**
-     * Creates new form LAF
+     * Creates new form JFrameLAF
      */
     
     protected void setLook(){
         try {
             UIManager.setLookAndFeel("com.sun.java.swing.plaf.nimbus.NimbusLookAndFeel");
         } catch (ClassNotFoundException ex) {
-            Logger.getLogger(LAF.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(JFrameLAF.class.getName()).log(Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            Logger.getLogger(LAF.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(JFrameLAF.class.getName()).log(Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            Logger.getLogger(LAF.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(JFrameLAF.class.getName()).log(Level.SEVERE, null, ex);
         } catch (UnsupportedLookAndFeelException ex) {
-            Logger.getLogger(LAF.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(JFrameLAF.class.getName()).log(Level.SEVERE, null, ex);
         }
             SwingUtilities.updateComponentTreeUI(this);
         
@@ -42,7 +42,7 @@ public class LAF extends javax.swing.JFrame {
         this.setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("/br/com/gt/view/imagens/LogoVidro.png")));
     }
     
-    public LAF() {
+    public JFrameLAF() {
         initComponents();
         this.setLocationRelativeTo(this);
         setIcon();
@@ -91,20 +91,21 @@ public class LAF extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(LAF.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(JFrameLAF.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(LAF.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(JFrameLAF.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(LAF.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(JFrameLAF.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(LAF.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(JFrameLAF.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new LAF().setVisible(true);
+                new JFrameLAF().setVisible(true);
             }
         });
     }

@@ -5,7 +5,7 @@
  */
 package br.com.gt.view.principal;
 
-import br.com.gt.view.lookandfeel.LAF;
+import br.com.gt.view.lookandfeel.JFrameLAF;
 import java.awt.Color;
 import java.awt.Toolkit;
 import javax.swing.JButton;
@@ -19,7 +19,7 @@ import javax.swing.JTextField;
  *
  * @author lucas
  */
-public class PrincipalGerenteView extends LAF{
+public class PrincipalGerenteView extends JFrameLAF{
 
     
     public JTable getAcessorioTable() {

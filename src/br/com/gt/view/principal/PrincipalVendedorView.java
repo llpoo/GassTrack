@@ -5,7 +5,7 @@
  */
 package br.com.gt.view.principal;
 
-import br.com.gt.view.lookandfeel.LAF;
+import br.com.gt.view.lookandfeel.JFrameLAF;
 import java.awt.Toolkit;
 import javax.swing.JButton;
 
@@ -13,7 +13,7 @@ import javax.swing.JButton;
  *
  * @author lucas
  */
-public class PrincipalVendedorView extends LAF {
+public class PrincipalVendedorView extends JFrameLAF {
 
     /**
      * Creates new form PrincipalVendedorView

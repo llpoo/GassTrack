@@ -10,7 +10,6 @@ package br.com.gt.main;
 import br.com.gt.controller.LoginController;
 import br.com.gt.jdbc.ConnectionFactory;
 import java.sql.Connection;
-import javax.swing.JOptionPane;
 
 
 

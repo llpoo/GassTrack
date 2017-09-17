@@ -16,8 +16,8 @@ public class Endereco {
     private String cidade;
     private String cep;
     private String rua;
+    private String bairro;
     private String numero;
-    private String complemento;
 
     public long getId() {
         return id;
@@ -67,11 +67,11 @@ public class Endereco {
         this.numero = numero;
     }
 
-    public String getComplemento() {
-        return complemento;
+    public String getBairro() {
+        return bairro;
     }
 
-    public void setComplemento(String complemento) {
-        this.complemento = complemento;
+    public void setBairro(String bairro) {
+        this.bairro = bairro;
     }
 }
