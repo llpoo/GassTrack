@@ -11,7 +11,7 @@ package br.com.gt.model;
  * @author lucas
  */
 public class Endereco {
-    private long id;
+    private int id;
     private String estado;
     private String cidade;
     private String cep;
@@ -19,11 +19,11 @@ public class Endereco {
     private String bairro;
     private String numero;
 
-    public long getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(int id) {
         this.id = id;
     }
 

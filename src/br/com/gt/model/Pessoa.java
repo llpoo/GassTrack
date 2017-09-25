@@ -12,17 +12,17 @@ import java.io.Serializable;
  * @author lucas
  */
 public class Pessoa implements Serializable{
-    private long id;
+    private int id;
     private String nome;
     private String telefone;
     private String email;
     private Endereco endereco;
     
-    public long getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(int id) {
         this.id = id;
     }
 
