@@ -13,7 +13,7 @@ import java.util.List;
  * @author lucas
  */
 public class Venda {
-    private long id;
+    private int id;
     private Date dataAbertura;
     private Date dataPagametno;
     private boolean situacao;
@@ -23,11 +23,11 @@ public class Venda {
     private String Descricao;
     private List<Material> materiais;
 
-    public long getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(int id) {
         this.id = id;
     }
 

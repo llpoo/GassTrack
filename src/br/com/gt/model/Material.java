@@ -11,18 +11,18 @@ package br.com.gt.model;
  * @author lucas
  */
 public class Material {
-    private long id;
+    private int id;
     private String nome;
     private int quantidadeAtual;
     private int estoqueMinimo;
     private double precoUnitario;
     private boolean isAcessorio;
 
-    public long getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(int id) {
         this.id = id;
     }
 
