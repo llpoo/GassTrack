@@ -7,6 +7,7 @@ package br.com.gt.dao;
 
 import br.com.gt.model.Endereco;
 import br.com.gt.model.Funcionario;
+import br.com.gt.model.Usuario;
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
@@ -24,9 +25,13 @@ public class FuncionarioDAO implements DAO<Funcionario>{
 
     private Connection connection;
     
+    public FuncionarioDAO(Connection con){
+        this.connection = con;
+    }
+    
     @Override
     public void inserir(Funcionario funcionario) {
-        String sql = "insert into funcionario (email,nome,telefone,cpf,rg,dataadmissao,endereco_id,usuario_id) values (?,?,?,?,?,?,?,?)";
+        String sql = "insert into funcionario (email,nome,telefone,cpf,rg,endereco_id,usuario_id) values (?,?,?,?,?,?,?)";
         
         PreparedStatement pst;
         
@@ -38,24 +43,32 @@ public class FuncionarioDAO implements DAO<Funcionario>{
             pst.setString(3, funcionario.getTelefone());
             pst.setString(4, funcionario.getCpf());
             pst.setString(5, funcionario.getRg());
-            pst.setDate(6, (Date) funcionario.getDataAdmissao());
             
             Endereco endereco = new Endereco();
-            EnderecoDAO enderecoDAO = new EnderecoDAO();
+            EnderecoDAO enderecoDAO = new EnderecoDAO(connection);
             endereco = enderecoDAO.buscar(funcionario.getEndereco());
             
-            if(endereco == null){
+            if(endereco.getId() < 1){
                 enderecoDAO.inserir(funcionario.getEndereco());
                 endereco = enderecoDAO.buscar(funcionario.getEndereco());
             }
             
             funcionario.getEndereco().setId(endereco.getId());
             
-            pst.setInt(7, funcionario.getEndereco().getId());
-            pst.setInt(8, funcionario.getUsuario().getId());
+            pst.setInt(6, funcionario.getEndereco().getId());
+            
+            Usuario usuario = new Usuario();
+            UsuarioDAO usuarioDAO = new UsuarioDAO(connection);
+            
+            usuarioDAO.inserir(funcionario.getUsuario());
+            usuario = usuarioDAO.buscar(funcionario.getUsuario());
+            funcionario.getUsuario().setId(usuario.getId());
+               
+            pst.setInt(7, funcionario.getUsuario().getId());
             
             pst.execute();
             pst.close();
+            
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Não foi possível salvar o funcionário");
             Logger.getLogger(FuncionarioDAO.class.getName()).log(Level.SEVERE, null, ex);

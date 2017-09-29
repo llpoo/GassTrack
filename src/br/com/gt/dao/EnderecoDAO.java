@@ -22,11 +22,17 @@ import javax.swing.JOptionPane;
 public class EnderecoDAO implements DAO<Endereco>{
     Connection connection;
 
+    public EnderecoDAO(Connection con) {
+        this.connection = con;
+    }
+
     @Override
     public void inserir(Endereco endereco) {
-        String sql = "insert into endereco (cep,cidade,estado,numero,rua) values (?,?,?,?,?)";
+        String sql = "insert into endereco (cep,cidade,estado,numero,rua,bairro) values (?,?,?,?,?,?)";
         
         PreparedStatement pst;
+        
+        Endereco e = this.buscar(endereco);
         
         try {
             pst = connection.prepareStatement(sql);
@@ -36,6 +42,7 @@ public class EnderecoDAO implements DAO<Endereco>{
             pst.setString(3, endereco.getEstado());
             pst.setString(4, endereco.getNumero());
             pst.setString(5, endereco.getRua());
+            pst.setString(6, endereco.getBairro());
             
             pst.execute();
             pst.close();
@@ -43,6 +50,7 @@ public class EnderecoDAO implements DAO<Endereco>{
             JOptionPane.showMessageDialog(null, "Não foi possível salvar o endereço");
             Logger.getLogger(EnderecoDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
+        
     }
 
     @Override
@@ -67,7 +75,7 @@ public class EnderecoDAO implements DAO<Endereco>{
         try {
             pst = connection.prepareStatement(sql);
             
-            pst.setString(1, "%"+endereco.getRua()+"%");
+            pst.setString(1, endereco.getRua());
             pst.setString(2, endereco.getNumero());
             pst.setString(3, endereco.getCep());
             
