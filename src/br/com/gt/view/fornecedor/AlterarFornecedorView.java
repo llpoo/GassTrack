@@ -65,7 +65,7 @@ public class AlterarFornecedorView extends javax.swing.JDialog {
         jLabel17.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
         jLabel17.setForeground(new java.awt.Color(255, 255, 153));
         jLabel17.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/gt/view/imagens/novoFuncionario.png"))); // NOI18N
-        jLabel17.setText("Novo Fornecedor");
+        jLabel17.setText("Alterar Fornecedor");
         jLabel17.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
         jLabel17.setInheritsPopupMenu(false);
         jLabel17.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
@@ -76,7 +76,7 @@ public class AlterarFornecedorView extends javax.swing.JDialog {
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addGap(32, 32, 32)
-                .addComponent(jLabel17, javax.swing.GroupLayout.PREFERRED_SIZE, 187, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jLabel17, javax.swing.GroupLayout.PREFERRED_SIZE, 218, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel4Layout.setVerticalGroup(
@@ -211,7 +211,7 @@ public class AlterarFornecedorView extends javax.swing.JDialog {
                                                 .addComponent(jLabel13)
                                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                                 .addComponent(jTextField10, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)))))))))
-                .addGap(0, 0, Short.MAX_VALUE))
+                .addGap(0, 22, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
