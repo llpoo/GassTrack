@@ -14,6 +14,7 @@ public class Usuario {
     private int id;
     private String usuario;
     private String senha;
+    private boolean isGerente;
 
     public int getId() {
         return id;
@@ -37,5 +38,13 @@ public class Usuario {
 
     public void setSenha(String senha) {
         this.senha = senha;
+    }
+
+    public boolean isIsGerente() {
+        return isGerente;
+    }
+
+    public void setIsGerente(boolean isGerente) {
+        this.isGerente = isGerente;
     }
 }
