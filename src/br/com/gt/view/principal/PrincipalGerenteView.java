@@ -102,8 +102,8 @@ public class PrincipalGerenteView extends JFrameLAF{
         return novoFornecedorBtn;
     }
 
-    public JButton getNovoVendedorBtn() {
-        return novoVendedorBtn;
+    public JButton getVendedores_novoBtn() {
+        return vendedores_novoBtn;
     }
 
     public JButton getSairBtn() {
@@ -130,9 +130,15 @@ public class PrincipalGerenteView extends JFrameLAF{
         return vendas_vendedorTxt;
     }
 
-    public JTable getVendedorTable() {
-        return vendedorTable;
+    public JTable getFuncionarioTable() {
+        return funcionarioTable;
     }
+
+    public void setFuncionarioTable(JTable funcionarioTable) {
+        this.funcionarioTable = funcionarioTable;
+    }
+    
+    
 
     public JButton getVendedores_vendedorBuscaBtn() {
         return vendedores_vendedorBuscaBtn;
@@ -206,13 +212,13 @@ public class PrincipalGerenteView extends JFrameLAF{
         jLabel21 = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
-        vendedorTable = new javax.swing.JTable();
+        funcionarioTable = new javax.swing.JTable();
         jLabel5 = new javax.swing.JLabel();
         vendedores_vendedorTxt = new javax.swing.JTextField();
         vendedores_vendedorBuscaBtn = new javax.swing.JButton();
         excluirVendedorBtn = new javax.swing.JButton();
         alterarVendedorBtn = new javax.swing.JButton();
-        novoVendedorBtn = new javax.swing.JButton();
+        vendedores_novoBtn = new javax.swing.JButton();
         clientesPanel = new javax.swing.JPanel();
         jLabel31 = new javax.swing.JLabel();
         jPanel16 = new javax.swing.JPanel();
@@ -464,18 +470,18 @@ public class PrincipalGerenteView extends JFrameLAF{
 
         jPanel3.setBackground(new java.awt.Color(51, 51, 51));
 
-        vendedorTable.setModel(new javax.swing.table.DefaultTableModel(
+        funcionarioTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+                {},
+                {},
+                {},
+                {}
             },
             new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
+
             }
         ));
-        jScrollPane2.setViewportView(vendedorTable);
+        jScrollPane2.setViewportView(funcionarioTable);
 
         jLabel5.setForeground(new java.awt.Color(255, 255, 255));
         jLabel5.setText("Vendedor");
@@ -486,7 +492,7 @@ public class PrincipalGerenteView extends JFrameLAF{
 
         alterarVendedorBtn.setText("Alterar");
 
-        novoVendedorBtn.setText("Novo");
+        vendedores_novoBtn.setText("Novo");
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -500,7 +506,7 @@ public class PrincipalGerenteView extends JFrameLAF{
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(vendedores_vendedorBuscaBtn)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 416, Short.MAX_VALUE)
-                .addComponent(novoVendedorBtn)
+                .addComponent(vendedores_novoBtn)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(alterarVendedorBtn)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -518,14 +524,14 @@ public class PrincipalGerenteView extends JFrameLAF{
                     .addComponent(vendedores_vendedorBuscaBtn)
                     .addComponent(excluirVendedorBtn)
                     .addComponent(alterarVendedorBtn)
-                    .addComponent(novoVendedorBtn))
+                    .addComponent(vendedores_novoBtn))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 425, Short.MAX_VALUE))
         );
 
         vendedoresPanel.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 110, 1110, 470));
 
-        jTabbedPane1.addTab("Vendedores", vendedoresPanel);
+        jTabbedPane1.addTab("Funcionários", vendedoresPanel);
 
         clientesPanel.setBackground(new java.awt.Color(51, 51, 51));
         clientesPanel.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -799,22 +805,23 @@ public class PrincipalGerenteView extends JFrameLAF{
                 .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane6, javax.swing.GroupLayout.DEFAULT_SIZE, 507, Short.MAX_VALUE)
                     .addGroup(jPanel8Layout.createSequentialGroup()
-                        .addComponent(jButton1)
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addGroup(jPanel8Layout.createSequentialGroup()
                         .addComponent(jLabel8)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(materialTxt)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(materialBuscaBtn))
-                    .addComponent(material_baixaSelectBox)
                     .addGroup(jPanel8Layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
                         .addComponent(jButton4)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jButton3)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jButton2)))
+                        .addComponent(jButton2))
+                    .addGroup(jPanel8Layout.createSequentialGroup()
+                        .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jButton1)
+                            .addComponent(material_baixaSelectBox))
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(acessorio_baixaSelectBox)
@@ -962,6 +969,7 @@ public class PrincipalGerenteView extends JFrameLAF{
     private javax.swing.JTable fornecedorTable;
     private javax.swing.JTextField fornecedorTxt;
     private javax.swing.JPanel fornecedoresPanel;
+    private javax.swing.JTable funcionarioTable;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton16;
     private javax.swing.JButton jButton2;
@@ -1025,7 +1033,6 @@ public class PrincipalGerenteView extends JFrameLAF{
     private javax.swing.JCheckBox material_baixaSelectBox;
     private javax.swing.JButton novoCleinteBtn;
     private javax.swing.JButton novoFornecedorBtn;
-    private javax.swing.JButton novoVendedorBtn;
     private javax.swing.JButton sairBtn;
     private javax.swing.JPanel vendasPanel;
     private javax.swing.JTable vendasTable;
@@ -1034,8 +1041,8 @@ public class PrincipalGerenteView extends JFrameLAF{
     private javax.swing.JTextField vendas_clienteTxt;
     private javax.swing.JButton vendas_filtrarPorVendedorBtn;
     private javax.swing.JTextField vendas_vendedorTxt;
-    private javax.swing.JTable vendedorTable;
     private javax.swing.JPanel vendedoresPanel;
+    private javax.swing.JButton vendedores_novoBtn;
     private javax.swing.JButton vendedores_vendedorBuscaBtn;
     private javax.swing.JTextField vendedores_vendedorTxt;
     // End of variables declaration//GEN-END:variables

@@ -41,7 +41,6 @@ public class UsuarioDAO implements DAO<Usuario>{
             
             pst.execute();
             pst.close();
-            
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Não foi possível salvar o usuário");
             Logger.getLogger(UsuarioDAO.class.getName()).log(Level.SEVERE, null, ex);
@@ -57,6 +56,38 @@ public class UsuarioDAO implements DAO<Usuario>{
     @Override
     public boolean excluir(Usuario objeto) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+    
+    public Usuario buscarById(int idUsuario){
+        String sql = "SELECT * FROM usuario WHERE id = ?";
+        
+        Usuario u = new Usuario();
+        
+        PreparedStatement pst;
+        ResultSet rs;
+        
+        try {
+            pst = connection.prepareStatement(sql);
+            
+            pst.setInt(1, idUsuario);
+            
+            rs = pst.executeQuery();
+            
+            while(rs.next()){
+                u.setId(rs.getInt("id"));
+                u.setUsuario(rs.getString("usuario"));
+                u.setSenha(rs.getString("senha"));
+                u.setIsGerente(rs.getBoolean("isgerente"));
+            }
+            
+            rs.close();
+            pst.close();
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Não foi possível buscar o usuário");
+            Logger.getLogger(UsuarioDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        return u;
     }
 
     @Override

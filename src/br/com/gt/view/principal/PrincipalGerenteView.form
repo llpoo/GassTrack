@@ -452,8 +452,8 @@
               </Properties>
               <Constraints>
                 <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout$JTabbedPaneConstraintsDescription">
-                  <JTabbedPaneConstraints tabName="Vendedores">
-                    <Property name="tabTitle" type="java.lang.String" value="Vendedores"/>
+                  <JTabbedPaneConstraints tabName="Funcion&#xe1;rios">
+                    <Property name="tabTitle" type="java.lang.String" value="Funcion&#xe1;rios"/>
                   </JTabbedPaneConstraints>
                 </Constraint>
               </Constraints>
@@ -550,7 +550,7 @@
                               <EmptySpace type="unrelated" max="-2" attributes="0"/>
                               <Component id="vendedores_vendedorBuscaBtn" min="-2" max="-2" attributes="0"/>
                               <EmptySpace pref="416" max="32767" attributes="0"/>
-                              <Component id="novoVendedorBtn" min="-2" max="-2" attributes="0"/>
+                              <Component id="vendedores_novoBtn" min="-2" max="-2" attributes="0"/>
                               <EmptySpace type="unrelated" max="-2" attributes="0"/>
                               <Component id="alterarVendedorBtn" min="-2" max="-2" attributes="0"/>
                               <EmptySpace type="unrelated" max="-2" attributes="0"/>
@@ -570,7 +570,7 @@
                                   <Component id="vendedores_vendedorBuscaBtn" alignment="3" min="-2" max="-2" attributes="0"/>
                                   <Component id="excluirVendedorBtn" alignment="3" min="-2" max="-2" attributes="0"/>
                                   <Component id="alterarVendedorBtn" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="novoVendedorBtn" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="vendedores_novoBtn" alignment="3" min="-2" max="-2" attributes="0"/>
                               </Group>
                               <EmptySpace type="unrelated" max="-2" attributes="0"/>
                               <Component id="jScrollPane2" pref="425" max="32767" attributes="0"/>
@@ -586,15 +586,16 @@
 
                       <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
                       <SubComponents>
-                        <Component class="javax.swing.JTable" name="vendedorTable">
+                        <Component class="javax.swing.JTable" name="funcionarioTable">
                           <Properties>
                             <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
-                              <Table columnCount="4" rowCount="4">
-                                <Column editable="true" title="Title 1" type="java.lang.Object"/>
-                                <Column editable="true" title="Title 2" type="java.lang.Object"/>
-                                <Column editable="true" title="Title 3" type="java.lang.Object"/>
-                                <Column editable="true" title="Title 4" type="java.lang.Object"/>
-                              </Table>
+                              <Table columnCount="0" rowCount="4"/>
+                            </Property>
+                            <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor">
+                              <TableColumnModel selectionModel="0"/>
+                            </Property>
+                            <Property name="tableHeader" type="javax.swing.table.JTableHeader" editor="org.netbeans.modules.form.editors2.JTableHeaderEditor">
+                              <TableHeader reorderingAllowed="true" resizingAllowed="true"/>
                             </Property>
                           </Properties>
                         </Component>
@@ -625,7 +626,7 @@
                         <Property name="text" type="java.lang.String" value="Alterar"/>
                       </Properties>
                     </Component>
-                    <Component class="javax.swing.JButton" name="novoVendedorBtn">
+                    <Component class="javax.swing.JButton" name="vendedores_novoBtn">
                       <Properties>
                         <Property name="text" type="java.lang.String" value="Novo"/>
                       </Properties>

@@ -62,6 +62,41 @@ public class EnderecoDAO implements DAO<Endereco>{
     public boolean excluir(Endereco objeto) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
+    
+    public Endereco buscarById(int idEndereco){
+        String sql = "SELECT * FROM endereco WHERE id = ?";
+        
+        Endereco e = new Endereco();
+        
+        PreparedStatement pst;
+        ResultSet rs;
+        
+        try {
+            pst = connection.prepareStatement(sql);
+            
+            pst.setInt(1, idEndereco);
+            
+            rs = pst.executeQuery();
+            
+            while(rs.next()){
+                e.setId(rs.getInt("id"));
+                e.setBairro(rs.getString("bairro"));
+                e.setCep(rs.getString("cep"));
+                e.setCidade(rs.getString("cidade"));
+                e.setEstado(rs.getString("estado"));
+                e.setNumero(rs.getString("numero"));
+                e.setRua(rs.getString("rua"));
+            }
+            
+            rs.close();
+            pst.close();
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Não foi possível buscar o endereço");
+            Logger.getLogger(EnderecoDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        return e;
+    }
 
     @Override
     public Endereco buscar(Endereco endereco) {

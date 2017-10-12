@@ -11,6 +11,7 @@ import br.com.gt.model.Usuario;
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.logging.Level;
@@ -31,7 +32,7 @@ public class FuncionarioDAO implements DAO<Funcionario>{
     
     @Override
     public void inserir(Funcionario funcionario) {
-        String sql = "insert into funcionario (email,nome,telefone,cpf,rg,endereco_id,usuario_id) values (?,?,?,?,?,?,?)";
+        String sql = "insert into funcionario (email,nome,telefone,cpf,rg,dataadmissao,endereco_id,usuario_id,sexo) values (?,?,?,?,?,?,?,?,?)";
         
         PreparedStatement pst;
         
@@ -44,6 +45,11 @@ public class FuncionarioDAO implements DAO<Funcionario>{
             pst.setString(4, funcionario.getCpf());
             pst.setString(5, funcionario.getRg());
             
+            java.sql.Date dataSql = new java.sql.Date(funcionario.getDataAdmissao().getTime());
+            
+            pst.setDate(6, dataSql);
+            
+            
             Endereco endereco = new Endereco();
             EnderecoDAO enderecoDAO = new EnderecoDAO(connection);
             endereco = enderecoDAO.buscar(funcionario.getEndereco());
@@ -55,7 +61,7 @@ public class FuncionarioDAO implements DAO<Funcionario>{
             
             funcionario.getEndereco().setId(endereco.getId());
             
-            pst.setInt(6, funcionario.getEndereco().getId());
+            pst.setInt(7, funcionario.getEndereco().getId());
             
             Usuario usuario = new Usuario();
             UsuarioDAO usuarioDAO = new UsuarioDAO(connection);
@@ -64,11 +70,12 @@ public class FuncionarioDAO implements DAO<Funcionario>{
             usuario = usuarioDAO.buscar(funcionario.getUsuario());
             funcionario.getUsuario().setId(usuario.getId());
                
-            pst.setInt(7, funcionario.getUsuario().getId());
+            pst.setInt(8, funcionario.getUsuario().getId());
+            pst.setString(9, funcionario.getSexo());
             
             pst.execute();
             pst.close();
-            
+            JOptionPane.showMessageDialog(null, "Cadastro efetuado com sucesso");
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Não foi possível salvar o funcionário");
             Logger.getLogger(FuncionarioDAO.class.getName()).log(Level.SEVERE, null, ex);
@@ -92,7 +99,52 @@ public class FuncionarioDAO implements DAO<Funcionario>{
 
     @Override
     public ArrayList<Funcionario> listar() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        String sql = "SELECT * FROM funcionario";
+                
+        PreparedStatement pst;
+        ResultSet rs;
+        
+        ArrayList<Funcionario> funcionarios = new ArrayList<>();
+        
+        try {
+            pst = connection.prepareStatement(sql);
+            
+            rs = pst.executeQuery();
+            
+            UsuarioDAO uDao = new UsuarioDAO(this.connection);
+            EnderecoDAO eDao = new EnderecoDAO(this.connection);
+            
+            while(rs.next()){
+                Funcionario f = new Funcionario();
+                Endereco e = new Endereco();
+                Usuario u = new Usuario();
+                
+                f.setId(rs.getInt("Id"));
+                f.setCpf(rs.getString("cpf"));
+                f.setDataAdmissao(rs.getDate("dataadmissao"));
+                f.setEmail(rs.getString("email"));
+                f.setNome(rs.getString("nome"));
+                f.setRg(rs.getString("rg"));
+                f.setSexo(rs.getString("sexo"));
+                f.setTelefone(rs.getString("telefone"));
+                
+                e.setId(rs.getInt("endereco_id"));
+                u.setId(rs.getInt("usuario_id"));
+                
+                f.setEndereco(eDao.buscarById(e.getId()));
+                f.setUsuario(uDao.buscarById(u.getId()));
+                
+                funcionarios.add(f);
+            }
+            
+            rs.close();
+            pst.close();
+            return funcionarios;
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Não foi possível buscar o usuário");
+            Logger.getLogger(UsuarioDAO.class.getName()).log(Level.SEVERE, null, ex);
+            return null;
+        }
     }
 
     @Override

@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package br.com.gt.view.login;
+package br.com.gt.view.acesso.login;
 
 import br.com.gt.view.lookandfeel.JFrameLAF;
 import java.awt.Toolkit;
