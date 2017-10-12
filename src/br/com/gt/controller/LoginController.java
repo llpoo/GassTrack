@@ -2,7 +2,7 @@ package br.com.gt.controller;
 
 
 
-import br.com.gt.view.login.LoginView;
+import br.com.gt.view.acesso.login.LoginView;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.Connection;
@@ -48,7 +48,7 @@ public class LoginController implements ActionListener{
             }else{
                 if(usuario.equals("admin") && senha.equals("admin")){
                     this.telaLogin.dispose();
-                    PrincipalGerenteController controleGerencia = new PrincipalGerenteController();
+                    PrincipalGerenteController controleGerencia = new PrincipalGerenteController(this.connection);
                 }else{
                     this.telaLogin.getMensagemErroLb().setVisible(true);
                 }
