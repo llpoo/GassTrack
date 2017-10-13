@@ -148,7 +148,7 @@ public class FuncionarioDAO implements DAO<Funcionario>{
     }
 
     @Override
-    public ArrayList<Funcionario> pesquisar(Funcionario objeto) {
+    public ArrayList<Funcionario> pesquisar(String objeto) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     

@@ -142,7 +142,7 @@ public class EnderecoDAO implements DAO<Endereco>{
     }
 
     @Override
-    public ArrayList<Endereco> pesquisar(Endereco objeto) {
+    public ArrayList<Endereco> pesquisar(String objeto) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     

@@ -17,5 +17,5 @@ public interface DAO<T> {
     public boolean excluir(T objeto);
     public T buscar(T objeto);
     public ArrayList<T> listar();
-    public ArrayList<T> pesquisar(T objeto);
+    public ArrayList<T> pesquisar(String objeto);
 }
