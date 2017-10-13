@@ -34,6 +34,7 @@ public class FornecedorDAO implements DAO<Fornecedor>{
         String sql = "insert into fornecedor (email,nome,telefone,cnpj,endereco_id) values (?,?,?,?,?)";
         
         PreparedStatement pst;
+        //INSERIR BUSCAR
         
         try {
             pst = connection.prepareStatement(sql);
@@ -78,8 +79,8 @@ public class FornecedorDAO implements DAO<Fornecedor>{
             pst.setString(3,fornecedor.getCnpj());
             pst.setString(4,fornecedor.getTelefone());  
             
-            EnderecoDAO en= new EnderecoDAO(connection);
-            en.alterar(fornecedor.getEndereco());
+            EnderecoDAO endereco= new EnderecoDAO(connection);
+            endereco.alterar(fornecedor.getEndereco());
             
             pst.setInt(5,fornecedor.getId());
             
@@ -111,8 +112,37 @@ public class FornecedorDAO implements DAO<Fornecedor>{
     }
 
     @Override
-    public Fornecedor buscar(Fornecedor objeto) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public Fornecedor buscar(Fornecedor fornecedor) {
+        String sql = "SELECT * FROM endereco WHERE cnpj= ?";
+        
+        Fornecedor f = new Fornecedor();
+        
+        PreparedStatement pst;
+        ResultSet rs;
+        
+        try {
+            pst = connection.prepareStatement(sql);
+            
+            pst.setString(1, fornecedor.getCnpj());
+            
+            rs = pst.executeQuery();
+            
+            while(rs.next()){
+                f.setNome(rs.getString("nome"));
+                f.setCnpj(rs.getString("cnpj"));
+                f.setEmail(rs.getString("email"));
+                f.setTelefone(rs.getString("telefone"));
+		//INSERIR ENDERECO
+            }
+            
+            rs.close();
+            pst.close();
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Não foi possível buscar o endereço");
+            Logger.getLogger(EnderecoDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        return f;
     }
 
     @Override
@@ -131,8 +161,7 @@ public class FornecedorDAO implements DAO<Fornecedor>{
                 fornecedor.setCnpj(rs.getString("cnpj"));
                 fornecedor.setEmail(rs.getString("email"));
                 fornecedor.setTelefone(rs.getString("telefone"));
-		//CRIAR ENDERECO: BUSCAR POR ID;    
-                
+		//INSERIR ENDERECO
                 
 		listaFornecedor.add(fornecedor);
 	    }
@@ -142,15 +171,43 @@ public class FornecedorDAO implements DAO<Fornecedor>{
 		    
             return listaFornecedor;
         }catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Não foi possível listar os funcionário");
+            JOptionPane.showMessageDialog(null, "Não foi possível listar os funcionários");
             Logger.getLogger(FuncionarioDAO.class.getName()).log(Level.SEVERE, null, ex);
             return listaFornecedor;
         }
     }
 
     @Override
-    public ArrayList<Fornecedor> pesquisar(Fornecedor objeto) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public ArrayList<Fornecedor> pesquisar(String nome) {
+        ArrayList<Fornecedor> buscaFornecedor = new ArrayList<Fornecedor>(); 
+	PreparedStatement pst;
+        String sql="select * from usuario where nome ilike ?";
+        try{
+            pst= connection.prepareStatement(sql);
+            ResultSet rs = pst.executeQuery();
+            pst.setString(1,"%" + nome + "%"); 
+	
+            while(rs.next()){
+                Fornecedor fornecedor = new Fornecedor();
+                fornecedor.setNome(rs.getString("nome"));
+                fornecedor.setCnpj(rs.getString("cnpj"));
+                fornecedor.setEmail(rs.getString("email"));
+                fornecedor.setTelefone(rs.getString("telefone"));
+		//INSERIR ENDERECO
+                
+                
+                
+		buscaFornecedor.add(fornecedor);
+            }
+
+            rs.close();
+            pst.close();
+            return buscaFornecedor;
+	}catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Não foi possível pesquisar o funcionário");
+            Logger.getLogger(FuncionarioDAO.class.getName()).log(Level.SEVERE, null, ex);
+            return buscaFornecedor;
+        }
     }
     
 }

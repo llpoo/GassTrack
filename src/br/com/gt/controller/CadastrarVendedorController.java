@@ -65,7 +65,7 @@ public class CadastrarVendedorController implements ActionListener{
                 this.funcionario.setSexo("Feminino");
             }
             
-            this.funcionario.setDataAdmissao(this.telaCadastro.getDataAdmissaoCalendar().getDate());
+            //this.funcionario.setDataAdmissao(this.telaCadastro.getDataAdmissaoCalendar().getDate());
             
             this.funcionario.setEndereco(endereco);
             

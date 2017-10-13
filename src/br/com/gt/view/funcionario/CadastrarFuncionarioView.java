@@ -6,7 +6,7 @@
 package br.com.gt.view.funcionario;
 
 import br.com.gt.view.lookandfeel.JDialogLAF;
-import com.toedter.calendar.JDateChooser;
+//import com.toedter.calendar.JDateChooser;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JRadioButton;
@@ -143,13 +143,13 @@ public class CadastrarFuncionarioView extends JDialogLAF {
         this.telefoneTxt = telefoneTxt;
     }
 
-    public JDateChooser getDataAdmissaoCalendar() {
+    /*public JDateChooser getDataAdmissaoCalendar() {
         return dataAdmissaoCalendar;
     }
 
     public void setDataAdmissaoCalendar(JDateChooser dataAdmissaoCalendar) {
         this.dataAdmissaoCalendar = dataAdmissaoCalendar;
-    }
+    }*/
     
     
 
@@ -199,7 +199,6 @@ public class CadastrarFuncionarioView extends JDialogLAF {
         cancelarBtn = new javax.swing.JButton();
         radioMasculino = new javax.swing.JRadioButton();
         radioFeminino = new javax.swing.JRadioButton();
-        dataAdmissaoCalendar = new com.toedter.calendar.JDateChooser();
         jLabel6 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
         jLabel14 = new javax.swing.JLabel();
@@ -330,14 +329,6 @@ public class CadastrarFuncionarioView extends JDialogLAF {
         radioFeminino.setText("Feminino");
         radioFeminino.setToolTipText("Sexo");
 
-        dataAdmissaoCalendar.setBackground(new java.awt.Color(51, 51, 51));
-        dataAdmissaoCalendar.setToolTipText("");
-        dataAdmissaoCalendar.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyPressed(java.awt.event.KeyEvent evt) {
-                dataAdmissaoCalendarKeyPressed(evt);
-            }
-        });
-
         jLabel6.setForeground(new java.awt.Color(255, 255, 255));
         jLabel6.setText("Sexo");
 
@@ -397,7 +388,6 @@ public class CadastrarFuncionarioView extends JDialogLAF {
                                 .addComponent(radioMasculino)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(radioFeminino))
-                            .addComponent(dataAdmissaoCalendar, javax.swing.GroupLayout.PREFERRED_SIZE, 173, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel14)
                             .addComponent(estadoComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 143, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(cepTxt, javax.swing.GroupLayout.PREFERRED_SIZE, 186, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -443,10 +433,8 @@ public class CadastrarFuncionarioView extends JDialogLAF {
                     .addComponent(radioMasculino)
                     .addComponent(radioFeminino))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(dataAdmissaoCalendar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel7))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jLabel7)
+                .addGap(13, 13, 13)
                 .addComponent(jLabel14)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -575,7 +563,6 @@ public class CadastrarFuncionarioView extends JDialogLAF {
     private javax.swing.JTextField cepTxt;
     private javax.swing.JTextField cidadeTxt;
     private javax.swing.JTextField cpfTxt;
-    private com.toedter.calendar.JDateChooser dataAdmissaoCalendar;
     private javax.swing.JTextField emailTxt;
     private javax.swing.JComboBox<String> estadoComboBox;
     private javax.swing.JLabel jLabel1;

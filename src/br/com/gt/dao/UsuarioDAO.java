@@ -129,7 +129,7 @@ public class UsuarioDAO implements DAO<Usuario>{
     }
 
     @Override
-    public ArrayList<Usuario> pesquisar(Usuario objeto) {
+    public ArrayList<Usuario> pesquisar(String objeto) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
