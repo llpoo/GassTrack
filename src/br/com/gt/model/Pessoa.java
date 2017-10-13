@@ -17,7 +17,7 @@ public class Pessoa implements Serializable{
     private String telefone;
     private String email;
     private Endereco endereco;
-    private String sexo;
+    
     
     public int getId() {
         return id;
@@ -58,14 +58,4 @@ public class Pessoa implements Serializable{
     public void setEndereco(Endereco endereco) {
         this.endereco = endereco;
     }
-
-    public String getSexo() {
-        return sexo;
-    }
-
-    public void setSexo(String sexo) {
-        this.sexo = sexo;
-    }
-    
-    
 }

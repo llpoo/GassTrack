@@ -13,6 +13,17 @@ package br.com.gt.model;
 public class PessoaFisica extends Pessoa{
     private String rg;
     private String cpf;
+    private String sexo;
+
+    public String getSexo() {
+        return sexo;
+    }
+
+    public void setSexo(String sexo) {
+        this.sexo = sexo;
+    }
+    
+    
 
     public String getRg() {
         return rg;
