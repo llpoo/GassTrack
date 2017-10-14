@@ -34,14 +34,6 @@ public class PrincipalGerenteView extends JFrameLAF{
         return alterarClienteBtn;
     }
 
-    public JButton getAlterarFornecedorBtn() {
-        return alterarFornecedorBtn;
-    }
-
-    public JButton getAlterarVendedorBtn() {
-        return alterarVendedorBtn;
-    }
-
     public JTable getClienteTable() {
         return clienteTable;
     }
@@ -56,14 +48,6 @@ public class PrincipalGerenteView extends JFrameLAF{
 
     public JButton getExcluirClienteBtn() {
         return excluirClienteBtn;
-    }
-
-    public JButton getExcluirFornecedorBtn() {
-        return excluirFornecedorBtn;
-    }
-
-    public JButton getExcluirVendedorBtn() {
-        return excluirVendedorBtn;
     }
 
     public JButton getFornecedorBuscaBtn() {
@@ -102,10 +86,6 @@ public class PrincipalGerenteView extends JFrameLAF{
         return novoFornecedorBtn;
     }
 
-    public JButton getVendedores_novoBtn() {
-        return vendedores_novoBtn;
-    }
-
     public JButton getSairBtn() {
         return sairBtn;
     }
@@ -137,16 +117,6 @@ public class PrincipalGerenteView extends JFrameLAF{
     public void setFuncionarioTable(JTable funcionarioTable) {
         this.funcionarioTable = funcionarioTable;
     }
-    
-    
-
-    public JButton getVendedores_vendedorBuscaBtn() {
-        return vendedores_vendedorBuscaBtn;
-    }
-
-    public JTextField getVendedores_vendedorTxt() {
-        return vendedores_vendedorTxt;
-    }
 
     public JTextField getDataChooser() {
         return dataChooser;
@@ -163,6 +133,56 @@ public class PrincipalGerenteView extends JFrameLAF{
     public JButton getVendas_filtrarPorVendedorBtn() {
         return vendas_filtrarPorVendedorBtn;
     }
+
+    public JButton getAlterarFornecedorBtn() {
+        return alterarFornecedorBtn;
+    }
+
+    public void setAlterarFornecedorBtn(JButton alterarFornecedorBtn) {
+        this.alterarFornecedorBtn = alterarFornecedorBtn;
+    }
+
+    public JButton getAlterarFuncionarioBtn() {
+        return alterarFuncionarioBtn;
+    }
+
+    public void setAlterarFuncionarioBtn(JButton alterarFuncionarioBtn) {
+        this.alterarFuncionarioBtn = alterarFuncionarioBtn;
+    }
+
+    public JButton getExcluirFuncionarioBtn() {
+        return excluirFuncionarioBtn;
+    }
+
+    public void setExcluirFuncionarioBtn(JButton excluirFuncionarioBtn) {
+        this.excluirFuncionarioBtn = excluirFuncionarioBtn;
+    }
+
+    public JButton getFuncionarios_BuscaBtn() {
+        return funcionarios_BuscaBtn;
+    }
+
+    public void setFuncionarios_BuscaBtn(JButton funcionarios_BuscaBtn) {
+        this.funcionarios_BuscaBtn = funcionarios_BuscaBtn;
+    }
+
+    public JTextField getFuncionarios_funcionarioTxt() {
+        return funcionarios_funcionarioTxt;
+    }
+
+    public void setFuncionarios_funcionarioTxt(JTextField funcionarios_funcionarioTxt) {
+        this.funcionarios_funcionarioTxt = funcionarios_funcionarioTxt;
+    }
+
+    public JButton getFuncionarios_novoBtn() {
+        return funcionarios_novoBtn;
+    }
+
+    public void setFuncionarios_novoBtn(JButton funcionarios_novoBtn) {
+        this.funcionarios_novoBtn = funcionarios_novoBtn;
+    }
+    
+    
     
     public PrincipalGerenteView() {
         initComponents();
@@ -214,11 +234,11 @@ public class PrincipalGerenteView extends JFrameLAF{
         jScrollPane2 = new javax.swing.JScrollPane();
         funcionarioTable = new javax.swing.JTable();
         jLabel5 = new javax.swing.JLabel();
-        vendedores_vendedorTxt = new javax.swing.JTextField();
-        vendedores_vendedorBuscaBtn = new javax.swing.JButton();
-        excluirVendedorBtn = new javax.swing.JButton();
-        alterarVendedorBtn = new javax.swing.JButton();
-        vendedores_novoBtn = new javax.swing.JButton();
+        funcionarios_funcionarioTxt = new javax.swing.JTextField();
+        funcionarios_BuscaBtn = new javax.swing.JButton();
+        excluirFuncionarioBtn = new javax.swing.JButton();
+        alterarFuncionarioBtn = new javax.swing.JButton();
+        funcionarios_novoBtn = new javax.swing.JButton();
         clientesPanel = new javax.swing.JPanel();
         jLabel31 = new javax.swing.JLabel();
         jPanel16 = new javax.swing.JPanel();
@@ -486,13 +506,13 @@ public class PrincipalGerenteView extends JFrameLAF{
         jLabel5.setForeground(new java.awt.Color(255, 255, 255));
         jLabel5.setText("Vendedor");
 
-        vendedores_vendedorBuscaBtn.setText("Pesquisar");
+        funcionarios_BuscaBtn.setText("Pesquisar");
 
-        excluirVendedorBtn.setText("Excluir");
+        excluirFuncionarioBtn.setText("Excluir");
 
-        alterarVendedorBtn.setText("Alterar");
+        alterarFuncionarioBtn.setText("Alterar");
 
-        vendedores_novoBtn.setText("Novo");
+        funcionarios_novoBtn.setText("Novo");
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -502,15 +522,15 @@ public class PrincipalGerenteView extends JFrameLAF{
                 .addContainerGap()
                 .addComponent(jLabel5)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(vendedores_vendedorTxt, javax.swing.GroupLayout.PREFERRED_SIZE, 324, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(funcionarios_funcionarioTxt, javax.swing.GroupLayout.PREFERRED_SIZE, 324, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(vendedores_vendedorBuscaBtn)
+                .addComponent(funcionarios_BuscaBtn)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 416, Short.MAX_VALUE)
-                .addComponent(vendedores_novoBtn)
+                .addComponent(funcionarios_novoBtn)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(alterarVendedorBtn)
+                .addComponent(alterarFuncionarioBtn)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(excluirVendedorBtn)
+                .addComponent(excluirFuncionarioBtn)
                 .addContainerGap())
             .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.TRAILING)
         );
@@ -520,11 +540,11 @@ public class PrincipalGerenteView extends JFrameLAF{
                 .addContainerGap()
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel5)
-                    .addComponent(vendedores_vendedorTxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(vendedores_vendedorBuscaBtn)
-                    .addComponent(excluirVendedorBtn)
-                    .addComponent(alterarVendedorBtn)
-                    .addComponent(vendedores_novoBtn))
+                    .addComponent(funcionarios_funcionarioTxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(funcionarios_BuscaBtn)
+                    .addComponent(excluirFuncionarioBtn)
+                    .addComponent(alterarFuncionarioBtn)
+                    .addComponent(funcionarios_novoBtn))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 425, Short.MAX_VALUE))
         );
@@ -953,7 +973,7 @@ public class PrincipalGerenteView extends JFrameLAF{
     private javax.swing.JCheckBox acessorio_baixaSelectBox;
     private javax.swing.JButton alterarClienteBtn;
     private javax.swing.JButton alterarFornecedorBtn;
-    private javax.swing.JButton alterarVendedorBtn;
+    private javax.swing.JButton alterarFuncionarioBtn;
     private javax.swing.JTable clienteTable;
     private javax.swing.JPanel clientesPanel;
     private javax.swing.JButton clientes_clienteBuscaBtn;
@@ -963,13 +983,16 @@ public class PrincipalGerenteView extends JFrameLAF{
     private javax.swing.JPanel estoquePanel;
     private javax.swing.JButton excluirClienteBtn;
     private javax.swing.JButton excluirFornecedorBtn;
-    private javax.swing.JButton excluirVendedorBtn;
+    private javax.swing.JButton excluirFuncionarioBtn;
     private javax.swing.ButtonGroup filtroVendaGroup;
     private javax.swing.JButton fornecedorBuscaBtn;
     private javax.swing.JTable fornecedorTable;
     private javax.swing.JTextField fornecedorTxt;
     private javax.swing.JPanel fornecedoresPanel;
     private javax.swing.JTable funcionarioTable;
+    private javax.swing.JButton funcionarios_BuscaBtn;
+    private javax.swing.JTextField funcionarios_funcionarioTxt;
+    private javax.swing.JButton funcionarios_novoBtn;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton16;
     private javax.swing.JButton jButton2;
@@ -1042,8 +1065,5 @@ public class PrincipalGerenteView extends JFrameLAF{
     private javax.swing.JButton vendas_filtrarPorVendedorBtn;
     private javax.swing.JTextField vendas_vendedorTxt;
     private javax.swing.JPanel vendedoresPanel;
-    private javax.swing.JButton vendedores_novoBtn;
-    private javax.swing.JButton vendedores_vendedorBuscaBtn;
-    private javax.swing.JTextField vendedores_vendedorTxt;
     // End of variables declaration//GEN-END:variables
 }

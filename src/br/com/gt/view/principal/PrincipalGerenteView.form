@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 
-<Form version="1.3" maxVersion="1.9" type="org.netbeans.modules.form.forminfo.JFrameFormInfo">
+<Form version="1.5" maxVersion="1.9" type="org.netbeans.modules.form.forminfo.JFrameFormInfo">
   <NonVisualComponents>
     <Component class="javax.swing.ButtonGroup" name="filtroVendaGroup">
     </Component>
@@ -546,15 +546,15 @@
                               <EmptySpace max="-2" attributes="0"/>
                               <Component id="jLabel5" min="-2" max="-2" attributes="0"/>
                               <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                              <Component id="vendedores_vendedorTxt" min="-2" pref="324" max="-2" attributes="0"/>
+                              <Component id="funcionarios_funcionarioTxt" min="-2" pref="324" max="-2" attributes="0"/>
                               <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                              <Component id="vendedores_vendedorBuscaBtn" min="-2" max="-2" attributes="0"/>
+                              <Component id="funcionarios_BuscaBtn" min="-2" max="-2" attributes="0"/>
                               <EmptySpace pref="416" max="32767" attributes="0"/>
-                              <Component id="vendedores_novoBtn" min="-2" max="-2" attributes="0"/>
+                              <Component id="funcionarios_novoBtn" min="-2" max="-2" attributes="0"/>
                               <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                              <Component id="alterarVendedorBtn" min="-2" max="-2" attributes="0"/>
+                              <Component id="alterarFuncionarioBtn" min="-2" max="-2" attributes="0"/>
                               <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                              <Component id="excluirVendedorBtn" min="-2" max="-2" attributes="0"/>
+                              <Component id="excluirFuncionarioBtn" min="-2" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
                           </Group>
                           <Component id="jScrollPane2" alignment="1" max="32767" attributes="0"/>
@@ -566,11 +566,11 @@
                               <EmptySpace max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="3" attributes="0">
                                   <Component id="jLabel5" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="vendedores_vendedorTxt" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="vendedores_vendedorBuscaBtn" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="excluirVendedorBtn" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="alterarVendedorBtn" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="vendedores_novoBtn" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="funcionarios_funcionarioTxt" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="funcionarios_BuscaBtn" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="excluirFuncionarioBtn" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="alterarFuncionarioBtn" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="funcionarios_novoBtn" alignment="3" min="-2" max="-2" attributes="0"/>
                               </Group>
                               <EmptySpace type="unrelated" max="-2" attributes="0"/>
                               <Component id="jScrollPane2" pref="425" max="32767" attributes="0"/>
@@ -609,24 +609,24 @@
                         <Property name="text" type="java.lang.String" value="Vendedor"/>
                       </Properties>
                     </Component>
-                    <Component class="javax.swing.JTextField" name="vendedores_vendedorTxt">
+                    <Component class="javax.swing.JTextField" name="funcionarios_funcionarioTxt">
                     </Component>
-                    <Component class="javax.swing.JButton" name="vendedores_vendedorBuscaBtn">
+                    <Component class="javax.swing.JButton" name="funcionarios_BuscaBtn">
                       <Properties>
                         <Property name="text" type="java.lang.String" value="Pesquisar"/>
                       </Properties>
                     </Component>
-                    <Component class="javax.swing.JButton" name="excluirVendedorBtn">
+                    <Component class="javax.swing.JButton" name="excluirFuncionarioBtn">
                       <Properties>
                         <Property name="text" type="java.lang.String" value="Excluir"/>
                       </Properties>
                     </Component>
-                    <Component class="javax.swing.JButton" name="alterarVendedorBtn">
+                    <Component class="javax.swing.JButton" name="alterarFuncionarioBtn">
                       <Properties>
                         <Property name="text" type="java.lang.String" value="Alterar"/>
                       </Properties>
                     </Component>
-                    <Component class="javax.swing.JButton" name="vendedores_novoBtn">
+                    <Component class="javax.swing.JButton" name="funcionarios_novoBtn">
                       <Properties>
                         <Property name="text" type="java.lang.String" value="Novo"/>
                       </Properties>
