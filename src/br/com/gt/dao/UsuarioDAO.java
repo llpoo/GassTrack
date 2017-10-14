@@ -71,8 +71,24 @@ public class UsuarioDAO implements DAO<Usuario>{
     }
 
     @Override
-    public boolean excluir(Usuario objeto) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public boolean excluir(Usuario usuario) {
+        String sql = "delete from usuario where id = ?";
+        
+        PreparedStatement pst;
+        
+        try {
+            pst = connection.prepareStatement(sql);
+            
+            pst.setInt(1, usuario.getId());
+            
+            pst.execute();
+            pst.close();
+            return true;
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Não foi possível excluir o usuário");
+            Logger.getLogger(UsuarioDAO.class.getName()).log(Level.SEVERE, null, ex);
+            return false;
+        }
     }
     
     public Usuario buscarById(int idUsuario){

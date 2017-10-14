@@ -134,8 +134,37 @@ public class FuncionarioDAO implements DAO<Funcionario>{
     }
 
     @Override
-    public boolean excluir(Funcionario objeto) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public boolean excluir(Funcionario funcionario) {
+        String sql = "delete from funcionario where id = ?";
+        
+        PreparedStatement pst;
+        
+        try {
+            pst = connection.prepareStatement(sql);
+            
+            pst.setInt(1, funcionario.getId());
+            
+            UsuarioDAO uDao = new UsuarioDAO(this.connection);
+            uDao.excluir(funcionario.getUsuario());
+            
+            Endereco e = funcionario.getEndereco();
+            
+            pst.execute();
+            pst.close();
+            
+            EnderecoDAO eDao = new EnderecoDAO(this.connection);
+            
+            if(eDao.existeEmFuncionario(e) == false){
+                eDao.excluir(e);
+            }
+            
+            JOptionPane.showMessageDialog(null, "Funcionário excluído com sucesso");
+            return true;
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Não foi possível excluir o usuário");
+            Logger.getLogger(UsuarioDAO.class.getName()).log(Level.SEVERE, null, ex);
+            return false;
+        }
     }
 
     @Override
@@ -145,7 +174,7 @@ public class FuncionarioDAO implements DAO<Funcionario>{
 
     @Override
     public ArrayList<Funcionario> listar() {
-        String sql = "SELECT * FROM funcionario";
+        String sql = "SELECT * FROM funcionario order by nome";
                 
         PreparedStatement pst;
         ResultSet rs;

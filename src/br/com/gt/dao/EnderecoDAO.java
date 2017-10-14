@@ -6,6 +6,7 @@
 package br.com.gt.dao;
 
 import br.com.gt.model.Endereco;
+import br.com.gt.model.Funcionario;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -81,8 +82,58 @@ public class EnderecoDAO implements DAO<Endereco>{
     }
 
     @Override
-    public boolean excluir(Endereco objeto) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public boolean excluir(Endereco endereco) {
+        String sql = "delete from endereco where id = ?";
+        
+        PreparedStatement pst;
+        
+        try {
+            pst = connection.prepareStatement(sql);
+            
+            pst.setInt(1, endereco.getId());
+            
+            pst.execute();
+            pst.close();
+            return true;
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Não foi possível excluir o endereço");
+            Logger.getLogger(UsuarioDAO.class.getName()).log(Level.SEVERE, null, ex);
+            return false;
+        }
+    }
+    
+    public boolean existeEmFuncionario(Endereco endereco){
+        String sql = "SELECT * FROM funcionario WHERE endereco_id = ?";
+        
+        Funcionario funcionario = new Funcionario();
+        
+        PreparedStatement pst;
+        ResultSet rs;
+        
+        try {
+            pst = connection.prepareStatement(sql);
+            
+            pst.setInt(1, endereco.getId());
+            
+            rs = pst.executeQuery();
+            
+            while(rs.next()){
+                funcionario.setId(rs.getInt("id"));
+            }
+            
+            rs.close();
+            pst.close();
+            
+            if(funcionario.getId() > 0){
+                return true;
+            }else{
+                return false;
+            }
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Não foi possível buscar o endereço");
+            Logger.getLogger(EnderecoDAO.class.getName()).log(Level.SEVERE, null, ex);
+            return false;
+        }
     }
     
     public Endereco buscarById(int idEndereco){
