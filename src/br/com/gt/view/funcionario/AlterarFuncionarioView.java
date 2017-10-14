@@ -166,6 +166,7 @@ public class AlterarFuncionarioView extends JDialogLAF{
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        sexoGroup = new javax.swing.ButtonGroup();
         jPanel1 = new javax.swing.JPanel();
         jPanel4 = new javax.swing.JPanel();
         jLabel17 = new javax.swing.JLabel();
@@ -312,11 +313,13 @@ public class AlterarFuncionarioView extends JDialogLAF{
         });
 
         radioMasculino.setBackground(new java.awt.Color(51, 51, 51));
+        sexoGroup.add(radioMasculino);
         radioMasculino.setForeground(new java.awt.Color(255, 255, 255));
         radioMasculino.setText("Masculino");
         radioMasculino.setToolTipText("");
 
         radioFeminino.setBackground(new java.awt.Color(51, 51, 51));
+        sexoGroup.add(radioFeminino);
         radioFeminino.setForeground(new java.awt.Color(255, 255, 255));
         radioFeminino.setText("Feminino");
         radioFeminino.setToolTipText("Sexo");
@@ -581,6 +584,7 @@ public class AlterarFuncionarioView extends JDialogLAF{
     private javax.swing.JRadioButton radioMasculino;
     private javax.swing.JTextField rgTxt;
     private javax.swing.JTextField ruaTxt;
+    private javax.swing.ButtonGroup sexoGroup;
     private javax.swing.JTextField telefoneTxt;
     // End of variables declaration//GEN-END:variables
 }
