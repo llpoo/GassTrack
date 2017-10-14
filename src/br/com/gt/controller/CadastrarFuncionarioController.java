@@ -20,12 +20,9 @@ public class CadastrarFuncionarioController implements ActionListener{
 
     Connection connection;
     CadastrarFuncionarioView telaCadastro;
-    Funcionario funcionario;
-    
-    public CadastrarFuncionarioController(Connection con, Funcionario f) {
+    public CadastrarFuncionarioController(Connection con) {
         this.connection = con;
         telaCadastro = new CadastrarFuncionarioView(null, true);
-        funcionario = f;
         adicionaEventos();
         telaCadastro.setVisible(true);
     }
@@ -42,11 +39,12 @@ public class CadastrarFuncionarioController implements ActionListener{
         }
         
         if(evento.getSource().equals(this.telaCadastro.getProximoBtn())){
-            this.funcionario.setCpf(this.telaCadastro.getCpfTxt().getText());
-            this.funcionario.setEmail(this.telaCadastro.getEmailTxt().getText());
-            this.funcionario.setNome(this.telaCadastro.getNomeTxt().getText());
-            this.funcionario.setRg(this.telaCadastro.getRgTxt().getText());
-            this.funcionario.setTelefone(this.telaCadastro.getTelefoneTxt().getText());
+            Funcionario funcionario = new Funcionario();
+            funcionario.setCpf(this.telaCadastro.getCpfTxt().getText());
+            funcionario.setEmail(this.telaCadastro.getEmailTxt().getText());
+            funcionario.setNome(this.telaCadastro.getNomeTxt().getText());
+            funcionario.setRg(this.telaCadastro.getRgTxt().getText());
+            funcionario.setTelefone(this.telaCadastro.getTelefoneTxt().getText());
             
             Endereco endereco = new Endereco();
             
@@ -58,19 +56,19 @@ public class CadastrarFuncionarioController implements ActionListener{
             endereco.setRua(this.telaCadastro.getRuaTxt().getText());
             
             if(this.telaCadastro.getRadioMasculino().isSelected()){
-                this.funcionario.setSexo("Masculino");
+                funcionario.setSexo("Masculino");
             }
             
             if(this.telaCadastro.getRadioFeminino().isSelected()){
-                this.funcionario.setSexo("Feminino");
+                funcionario.setSexo("Feminino");
             }
             
-            this.funcionario.setDataAdmissao(this.telaCadastro.getDataAdmissaoCalendar().getDate());
+            funcionario.setDataAdmissao(this.telaCadastro.getDataAdmissaoCalendar().getDate());
             
-            this.funcionario.setEndereco(endereco);
+            funcionario.setEndereco(endereco);
             
             this.telaCadastro.setVisible(false);
-            CadastrarUsuarioController cadastrarUsuarioController = new CadastrarUsuarioController(this.connection,this.funcionario);
+            CadastrarUsuarioController cadastrarUsuarioController = new CadastrarUsuarioController(this.connection,funcionario);
             this.telaCadastro.dispose();
         }
     }
