@@ -527,7 +527,7 @@
                     </Component>
                   </SubComponents>
                 </Container>
-                <Container class="javax.swing.JPanel" name="jPanel3">
+                <Container class="javax.swing.JPanel" name="jPanel11">
                   <Properties>
                     <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                       <Color blue="33" green="33" red="33" type="rgb"/>
@@ -542,28 +542,21 @@
                   <Layout>
                     <DimensionLayout dim="0">
                       <Group type="103" groupAlignment="0" attributes="0">
+                          <Component id="jScrollPane7" pref="1110" max="32767" attributes="0"/>
                           <Group type="102" attributes="0">
-                              <Group type="103" groupAlignment="0" attributes="0">
-                                  <Group type="102" alignment="0" attributes="0">
-                                      <EmptySpace max="-2" attributes="0"/>
-                                      <Component id="jLabel5" min="-2" max="-2" attributes="0"/>
-                                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                                      <Component id="funcionarios_funcionarioTxt" min="-2" pref="324" max="-2" attributes="0"/>
-                                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                                      <Component id="funcionarios_BuscaBtn" min="-2" max="-2" attributes="0"/>
-                                      <EmptySpace pref="416" max="32767" attributes="0"/>
-                                      <Component id="funcionarios_novoBtn" min="-2" max="-2" attributes="0"/>
-                                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                                      <Component id="alterarFuncionarioBtn" min="-2" max="-2" attributes="0"/>
-                                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                                      <Component id="excluirFuncionarioBtn" min="-2" max="-2" attributes="0"/>
-                                  </Group>
-                                  <Group type="102" attributes="0">
-                                      <EmptySpace min="-2" pref="21" max="-2" attributes="0"/>
-                                      <Component id="jScrollPane2" max="32767" attributes="0"/>
-                                  </Group>
-                              </Group>
-                              <EmptySpace max="-2" attributes="0"/>
+                              <Component id="jLabel5" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                              <Component id="funcionarios_funcionarioTxt" min="-2" pref="324" max="-2" attributes="0"/>
+                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                              <Component id="funcionarios_BuscaBtn" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                              <Component id="mostrarFuncionarioBtn" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace max="32767" attributes="0"/>
+                              <Component id="funcionarios_novoBtn" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                              <Component id="alterarFuncionarioBtn" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                              <Component id="excluirFuncionarioBtn" min="-2" max="-2" attributes="0"/>
                           </Group>
                       </Group>
                     </DimensionLayout>
@@ -578,15 +571,16 @@
                                   <Component id="excluirFuncionarioBtn" alignment="3" min="-2" max="-2" attributes="0"/>
                                   <Component id="alterarFuncionarioBtn" alignment="3" min="-2" max="-2" attributes="0"/>
                                   <Component id="funcionarios_novoBtn" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="mostrarFuncionarioBtn" alignment="3" min="-2" max="-2" attributes="0"/>
                               </Group>
                               <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                              <Component id="jScrollPane2" pref="425" max="32767" attributes="0"/>
+                              <Component id="jScrollPane7" pref="425" max="32767" attributes="0"/>
                           </Group>
                       </Group>
                     </DimensionLayout>
                   </Layout>
                   <SubComponents>
-                    <Container class="javax.swing.JScrollPane" name="jScrollPane2">
+                    <Container class="javax.swing.JScrollPane" name="jScrollPane7">
                       <AuxValues>
                         <AuxValue name="autoScrollPane" type="java.lang.Boolean" value="true"/>
                       </AuxValues>
@@ -596,18 +590,18 @@
                         <Component class="javax.swing.JTable" name="funcionarioTable">
                           <Properties>
                             <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
-                              <Table columnCount="0" rowCount="4"/>
-                            </Property>
-                            <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor">
-                              <TableColumnModel selectionModel="0"/>
-                            </Property>
-                            <Property name="selectionModel" type="javax.swing.ListSelectionModel" editor="org.netbeans.modules.form.editors2.JTableSelectionModelEditor">
-                              <JTableSelectionModel selectionMode="0"/>
-                            </Property>
-                            <Property name="tableHeader" type="javax.swing.table.JTableHeader" editor="org.netbeans.modules.form.editors2.JTableHeaderEditor">
-                              <TableHeader reorderingAllowed="false" resizingAllowed="true"/>
+                              <Table columnCount="4" rowCount="4">
+                                <Column editable="true" title="Title 1" type="java.lang.Object"/>
+                                <Column editable="true" title="Title 2" type="java.lang.Object"/>
+                                <Column editable="true" title="Title 3" type="java.lang.Object"/>
+                                <Column editable="true" title="Title 4" type="java.lang.Object"/>
+                              </Table>
                             </Property>
                           </Properties>
+                          <Events>
+                            <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="funcionarioTableMouseClicked"/>
+                            <EventHandler event="mouseEntered" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="funcionarioTableMouseEntered"/>
+                          </Events>
                         </Component>
                       </SubComponents>
                     </Container>
@@ -616,7 +610,7 @@
                         <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                           <Color blue="ff" green="ff" red="ff" type="rgb"/>
                         </Property>
-                        <Property name="text" type="java.lang.String" value="Vendedor"/>
+                        <Property name="text" type="java.lang.String" value="Funcion&#xe1;rio"/>
                       </Properties>
                     </Component>
                     <Component class="javax.swing.JTextField" name="funcionarios_funcionarioTxt">
@@ -626,16 +620,6 @@
                         <Property name="text" type="java.lang.String" value="Pesquisar"/>
                       </Properties>
                     </Component>
-                    <Component class="javax.swing.JButton" name="excluirFuncionarioBtn">
-                      <Properties>
-                        <Property name="text" type="java.lang.String" value="Excluir"/>
-                      </Properties>
-                    </Component>
-                    <Component class="javax.swing.JButton" name="alterarFuncionarioBtn">
-                      <Properties>
-                        <Property name="text" type="java.lang.String" value="Alterar"/>
-                      </Properties>
-                    </Component>
                     <Component class="javax.swing.JButton" name="funcionarios_novoBtn">
                       <Properties>
                         <Property name="text" type="java.lang.String" value="Novo"/>
@@ -643,6 +627,21 @@
                       <Events>
                         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="funcionarios_novoBtnActionPerformed"/>
                       </Events>
+                    </Component>
+                    <Component class="javax.swing.JButton" name="alterarFuncionarioBtn">
+                      <Properties>
+                        <Property name="text" type="java.lang.String" value="Alterar"/>
+                      </Properties>
+                    </Component>
+                    <Component class="javax.swing.JButton" name="excluirFuncionarioBtn">
+                      <Properties>
+                        <Property name="text" type="java.lang.String" value="Excluir"/>
+                      </Properties>
+                    </Component>
+                    <Component class="javax.swing.JButton" name="mostrarFuncionarioBtn">
+                      <Properties>
+                        <Property name="text" type="java.lang.String" value="Ver Detalhes"/>
+                      </Properties>
                     </Component>
                   </SubComponents>
                 </Container>
@@ -753,8 +752,10 @@
                               <Component id="clientes_clienteTxt" min="-2" pref="324" max="-2" attributes="0"/>
                               <EmptySpace type="unrelated" max="-2" attributes="0"/>
                               <Component id="clientes_clienteBuscaBtn" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace pref="429" max="32767" attributes="0"/>
-                              <Component id="novoCleinteBtn" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                              <Component id="mostrarClienteBtn" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace pref="326" max="32767" attributes="0"/>
+                              <Component id="clientes_novoBtn" min="-2" max="-2" attributes="0"/>
                               <EmptySpace type="unrelated" max="-2" attributes="0"/>
                               <Component id="alterarClienteBtn" min="-2" max="-2" attributes="0"/>
                               <EmptySpace type="unrelated" max="-2" attributes="0"/>
@@ -774,7 +775,8 @@
                                   <Component id="clientes_clienteBuscaBtn" alignment="3" min="-2" max="-2" attributes="0"/>
                                   <Component id="excluirClienteBtn" alignment="3" min="-2" max="-2" attributes="0"/>
                                   <Component id="alterarClienteBtn" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="novoCleinteBtn" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="clientes_novoBtn" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="mostrarClienteBtn" alignment="3" min="-2" max="-2" attributes="0"/>
                               </Group>
                               <EmptySpace type="unrelated" max="-2" attributes="0"/>
                               <Component id="jScrollPane3" pref="425" max="32767" attributes="0"/>
@@ -829,9 +831,14 @@
                         <Property name="text" type="java.lang.String" value="Alterar"/>
                       </Properties>
                     </Component>
-                    <Component class="javax.swing.JButton" name="novoCleinteBtn">
+                    <Component class="javax.swing.JButton" name="clientes_novoBtn">
                       <Properties>
                         <Property name="text" type="java.lang.String" value="Novo"/>
+                      </Properties>
+                    </Component>
+                    <Component class="javax.swing.JButton" name="mostrarClienteBtn">
+                      <Properties>
+                        <Property name="text" type="java.lang.String" value="Ver Detalhes"/>
                       </Properties>
                     </Component>
                   </SubComponents>

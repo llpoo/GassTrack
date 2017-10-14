@@ -21,6 +21,35 @@ import javax.swing.JTextField;
  */
 public class PrincipalGerenteView extends JFrameLAF{
 
+    public JButton getMostrarClienteBtn() {
+        return mostrarClienteBtn;
+    }
+
+    public void setMostrarClienteBtn(JButton mostrarClienteBtn) {
+        this.mostrarClienteBtn = mostrarClienteBtn;
+    }
+
+    
+    
+    public JButton getMostrarFuncionarioBtn() {
+        return mostrarFuncionarioBtn;
+    }
+
+    public void setMostrarFuncionarioBtn(JButton mostrarFuncionarioBtn) {
+        this.mostrarFuncionarioBtn = mostrarFuncionarioBtn;
+    }
+    
+    
+    
+    public JButton getClientes_novoBtn() {
+        return clientes_novoBtn;
+    }
+
+    public void setClientes_novoBtn(JButton clientes_novoBtn) {
+        this.clientes_novoBtn = clientes_novoBtn;
+    }
+    
+    
     public JButton getExcluirFornecedorBtn() {
         return excluirFornecedorBtn;
     }
@@ -83,10 +112,6 @@ public class PrincipalGerenteView extends JFrameLAF{
 
     public JCheckBox getMaterial_baixaSelectBox() {
         return material_baixaSelectBox;
-    }
-
-    public JButton getNovoCleinteBtn() {
-        return novoCleinteBtn;
     }
 
     public JButton getNovoFornecedorBtn() {
@@ -237,15 +262,16 @@ public class PrincipalGerenteView extends JFrameLAF{
         jPanel15 = new javax.swing.JPanel();
         jLabel20 = new javax.swing.JLabel();
         jLabel21 = new javax.swing.JLabel();
-        jPanel3 = new javax.swing.JPanel();
-        jScrollPane2 = new javax.swing.JScrollPane();
+        jPanel11 = new javax.swing.JPanel();
+        jScrollPane7 = new javax.swing.JScrollPane();
         funcionarioTable = new javax.swing.JTable();
         jLabel5 = new javax.swing.JLabel();
         funcionarios_funcionarioTxt = new javax.swing.JTextField();
         funcionarios_BuscaBtn = new javax.swing.JButton();
-        excluirFuncionarioBtn = new javax.swing.JButton();
-        alterarFuncionarioBtn = new javax.swing.JButton();
         funcionarios_novoBtn = new javax.swing.JButton();
+        alterarFuncionarioBtn = new javax.swing.JButton();
+        excluirFuncionarioBtn = new javax.swing.JButton();
+        mostrarFuncionarioBtn = new javax.swing.JButton();
         clientesPanel = new javax.swing.JPanel();
         jLabel31 = new javax.swing.JLabel();
         jPanel16 = new javax.swing.JPanel();
@@ -259,7 +285,8 @@ public class PrincipalGerenteView extends JFrameLAF{
         clientes_clienteBuscaBtn = new javax.swing.JButton();
         excluirClienteBtn = new javax.swing.JButton();
         alterarClienteBtn = new javax.swing.JButton();
-        novoCleinteBtn = new javax.swing.JButton();
+        clientes_novoBtn = new javax.swing.JButton();
+        mostrarClienteBtn = new javax.swing.JButton();
         fornecedoresPanel = new javax.swing.JPanel();
         jLabel33 = new javax.swing.JLabel();
         jPanel19 = new javax.swing.JPanel();
@@ -495,31 +522,33 @@ public class PrincipalGerenteView extends JFrameLAF{
 
         vendedoresPanel.add(jPanel15, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 30, 1130, 50));
 
-        jPanel3.setBackground(new java.awt.Color(51, 51, 51));
+        jPanel11.setBackground(new java.awt.Color(51, 51, 51));
 
         funcionarioTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {},
-                {},
-                {},
-                {}
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
             },
             new String [] {
-
+                "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        funcionarioTable.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
-        funcionarioTable.getTableHeader().setReorderingAllowed(false);
-        jScrollPane2.setViewportView(funcionarioTable);
+        funcionarioTable.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                funcionarioTableMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                funcionarioTableMouseEntered(evt);
+            }
+        });
+        jScrollPane7.setViewportView(funcionarioTable);
 
         jLabel5.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel5.setText("Vendedor");
+        jLabel5.setText("Funcionário");
 
         funcionarios_BuscaBtn.setText("Pesquisar");
-
-        excluirFuncionarioBtn.setText("Excluir");
-
-        alterarFuncionarioBtn.setText("Alterar");
 
         funcionarios_novoBtn.setText("Novo");
         funcionarios_novoBtn.addActionListener(new java.awt.event.ActionListener() {
@@ -528,46 +557,49 @@ public class PrincipalGerenteView extends JFrameLAF{
             }
         });
 
-        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
-        jPanel3.setLayout(jPanel3Layout);
-        jPanel3Layout.setHorizontalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel3Layout.createSequentialGroup()
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jLabel5)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(funcionarios_funcionarioTxt, javax.swing.GroupLayout.PREFERRED_SIZE, 324, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(funcionarios_BuscaBtn)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 416, Short.MAX_VALUE)
-                        .addComponent(funcionarios_novoBtn)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(alterarFuncionarioBtn)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(excluirFuncionarioBtn))
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addGap(21, 21, 21)
-                        .addComponent(jScrollPane2)))
-                .addContainerGap())
+        alterarFuncionarioBtn.setText("Alterar");
+
+        excluirFuncionarioBtn.setText("Excluir");
+
+        mostrarFuncionarioBtn.setText("Ver Detalhes");
+
+        javax.swing.GroupLayout jPanel11Layout = new javax.swing.GroupLayout(jPanel11);
+        jPanel11.setLayout(jPanel11Layout);
+        jPanel11Layout.setHorizontalGroup(
+            jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jScrollPane7, javax.swing.GroupLayout.DEFAULT_SIZE, 1110, Short.MAX_VALUE)
+            .addGroup(jPanel11Layout.createSequentialGroup()
+                .addComponent(jLabel5)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(funcionarios_funcionarioTxt, javax.swing.GroupLayout.PREFERRED_SIZE, 324, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(funcionarios_BuscaBtn)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(mostrarFuncionarioBtn)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(funcionarios_novoBtn)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(alterarFuncionarioBtn)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(excluirFuncionarioBtn))
         );
-        jPanel3Layout.setVerticalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+        jPanel11Layout.setVerticalGroup(
+            jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel11Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel5)
                     .addComponent(funcionarios_funcionarioTxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(funcionarios_BuscaBtn)
                     .addComponent(excluirFuncionarioBtn)
                     .addComponent(alterarFuncionarioBtn)
-                    .addComponent(funcionarios_novoBtn))
+                    .addComponent(funcionarios_novoBtn)
+                    .addComponent(mostrarFuncionarioBtn))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 425, Short.MAX_VALUE))
+                .addComponent(jScrollPane7, javax.swing.GroupLayout.DEFAULT_SIZE, 425, Short.MAX_VALUE))
         );
 
-        vendedoresPanel.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 110, 1110, 470));
+        vendedoresPanel.add(jPanel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 110, 1110, 470));
 
         jTabbedPane1.addTab("Funcionários", vendedoresPanel);
 
@@ -617,7 +649,9 @@ public class PrincipalGerenteView extends JFrameLAF{
 
         alterarClienteBtn.setText("Alterar");
 
-        novoCleinteBtn.setText("Novo");
+        clientes_novoBtn.setText("Novo");
+
+        mostrarClienteBtn.setText("Ver Detalhes");
 
         javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
         jPanel6.setLayout(jPanel6Layout);
@@ -630,8 +664,10 @@ public class PrincipalGerenteView extends JFrameLAF{
                 .addComponent(clientes_clienteTxt, javax.swing.GroupLayout.PREFERRED_SIZE, 324, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(clientes_clienteBuscaBtn)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 429, Short.MAX_VALUE)
-                .addComponent(novoCleinteBtn)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(mostrarClienteBtn)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 326, Short.MAX_VALUE)
+                .addComponent(clientes_novoBtn)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(alterarClienteBtn)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -649,7 +685,8 @@ public class PrincipalGerenteView extends JFrameLAF{
                     .addComponent(clientes_clienteBuscaBtn)
                     .addComponent(excluirClienteBtn)
                     .addComponent(alterarClienteBtn)
-                    .addComponent(novoCleinteBtn))
+                    .addComponent(clientes_novoBtn)
+                    .addComponent(mostrarClienteBtn))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 425, Short.MAX_VALUE))
         );
@@ -960,13 +997,21 @@ public class PrincipalGerenteView extends JFrameLAF{
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton3ActionPerformed
 
+    private void novoFornecedorBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_novoFornecedorBtnActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_novoFornecedorBtnActionPerformed
+
     private void funcionarios_novoBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_funcionarios_novoBtnActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_funcionarios_novoBtnActionPerformed
 
-    private void novoFornecedorBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_novoFornecedorBtnActionPerformed
+    private void funcionarioTableMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_funcionarioTableMouseEntered
         // TODO add your handling code here:
-    }//GEN-LAST:event_novoFornecedorBtnActionPerformed
+    }//GEN-LAST:event_funcionarioTableMouseEntered
+
+    private void funcionarioTableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_funcionarioTableMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_funcionarioTableMouseClicked
 
     /**
      * @param args the command line arguments
@@ -1014,6 +1059,7 @@ public class PrincipalGerenteView extends JFrameLAF{
     private javax.swing.JPanel clientesPanel;
     private javax.swing.JButton clientes_clienteBuscaBtn;
     private javax.swing.JTextField clientes_clienteTxt;
+    private javax.swing.JButton clientes_novoBtn;
     private javax.swing.JPanel dashboardPanel;
     private javax.swing.JTextField dataChooser;
     private javax.swing.JPanel estoquePanel;
@@ -1066,31 +1112,32 @@ public class PrincipalGerenteView extends JFrameLAF{
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel11;
     private javax.swing.JPanel jPanel14;
     private javax.swing.JPanel jPanel15;
     private javax.swing.JPanel jPanel16;
     private javax.swing.JPanel jPanel17;
     private javax.swing.JPanel jPanel19;
     private javax.swing.JPanel jPanel2;
-    private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jPanel6;
     private javax.swing.JPanel jPanel7;
     private javax.swing.JPanel jPanel8;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JScrollPane jScrollPane5;
     private javax.swing.JScrollPane jScrollPane6;
+    private javax.swing.JScrollPane jScrollPane7;
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JTextField jTextField9;
     private javax.swing.JButton materialBuscaBtn;
     private javax.swing.JTable materialTable;
     private javax.swing.JTextField materialTxt;
     private javax.swing.JCheckBox material_baixaSelectBox;
-    private javax.swing.JButton novoCleinteBtn;
+    private javax.swing.JButton mostrarClienteBtn;
+    private javax.swing.JButton mostrarFuncionarioBtn;
     private javax.swing.JButton novoFornecedorBtn;
     private javax.swing.JButton sairBtn;
     private javax.swing.JPanel vendasPanel;

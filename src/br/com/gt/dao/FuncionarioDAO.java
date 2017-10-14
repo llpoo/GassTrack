@@ -161,7 +161,7 @@ public class FuncionarioDAO implements DAO<Funcionario>{
             JOptionPane.showMessageDialog(null, "Funcionário excluído com sucesso");
             return true;
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Não foi possível excluir o usuário");
+            JOptionPane.showMessageDialog(null, "Não foi possível excluir o funcionário");
             Logger.getLogger(UsuarioDAO.class.getName()).log(Level.SEVERE, null, ex);
             return false;
         }

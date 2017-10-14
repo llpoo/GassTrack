@@ -7,6 +7,7 @@ package br.com.gt.dao;
 
 import br.com.gt.model.Endereco;
 import br.com.gt.model.Funcionario;
+import br.com.gt.model.PessoaFisica;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -98,6 +99,40 @@ public class EnderecoDAO implements DAO<Endereco>{
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Não foi possível excluir o endereço");
             Logger.getLogger(UsuarioDAO.class.getName()).log(Level.SEVERE, null, ex);
+            return false;
+        }
+    }
+    
+    public boolean existeEmCliente(Endereco endereco){
+        String sql = "SELECT * FROM cliente WHERE endereco_id = ?";
+        
+        PessoaFisica cliente = new PessoaFisica();
+        
+        PreparedStatement pst;
+        ResultSet rs;
+        
+        try {
+            pst = connection.prepareStatement(sql);
+            
+            pst.setInt(1, endereco.getId());
+            
+            rs = pst.executeQuery();
+            
+            while(rs.next()){
+                cliente.setId(rs.getInt("id"));
+            }
+            
+            rs.close();
+            pst.close();
+            
+            if(cliente.getId() > 0){
+                return true;
+            }else{
+                return false;
+            }
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Não foi possível buscar o endereço");
+            Logger.getLogger(EnderecoDAO.class.getName()).log(Level.SEVERE, null, ex);
             return false;
         }
     }
