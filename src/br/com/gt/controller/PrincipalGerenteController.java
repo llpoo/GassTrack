@@ -14,6 +14,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.Connection;
 import java.util.ArrayList;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -32,7 +33,7 @@ public class PrincipalGerenteController implements ActionListener{
         adicionaEventos();
         
         this.funcionarioDao = new FuncionarioDAO(this.connection);
-        atualizaTableModel();
+        atualizaTableModel(null);
         
         telaPrincipal.setVisible(true);
     }
@@ -47,20 +48,34 @@ public class PrincipalGerenteController implements ActionListener{
             Funcionario funcionario = new Funcionario();
             CadastrarFuncionarioController cadastrarController = new CadastrarFuncionarioController(this.connection,funcionario);
             this.funcionarios.add(funcionario);
-            atualizaTableModel();
+            atualizaTableModel(null);
         }
         
         if(evento.getSource().equals(this.telaPrincipal.getAlterarFuncionarioBtn())){
-            int index = this.telaPrincipal.getFuncionarioTable().getSelectedRow();
-            AlterarFuncionarioController alterarController = new AlterarFuncionarioController(this.connection, this.funcionarios.get(index), this.funcionarios, index);
-            atualizaTableModel();
+            AlterarFuncionarioController alterarController = new AlterarFuncionarioController(this.connection, this.funcionarios.get(this.telaPrincipal.getFuncionarioTable().getSelectedRow()));
+            atualizaTableModel(null);
         }
         
         if(evento.getSource().equals(this.telaPrincipal.getExcluirFuncionarioBtn())){
             int index = this.telaPrincipal.getFuncionarioTable().getSelectedRow();
-            this.funcionarioDao.excluir(this.funcionarios.get(index));
-            this.funcionarios.remove(index);
-            atualizaTableModel();
+            if (JOptionPane.showConfirmDialog(null, "Deseja excluir o registro do funcionário "+
+                    this.funcionarios.get(index).getNome()+"?", null, JOptionPane.YES_NO_OPTION) 
+                    == JOptionPane.YES_OPTION){
+                this.funcionarioDao.excluir(this.funcionarios.get(index));
+                this.funcionarios.remove(index);
+                atualizaTableModel(null);
+            }
+        }
+        
+        if(evento.getSource().equals(this.telaPrincipal.getFuncionarios_BuscaBtn()) ||
+           evento.getSource().equals(this.telaPrincipal.getFuncionarios_funcionarioTxt())){
+            String nomeFuncionario = this.telaPrincipal.getFuncionarios_funcionarioTxt().getText();
+            if(nomeFuncionario.length() == 0){
+                atualizaTableModel(null);
+            }else{
+                this.funcionarios = funcionarioDao.pesquisar(nomeFuncionario);
+                atualizaTableModel(this.funcionarios);
+            }
         }
     }
     
@@ -69,11 +84,18 @@ public class PrincipalGerenteController implements ActionListener{
         this.telaPrincipal.getFuncionarios_novoBtn().addActionListener(this);
         this.telaPrincipal.getAlterarFuncionarioBtn().addActionListener(this);
         this.telaPrincipal.getExcluirFuncionarioBtn().addActionListener(this);
+        this.telaPrincipal.getFuncionarios_BuscaBtn().addActionListener(this);
+        this.telaPrincipal.getFuncionarios_funcionarioTxt().addActionListener(this);
     }
 
-    private void atualizaTableModel() {
-        this.funcionarios = funcionarioDao.listar();
-        FuncionarioTableModel funcionarioModel = new FuncionarioTableModel(funcionarios);
-        this.telaPrincipal.getFuncionarioTable().setModel(funcionarioModel);
+    private void atualizaTableModel(ArrayList<Funcionario> funcionarios) {
+        if(funcionarios == null){
+            this.funcionarios = funcionarioDao.listar();
+            FuncionarioTableModel funcionarioModel = new FuncionarioTableModel(this.funcionarios);
+            this.telaPrincipal.getFuncionarioTable().setModel(funcionarioModel);
+        }else{
+            FuncionarioTableModel funcionarioModel = new FuncionarioTableModel(funcionarios);
+            this.telaPrincipal.getFuncionarioTable().setModel(funcionarioModel);
+        }
     }
 } 

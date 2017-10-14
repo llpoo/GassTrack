@@ -23,14 +23,10 @@ public class AlterarUsuarioController implements ActionListener{
     Connection connection;
     Funcionario funcionario;
     AlterarUsuarioView telaAlterar;
-    ArrayList<Funcionario> funcionarios;
-    int index;
     
-    public AlterarUsuarioController(Connection con, Funcionario f, ArrayList<Funcionario> backUpFuncionarios, int i) {
+    public AlterarUsuarioController(Connection con, Funcionario f) {
         this.connection = con;
         this.funcionario = f;
-        this.funcionarios = backUpFuncionarios;
-        index = i;
         this.telaAlterar = new AlterarUsuarioView(null, true);
         adicionaEventos();
         preencheCampos();
@@ -52,8 +48,6 @@ public class AlterarUsuarioController implements ActionListener{
             FuncionarioDAO funcionarioDAO = new FuncionarioDAO(this.connection);
             
             funcionarioDAO.alterar(this.funcionario);
-            
-            this.funcionarios.set(index, this.funcionario);
             
             this.telaAlterar.dispose();
         }
