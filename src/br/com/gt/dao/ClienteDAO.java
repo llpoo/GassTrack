@@ -191,8 +191,50 @@ public class ClienteDAO implements DAO<PessoaFisica>{
     }
 
     @Override
-    public ArrayList<PessoaFisica> pesquisar(String cliente) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public ArrayList<PessoaFisica> pesquisar(String nome) {
+        String sql = "SELECT * FROM cliente where nome ~* ?";
+                
+        PreparedStatement pst;
+        ResultSet rs;
+        
+        ArrayList<PessoaFisica> clientes = new ArrayList<>();
+        
+        try {
+            pst = connection.prepareStatement(sql);
+            
+            pst.setString(1, nome);
+            
+            rs = pst.executeQuery();
+            
+            EnderecoDAO eDao = new EnderecoDAO(this.connection);
+            
+            while(rs.next()){
+                PessoaFisica c = new PessoaFisica();
+                Endereco e = new Endereco();
+                
+                c.setId(rs.getInt("Id"));
+                c.setCpf(rs.getString("cpf"));
+                c.setEmail(rs.getString("email"));
+                c.setNome(rs.getString("nome"));
+                c.setRg(rs.getString("rg"));
+                c.setSexo(rs.getString("sexo"));
+                c.setTelefone(rs.getString("telefone"));
+                
+                e.setId(rs.getInt("endereco_id"));
+                
+                c.setEndereco(eDao.buscarById(e.getId()));
+                
+                clientes.add(c);
+            }
+            
+            rs.close();
+            pst.close();
+            return clientes;
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Não foi possível buscar o cliente");
+            Logger.getLogger(UsuarioDAO.class.getName()).log(Level.SEVERE, null, ex);
+            return null;
+        }
     }
 
 }

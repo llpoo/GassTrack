@@ -161,6 +161,17 @@ public class PrincipalGerenteController implements ActionListener{
                 atualizaTableCliente(null);
             }
         }
+        
+        if(evento.getSource().equals(this.telaPrincipal.getClientes_clienteBuscaBtn()) ||
+           evento.getSource().equals(this.telaPrincipal.getClientes_clienteTxt())){
+            String nomeCliente = this.telaPrincipal.getClientes_clienteTxt().getText();
+            if(nomeCliente.length() == 0){
+                atualizaTableCliente(null);
+            }else{
+                this.clientes = clienteDao.pesquisar(nomeCliente);
+                atualizaTableCliente(this.clientes);
+            }
+        }
     }
     
     private void adicionaEventos(){
@@ -182,6 +193,8 @@ public class PrincipalGerenteController implements ActionListener{
         this.telaPrincipal.getAlterarClienteBtn().addActionListener(this);
         this.telaPrincipal.getMostrarClienteBtn().addActionListener(this);
         this.telaPrincipal.getExcluirClienteBtn().addActionListener(this);
+        this.telaPrincipal.getClientes_clienteBuscaBtn().addActionListener(this);
+        this.telaPrincipal.getClientes_clienteTxt().addActionListener(this);
     }
 
     private void atualizaTableFuncionario(ArrayList<Funcionario> funcionarios) {

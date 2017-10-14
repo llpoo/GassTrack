@@ -268,7 +268,7 @@ public class FuncionarioDAO implements DAO<Funcionario>{
             pst.close();
             return funcionarios;
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Não foi possível buscar o usuário");
+            JOptionPane.showMessageDialog(null, "Não foi possível buscar o funcionário");
             Logger.getLogger(UsuarioDAO.class.getName()).log(Level.SEVERE, null, ex);
             return null;
         }
