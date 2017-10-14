@@ -5,6 +5,7 @@
  */
 package br.com.gt.controller;
 
+import br.com.gt.dao.FornecedorDAO;
 import br.com.gt.model.Endereco;
 import br.com.gt.model.Fornecedor;
 import br.com.gt.view.fornecedor.AlterarFornecedorView;
@@ -61,6 +62,9 @@ public class AlterarFornecedorController implements ActionListener{
             
             forn.setEndereco(end);
             
+            FornecedorDAO fornDAO = new FornecedorDAO(this.connection);
+            
+            fornDAO.alterar(forn);
             
             this.telaAlterar.setVisible(false);
             this.telaAlterar.dispose();

@@ -6,6 +6,7 @@
 package br.com.gt.dao;
 
 import br.com.gt.model.Endereco;
+import br.com.gt.model.Fornecedor;
 import br.com.gt.model.Funcionario;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -217,6 +218,40 @@ public class EnderecoDAO implements DAO<Endereco>{
     @Override
     public ArrayList<Endereco> pesquisar(String objeto) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    boolean existeEmFornecedor(Endereco endereco) {
+        String sql = "SELECT * FROM fornecedor WHERE endereco_id = ?";
+        
+        Fornecedor fornecedor = new Fornecedor();
+        
+        PreparedStatement pst;
+        ResultSet rs;
+        
+        try {
+            pst = connection.prepareStatement(sql);
+            
+            pst.setInt(1, endereco.getId());
+            
+            rs = pst.executeQuery();
+            
+            while(rs.next()){
+                fornecedor.setId(rs.getInt("id"));
+            }
+            
+            rs.close();
+            pst.close();
+            
+            if(fornecedor.getId() > 0){
+                return true;
+            }else{
+                return false;
+            }
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Não foi possível buscar o endereço");
+            Logger.getLogger(EnderecoDAO.class.getName()).log(Level.SEVERE, null, ex);
+            return false;
+        }
     }
     
 }
