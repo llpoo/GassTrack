@@ -6,9 +6,12 @@ package br.com.gt.controller;
  * and open the template in the editor.
  */
 
+import br.com.gt.dao.FornecedorDAO;
 import br.com.gt.dao.FuncionarioDAO;
+import br.com.gt.model.Fornecedor;
 import br.com.gt.model.Funcionario;
 import br.com.gt.view.principal.PrincipalGerenteView;
+import br.com.gt.view.principal.util.FornecedorTableModel;
 import br.com.gt.view.principal.util.FuncionarioTableModel;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -25,6 +28,8 @@ public class PrincipalGerenteController implements ActionListener{
     private PrincipalGerenteView telaPrincipal;
     private ArrayList<Funcionario> funcionarios;
     private FuncionarioDAO funcionarioDao;
+    private ArrayList<Fornecedor> fornecedores;
+    private FornecedorDAO fornecedorDao;
     Connection connection;
     
     public PrincipalGerenteController(Connection con) {
@@ -34,6 +39,9 @@ public class PrincipalGerenteController implements ActionListener{
         
         this.funcionarioDao = new FuncionarioDAO(this.connection);
         atualizaTableModel(null);
+        
+        this.fornecedorDao = new FornecedorDAO(this.connection);
+        atualizaTableFornecedor(null);
         
         telaPrincipal.setVisible(true);
     }
@@ -77,6 +85,40 @@ public class PrincipalGerenteController implements ActionListener{
                 atualizaTableModel(this.funcionarios);
             }
         }
+        
+        if(evento.getSource().equals(this.telaPrincipal.getNovoFornecedorBtn())){
+            Fornecedor fornecedor = new Fornecedor();
+            CadastrarFornecedorController cadastrarController = new CadastrarFornecedorController(this.connection,fornecedor);
+            this.fornecedores.add(fornecedor);
+            atualizaTableFornecedor(null);
+        }
+        
+        if(evento.getSource().equals(this.telaPrincipal.getAlterarFornecedorBtn())){
+            AlterarFornecedorController alterarController = new AlterarFornecedorController(this.connection, this.fornecedores.get(this.telaPrincipal.getFornecedorTable().getSelectedRow()));
+            atualizaTableFornecedor(null);
+        }
+        
+        if(evento.getSource().equals(this.telaPrincipal.getExcluirFornecedorBtn())){
+            int index = this.telaPrincipal.getFornecedorTable().getSelectedRow();
+            if (JOptionPane.showConfirmDialog(null, "Deseja excluir o registro do fornecedor "+
+                    this.fornecedores.get(index).getNome()+"?", null, JOptionPane.YES_NO_OPTION) 
+                    == JOptionPane.YES_OPTION){
+                this.fornecedorDao.excluir(this.fornecedores.get(index));
+                this.fornecedores.remove(index);
+                atualizaTableFornecedor(null);
+            }
+        }
+        
+        if(evento.getSource().equals(this.telaPrincipal.getFornecedorBuscaBtn()) ||
+           evento.getSource().equals(this.telaPrincipal.getFornecedorTxt())){
+            String nomeFornecedor = this.telaPrincipal.getFornecedorTxt().getText();
+            if(nomeFornecedor.length() == 0){
+                atualizaTableFornecedor(null);
+            }else{
+                this.fornecedores = fornecedorDao.pesquisar(nomeFornecedor);
+                atualizaTableFornecedor(this.fornecedores);
+            }
+        }
     }
     
     private void adicionaEventos(){
@@ -86,6 +128,12 @@ public class PrincipalGerenteController implements ActionListener{
         this.telaPrincipal.getExcluirFuncionarioBtn().addActionListener(this);
         this.telaPrincipal.getFuncionarios_BuscaBtn().addActionListener(this);
         this.telaPrincipal.getFuncionarios_funcionarioTxt().addActionListener(this);
+        
+        this.telaPrincipal.getNovoFornecedorBtn().addActionListener(this);
+        this.telaPrincipal.getAlterarFornecedorBtn().addActionListener(this);
+        this.telaPrincipal.getExcluirFornecedorBtn().addActionListener(this);
+        this.telaPrincipal.getFornecedorBuscaBtn().addActionListener(this);
+        this.telaPrincipal.getFornecedorTxt().addActionListener(this);
     }
 
     private void atualizaTableModel(ArrayList<Funcionario> funcionarios) {
@@ -96,6 +144,17 @@ public class PrincipalGerenteController implements ActionListener{
         }else{
             FuncionarioTableModel funcionarioModel = new FuncionarioTableModel(funcionarios);
             this.telaPrincipal.getFuncionarioTable().setModel(funcionarioModel);
+        }
+    }
+
+    private void atualizaTableFornecedor(ArrayList<Fornecedor> fornecedores) {
+        if(fornecedores == null){
+            this.fornecedores = fornecedorDao.listar();
+            FornecedorTableModel fornecedorModel = new FornecedorTableModel(this.fornecedores);
+            this.telaPrincipal.getFornecedorTable().setModel(fornecedorModel);
+        }else{
+            FornecedorTableModel fornecedorModel = new FornecedorTableModel(fornecedores);
+            this.telaPrincipal.getFornecedorTable().setModel(fornecedorModel);
         }
     }
 } 
