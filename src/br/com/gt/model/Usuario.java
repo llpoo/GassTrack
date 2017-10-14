@@ -40,11 +40,13 @@ public class Usuario {
         this.senha = senha;
     }
 
-    public boolean isIsGerente() {
+    public boolean getIsIsGerente() {
         return isGerente;
     }
 
     public void setIsGerente(boolean isGerente) {
         this.isGerente = isGerente;
     }
+    
+    
 }
