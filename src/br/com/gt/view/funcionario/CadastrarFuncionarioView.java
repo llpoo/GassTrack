@@ -6,7 +6,7 @@
 package br.com.gt.view.funcionario;
 
 import br.com.gt.view.lookandfeel.JDialogLAF;
-//import com.toedter.calendar.JDateChooser;
+import com.toedter.calendar.JDateChooser;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JRadioButton;
@@ -143,13 +143,13 @@ public class CadastrarFuncionarioView extends JDialogLAF {
         this.telefoneTxt = telefoneTxt;
     }
 
-    /*public JDateChooser getDataAdmissaoCalendar() {
+    public JDateChooser getDataAdmissaoCalendar() {
         return dataAdmissaoCalendar;
     }
 
     public void setDataAdmissaoCalendar(JDateChooser dataAdmissaoCalendar) {
         this.dataAdmissaoCalendar = dataAdmissaoCalendar;
-    }*/
+    }
     
     
 
@@ -202,6 +202,7 @@ public class CadastrarFuncionarioView extends JDialogLAF {
         jLabel6 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
         jLabel14 = new javax.swing.JLabel();
+        dataAdmissaoCalendar = new com.toedter.calendar.JDateChooser();
 
         jLabel15.setText("jLabel15");
 
@@ -338,6 +339,8 @@ public class CadastrarFuncionarioView extends JDialogLAF {
         jLabel14.setForeground(new java.awt.Color(255, 255, 255));
         jLabel14.setText("ENDEREÇO");
 
+        dataAdmissaoCalendar.setBackground(new java.awt.Color(51, 51, 51));
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -383,7 +386,6 @@ public class CadastrarFuncionarioView extends JDialogLAF {
                                 .addComponent(emailTxt)
                                 .addComponent(cpfTxt)
                                 .addComponent(rgTxt, javax.swing.GroupLayout.PREFERRED_SIZE, 313, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(telefoneTxt, javax.swing.GroupLayout.PREFERRED_SIZE, 172, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addComponent(radioMasculino)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -399,7 +401,10 @@ public class CadastrarFuncionarioView extends JDialogLAF {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(jLabel13)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(numeroTxt, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                                .addComponent(numeroTxt, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                .addComponent(dataAdmissaoCalendar, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(telefoneTxt, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 172, Short.MAX_VALUE)))))
                 .addContainerGap(20, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
@@ -433,8 +438,10 @@ public class CadastrarFuncionarioView extends JDialogLAF {
                     .addComponent(radioMasculino)
                     .addComponent(radioFeminino))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jLabel7)
-                .addGap(13, 13, 13)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel7)
+                    .addComponent(dataAdmissaoCalendar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(7, 7, 7)
                 .addComponent(jLabel14)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -563,6 +570,7 @@ public class CadastrarFuncionarioView extends JDialogLAF {
     private javax.swing.JTextField cepTxt;
     private javax.swing.JTextField cidadeTxt;
     private javax.swing.JTextField cpfTxt;
+    private com.toedter.calendar.JDateChooser dataAdmissaoCalendar;
     private javax.swing.JTextField emailTxt;
     private javax.swing.JComboBox<String> estadoComboBox;
     private javax.swing.JLabel jLabel1;

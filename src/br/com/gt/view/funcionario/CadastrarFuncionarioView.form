@@ -106,7 +106,6 @@
                                   <Component id="cpfTxt" alignment="0" max="32767" attributes="0"/>
                                   <Component id="rgTxt" alignment="0" min="-2" pref="313" max="-2" attributes="0"/>
                               </Group>
-                              <Component id="telefoneTxt" min="-2" pref="172" max="-2" attributes="0"/>
                               <Group type="102" attributes="0">
                                   <Component id="radioMasculino" min="-2" max="-2" attributes="0"/>
                                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
@@ -125,6 +124,10 @@
                                   <Component id="jLabel13" min="-2" max="-2" attributes="0"/>
                                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
                                   <Component id="numeroTxt" min="-2" pref="49" max="-2" attributes="0"/>
+                              </Group>
+                              <Group type="103" alignment="0" groupAlignment="1" max="-2" attributes="0">
+                                  <Component id="dataAdmissaoCalendar" alignment="0" max="32767" attributes="0"/>
+                                  <Component id="telefoneTxt" alignment="0" pref="172" max="32767" attributes="0"/>
                               </Group>
                           </Group>
                       </Group>
@@ -170,8 +173,11 @@
                       <Component id="radioFeminino" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                  <Component id="jLabel7" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace min="-2" pref="13" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="0" attributes="0">
+                      <Component id="jLabel7" min="-2" max="-2" attributes="0"/>
+                      <Component id="dataAdmissaoCalendar" min="-2" max="-2" attributes="0"/>
+                  </Group>
+                  <EmptySpace min="-2" pref="7" max="-2" attributes="0"/>
                   <Component id="jLabel14" min="-2" max="-2" attributes="0"/>
                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
@@ -486,6 +492,13 @@
               <Color blue="ff" green="ff" red="ff" type="rgb"/>
             </Property>
             <Property name="text" type="java.lang.String" value="ENDERE&#xc7;O"/>
+          </Properties>
+        </Component>
+        <Component class="com.toedter.calendar.JDateChooser" name="dataAdmissaoCalendar">
+          <Properties>
+            <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+              <Color blue="33" green="33" red="33" type="rgb"/>
+            </Property>
           </Properties>
         </Component>
       </SubComponents>
