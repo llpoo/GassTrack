@@ -6,15 +6,19 @@ package br.com.gt.controller;
  * and open the template in the editor.
  */
 
+import br.com.gt.dao.ClienteDAO;
 import br.com.gt.dao.FornecedorDAO;
 import br.com.gt.dao.FuncionarioDAO;
 import br.com.gt.model.Fornecedor;
 import br.com.gt.model.Funcionario;
+import br.com.gt.model.PessoaFisica;
 import br.com.gt.view.principal.PrincipalGerenteView;
+import br.com.gt.view.principal.util.ClienteTableModel;
 import br.com.gt.view.principal.util.FornecedorTableModel;
 import br.com.gt.view.principal.util.FuncionarioTableModel;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseEvent;
 import java.sql.Connection;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
@@ -30,6 +34,8 @@ public class PrincipalGerenteController implements ActionListener{
     private FuncionarioDAO funcionarioDao;
     private ArrayList<Fornecedor> fornecedores;
     private FornecedorDAO fornecedorDao;
+    private ClienteDAO clienteDao;
+    private ArrayList<PessoaFisica> clientes;
     Connection connection;
     
     public PrincipalGerenteController(Connection con) {
@@ -38,10 +44,13 @@ public class PrincipalGerenteController implements ActionListener{
         adicionaEventos();
         
         this.funcionarioDao = new FuncionarioDAO(this.connection);
-        atualizaTableModel(null);
+        atualizaTableFuncionario(null);
         
         this.fornecedorDao = new FornecedorDAO(this.connection);
         atualizaTableFornecedor(null);
+        
+        this.clienteDao = new ClienteDAO(this.connection);
+        atualizaTableCliente(null);
         
         telaPrincipal.setVisible(true);
     }
@@ -54,14 +63,13 @@ public class PrincipalGerenteController implements ActionListener{
         
         if(evento.getSource().equals(this.telaPrincipal.getFuncionarios_novoBtn())){
             Funcionario funcionario = new Funcionario();
-            CadastrarFuncionarioController cadastrarController = new CadastrarFuncionarioController(this.connection,funcionario);
-            this.funcionarios.add(funcionario);
-            atualizaTableModel(null);
+            CadastrarFuncionarioController cadastrarController = new CadastrarFuncionarioController(this.connection);
+            atualizaTableFuncionario(null);
         }
         
         if(evento.getSource().equals(this.telaPrincipal.getAlterarFuncionarioBtn())){
             AlterarFuncionarioController alterarController = new AlterarFuncionarioController(this.connection, this.funcionarios.get(this.telaPrincipal.getFuncionarioTable().getSelectedRow()));
-            atualizaTableModel(null);
+            atualizaTableFuncionario(null);
         }
         
         if(evento.getSource().equals(this.telaPrincipal.getExcluirFuncionarioBtn())){
@@ -71,7 +79,7 @@ public class PrincipalGerenteController implements ActionListener{
                     == JOptionPane.YES_OPTION){
                 this.funcionarioDao.excluir(this.funcionarios.get(index));
                 this.funcionarios.remove(index);
-                atualizaTableModel(null);
+                atualizaTableFuncionario(null);
             }
         }
         
@@ -79,11 +87,16 @@ public class PrincipalGerenteController implements ActionListener{
            evento.getSource().equals(this.telaPrincipal.getFuncionarios_funcionarioTxt())){
             String nomeFuncionario = this.telaPrincipal.getFuncionarios_funcionarioTxt().getText();
             if(nomeFuncionario.length() == 0){
-                atualizaTableModel(null);
+                atualizaTableFuncionario(null);
             }else{
                 this.funcionarios = funcionarioDao.pesquisar(nomeFuncionario);
-                atualizaTableModel(this.funcionarios);
+                atualizaTableFuncionario(this.funcionarios);
             }
+        }
+        
+        if(evento.getSource().equals(this.telaPrincipal.getMostrarFuncionarioBtn())){
+            int index = this.telaPrincipal.getFuncionarioTable().getSelectedRow();
+            MostrarFuncionarioController mostrarFuncionarioController = new MostrarFuncionarioController(this.connection,this.funcionarios.get(index));
         }
         
         if(evento.getSource().equals(this.telaPrincipal.getNovoFornecedorBtn())){
@@ -119,6 +132,35 @@ public class PrincipalGerenteController implements ActionListener{
                 atualizaTableFornecedor(this.fornecedores);
             }
         }
+        
+        
+        
+        if(evento.getSource().equals(this.telaPrincipal.getClientes_novoBtn())){
+            CadastrarClienteController cadastrarClienteController = new CadastrarClienteController(this.connection);
+            atualizaTableCliente(null);
+        }
+        
+        if(evento.getSource().equals(this.telaPrincipal.getAlterarClienteBtn())){
+            int index = this.telaPrincipal.getClienteTable().getSelectedRow();
+            AlterarClienteController alterarClienteController = new AlterarClienteController(this.connection, this.clientes.get(index));
+            atualizaTableCliente(null);
+        }
+        
+        if(evento.getSource().equals(this.telaPrincipal.getMostrarClienteBtn())){
+            int index = this.telaPrincipal.getClienteTable().getSelectedRow();
+            MostrarClienteController MostrarClienteController = new MostrarClienteController(this.connection, this.clientes.get(index));
+        }
+        
+        if(evento.getSource().equals(this.telaPrincipal.getExcluirClienteBtn())){
+            int index = this.telaPrincipal.getClienteTable().getSelectedRow();
+            if (JOptionPane.showConfirmDialog(null, "Deseja excluir o registro do cliente "+
+                    this.clientes.get(index).getNome()+"?", null, JOptionPane.YES_NO_OPTION) 
+                    == JOptionPane.YES_OPTION){
+                this.clienteDao.excluir(this.clientes.get(index));
+                this.clientes.remove(index);
+                atualizaTableCliente(null);
+            }
+        }
     }
     
     private void adicionaEventos(){
@@ -128,15 +170,21 @@ public class PrincipalGerenteController implements ActionListener{
         this.telaPrincipal.getExcluirFuncionarioBtn().addActionListener(this);
         this.telaPrincipal.getFuncionarios_BuscaBtn().addActionListener(this);
         this.telaPrincipal.getFuncionarios_funcionarioTxt().addActionListener(this);
+        this.telaPrincipal.getMostrarFuncionarioBtn().addActionListener(this);
         
         this.telaPrincipal.getNovoFornecedorBtn().addActionListener(this);
         this.telaPrincipal.getAlterarFornecedorBtn().addActionListener(this);
         this.telaPrincipal.getExcluirFornecedorBtn().addActionListener(this);
         this.telaPrincipal.getFornecedorBuscaBtn().addActionListener(this);
         this.telaPrincipal.getFornecedorTxt().addActionListener(this);
+        
+        this.telaPrincipal.getClientes_novoBtn().addActionListener(this);
+        this.telaPrincipal.getAlterarClienteBtn().addActionListener(this);
+        this.telaPrincipal.getMostrarClienteBtn().addActionListener(this);
+        this.telaPrincipal.getExcluirClienteBtn().addActionListener(this);
     }
 
-    private void atualizaTableModel(ArrayList<Funcionario> funcionarios) {
+    private void atualizaTableFuncionario(ArrayList<Funcionario> funcionarios) {
         if(funcionarios == null){
             this.funcionarios = funcionarioDao.listar();
             FuncionarioTableModel funcionarioModel = new FuncionarioTableModel(this.funcionarios);
@@ -155,6 +203,17 @@ public class PrincipalGerenteController implements ActionListener{
         }else{
             FornecedorTableModel fornecedorModel = new FornecedorTableModel(fornecedores);
             this.telaPrincipal.getFornecedorTable().setModel(fornecedorModel);
+        }
+    }
+
+    private void atualizaTableCliente(ArrayList<PessoaFisica> clientes) {
+        if(clientes == null){
+            this.clientes = clienteDao.listar();
+            ClienteTableModel clienteModel = new ClienteTableModel(this.clientes);
+            this.telaPrincipal.getClienteTable().setModel(clienteModel);
+        }else{
+            ClienteTableModel clienteModel = new ClienteTableModel(clientes);
+            this.telaPrincipal.getClienteTable().setModel(clienteModel);
         }
     }
 } 
