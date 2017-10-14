@@ -5,11 +5,73 @@
  */
 package br.com.gt.view.material;
 
+import javax.swing.JButton;
+import javax.swing.JCheckBox;
+import javax.swing.JTextField;
+
 /**
  *
  * @author lucas
  */
 public class CadastrarMaterialView extends javax.swing.JDialog {
+
+    public JButton getCancelarBtn() {
+        return cancelarBtn;
+    }
+
+    public void setCancelarBtn(JButton cancelarBtn) {
+        this.cancelarBtn = cancelarBtn;
+    }
+
+    public JTextField getEstoqueMinimoTxt() {
+        return estoqueMinimoTxt;
+    }
+
+    public void setEstoqueMinimoTxt(JTextField estoqueMinimoTxt) {
+        this.estoqueMinimoTxt = estoqueMinimoTxt;
+    }
+
+    public JCheckBox getIsAcessorioCheckBox() {
+        return isAcessorioCheckBox;
+    }
+
+    public void setIsAcessorioCheckBox(JCheckBox isAcessorioCheckBox) {
+        this.isAcessorioCheckBox = isAcessorioCheckBox;
+    }
+
+    public JTextField getNomeTxt() {
+        return nomeTxt;
+    }
+
+    public void setNomeTxt(JTextField nomeTxt) {
+        this.nomeTxt = nomeTxt;
+    }
+
+    public JTextField getPrecoUnitarioTxt() {
+        return precoUnitarioTxt;
+    }
+
+    public void setPrecoUnitarioTxt(JTextField precoUnitarioTxt) {
+        this.precoUnitarioTxt = precoUnitarioTxt;
+    }
+
+    public JTextField getQtdeAtualTxt() {
+        return qtdeAtualTxt;
+    }
+
+    public void setQtdeAtualTxt(JTextField qtdeAtualTxt) {
+        this.qtdeAtualTxt = qtdeAtualTxt;
+    }
+
+    public JButton getSalvarBtn() {
+        return salvarBtn;
+    }
+
+    public void setSalvarBtn(JButton salvarBtn) {
+        this.salvarBtn = salvarBtn;
+    }
+    
+    
 
     /**
      * Creates new form MaterialCadastroView
@@ -31,18 +93,17 @@ public class CadastrarMaterialView extends javax.swing.JDialog {
         jPanel1 = new javax.swing.JPanel();
         jPanel4 = new javax.swing.JPanel();
         jLabel17 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
-        jTextField1 = new javax.swing.JTextField();
+        cancelarBtn = new javax.swing.JButton();
+        nomeTxt = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        jTextField2 = new javax.swing.JTextField();
+        qtdeAtualTxt = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
-        jTextField3 = new javax.swing.JTextField();
+        estoqueMinimoTxt = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
-        jTextField4 = new javax.swing.JTextField();
-        jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
-        jCheckBox1 = new javax.swing.JCheckBox();
+        precoUnitarioTxt = new javax.swing.JTextField();
+        salvarBtn = new javax.swing.JButton();
+        isAcessorioCheckBox = new javax.swing.JCheckBox();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -53,7 +114,7 @@ public class CadastrarMaterialView extends javax.swing.JDialog {
         jLabel17.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
         jLabel17.setForeground(new java.awt.Color(255, 255, 153));
         jLabel17.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/gt/view/imagens/novoFuncionario.png"))); // NOI18N
-        jLabel17.setText("Novo Material");
+        jLabel17.setText("Cadastrar Material");
         jLabel17.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
         jLabel17.setInheritsPopupMenu(false);
         jLabel17.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
@@ -64,7 +125,7 @@ public class CadastrarMaterialView extends javax.swing.JDialog {
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addGap(32, 32, 32)
-                .addComponent(jLabel17, javax.swing.GroupLayout.PREFERRED_SIZE, 187, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jLabel17, javax.swing.GroupLayout.PREFERRED_SIZE, 237, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel4Layout.setVerticalGroup(
@@ -74,11 +135,16 @@ public class CadastrarMaterialView extends javax.swing.JDialog {
                 .addComponent(jLabel17, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
-        jButton1.setText("Cancelar");
-
-        jTextField1.addActionListener(new java.awt.event.ActionListener() {
+        cancelarBtn.setText("Cancelar");
+        cancelarBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField1ActionPerformed(evt);
+                cancelarBtnActionPerformed(evt);
+            }
+        });
+
+        nomeTxt.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                nomeTxtActionPerformed(evt);
             }
         });
 
@@ -88,43 +154,36 @@ public class CadastrarMaterialView extends javax.swing.JDialog {
         jLabel2.setForeground(new java.awt.Color(255, 255, 255));
         jLabel2.setText("Quantidade Atual");
 
-        jTextField2.addActionListener(new java.awt.event.ActionListener() {
+        qtdeAtualTxt.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField2ActionPerformed(evt);
+                qtdeAtualTxtActionPerformed(evt);
             }
         });
 
         jLabel3.setForeground(new java.awt.Color(255, 255, 255));
         jLabel3.setText("Estoque Mínimo");
 
-        jTextField3.addActionListener(new java.awt.event.ActionListener() {
+        estoqueMinimoTxt.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField3ActionPerformed(evt);
+                estoqueMinimoTxtActionPerformed(evt);
             }
         });
 
         jLabel4.setForeground(new java.awt.Color(255, 255, 255));
         jLabel4.setText("Preço Unitário");
 
-        jTextField4.addActionListener(new java.awt.event.ActionListener() {
+        precoUnitarioTxt.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField4ActionPerformed(evt);
+                precoUnitarioTxtActionPerformed(evt);
             }
         });
 
-        jButton2.setText("Salvar");
+        salvarBtn.setText("Salvar");
 
-        jButton3.setText("Adicionar Material");
-        jButton3.addActionListener(new java.awt.event.ActionListener() {
+        isAcessorioCheckBox.setText("Acessório");
+        isAcessorioCheckBox.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton3ActionPerformed(evt);
-            }
-        });
-
-        jCheckBox1.setText("Acessório");
-        jCheckBox1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jCheckBox1ActionPerformed(evt);
+                isAcessorioCheckBoxActionPerformed(evt);
             }
         });
 
@@ -141,20 +200,18 @@ public class CadastrarMaterialView extends javax.swing.JDialog {
                     .addComponent(jLabel2)
                     .addComponent(jLabel4))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jButton3)
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                        .addGroup(jPanel1Layout.createSequentialGroup()
-                            .addComponent(jButton2)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                            .addComponent(jButton1))
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 313, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                .addComponent(jTextField4, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 83, Short.MAX_VALUE)
-                                .addComponent(jTextField3, javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(jTextField2, javax.swing.GroupLayout.Alignment.LEADING))
-                            .addComponent(jCheckBox1))))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(salvarBtn)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(cancelarBtn))
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(nomeTxt, javax.swing.GroupLayout.PREFERRED_SIZE, 313, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(precoUnitarioTxt, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 83, Short.MAX_VALUE)
+                            .addComponent(estoqueMinimoTxt, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(qtdeAtualTxt, javax.swing.GroupLayout.Alignment.LEADING))
+                        .addComponent(isAcessorioCheckBox)))
                 .addGap(0, 36, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
@@ -165,27 +222,25 @@ public class CadastrarMaterialView extends javax.swing.JDialog {
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(nomeTxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
-                    .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(qtdeAtualTxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
-                    .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(estoqueMinimoTxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
-                    .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(precoUnitarioTxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(16, 16, 16)
-                .addComponent(jCheckBox1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jButton3)
-                .addGap(29, 29, 29)
+                .addComponent(isAcessorioCheckBox)
+                .addGap(59, 59, 59)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton1)
-                    .addComponent(jButton2))
+                    .addComponent(cancelarBtn)
+                    .addComponent(salvarBtn))
                 .addContainerGap(32, Short.MAX_VALUE))
         );
 
@@ -205,29 +260,29 @@ public class CadastrarMaterialView extends javax.swing.JDialog {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jTextField4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField4ActionPerformed
+    private void cancelarBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelarBtnActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField4ActionPerformed
+    }//GEN-LAST:event_cancelarBtnActionPerformed
 
-    private void jTextField3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField3ActionPerformed
+    private void nomeTxtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nomeTxtActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField3ActionPerformed
+    }//GEN-LAST:event_nomeTxtActionPerformed
 
-    private void jTextField2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField2ActionPerformed
+    private void qtdeAtualTxtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_qtdeAtualTxtActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField2ActionPerformed
+    }//GEN-LAST:event_qtdeAtualTxtActionPerformed
 
-    private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
+    private void estoqueMinimoTxtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_estoqueMinimoTxtActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField1ActionPerformed
+    }//GEN-LAST:event_estoqueMinimoTxtActionPerformed
 
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+    private void precoUnitarioTxtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_precoUnitarioTxtActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton3ActionPerformed
+    }//GEN-LAST:event_precoUnitarioTxtActionPerformed
 
-    private void jCheckBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBox1ActionPerformed
+    private void isAcessorioCheckBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_isAcessorioCheckBoxActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jCheckBox1ActionPerformed
+    }//GEN-LAST:event_isAcessorioCheckBoxActionPerformed
 
     /**
      * @param args the command line arguments
@@ -273,10 +328,9 @@ public class CadastrarMaterialView extends javax.swing.JDialog {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
-    private javax.swing.JCheckBox jCheckBox1;
+    private javax.swing.JButton cancelarBtn;
+    private javax.swing.JTextField estoqueMinimoTxt;
+    private javax.swing.JCheckBox isAcessorioCheckBox;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel2;
@@ -284,9 +338,9 @@ public class CadastrarMaterialView extends javax.swing.JDialog {
     private javax.swing.JLabel jLabel4;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel4;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
-    private javax.swing.JTextField jTextField3;
-    private javax.swing.JTextField jTextField4;
+    private javax.swing.JTextField nomeTxt;
+    private javax.swing.JTextField precoUnitarioTxt;
+    private javax.swing.JTextField qtdeAtualTxt;
+    private javax.swing.JButton salvarBtn;
     // End of variables declaration//GEN-END:variables
 }

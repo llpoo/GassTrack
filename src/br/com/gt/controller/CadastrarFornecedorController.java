@@ -5,6 +5,7 @@
  */
 package br.com.gt.controller;
 
+import br.com.gt.dao.FornecedorDAO;
 import br.com.gt.model.Endereco;
 import br.com.gt.model.Fornecedor;
 import br.com.gt.view.fornecedor.CadastrarFornecedorView;
@@ -51,6 +52,9 @@ public class CadastrarFornecedorController implements ActionListener{
             endereco.setRua(this.telaCadastro.getRuaTxt().getText());
             
             this.fornecedor.setEndereco(endereco);
+            
+            FornecedorDAO fornDao = new FornecedorDAO(this.connection);
+            fornDao.inserir(this.fornecedor);
             
             this.telaCadastro.setVisible(false);
             this.telaCadastro.dispose();

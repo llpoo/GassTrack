@@ -101,13 +101,13 @@ public class PrincipalGerenteController implements ActionListener{
         
         if(evento.getSource().equals(this.telaPrincipal.getNovoFornecedorBtn())){
             Fornecedor fornecedor = new Fornecedor();
-            CadastrarFornecedorController cadastrarController = new CadastrarFornecedorController(this.connection,fornecedor);
+            CadastrarFornecedorController cadastrarControllerFornecedor = new CadastrarFornecedorController(this.connection,fornecedor);
             this.fornecedores.add(fornecedor);
             atualizaTableFornecedor(null);
         }
         
         if(evento.getSource().equals(this.telaPrincipal.getAlterarFornecedorBtn())){
-            AlterarFornecedorController alterarController = new AlterarFornecedorController(this.connection, this.fornecedores.get(this.telaPrincipal.getFornecedorTable().getSelectedRow()));
+            AlterarFornecedorController alterarControllerFornecedor = new AlterarFornecedorController(this.connection, this.fornecedores.get(this.telaPrincipal.getFornecedorTable().getSelectedRow()));
             atualizaTableFornecedor(null);
         }
         
