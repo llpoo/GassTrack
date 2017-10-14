@@ -49,8 +49,25 @@ public class UsuarioDAO implements DAO<Usuario>{
     }
 
     @Override
-    public void alterar(Usuario objeto) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public void alterar(Usuario usuario) {
+        String sql = "update usuario set usuario = ?, senha = ?, isgerente = ? where id = ?";
+        
+        PreparedStatement pst;
+        
+        try {
+            pst = connection.prepareStatement(sql);
+            
+            pst.setString(1, usuario.getUsuario());
+            pst.setString(2, usuario.getSenha());
+            pst.setBoolean(3, false);
+            pst.setInt(4, usuario.getId());
+            
+            pst.execute();
+            pst.close();
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Não foi possível alterar o usuário");
+            Logger.getLogger(UsuarioDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     @Override
@@ -92,7 +109,7 @@ public class UsuarioDAO implements DAO<Usuario>{
 
     @Override
     public Usuario buscar(Usuario usuario) {
-        String sql = "SELECT * FROM usuario WHERE usuario like ?";
+        String sql = "SELECT * FROM usuario WHERE usuario like ? and senha like ?";
         
         Usuario u = new Usuario();
         
@@ -102,7 +119,8 @@ public class UsuarioDAO implements DAO<Usuario>{
         try {
             pst = connection.prepareStatement(sql);
             
-            pst.setString(1, usuario.getSenha());
+            pst.setString(1, usuario.getUsuario());
+            pst.setString(2, usuario.getSenha());
             
             rs = pst.executeQuery();
             

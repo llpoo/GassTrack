@@ -54,8 +54,30 @@ public class EnderecoDAO implements DAO<Endereco>{
     }
 
     @Override
-    public void alterar(Endereco objeto) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public void alterar(Endereco endereco) {
+        String sql = "update endereco set cep = ?, cidade= ?, estado= ?, numero= ?, rua= ?, bairro = ? where id = ?";
+        
+        PreparedStatement pst;
+        
+        Endereco e = this.buscar(endereco);
+        
+        try {
+            pst = connection.prepareStatement(sql);
+            
+            pst.setString(1, endereco.getCep());
+            pst.setString(2, endereco.getCidade());
+            pst.setString(3, endereco.getEstado());
+            pst.setString(4, endereco.getNumero());
+            pst.setString(5, endereco.getRua());
+            pst.setString(6, endereco.getBairro());
+            pst.setInt(7, endereco.getId());
+            
+            pst.execute();
+            pst.close();
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Não foi possível alterar o endereço");
+            Logger.getLogger(EnderecoDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     @Override
