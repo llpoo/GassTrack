@@ -14,7 +14,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.Connection;
 import java.util.ArrayList;
-import javax.swing.JOptionPane;
 
 /**
  *
@@ -24,7 +23,6 @@ public class PrincipalGerenteController implements ActionListener{
 
     private PrincipalGerenteView telaPrincipal;
     private ArrayList<Funcionario> funcionarios;
-    FuncionarioTableModel funcionarioModel;
     private FuncionarioDAO funcionarioDao;
     Connection connection;
     
@@ -32,7 +30,14 @@ public class PrincipalGerenteController implements ActionListener{
         this.connection = con;
         telaPrincipal = new PrincipalGerenteView();
         adicionaEventos();
-        listarFuncionarios();
+        
+        //Lista todos os funcionários
+        this.funcionarioDao = new FuncionarioDAO(this.connection);
+        this.funcionarios = funcionarioDao.listar();
+        
+        atualizaTableModel(this.funcionarios);
+        //----------->
+        
         telaPrincipal.setVisible(true);
     }
     
@@ -42,26 +47,28 @@ public class PrincipalGerenteController implements ActionListener{
             this.telaPrincipal.dispose();
         }
         
-        if(evento.getSource().equals(this.telaPrincipal.getVendedores_novoBtn())){
+        if(evento.getSource().equals(this.telaPrincipal.getFuncionarios_novoBtn())){
             Funcionario funcionario = new Funcionario();
-            CadastrarVendedorController cadastrarController = new CadastrarVendedorController(this.connection,funcionario);
+            CadastrarFuncionarioController cadastrarController = new CadastrarFuncionarioController(this.connection,funcionario);
             this.funcionarios.add(funcionario);
-            listarFuncionarios();
+            atualizaTableModel(this.funcionarios);
+        }
+        
+        if(evento.getSource().equals(this.telaPrincipal.getAlterarFuncionarioBtn())){
+            int index = this.telaPrincipal.getFuncionarioTable().getSelectedRow();
+            AlterarFuncionarioController alterarController = new AlterarFuncionarioController(this.connection, this.funcionarios.get(index), this.funcionarios, index);
+            atualizaTableModel(this.funcionarios);
         }
     }
     
     private void adicionaEventos(){
         this.telaPrincipal.getSairBtn().addActionListener(this);
-        this.telaPrincipal.getVendedores_novoBtn().addActionListener(this);
+        this.telaPrincipal.getFuncionarios_novoBtn().addActionListener(this);
+        this.telaPrincipal.getAlterarFuncionarioBtn().addActionListener(this);
     }
 
-    private void listarFuncionarios() {
-        this.funcionarioDao = new FuncionarioDAO(this.connection);
-        this.funcionarios = new ArrayList<>();
-        this.funcionarios = funcionarioDao.listar();
-        
-        funcionarioModel = new FuncionarioTableModel(this.funcionarios);
-        
+    private void atualizaTableModel(ArrayList<Funcionario> funcionarios) {
+        FuncionarioTableModel funcionarioModel = new FuncionarioTableModel(funcionarios);
         this.telaPrincipal.getFuncionarioTable().setModel(funcionarioModel);
     }
 } 

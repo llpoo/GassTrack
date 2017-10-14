@@ -44,7 +44,7 @@ public class LoginController implements ActionListener{
     private void verificaUsuario(String usuario, String senha){
         if(usuario.equals("func") && senha.equals("func")){
                 this.telaLogin.dispose();
-                PrincipalVendedorController controleVendas = new PrincipalVendedorController();
+                PrincipalFuncionarioController controleVendas = new PrincipalFuncionarioController();
             }else{
                 if(usuario.equals("admin") && senha.equals("admin")){
                     this.telaLogin.dispose();
