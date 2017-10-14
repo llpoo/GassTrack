@@ -54,6 +54,8 @@ public class AlterarUsuarioController implements ActionListener{
             funcionarioDAO.alterar(this.funcionario);
             
             this.funcionarios.set(index, this.funcionario);
+            
+            this.telaAlterar.dispose();
         }
     }
 

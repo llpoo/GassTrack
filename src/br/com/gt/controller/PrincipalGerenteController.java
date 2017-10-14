@@ -31,12 +31,8 @@ public class PrincipalGerenteController implements ActionListener{
         telaPrincipal = new PrincipalGerenteView();
         adicionaEventos();
         
-        //Lista todos os funcionários
         this.funcionarioDao = new FuncionarioDAO(this.connection);
-        this.funcionarios = funcionarioDao.listar();
-        
-        atualizaTableModel(this.funcionarios);
-        //----------->
+        atualizaTableModel();
         
         telaPrincipal.setVisible(true);
     }
@@ -51,13 +47,20 @@ public class PrincipalGerenteController implements ActionListener{
             Funcionario funcionario = new Funcionario();
             CadastrarFuncionarioController cadastrarController = new CadastrarFuncionarioController(this.connection,funcionario);
             this.funcionarios.add(funcionario);
-            atualizaTableModel(this.funcionarios);
+            atualizaTableModel();
         }
         
         if(evento.getSource().equals(this.telaPrincipal.getAlterarFuncionarioBtn())){
             int index = this.telaPrincipal.getFuncionarioTable().getSelectedRow();
             AlterarFuncionarioController alterarController = new AlterarFuncionarioController(this.connection, this.funcionarios.get(index), this.funcionarios, index);
-            atualizaTableModel(this.funcionarios);
+            atualizaTableModel();
+        }
+        
+        if(evento.getSource().equals(this.telaPrincipal.getExcluirFuncionarioBtn())){
+            int index = this.telaPrincipal.getFuncionarioTable().getSelectedRow();
+            this.funcionarioDao.excluir(this.funcionarios.get(index));
+            this.funcionarios.remove(index);
+            atualizaTableModel();
         }
     }
     
@@ -65,9 +68,11 @@ public class PrincipalGerenteController implements ActionListener{
         this.telaPrincipal.getSairBtn().addActionListener(this);
         this.telaPrincipal.getFuncionarios_novoBtn().addActionListener(this);
         this.telaPrincipal.getAlterarFuncionarioBtn().addActionListener(this);
+        this.telaPrincipal.getExcluirFuncionarioBtn().addActionListener(this);
     }
 
-    private void atualizaTableModel(ArrayList<Funcionario> funcionarios) {
+    private void atualizaTableModel() {
+        this.funcionarios = funcionarioDao.listar();
         FuncionarioTableModel funcionarioModel = new FuncionarioTableModel(funcionarios);
         this.telaPrincipal.getFuncionarioTable().setModel(funcionarioModel);
     }
