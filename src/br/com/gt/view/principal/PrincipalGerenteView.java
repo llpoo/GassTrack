@@ -501,6 +501,8 @@ public class PrincipalGerenteView extends JFrameLAF{
 
             }
         ));
+        funcionarioTable.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        funcionarioTable.getTableHeader().setReorderingAllowed(false);
         jScrollPane2.setViewportView(funcionarioTable);
 
         jLabel5.setForeground(new java.awt.Color(255, 255, 255));
