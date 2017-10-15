@@ -6,16 +6,16 @@ package br.com.gt.controller;
  * and open the template in the editor.
  */
 
-import br.com.gt.dao.AquisicaoDAO;
 import br.com.gt.dao.ClienteDAO;
 import br.com.gt.dao.FornecedorDAO;
 import br.com.gt.dao.FuncionarioDAO;
 import br.com.gt.dao.ItemDAO;
-import br.com.gt.model.Aquisicao;
 import br.com.gt.model.Fornecedor;
 import br.com.gt.model.Funcionario;
 import br.com.gt.model.Item;
 import br.com.gt.model.PessoaFisica;
+import br.com.gt.model.Usuario;
+import br.com.gt.view.acesso.login.LoginView;
 import br.com.gt.view.principal.PrincipalGerenteView;
 import br.com.gt.view.principal.util.AcessorioTableModel;
 import br.com.gt.view.principal.util.ClienteTableModel;
@@ -24,7 +24,6 @@ import br.com.gt.view.principal.util.FuncionarioTableModel;
 import br.com.gt.view.principal.util.MaterialTableModel;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.MouseEvent;
 import java.sql.Connection;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
@@ -46,9 +45,13 @@ public class PrincipalGerenteController implements ActionListener{
     private ArrayList<Item> materiais;
     private ArrayList<Item> acessorios;
     Connection connection;
+    Usuario usuario;
+    LoginView telaLogin;
     
-    public PrincipalGerenteController(Connection con) {
+    public PrincipalGerenteController(Connection con, Usuario u,LoginView tela) {
         this.connection = con;
+        this.usuario = u;
+        this.telaLogin = tela;
         telaPrincipal = new PrincipalGerenteView();
         adicionaEventos();
         
@@ -70,8 +73,23 @@ public class PrincipalGerenteController implements ActionListener{
     
     @Override
     public void actionPerformed(ActionEvent evento) {
+        if(evento.getSource().equals(this.telaPrincipal.getAlterarAcessoBtn())){
+            Usuario backupUsuario = new Usuario();
+            backupUsuario.setUsuario(this.usuario.getUsuario());
+            backupUsuario.setSenha(this.usuario.getSenha());
+            AlterarUsuarioController alterarUsuarioController = new AlterarUsuarioController(this.connection,this.usuario);
+            if(backupUsuario.getUsuario().equals(this.usuario.getUsuario()) == false || backupUsuario.getSenha().equals(this.usuario.getSenha()) == false){
+                this.telaPrincipal.dispose();
+                this.telaLogin.setVisible(true);
+            }
+        }
+        
         if(evento.getSource().equals(this.telaPrincipal.getSairBtn())){
-            this.telaPrincipal.dispose();
+            if (JOptionPane.showConfirmDialog(null, "Realmente deseja sair?", null, JOptionPane.YES_NO_OPTION) 
+                    == JOptionPane.YES_OPTION){
+                this.telaPrincipal.dispose();
+                this.telaLogin.setVisible(true);
+            }
         }
         
         if(evento.getSource().equals(this.telaPrincipal.getFuncionarios_novoBtn())){
@@ -270,6 +288,8 @@ public class PrincipalGerenteController implements ActionListener{
     }
     
     private void adicionaEventos(){
+        this.telaPrincipal.getAlterarAcessoBtn().addActionListener(this);
+        
         this.telaPrincipal.getSairBtn().addActionListener(this);
         this.telaPrincipal.getFuncionarios_novoBtn().addActionListener(this);
         this.telaPrincipal.getAlterarFuncionarioBtn().addActionListener(this);

@@ -21,6 +21,16 @@ import javax.swing.JTextField;
  */
 public class PrincipalGerenteView extends JFrameLAF{
 
+    public JButton getAlterarAcessoBtn() {
+        return alterarAcessoBtn;
+    }
+
+    public void setAlterarAcessoBtn(JButton alterarAcessoBtn) {
+        this.alterarAcessoBtn = alterarAcessoBtn;
+    }
+
+    
+    
     public JButton getAdicionarAcessorioBtn() {
         return adicionarAcessorioBtn;
     }
@@ -304,6 +314,8 @@ public class PrincipalGerenteView extends JFrameLAF{
         filtroVendaGroup = new javax.swing.ButtonGroup();
         jPanel5 = new javax.swing.JPanel();
         sairBtn = new javax.swing.JButton();
+        jLabel2 = new javax.swing.JLabel();
+        alterarAcessoBtn = new javax.swing.JButton();
         jTabbedPane1 = new javax.swing.JTabbedPane();
         dashboardPanel = new javax.swing.JPanel();
         jLabel28 = new javax.swing.JLabel();
@@ -396,7 +408,6 @@ public class PrincipalGerenteView extends JFrameLAF{
         alterarAcessorioBtn = new javax.swing.JButton();
         adicionarAcessorioBtn = new javax.swing.JButton();
         jSeparator1 = new javax.swing.JSeparator();
-        jLabel2 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
         setTitle("GlassTrack");
@@ -407,6 +418,18 @@ public class PrincipalGerenteView extends JFrameLAF{
         sairBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/gt/view/imagens/logout.png"))); // NOI18N
         sairBtn.setText("Sair");
         jPanel5.add(sairBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(1030, 10, -1, -1));
+
+        jLabel2.setFont(new java.awt.Font("Tahoma", 0, 13)); // NOI18N
+        jLabel2.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/gt/view/imagens/Gerente.png"))); // NOI18N
+        jLabel2.setText("Módulo do Gerente");
+        jLabel2.setToolTipText("");
+        jLabel2.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
+        jLabel2.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        jPanel5.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(860, 10, -1, -1));
+
+        alterarAcessoBtn.setText("Altera acesso");
+        jPanel5.add(alterarAcessoBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(860, 40, -1, -1));
 
         jTabbedPane1.setBackground(new java.awt.Color(51, 51, 51));
         jTabbedPane1.setTabLayoutPolicy(javax.swing.JTabbedPane.SCROLL_TAB_LAYOUT);
@@ -1022,15 +1045,6 @@ public class PrincipalGerenteView extends JFrameLAF{
 
         jPanel5.add(jTabbedPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 20, 1130, 620));
 
-        jLabel2.setFont(new java.awt.Font("Tahoma", 0, 13)); // NOI18N
-        jLabel2.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/gt/view/imagens/Gerente.png"))); // NOI18N
-        jLabel2.setText("Módulo do Gerente");
-        jLabel2.setToolTipText("");
-        jLabel2.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
-        jLabel2.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        jPanel5.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(860, 10, -1, -1));
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -1106,6 +1120,7 @@ public class PrincipalGerenteView extends JFrameLAF{
     private javax.swing.JCheckBox acessorio_baixaSelectBox;
     private javax.swing.JButton adicionarAcessorioBtn;
     private javax.swing.JButton adicionarMaterialBtn;
+    private javax.swing.JButton alterarAcessoBtn;
     private javax.swing.JButton alterarAcessorioBtn;
     private javax.swing.JButton alterarClienteBtn;
     private javax.swing.JButton alterarFornecedorBtn;

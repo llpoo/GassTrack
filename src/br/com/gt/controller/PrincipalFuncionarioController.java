@@ -8,6 +8,7 @@ package br.com.gt.controller;
 import br.com.gt.dao.FuncionarioDAO;
 import br.com.gt.model.Funcionario;
 import br.com.gt.model.Usuario;
+import br.com.gt.view.acesso.login.LoginView;
 import br.com.gt.view.principal.PrincipalFuncionarioView;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -24,17 +25,19 @@ public class PrincipalFuncionarioController implements ActionListener{
     Connection connection;
     Funcionario funcionario;
     FuncionarioDAO funcionarioDAO;
+    LoginView telaLogin;
     
-    public PrincipalFuncionarioController(Connection con, Usuario u) {
+    public PrincipalFuncionarioController(Connection con, Usuario u, LoginView tela) {
         this.connection = con;
+        this.telaLogin = tela;
         this.funcionarioDAO = new FuncionarioDAO(this.connection);
         this.funcionario = new Funcionario();
         this.funcionario.setUsuario(u);
         this.funcionario = funcionarioDAO.buscar(funcionario);
         telaPrincipal = new PrincipalFuncionarioView();
         adicionaEventos();
+        this.telaPrincipal.getInfoUsuarioLabel().setText("Logado como "+this.funcionario.getNome().substring(0, this.funcionario.getNome().lastIndexOf(" ")));
         telaPrincipal.setVisible(true);
-        JOptionPane.showMessageDialog(null, this.funcionario.getNome());
     }
     
     private void adicionaEventos(){
@@ -44,7 +47,11 @@ public class PrincipalFuncionarioController implements ActionListener{
     @Override
     public void actionPerformed(ActionEvent e) {
         if(e.getSource().equals(this.telaPrincipal.getSairBtn())){
-            this.telaPrincipal.dispose();
+            if (JOptionPane.showConfirmDialog(null, "Realmente deseja sair?", null, JOptionPane.YES_NO_OPTION) 
+                    == JOptionPane.YES_OPTION){
+                this.telaPrincipal.dispose();
+                this.telaLogin.setVisible(true);
+            }
         }
     }
     

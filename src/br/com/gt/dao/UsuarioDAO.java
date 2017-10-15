@@ -57,13 +57,17 @@ public class UsuarioDAO implements DAO<Usuario>{
         try {
             pst = connection.prepareStatement(sql);
             
+            
             pst.setString(1, usuario.getUsuario());
             pst.setString(2, usuario.getSenha());
-            pst.setBoolean(3, false);
+            pst.setBoolean(3, usuario.getIsIsGerente());
             pst.setInt(4, usuario.getId());
             
             pst.execute();
             pst.close();
+            if(usuario.getIsIsGerente() == true){
+                JOptionPane.showMessageDialog(null, "Alteração efetuada com sucesso");
+            }
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Não foi possível alterar o usuário");
             Logger.getLogger(UsuarioDAO.class.getName()).log(Level.SEVERE, null, ex);

@@ -43,11 +43,11 @@ public class LoginController implements ActionListener{
             
             
            if(this.usuario.getId() > 0){
-               this.telaLogin.dispose();
+               this.telaLogin.setVisible(false);
                 if(this.usuario.getIsIsGerente() == true){
-                    PrincipalGerenteController principalGerenteController = new PrincipalGerenteController(this.connection);
+                    PrincipalGerenteController principalGerenteController = new PrincipalGerenteController(this.connection,this.usuario,this.telaLogin);
                 }else{
-                    PrincipalFuncionarioController principalFuncionarioController = new PrincipalFuncionarioController(this.connection,this.usuario);
+                    PrincipalFuncionarioController principalFuncionarioController = new PrincipalFuncionarioController(this.connection,this.usuario,this.telaLogin);
                 }
             }else{
                 JOptionPane.showMessageDialog(null, "Usuário e/ou senha incorreto(s)");

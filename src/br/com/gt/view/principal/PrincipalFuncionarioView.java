@@ -8,6 +8,7 @@ package br.com.gt.view.principal;
 import br.com.gt.view.lookandfeel.JFrameLAF;
 import java.awt.Toolkit;
 import javax.swing.JButton;
+import javax.swing.JLabel;
 
 /**
  *
@@ -15,11 +16,19 @@ import javax.swing.JButton;
  */
 public class PrincipalFuncionarioView extends JFrameLAF {
 
+    
+    public JLabel getInfoUsuarioLabel(){
+        return infoUsuarioLabel;
+    }
+
     /**
      * Creates new form PrincipalFuncionarioView
      */
-    
-    public JButton getSairBtn(){
+    public void setInfoUsuarioLabel(JLabel infoUsuarioLabel) {
+        this.infoUsuarioLabel = infoUsuarioLabel;
+    }
+
+    public JButton getSairBtn() {
         return sairBtn;
     }
     
@@ -39,6 +48,7 @@ public class PrincipalFuncionarioView extends JFrameLAF {
         jPanel1 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
         sairBtn = new javax.swing.JButton();
+        infoUsuarioLabel = new javax.swing.JLabel();
         Guias1 = new javax.swing.JTabbedPane();
         AbrirVendaPanel1 = new javax.swing.JPanel();
         jLabel11 = new javax.swing.JLabel();
@@ -126,7 +136,7 @@ public class PrincipalFuncionarioView extends JFrameLAF {
         jLabel2.setToolTipText("");
         jLabel2.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
         jLabel2.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(860, 10, -1, -1));
+        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(870, 10, -1, -1));
 
         sairBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/gt/view/imagens/logout.png"))); // NOI18N
         sairBtn.setText("Sair");
@@ -137,6 +147,11 @@ public class PrincipalFuncionarioView extends JFrameLAF {
             }
         });
         jPanel1.add(sairBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(1030, 10, -1, -1));
+
+        infoUsuarioLabel.setBackground(new java.awt.Color(255, 255, 255));
+        infoUsuarioLabel.setForeground(new java.awt.Color(255, 255, 255));
+        infoUsuarioLabel.setText("jLabel1");
+        jPanel1.add(infoUsuarioLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(894, 40, 120, -1));
 
         Guias1.setBackground(new java.awt.Color(51, 51, 51));
         Guias1.setTabLayoutPolicy(javax.swing.JTabbedPane.SCROLL_TAB_LAYOUT);
@@ -168,7 +183,7 @@ public class PrincipalFuncionarioView extends JFrameLAF {
 
         jPanel5.setBackground(new java.awt.Color(51, 51, 51));
 
-        jComboBox3.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item", "Vidro 1", "Vidro 2", "Vidro 3" }));
+        jComboBox3.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Material", "Vidro 1", "Vidro 2", "Vidro 3" }));
 
         jButton7.setText("Excluir");
 
@@ -550,7 +565,7 @@ public class PrincipalFuncionarioView extends JFrameLAF {
                 {null, null, null}
             },
             new String [] {
-                "Item", "Quantidade", "Quantidade mínima"
+                "Material", "Quantidade", "Quantidade mínima"
             }
         ) {
             boolean[] canEdit = new boolean [] {
@@ -564,7 +579,7 @@ public class PrincipalFuncionarioView extends JFrameLAF {
         jScrollPane9.setViewportView(jTable6);
 
         jLabel41.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel41.setText("Item");
+        jLabel41.setText("Material");
 
         jButton17.setText("Pesquisar");
 
@@ -577,7 +592,7 @@ public class PrincipalFuncionarioView extends JFrameLAF {
         jCheckBox1.setText("Apenas acessórios em baixa");
 
         jCheckBox2.setForeground(new java.awt.Color(255, 255, 255));
-        jCheckBox2.setText("Apenas itens em baixa");
+        jCheckBox2.setText("Apenas materiais em baixa");
 
         javax.swing.GroupLayout PanelEstoque1Layout = new javax.swing.GroupLayout(PanelEstoque1);
         PanelEstoque1.setLayout(PanelEstoque1Layout);
@@ -745,6 +760,7 @@ public class PrincipalFuncionarioView extends JFrameLAF {
     private javax.swing.JTabbedPane Guias1;
     private javax.swing.JPanel PanelEstoque;
     private javax.swing.JPanel PanelEstoque1;
+    private javax.swing.JLabel infoUsuarioLabel;
     private javax.swing.JButton jButton11;
     private javax.swing.JButton jButton12;
     private javax.swing.JButton jButton13;
