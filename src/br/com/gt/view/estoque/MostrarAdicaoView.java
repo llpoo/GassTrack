@@ -93,7 +93,7 @@ public class MostrarAdicaoView extends javax.swing.JDialog {
         jLabel1.setText("Data");
 
         jLabel2.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel2.setText("Material");
+        jLabel2.setText("Item");
 
         jLabel8.setForeground(new java.awt.Color(255, 255, 255));
         jLabel8.setText("Fornecedor");
@@ -109,7 +109,7 @@ public class MostrarAdicaoView extends javax.swing.JDialog {
         });
 
         jLabel7.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel7.setText("Quantidade de Material");
+        jLabel7.setText("Quantidade de Item");
 
         jTextField6.setEditable(false);
         jTextField6.addActionListener(new java.awt.event.ActionListener() {

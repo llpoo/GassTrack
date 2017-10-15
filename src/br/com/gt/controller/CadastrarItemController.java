@@ -5,8 +5,8 @@
  */
 package br.com.gt.controller;
 
-import br.com.gt.model.Material;
-import br.com.gt.view.material.CadastrarMaterialView;
+import br.com.gt.model.Item;
+import br.com.gt.view.item.CadastrarItemView;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.Connection;
@@ -15,16 +15,16 @@ import java.sql.Connection;
  *
  * @author Luciano Júnior
  */
-public class CadastrarMaterialController implements ActionListener{
+public class CadastrarItemController implements ActionListener{
     
     Connection connection;
-    CadastrarMaterialView telaCadastro;
-    Material material;
+    CadastrarItemView telaCadastro;
+    Item item;
     
-    public CadastrarMaterialController(Connection con, Material m) {
+    public CadastrarItemController(Connection con, Item i) {
         this.connection = con;
-        telaCadastro = new CadastrarMaterialView(null, true);
-        material = m;
+        telaCadastro = new CadastrarItemView(null, true);
+        item = i;
         adicionaEventos();
         telaCadastro.setVisible(true);
     }
@@ -36,11 +36,11 @@ public class CadastrarMaterialController implements ActionListener{
         }
         
         if(evento.getSource().equals(this.telaCadastro.getSalvarBtn())){
-            this.material.setNome(this.telaCadastro.getNomeTxt().getText());
-            this.material.setQuantidadeAtual(Integer.parseInt(this.telaCadastro.getQtdeAtualTxt().getText()));
-            this.material.setPrecoUnitario(Double.parseDouble(this.telaCadastro.getPrecoUnitarioTxt().getText()));
-            this.material.setIsAcessorio(this.telaCadastro.getIsAcessorioCheckBox().isSelected());
-            this.material.setEstoqueMinimo(Integer.parseInt(this.telaCadastro.getEstoqueMinimoTxt().getText()));
+            this.item.setNome(this.telaCadastro.getNomeTxt().getText());
+            this.item.setQuantidadeAtual(Integer.parseInt(this.telaCadastro.getQtdeAtualTxt().getText()));
+            this.item.setPrecoUnitario(Double.parseDouble(this.telaCadastro.getPrecoUnitarioTxt().getText()));
+            this.item.setIsAcessorio(this.telaCadastro.getIsAcessorioCheckBox().isSelected());
+            this.item.setEstoqueMinimo(Integer.parseInt(this.telaCadastro.getEstoqueMinimoTxt().getText()));
             
             this.telaCadastro.setVisible(false);
             this.telaCadastro.dispose();

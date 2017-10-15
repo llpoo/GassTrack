@@ -40,20 +40,20 @@ public class AlterarAdicaoView extends javax.swing.JDialog {
         this.fornecedorComboBox = fornecedorComboBox;
     }
 
-    public JComboBox<String> getMaterialComboBox() {
-        return materialComboBox;
+    public JComboBox<String> getItemComboBox() {
+        return itemComboBox;
     }
 
-    public void setMaterialComboBox(JComboBox<String> materialComboBox) {
-        this.materialComboBox = materialComboBox;
+    public void setItemComboBox(JComboBox<String> itemComboBox) {
+        this.itemComboBox = itemComboBox;
     }
 
-    public JTextField getQtdeMaterialTxt() {
-        return qtdeMaterialTxt;
+    public JTextField getQtdeItemTxt() {
+        return qtdeItemTxt;
     }
 
-    public void setQtdeMaterialTxt(JTextField qtdeMaterialTxt) {
-        this.qtdeMaterialTxt = qtdeMaterialTxt;
+    public void setQtdeItemTxt(JTextField qtdeItemTxt) {
+        this.qtdeItemTxt = qtdeItemTxt;
     }
 
     public JButton getSalvarBtn() {
@@ -108,11 +108,11 @@ public class AlterarAdicaoView extends javax.swing.JDialog {
         jLabel8 = new javax.swing.JLabel();
         fornecedorComboBox = new javax.swing.JComboBox<>();
         salvarBtn = new javax.swing.JButton();
-        materialComboBox = new javax.swing.JComboBox<>();
+        itemComboBox = new javax.swing.JComboBox<>();
         jLabel6 = new javax.swing.JLabel();
         valorUnitarioTxt = new javax.swing.JTextField();
         jLabel7 = new javax.swing.JLabel();
-        qtdeMaterialTxt = new javax.swing.JTextField();
+        qtdeItemTxt = new javax.swing.JTextField();
         jLabel9 = new javax.swing.JLabel();
         valorTotalTxt = new javax.swing.JTextField();
         dataCalendar = new com.toedter.calendar.JDateChooser();
@@ -153,7 +153,7 @@ public class AlterarAdicaoView extends javax.swing.JDialog {
         jLabel1.setText("Data");
 
         jLabel2.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel2.setText("Material");
+        jLabel2.setText("Item");
 
         jLabel8.setForeground(new java.awt.Color(255, 255, 255));
         jLabel8.setText("Fornecedor");
@@ -162,10 +162,10 @@ public class AlterarAdicaoView extends javax.swing.JDialog {
 
         salvarBtn.setText("Salvar");
 
-        materialComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        materialComboBox.addActionListener(new java.awt.event.ActionListener() {
+        itemComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        itemComboBox.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                materialComboBoxActionPerformed(evt);
+                itemComboBoxActionPerformed(evt);
             }
         });
 
@@ -179,11 +179,11 @@ public class AlterarAdicaoView extends javax.swing.JDialog {
         });
 
         jLabel7.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel7.setText("Quantidade de Material");
+        jLabel7.setText("Quantidade de Item");
 
-        qtdeMaterialTxt.addActionListener(new java.awt.event.ActionListener() {
+        qtdeItemTxt.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                qtdeMaterialTxtActionPerformed(evt);
+                qtdeItemTxtActionPerformed(evt);
             }
         });
 
@@ -226,13 +226,13 @@ public class AlterarAdicaoView extends javax.swing.JDialog {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                                     .addComponent(valorTotalTxt, javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(qtdeMaterialTxt, javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(qtdeItemTxt, javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(valorUnitarioTxt, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE)))
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGap(87, 87, 87)
                                 .addComponent(jLabel2)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(materialComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 143, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                .addComponent(itemComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 143, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(283, 283, 283)
                         .addComponent(salvarBtn)
@@ -252,7 +252,7 @@ public class AlterarAdicaoView extends javax.swing.JDialog {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
-                    .addComponent(materialComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(itemComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel6)
@@ -260,7 +260,7 @@ public class AlterarAdicaoView extends javax.swing.JDialog {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel7)
-                    .addComponent(qtdeMaterialTxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(qtdeItemTxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel9)
@@ -292,17 +292,17 @@ public class AlterarAdicaoView extends javax.swing.JDialog {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void materialComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_materialComboBoxActionPerformed
+    private void itemComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemComboBoxActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_materialComboBoxActionPerformed
+    }//GEN-LAST:event_itemComboBoxActionPerformed
 
     private void valorUnitarioTxtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_valorUnitarioTxtActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_valorUnitarioTxtActionPerformed
 
-    private void qtdeMaterialTxtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_qtdeMaterialTxtActionPerformed
+    private void qtdeItemTxtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_qtdeItemTxtActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_qtdeMaterialTxtActionPerformed
+    }//GEN-LAST:event_qtdeItemTxtActionPerformed
 
     private void valorTotalTxtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_valorTotalTxtActionPerformed
         // TODO add your handling code here:
@@ -364,8 +364,8 @@ public class AlterarAdicaoView extends javax.swing.JDialog {
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel4;
-    private javax.swing.JComboBox<String> materialComboBox;
-    private javax.swing.JTextField qtdeMaterialTxt;
+    private javax.swing.JComboBox<String> itemComboBox;
+    private javax.swing.JTextField qtdeItemTxt;
     private javax.swing.JButton salvarBtn;
     private javax.swing.JTextField valorTotalTxt;
     private javax.swing.JTextField valorUnitarioTxt;

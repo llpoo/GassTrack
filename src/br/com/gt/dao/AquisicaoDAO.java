@@ -7,7 +7,7 @@ package br.com.gt.dao;
 
 import br.com.gt.model.Aquisicao;
 import br.com.gt.model.Fornecedor;
-import br.com.gt.model.Material;
+import br.com.gt.model.Item;
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
@@ -33,7 +33,7 @@ public class AquisicaoDAO implements DAO<Aquisicao>{
     @Override
     public void inserir(Aquisicao aquisicao) {
         String sql = "insert into aquisicao (data, valoruitario, "
-                + "quantidadematerial, valortotal, fornecedor_id, material_id) "
+                + "quantidadeitem, valortotal, fornecedor_id, item_id) "
                 + "values (?,?,?,?,?,?)";
         
         PreparedStatement pst;
@@ -43,7 +43,7 @@ public class AquisicaoDAO implements DAO<Aquisicao>{
             
             pst.setDate(1, (Date) aquisicao.getData());
             pst.setDouble(2, aquisicao.getValorUitario());
-            pst.setInt(3, aquisicao.getQuantidadeMaterial());
+            pst.setInt(3, aquisicao.getQuantidadeItem());
             pst.setDouble(4, aquisicao.getValorTotal());
             
             Fornecedor fornecedor = new Fornecedor();
@@ -59,18 +59,18 @@ public class AquisicaoDAO implements DAO<Aquisicao>{
             
             pst.setInt(5, aquisicao.getFornecedor().getId());
             
-            Material material = new Material();
-            MaterialDAO materialDAO = new MaterialDAO(connection);
-            material = materialDAO.buscar(aquisicao.getMaterial());
+            Item item = new Item();
+            ItemDAO itemDAO = new ItemDAO(connection);
+            item = itemDAO.buscar(aquisicao.getItem());
             
-            if(material.getId() < 1){
-                materialDAO.inserir(aquisicao.getMaterial());
-                material = materialDAO.buscar(aquisicao.getMaterial());
+            if(item.getId() < 1){
+                itemDAO.inserir(aquisicao.getItem());
+                item = itemDAO.buscar(aquisicao.getItem());
             }
             
-            aquisicao.getMaterial().setId(material.getId());
+            aquisicao.getItem().setId(item.getId());
             
-            pst.setInt(6, aquisicao.getMaterial().getId());
+            pst.setInt(6, aquisicao.getItem().getId());
             
             pst.execute();
             pst.close();
@@ -84,21 +84,21 @@ public class AquisicaoDAO implements DAO<Aquisicao>{
     @Override
     public void alterar(Aquisicao aquisicao) {
         String sql = "update aquisicao set data=?, valoruitario=?, "
-                + "quantidadematerial=?, valortotal=? where id=?";
+                + "quantidadeitem=?, valortotal=? where id=?";
         PreparedStatement pst;
         
         try {
             pst = connection.prepareStatement(sql);
             pst.setDate(1, (Date) aquisicao.getData());
             pst.setDouble(2, aquisicao.getValorUitario());
-            pst.setInt(3, aquisicao.getQuantidadeMaterial());
+            pst.setInt(3, aquisicao.getQuantidadeItem());
             pst.setDouble(4, aquisicao.getValorTotal());  
             
             FornecedorDAO fornecedorDAO = new FornecedorDAO(connection);
             fornecedorDAO.alterar(aquisicao.getFornecedor());
             
-            MaterialDAO materialDAO = new MaterialDAO(connection);
-            materialDAO.alterar(aquisicao.getMaterial());
+            ItemDAO itemDAO = new ItemDAO(connection);
+            itemDAO.alterar(aquisicao.getItem());
             
             pst.setInt(5,aquisicao.getId());
             
@@ -144,14 +144,14 @@ public class AquisicaoDAO implements DAO<Aquisicao>{
             pst= connection.prepareStatement(sql);
             ResultSet rs = pst.executeQuery();
             FornecedorDAO fornecedorDAO = new FornecedorDAO(connection);
-            MaterialDAO materialDAO = new MaterialDAO(connection);
+            ItemDAO itemDAO = new ItemDAO(connection);
 		    
            while(rs.next()){		 	
                 Aquisicao aquisicao = new Aquisicao();
                 aquisicao.setId(rs.getInt("id"));
                 aquisicao.setData(rs.getDate("data"));
                 aquisicao.setValorUitario(rs.getDouble("valoruitario"));
-                aquisicao.setQuantidadeMaterial(rs.getInt("quantidadematerial"));
+                aquisicao.setQuantidadeItem(rs.getInt("quantidadeitem"));
                 aquisicao.setValorTotal(rs.getDouble("valortotal"));
 		
                 Fornecedor f =new Fornecedor();
@@ -159,10 +159,10 @@ public class AquisicaoDAO implements DAO<Aquisicao>{
                 
                 aquisicao.setFornecedor(fornecedorDAO.buscarById(f.getId()));
                 
-                Material m =new Material();
-                m.setId(rs.getInt("material_id"));
+                Item m =new Item();
+                m.setId(rs.getInt("item_id"));
                 
-                aquisicao.setMaterial(materialDAO.buscarById(m.getId()));
+                aquisicao.setItem(itemDAO.buscarById(m.getId()));
                 
 		listaAquisicao.add(aquisicao);
 	    }

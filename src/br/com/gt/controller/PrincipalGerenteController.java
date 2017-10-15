@@ -6,11 +6,15 @@ package br.com.gt.controller;
  * and open the template in the editor.
  */
 
+import br.com.gt.dao.AquisicaoDAO;
 import br.com.gt.dao.ClienteDAO;
 import br.com.gt.dao.FornecedorDAO;
 import br.com.gt.dao.FuncionarioDAO;
+import br.com.gt.dao.ItemDAO;
+import br.com.gt.model.Aquisicao;
 import br.com.gt.model.Fornecedor;
 import br.com.gt.model.Funcionario;
+import br.com.gt.model.Item;
 import br.com.gt.model.PessoaFisica;
 import br.com.gt.view.principal.PrincipalGerenteView;
 import br.com.gt.view.principal.util.ClienteTableModel;
@@ -36,6 +40,10 @@ public class PrincipalGerenteController implements ActionListener{
     private FornecedorDAO fornecedorDao;
     private ClienteDAO clienteDao;
     private ArrayList<PessoaFisica> clientes;
+    private ItemDAO itemDao;
+    private ArrayList<Item> itens;
+    private AquisicaoDAO aquisicaoDao;
+    private ArrayList<Aquisicao> aquisicoes;
     Connection connection;
     
     public PrincipalGerenteController(Connection con) {
@@ -51,6 +59,12 @@ public class PrincipalGerenteController implements ActionListener{
         
         this.clienteDao = new ClienteDAO(this.connection);
         atualizaTableCliente(null);
+        
+        this.itemDao = new ItemDAO(this.connection);
+        atualizaTableItem(null);
+        
+        this.aquisicaoDao = new AquisicaoDAO(this.connection);
+        atualizaTableAquisicao(null);
         
         telaPrincipal.setVisible(true);
     }
@@ -228,5 +242,13 @@ public class PrincipalGerenteController implements ActionListener{
             ClienteTableModel clienteModel = new ClienteTableModel(clientes);
             this.telaPrincipal.getClienteTable().setModel(clienteModel);
         }
+    }
+
+    private void atualizaTableItem(Object object) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    private void atualizaTableAquisicao(Object object) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 } 

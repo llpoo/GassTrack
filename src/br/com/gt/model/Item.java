@@ -10,7 +10,7 @@ package br.com.gt.model;
  *
  * @author lucas
  */
-public class Material {
+public class Item {
     private int id;
     private String nome;
     private int quantidadeAtual;

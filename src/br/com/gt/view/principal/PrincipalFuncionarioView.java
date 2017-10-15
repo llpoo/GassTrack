@@ -168,7 +168,7 @@ public class PrincipalFuncionarioView extends JFrameLAF {
 
         jPanel5.setBackground(new java.awt.Color(51, 51, 51));
 
-        jComboBox3.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Material", "Vidro 1", "Vidro 2", "Vidro 3" }));
+        jComboBox3.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item", "Vidro 1", "Vidro 2", "Vidro 3" }));
 
         jButton7.setText("Excluir");
 
@@ -550,7 +550,7 @@ public class PrincipalFuncionarioView extends JFrameLAF {
                 {null, null, null}
             },
             new String [] {
-                "Material", "Quantidade", "Quantidade mínima"
+                "Item", "Quantidade", "Quantidade mínima"
             }
         ) {
             boolean[] canEdit = new boolean [] {
@@ -564,7 +564,7 @@ public class PrincipalFuncionarioView extends JFrameLAF {
         jScrollPane9.setViewportView(jTable6);
 
         jLabel41.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel41.setText("Material");
+        jLabel41.setText("Item");
 
         jButton17.setText("Pesquisar");
 
@@ -577,7 +577,7 @@ public class PrincipalFuncionarioView extends JFrameLAF {
         jCheckBox1.setText("Apenas acessórios em baixa");
 
         jCheckBox2.setForeground(new java.awt.Color(255, 255, 255));
-        jCheckBox2.setText("Apenas materiais em baixa");
+        jCheckBox2.setText("Apenas itens em baixa");
 
         javax.swing.GroupLayout PanelEstoque1Layout = new javax.swing.GroupLayout(PanelEstoque1);
         PanelEstoque1.setLayout(PanelEstoque1Layout);

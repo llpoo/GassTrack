@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package br.com.gt.view.material;
+package br.com.gt.view.item;
 
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
@@ -13,8 +13,8 @@ import javax.swing.JTextField;
  *
  * @author lucas
  */
-public class AlterarMaterialView extends javax.swing.JDialog {
-    
+public class CadastrarItemView extends javax.swing.JDialog {
+
     public JButton getCancelarBtn() {
         return cancelarBtn;
     }
@@ -74,9 +74,9 @@ public class AlterarMaterialView extends javax.swing.JDialog {
     
 
     /**
-     * Creates new form MaterialAlterarView
+     * Creates new form ItemCadastroView
      */
-    public AlterarMaterialView(java.awt.Frame parent, boolean modal) {
+    public CadastrarItemView(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
     }
@@ -114,7 +114,7 @@ public class AlterarMaterialView extends javax.swing.JDialog {
         jLabel17.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
         jLabel17.setForeground(new java.awt.Color(255, 255, 153));
         jLabel17.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/gt/view/imagens/novoFuncionario.png"))); // NOI18N
-        jLabel17.setText("Alterar Material");
+        jLabel17.setText("Cadastrar Item");
         jLabel17.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
         jLabel17.setInheritsPopupMenu(false);
         jLabel17.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
@@ -125,7 +125,7 @@ public class AlterarMaterialView extends javax.swing.JDialog {
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addGap(32, 32, 32)
-                .addComponent(jLabel17, javax.swing.GroupLayout.PREFERRED_SIZE, 187, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jLabel17, javax.swing.GroupLayout.PREFERRED_SIZE, 237, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel4Layout.setVerticalGroup(
@@ -260,6 +260,10 @@ public class AlterarMaterialView extends javax.swing.JDialog {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void cancelarBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelarBtnActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cancelarBtnActionPerformed
+
     private void nomeTxtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nomeTxtActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_nomeTxtActionPerformed
@@ -280,10 +284,6 @@ public class AlterarMaterialView extends javax.swing.JDialog {
         // TODO add your handling code here:
     }//GEN-LAST:event_isAcessorioCheckBoxActionPerformed
 
-    private void cancelarBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelarBtnActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_cancelarBtnActionPerformed
-
     /**
      * @param args the command line arguments
      */
@@ -301,21 +301,23 @@ public class AlterarMaterialView extends javax.swing.JDialog {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(AlterarMaterialView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(CadastrarItemView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(AlterarMaterialView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(CadastrarItemView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(AlterarMaterialView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(CadastrarItemView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(AlterarMaterialView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(CadastrarItemView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
 
         /* Create and display the dialog */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                AlterarMaterialView dialog = new AlterarMaterialView(new javax.swing.JFrame(), true);
+                CadastrarItemView dialog = new CadastrarItemView(new javax.swing.JFrame(), true);
                 dialog.addWindowListener(new java.awt.event.WindowAdapter() {
                     @Override
                     public void windowClosing(java.awt.event.WindowEvent e) {

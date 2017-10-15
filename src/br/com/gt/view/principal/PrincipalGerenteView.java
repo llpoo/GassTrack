@@ -99,13 +99,13 @@ public class PrincipalGerenteView extends JFrameLAF{
     }
 
     
-    public JTable getMaterialTable() {
-        return materialTable;
+    public JTable getItemTable() {
+        return itemTable;
     }
 
 
-    public JCheckBox getMaterial_baixaSelectBox() {
-        return material_baixaSelectBox;
+    public JCheckBox getItem_baixaSelectBox() {
+        return item_baixaSelectBox;
     }
 
     public JButton getNovoFornecedorBtn() {
@@ -304,8 +304,8 @@ public class PrincipalGerenteView extends JFrameLAF{
         jScrollPane5 = new javax.swing.JScrollPane();
         acessorioTable = new javax.swing.JTable();
         jScrollPane6 = new javax.swing.JScrollPane();
-        materialTable = new javax.swing.JTable();
-        material_baixaSelectBox = new javax.swing.JCheckBox();
+        itemTable = new javax.swing.JTable();
+        item_baixaSelectBox = new javax.swing.JCheckBox();
         acessorio_baixaSelectBox = new javax.swing.JCheckBox();
         jLabel9 = new javax.swing.JLabel();
         jTextField9 = new javax.swing.JTextField();
@@ -821,7 +821,7 @@ public class PrincipalGerenteView extends JFrameLAF{
         ));
         jScrollPane5.setViewportView(acessorioTable);
 
-        materialTable.setModel(new javax.swing.table.DefaultTableModel(
+        itemTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -832,11 +832,11 @@ public class PrincipalGerenteView extends JFrameLAF{
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        jScrollPane6.setViewportView(materialTable);
+        jScrollPane6.setViewportView(itemTable);
 
-        material_baixaSelectBox.setBackground(new java.awt.Color(51, 51, 51));
-        material_baixaSelectBox.setForeground(new java.awt.Color(255, 255, 255));
-        material_baixaSelectBox.setText("Estoque em baixa");
+        item_baixaSelectBox.setBackground(new java.awt.Color(51, 51, 51));
+        item_baixaSelectBox.setForeground(new java.awt.Color(255, 255, 255));
+        item_baixaSelectBox.setText("Estoque em baixa");
 
         acessorio_baixaSelectBox.setBackground(new java.awt.Color(51, 51, 51));
         acessorio_baixaSelectBox.setForeground(new java.awt.Color(255, 255, 255));
@@ -888,7 +888,7 @@ public class PrincipalGerenteView extends JFrameLAF{
                     .addGroup(jPanel8Layout.createSequentialGroup()
                         .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel8Layout.createSequentialGroup()
-                                .addComponent(material_baixaSelectBox)
+                                .addComponent(item_baixaSelectBox)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(jButton4)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -926,7 +926,7 @@ public class PrincipalGerenteView extends JFrameLAF{
                         .addComponent(jButton5)
                         .addComponent(jButton6)
                         .addComponent(jButton7))
-                    .addComponent(material_baixaSelectBox, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(item_baixaSelectBox, javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jButton2)
                         .addComponent(jButton3)
@@ -1106,8 +1106,8 @@ public class PrincipalGerenteView extends JFrameLAF{
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JTextField jTextField9;
-    private javax.swing.JTable materialTable;
-    private javax.swing.JCheckBox material_baixaSelectBox;
+    private javax.swing.JTable itemTable;
+    private javax.swing.JCheckBox item_baixaSelectBox;
     private javax.swing.JButton mostrarClienteBtn;
     private javax.swing.JButton mostrarFuncionarioBtn;
     private javax.swing.JButton novoFornecedorBtn;

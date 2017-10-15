@@ -21,7 +21,7 @@ public class Venda {
     private double valorTotal;
     private double desconto;
     private String Descricao;
-    private List<Material> materiais;
+    private List<Item> itens;
 
     public int getId() {
         return id;
@@ -87,11 +87,11 @@ public class Venda {
         this.Descricao = Descricao;
     }
 
-    public List<Material> getMateriais() {
-        return materiais;
+    public List<Item> getItens() {
+        return itens;
     }
 
-    public void setMateriais(List<Material> materiais) {
-        this.materiais = materiais;
+    public void setItens(List<Item> itens) {
+        this.itens = itens;
     }
 }

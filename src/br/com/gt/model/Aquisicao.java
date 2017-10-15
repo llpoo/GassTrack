@@ -16,9 +16,9 @@ public class Aquisicao {
     
     private int id;
     private Date data;
-    private Material material;
+    private Item item;
     private double valorUitario;
-    private int quantidadeMaterial;
+    private int quantidadeItem;
     private double valorTotal;
     private Fornecedor fornecedor;
 
@@ -38,12 +38,12 @@ public class Aquisicao {
         this.data = data;
     }
 
-    public Material getMaterial() {
-        return material;
+    public Item getItem() {
+        return item;
     }
 
-    public void setMaterial(Material material) {
-        this.material = material;
+    public void setItem(Item item) {
+        this.item = item;
     }
 
     public double getValorUitario() {
@@ -54,12 +54,12 @@ public class Aquisicao {
         this.valorUitario = valorUitario;
     }
 
-    public int getQuantidadeMaterial() {
-        return quantidadeMaterial;
+    public int getQuantidadeItem() {
+        return quantidadeItem;
     }
 
-    public void setQuantidadeMaterial(int quantidadeMaterial) {
-        this.quantidadeMaterial = quantidadeMaterial;
+    public void setQuantidadeItem(int quantidadeItem) {
+        this.quantidadeItem = quantidadeItem;
     }
 
     public double getValorTotal() {
