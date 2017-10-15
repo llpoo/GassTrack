@@ -5,9 +5,14 @@
  */
 package br.com.gt.controller;
 
+import br.com.gt.dao.FuncionarioDAO;
+import br.com.gt.model.Funcionario;
+import br.com.gt.model.Usuario;
 import br.com.gt.view.principal.PrincipalFuncionarioView;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.Connection;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -16,11 +21,20 @@ import java.awt.event.ActionListener;
 public class PrincipalFuncionarioController implements ActionListener{
 
     private PrincipalFuncionarioView telaPrincipal;
+    Connection connection;
+    Funcionario funcionario;
+    FuncionarioDAO funcionarioDAO;
     
-    public PrincipalFuncionarioController() {
+    public PrincipalFuncionarioController(Connection con, Usuario u) {
+        this.connection = con;
+        this.funcionarioDAO = new FuncionarioDAO(this.connection);
+        this.funcionario = new Funcionario();
+        this.funcionario.setUsuario(u);
+        this.funcionario = funcionarioDAO.buscar(funcionario);
         telaPrincipal = new PrincipalFuncionarioView();
         adicionaEventos();
         telaPrincipal.setVisible(true);
+        JOptionPane.showMessageDialog(null, this.funcionario.getNome());
     }
     
     private void adicionaEventos(){

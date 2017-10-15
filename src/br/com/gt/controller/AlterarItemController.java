@@ -24,8 +24,8 @@ public class AlterarItemController implements ActionListener{
     
     public AlterarItemController(Connection con, Item i){
         this.connection = con;
-        this.item = i;
         this.telaAlterar = new AlterarItemView(null, true);
+        item = i;
         adicionaEventos();
         preencheCampos();
         this.telaAlterar.setVisible(true);
@@ -43,19 +43,19 @@ public class AlterarItemController implements ActionListener{
         }
         
         if(evento.getSource().equals(this.telaAlterar.getSalvarBtn())){
-            Item it = new Item();
-            
-            it.setId(this.item.getId());
-            it.setNome(this.telaAlterar.getNomeTxt().getText());
-            it.setQuantidadeAtual(Integer.parseInt(this.telaAlterar.getQtdeAtualTxt().getText()));
-            it.setPrecoUnitario(Double.parseDouble(this.telaAlterar.getPrecoUnitarioTxt().getText()));
-            it.setIsAcessorio(this.telaAlterar.getIsAcessorioCheckBox().isSelected());
-            it.setEstoqueMinimo(Integer.parseInt(this.telaAlterar.getEstoqueMinimoTxt().getText()));
+            this.item.setNome(this.telaAlterar.getNomeTxt().getText());
+            this.item.setQuantidadeAtual(Integer.parseInt(this.telaAlterar.getQtdeAtualTxt().getText()));
+            this.item.setPrecoUnitario(Double.parseDouble(this.telaAlterar.getPrecoUnitarioTxt().getText()));
+            if(this.telaAlterar.getIsAcessorioCheckBox().isSelected()){
+                this.item.setIsAcessorio(true);
+            }else{
+                this.item.setIsAcessorio(false);
+            }
+            this.item.setEstoqueMinimo(Integer.parseInt(this.telaAlterar.getEstoqueMinimoTxt().getText()));
             
             ItemDAO itemDAO = new ItemDAO(this.connection);
-            itemDAO.alterar(item);
+            itemDAO.alterar(this.item);
             
-            this.telaAlterar.setVisible(false);
             this.telaAlterar.dispose();
         }
     }

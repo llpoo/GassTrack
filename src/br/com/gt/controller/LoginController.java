@@ -2,10 +2,13 @@ package br.com.gt.controller;
 
 
 
+import br.com.gt.dao.UsuarioDAO;
+import br.com.gt.model.Usuario;
 import br.com.gt.view.acesso.login.LoginView;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.Connection;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -15,9 +18,11 @@ public class LoginController implements ActionListener{
 
     private LoginView telaLogin;
     Connection connection;
+    Usuario usuario;
     
     public LoginController(Connection con) {
         connection = con;
+        usuario = new Usuario();
         telaLogin = new LoginView();
         adicionaEventos();
         this.telaLogin.setVisible(true);
@@ -25,11 +30,31 @@ public class LoginController implements ActionListener{
     
     @Override
     public void actionPerformed(ActionEvent evento) {
-        if(botaoEntrarOuTeclaEnter(evento)){
-            verificaUsuario(this.telaLogin.getUsuarioTxt().getText(),this.telaLogin.getSenhaTxt().getText());
+        if(evento.getSource().equals(this.telaLogin.getUsuarioTxt()) ||
+           evento.getSource().equals(this.telaLogin.getSenhaTxt()) ||
+           evento.getSource().equals(this.telaLogin.getEntrarBtn())){
+            
+            this.usuario.setSenha(this.telaLogin.getSenhaTxt().getText());
+            this.usuario.setUsuario(this.telaLogin.getUsuarioTxt().getText());
+            
+            UsuarioDAO uDao = new UsuarioDAO(this.connection);
+            this.usuario = uDao.buscar(usuario);
+            
+            
+            
+           if(this.usuario.getId() > 0){
+               this.telaLogin.dispose();
+                if(this.usuario.getIsIsGerente() == true){
+                    PrincipalGerenteController principalGerenteController = new PrincipalGerenteController(this.connection);
+                }else{
+                    PrincipalFuncionarioController principalFuncionarioController = new PrincipalFuncionarioController(this.connection,this.usuario);
+                }
+            }else{
+                JOptionPane.showMessageDialog(null, "Usuário e/ou senha incorreto(s)");
+            }
         }
         
-        if(botaoCancelar(evento)){
+        if(evento.getSource().equals(this.telaLogin.getCancelarBtn())){
             this.telaLogin.dispose();
         }
     }
@@ -39,37 +64,5 @@ public class LoginController implements ActionListener{
         this.telaLogin.getSenhaTxt().addActionListener(this);
         this.telaLogin.getEntrarBtn().addActionListener(this);
         this.telaLogin.getCancelarBtn().addActionListener(this);
-    }
-    
-    private void verificaUsuario(String usuario, String senha){
-        if(usuario.equals("func") && senha.equals("func")){
-                this.telaLogin.dispose();
-                PrincipalFuncionarioController controleVendas = new PrincipalFuncionarioController();
-            }else{
-                if(usuario.equals("admin") && senha.equals("admin")){
-                    this.telaLogin.dispose();
-                    PrincipalGerenteController controleGerencia = new PrincipalGerenteController(this.connection);
-                }else{
-                    this.telaLogin.getMensagemErroLb().setVisible(true);
-                }
-            }
-    }
-    
-    private boolean botaoEntrarOuTeclaEnter(ActionEvent evento){
-        if(evento.getSource().equals(this.telaLogin.getUsuarioTxt()) ||
-           evento.getSource().equals(this.telaLogin.getSenhaTxt()) ||
-           evento.getSource().equals(this.telaLogin.getEntrarBtn())){
-            return true;
-        }else{
-            return false;
-        }
-    }
-    
-    private boolean botaoCancelar(ActionEvent evento){
-        if(evento.getSource().equals(this.telaLogin.getCancelarBtn())){
-            return true;
-        }else{
-            return false;
-        }
     }
 }

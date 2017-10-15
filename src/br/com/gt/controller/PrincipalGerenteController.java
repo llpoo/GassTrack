@@ -200,27 +200,23 @@ public class PrincipalGerenteController implements ActionListener{
         }
         
         if(evento.getSource().equals(this.telaPrincipal.getAlterarAcessorioBtn())){
-            AlterarItemController alterarControllerItem = new AlterarItemController(this.connection, this.acessorios.get(this.telaPrincipal.getAcessorioTable().getSelectedRow()));
             Item item= this.acessorios.get(this.telaPrincipal.getAcessorioTable().getSelectedRow());
+            AlterarItemController alterarControllerItem = new AlterarItemController(this.connection, item);
+            
             if(item.isIsAcessorio()==false){
-                this.materiais.add(item);
                 atualizaTableMaterial(null);
             }else{
-                this.acessorios.add(item);
                 atualizaTableAcessorio(null);
             }
         }
         
         if(evento.getSource().equals(this.telaPrincipal.getAlterarMaterialBtn())){
-            AlterarItemController alterarControllerItem = new AlterarItemController(this.connection, this.materiais.get(this.telaPrincipal.getMaterialTable().getSelectedRow()));
-            Item item= this.acessorios.get(this.telaPrincipal.getAcessorioTable().getSelectedRow());
-            if(item.isIsAcessorio()==false){
-                this.materiais.add(item);
-                atualizaTableMaterial(null);
-            }else{
-                this.acessorios.add(item);
-                atualizaTableAcessorio(null);
-            }
+            Item item= this.materiais.get(this.telaPrincipal.getMaterialTable().getSelectedRow());
+            boolean backupIsAcessorio = item.isIsAcessorio();
+            AlterarItemController alterarControllerItem = new AlterarItemController(this.connection, item);
+            
+            atualizaTableAcessorio(null);
+            atualizaTableMaterial(null);
         }
         
         if(evento.getSource().equals(this.telaPrincipal.getExcluirAcessorioBtn())){

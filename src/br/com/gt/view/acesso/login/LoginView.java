@@ -32,10 +32,6 @@ public class LoginView extends JFrameLAF {
     public JPasswordField getSenhaTxt() {
         return senhaTxt;
     }
-
-    public JLabel getMensagemErroLb() {
-        return mensagemErroLb;
-    }
     
     @Override
     protected void setIcon() {
@@ -52,7 +48,6 @@ public class LoginView extends JFrameLAF {
     public LoginView() {
         initComponents();
         this.setLocationRelativeTo(this);
-        this.mensagemErroLb.setVisible(false);
     }
 
     /**
@@ -74,7 +69,6 @@ public class LoginView extends JFrameLAF {
         cancelarBtn = new javax.swing.JButton();
         jLabel4 = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
-        mensagemErroLb = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
         setTitle("Login");
@@ -91,15 +85,12 @@ public class LoginView extends JFrameLAF {
         jLabel2.setText("Usuário");
         jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 100, -1, -1));
 
-        usuarioTxt.setText("admin");
         usuarioTxt.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
                 usuarioTxtFocusGained(evt);
             }
         });
         jPanel1.add(usuarioTxt, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 120, 340, -1));
-
-        senhaTxt.setText("admin");
         jPanel1.add(senhaTxt, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 180, 340, -1));
 
         jLabel6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/gt/view/imagens/LogoVidro.png"))); // NOI18N
@@ -127,15 +118,6 @@ public class LoginView extends JFrameLAF {
         jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
         jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 30, 410, 50));
 
-        mensagemErroLb.setForeground(new java.awt.Color(0, 204, 255));
-        mensagemErroLb.setText("Acesso negado. Usuário ou senha incorretos!");
-        mensagemErroLb.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
-            public void propertyChange(java.beans.PropertyChangeEvent evt) {
-                mensagemErroLbPropertyChange(evt);
-            }
-        });
-        jPanel1.add(mensagemErroLb, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 100, -1, -1));
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -154,11 +136,6 @@ public class LoginView extends JFrameLAF {
         // TODO add your handling code here:
         
     }//GEN-LAST:event_entrarBtnActionPerformed
-
-    private void mensagemErroLbPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_mensagemErroLbPropertyChange
-        // TODO add your handling code here:
-        
-    }//GEN-LAST:event_mensagemErroLbPropertyChange
 
     private void usuarioTxtFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_usuarioTxtFocusGained
         // TODO add your handling code here:
@@ -209,7 +186,6 @@ public class LoginView extends JFrameLAF {
     private javax.swing.JLabel jLabel6;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
-    private javax.swing.JLabel mensagemErroLb;
     private javax.swing.JPasswordField senhaTxt;
     private javax.swing.JTextField usuarioTxt;
     // End of variables declaration//GEN-END:variables

@@ -168,8 +168,55 @@ public class FuncionarioDAO implements DAO<Funcionario>{
     }
 
     @Override
-    public Funcionario buscar(Funcionario objeto) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public Funcionario buscar(Funcionario funcionario) {
+        String sql = "SELECT * FROM funcionario where usuario_id = ? order by nome";
+                
+        PreparedStatement pst;
+        ResultSet rs;
+        
+        Funcionario fun = new Funcionario();
+        
+        try {
+            pst = connection.prepareStatement(sql);
+            
+            pst.setInt(1, funcionario.getUsuario().getId());
+            
+            rs = pst.executeQuery();
+            
+            UsuarioDAO uDao = new UsuarioDAO(this.connection);
+            EnderecoDAO eDao = new EnderecoDAO(this.connection);
+            
+            while(rs.next()){
+                Funcionario f = new Funcionario();
+                Endereco e = new Endereco();
+                Usuario u = new Usuario();
+                
+                f.setId(rs.getInt("Id"));
+                f.setCpf(rs.getString("cpf"));
+                f.setDataAdmissao(rs.getDate("dataadmissao"));
+                f.setEmail(rs.getString("email"));
+                f.setNome(rs.getString("nome"));
+                f.setRg(rs.getString("rg"));
+                f.setSexo(rs.getString("sexo"));
+                f.setTelefone(rs.getString("telefone"));
+                
+                e.setId(rs.getInt("endereco_id"));
+                u.setId(rs.getInt("usuario_id"));
+                
+                f.setEndereco(eDao.buscarById(e.getId()));
+                f.setUsuario(uDao.buscarById(u.getId()));
+                
+                fun = f;
+            }
+            
+            rs.close();
+            pst.close();
+            return fun;
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Não foi possível buscar o usuário");
+            Logger.getLogger(UsuarioDAO.class.getName()).log(Level.SEVERE, null, ex);
+            return null;
+        }
     }
 
     @Override

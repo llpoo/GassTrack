@@ -56,9 +56,7 @@ public class ItemDAO implements DAO<Item>{
 
     @Override
     public void alterar(Item item) {
-        JOptionPane.showMessageDialog(null, item.getId());
-        String sql = "update item set nome=?,quantidadeatual=?,precounitario=?,"
-                + "isacessorio=?, estoqueminimo=? where id=?";
+        String sql = "update item set nome=?,quantidadeatual=?,precounitario=?,isacessorio=?, estoqueminimo=? where id=?";
         PreparedStatement pst;
         
         try {
@@ -133,7 +131,7 @@ public class ItemDAO implements DAO<Item>{
     }
 
     public ArrayList<Item> listarAcessorio() {
-        String sql="select * from item order by nome";
+        String sql="select * from item where isacessorio = true order by nome";
         PreparedStatement pst;
         ArrayList<Item> listaAcessorio =new ArrayList<Item>();
         
@@ -199,7 +197,7 @@ public class ItemDAO implements DAO<Item>{
     } 
     
     public ArrayList<Item> listarMaterial() {
-        String sql="select * from item order by nome";
+        String sql="select * from item where isacessorio = false order by nome";
         PreparedStatement pst;
         ArrayList<Item> listaMaterial =new ArrayList<Item>();
         
