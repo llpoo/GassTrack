@@ -17,9 +17,11 @@ import br.com.gt.model.Funcionario;
 import br.com.gt.model.Item;
 import br.com.gt.model.PessoaFisica;
 import br.com.gt.view.principal.PrincipalGerenteView;
+import br.com.gt.view.principal.util.AcessorioTableModel;
 import br.com.gt.view.principal.util.ClienteTableModel;
 import br.com.gt.view.principal.util.FornecedorTableModel;
 import br.com.gt.view.principal.util.FuncionarioTableModel;
+import br.com.gt.view.principal.util.MaterialTableModel;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
@@ -41,9 +43,8 @@ public class PrincipalGerenteController implements ActionListener{
     private ClienteDAO clienteDao;
     private ArrayList<PessoaFisica> clientes;
     private ItemDAO itemDao;
-    private ArrayList<Item> itens;
-    private AquisicaoDAO aquisicaoDao;
-    private ArrayList<Aquisicao> aquisicoes;
+    private ArrayList<Item> materiais;
+    private ArrayList<Item> acessorios;
     Connection connection;
     
     public PrincipalGerenteController(Connection con) {
@@ -61,10 +62,8 @@ public class PrincipalGerenteController implements ActionListener{
         atualizaTableCliente(null);
         
         this.itemDao = new ItemDAO(this.connection);
-        atualizaTableItem(null);
-        
-        this.aquisicaoDao = new AquisicaoDAO(this.connection);
-        atualizaTableAquisicao(null);
+        atualizaTableMaterial(null);
+        atualizaTableAcessorio(null);
         
         telaPrincipal.setVisible(true);
     }
@@ -186,6 +185,79 @@ public class PrincipalGerenteController implements ActionListener{
                 atualizaTableCliente(this.clientes);
             }
         }
+        
+        if(evento.getSource().equals(this.telaPrincipal.getNovoItemBtn())){
+            Item item = new Item();
+            CadastrarItemController cadastrarControllerItem = new CadastrarItemController(this.connection,item);
+            
+            if(item.isIsAcessorio()==false){
+                this.materiais.add(item);
+                atualizaTableMaterial(null);
+            }else{
+                this.acessorios.add(item);
+                atualizaTableAcessorio(null);
+            }
+        }
+        
+        if(evento.getSource().equals(this.telaPrincipal.getAlterarAcessorioBtn())){
+            AlterarItemController alterarControllerItem = new AlterarItemController(this.connection, this.acessorios.get(this.telaPrincipal.getAcessorioTable().getSelectedRow()));
+            Item item= this.acessorios.get(this.telaPrincipal.getAcessorioTable().getSelectedRow());
+            if(item.isIsAcessorio()==false){
+                this.materiais.add(item);
+                atualizaTableMaterial(null);
+            }else{
+                this.acessorios.add(item);
+                atualizaTableAcessorio(null);
+            }
+        }
+        
+        if(evento.getSource().equals(this.telaPrincipal.getAlterarMaterialBtn())){
+            AlterarItemController alterarControllerItem = new AlterarItemController(this.connection, this.materiais.get(this.telaPrincipal.getMaterialTable().getSelectedRow()));
+            Item item= this.acessorios.get(this.telaPrincipal.getAcessorioTable().getSelectedRow());
+            if(item.isIsAcessorio()==false){
+                this.materiais.add(item);
+                atualizaTableMaterial(null);
+            }else{
+                this.acessorios.add(item);
+                atualizaTableAcessorio(null);
+            }
+        }
+        
+        if(evento.getSource().equals(this.telaPrincipal.getExcluirAcessorioBtn())){
+            int index = this.telaPrincipal.getAcessorioTable().getSelectedRow();
+            if (JOptionPane.showConfirmDialog(null, "Deseja excluir o registro do acessorio "+
+                    this.acessorios.get(index).getNome()+"?", null, JOptionPane.YES_NO_OPTION) 
+                    == JOptionPane.YES_OPTION){
+                this.itemDao.excluir(this.acessorios.get(index));
+                this.acessorios.remove(index);
+                atualizaTableAcessorio(null);
+            }
+        }
+        
+        if(evento.getSource().equals(this.telaPrincipal.getExcluirMaterialBtn())){
+            int index = this.telaPrincipal.getMaterialTable().getSelectedRow();
+            if (JOptionPane.showConfirmDialog(null, "Deseja excluir o registro do material "+
+                    this.materiais.get(index).getNome()+"?", null, JOptionPane.YES_NO_OPTION) 
+                    == JOptionPane.YES_OPTION){
+                this.itemDao.excluir(this.materiais.get(index));
+                this.materiais.remove(index);
+                atualizaTableMaterial(null);
+            }
+        }
+        
+        if(evento.getSource().equals(this.telaPrincipal.getPesquisarItemBtn()) ||
+           evento.getSource().equals(this.telaPrincipal.getItemTxt())){
+            String nomeItem = this.telaPrincipal.getItemTxt().getText();            
+            if(nomeItem.length() == 0){
+                atualizaTableAcessorio(null);
+                atualizaTableMaterial(null);
+            }else{
+                this.acessorios = itemDao.pesquisar(nomeItem);
+                atualizaTableAcessorio(this.acessorios);
+                this.materiais = itemDao.pesquisar(nomeItem);
+                atualizaTableMaterial(this.materiais);
+            }
+        }
     }
     
     private void adicionaEventos(){
@@ -209,6 +281,14 @@ public class PrincipalGerenteController implements ActionListener{
         this.telaPrincipal.getExcluirClienteBtn().addActionListener(this);
         this.telaPrincipal.getClientes_clienteBuscaBtn().addActionListener(this);
         this.telaPrincipal.getClientes_clienteTxt().addActionListener(this);
+        
+        this.telaPrincipal.getNovoItemBtn().addActionListener(this);
+        this.telaPrincipal.getAlterarAcessorioBtn().addActionListener(this);
+        this.telaPrincipal.getAlterarMaterialBtn().addActionListener(this);
+        this.telaPrincipal.getExcluirAcessorioBtn().addActionListener(this);
+        this.telaPrincipal.getExcluirMaterialBtn().addActionListener(this);
+        this.telaPrincipal.getPesquisarItemBtn().addActionListener(this);
+        this.telaPrincipal.getItemTxt().addActionListener(this);
     }
 
     private void atualizaTableFuncionario(ArrayList<Funcionario> funcionarios) {
@@ -244,11 +324,25 @@ public class PrincipalGerenteController implements ActionListener{
         }
     }
 
-    private void atualizaTableItem(Object object) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    private void atualizaTableMaterial(ArrayList<Item> materiais) {
+        if(materiais == null){
+            this.materiais = itemDao.listarMaterial();
+            MaterialTableModel materialModel = new MaterialTableModel(this.materiais);
+            this.telaPrincipal.getMaterialTable().setModel(materialModel);
+        }else{
+            MaterialTableModel materialModel = new MaterialTableModel(materiais);
+            this.telaPrincipal.getMaterialTable().setModel(materialModel);
+        }
     }
 
-    private void atualizaTableAquisicao(Object object) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    private void atualizaTableAcessorio(ArrayList<Item> acessorios) {
+        if(acessorios == null){
+            this.acessorios = itemDao.listarAcessorio();
+            AcessorioTableModel acessorioModel = new AcessorioTableModel(this.acessorios);
+            this.telaPrincipal.getAcessorioTable().setModel(acessorioModel);
+        }else{
+            AcessorioTableModel acessorioModel = new AcessorioTableModel(acessorios);
+            this.telaPrincipal.getAcessorioTable().setModel(acessorioModel);
+        }
     }
 } 

@@ -5,6 +5,7 @@
  */
 package br.com.gt.controller;
 
+import br.com.gt.dao.ItemDAO;
 import br.com.gt.model.Item;
 import br.com.gt.view.item.AlterarItemView;
 import java.awt.event.ActionEvent;
@@ -51,6 +52,9 @@ public class AlterarItemController implements ActionListener{
             it.setIsAcessorio(this.telaAlterar.getIsAcessorioCheckBox().isSelected());
             it.setEstoqueMinimo(Integer.parseInt(this.telaAlterar.getEstoqueMinimoTxt().getText()));
             
+            ItemDAO itemDAO = new ItemDAO(this.connection);
+            itemDAO.alterar(item);
+            
             this.telaAlterar.setVisible(false);
             this.telaAlterar.dispose();
         }
@@ -60,7 +64,7 @@ public class AlterarItemController implements ActionListener{
         this.telaAlterar.getNomeTxt().setText(this.item.getNome());
         this.telaAlterar.getQtdeAtualTxt().setText(Integer.toString(this.item.getQuantidadeAtual()));
         this.telaAlterar.getPrecoUnitarioTxt().setText(Double.toString(this.item.getPrecoUnitario()));
-        this.telaAlterar.getIsAcessorioCheckBox().setDoubleBuffered(this.item.isIsAcessorio());
+        this.telaAlterar.getIsAcessorioCheckBox().setSelected(this.item.isIsAcessorio());
         this.telaAlterar.getEstoqueMinimoTxt().setText(Integer.toString(this.item.getEstoqueMinimo()));
     }
     

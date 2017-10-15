@@ -5,6 +5,7 @@
  */
 package br.com.gt.controller;
 
+import br.com.gt.dao.ItemDAO;
 import br.com.gt.model.Item;
 import br.com.gt.view.item.CadastrarItemView;
 import java.awt.event.ActionEvent;
@@ -41,6 +42,9 @@ public class CadastrarItemController implements ActionListener{
             this.item.setPrecoUnitario(Double.parseDouble(this.telaCadastro.getPrecoUnitarioTxt().getText()));
             this.item.setIsAcessorio(this.telaCadastro.getIsAcessorioCheckBox().isSelected());
             this.item.setEstoqueMinimo(Integer.parseInt(this.telaCadastro.getEstoqueMinimoTxt().getText()));
+            
+            ItemDAO itemDao = new ItemDAO(this.connection);
+            itemDao.inserir(this.item);
             
             this.telaCadastro.setVisible(false);
             this.telaCadastro.dispose();

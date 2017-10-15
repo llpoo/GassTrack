@@ -63,7 +63,6 @@ public class AlterarFornecedorController implements ActionListener{
             forn.setEndereco(end);
             
             FornecedorDAO fornDAO = new FornecedorDAO(this.connection);
-            
             fornDAO.alterar(forn);
             
             this.telaAlterar.setVisible(false);

@@ -21,6 +21,94 @@ import javax.swing.JTextField;
  */
 public class PrincipalGerenteView extends JFrameLAF{
 
+    public JButton getAdicionarAcessorioBtn() {
+        return adicionarAcessorioBtn;
+    }
+
+    public void setAdicionarAcessorioBtn(JButton adicionarAcessorioBtn) {
+        this.adicionarAcessorioBtn = adicionarAcessorioBtn;
+    }
+
+    public JButton getAdicionarMaterialBtn() {
+        return adicionarMaterialBtn;
+    }
+
+    public void setAdicionarMaterialBtn(JButton adicionarMaterialBtn) {
+        this.adicionarMaterialBtn = adicionarMaterialBtn;
+    }
+
+    public JButton getAlterarAcessorioBtn() {
+        return alterarAcessorioBtn;
+    }
+
+    public void setAlterarAcessorioBtn(JButton alterarAcessorioBtn) {
+        this.alterarAcessorioBtn = alterarAcessorioBtn;
+    }
+
+    public JButton getAlterarMaterialBtn() {
+        return alterarMaterialBtn;
+    }
+
+    public void setAlterarMaterialBtn(JButton alterarMaterialBtn) {
+        this.alterarMaterialBtn = alterarMaterialBtn;
+    }
+
+    public JButton getExcluirAcessorioBtn() {
+        return excluirAcessorioBtn;
+    }
+
+    public void setExcluirAcessorioBtn(JButton excluirAcessorioBtn) {
+        this.excluirAcessorioBtn = excluirAcessorioBtn;
+    }
+
+    public JButton getExcluirMaterialBtn() {
+        return excluirMaterialBtn;
+    }
+
+    public void setExcluirMaterialBtn(JButton excluirMaterialBtn) {
+        this.excluirMaterialBtn = excluirMaterialBtn;
+    }
+
+    public JTable getMaterialTable() {
+        return materialTable;
+    }
+
+    public void setMaterialTable(JTable materialTable) {
+        this.materialTable = materialTable;
+    }
+
+    public JCheckBox getMaterial_baixaSelectBox() {
+        return material_baixaSelectBox;
+    }
+
+    public void setMaterial_baixaSelectBox(JCheckBox material_baixaSelectBox) {
+        this.material_baixaSelectBox = material_baixaSelectBox;
+    }
+
+    public JButton getNovoItemBtn() {
+        return novoItemBtn;
+    }
+
+    public void setNovoItemBtn(JButton novoItemBtn) {
+        this.novoItemBtn = novoItemBtn;
+    }
+
+    public JButton getPesquisarItemBtn() {
+        return pesquisarItemBtn;
+    }
+
+    public void setPesquisarItemBtn(JButton pesquisarItemBtn) {
+        this.pesquisarItemBtn = pesquisarItemBtn;
+    }
+
+    public JTextField getItemTxt() {
+        return itemTxt;
+    }
+
+    public void setItemTxt(JTextField itemTxt) {
+        this.itemTxt = itemTxt;
+    }
+        
     public JButton getMostrarClienteBtn() {
         return mostrarClienteBtn;
     }
@@ -96,16 +184,6 @@ public class PrincipalGerenteView extends JFrameLAF{
 
     public JTextField getFornecedorTxt() {
         return fornecedorTxt;
-    }
-
-    
-    public JTable getItemTable() {
-        return itemTable;
-    }
-
-
-    public JCheckBox getItem_baixaSelectBox() {
-        return item_baixaSelectBox;
     }
 
     public JButton getNovoFornecedorBtn() {
@@ -304,19 +382,19 @@ public class PrincipalGerenteView extends JFrameLAF{
         jScrollPane5 = new javax.swing.JScrollPane();
         acessorioTable = new javax.swing.JTable();
         jScrollPane6 = new javax.swing.JScrollPane();
-        itemTable = new javax.swing.JTable();
-        item_baixaSelectBox = new javax.swing.JCheckBox();
+        materialTable = new javax.swing.JTable();
+        material_baixaSelectBox = new javax.swing.JCheckBox();
         acessorio_baixaSelectBox = new javax.swing.JCheckBox();
         jLabel9 = new javax.swing.JLabel();
-        jTextField9 = new javax.swing.JTextField();
-        jButton16 = new javax.swing.JButton();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
-        jButton4 = new javax.swing.JButton();
-        jButton5 = new javax.swing.JButton();
-        jButton6 = new javax.swing.JButton();
-        jButton7 = new javax.swing.JButton();
+        itemTxt = new javax.swing.JTextField();
+        pesquisarItemBtn = new javax.swing.JButton();
+        novoItemBtn = new javax.swing.JButton();
+        excluirMaterialBtn = new javax.swing.JButton();
+        alterarMaterialBtn = new javax.swing.JButton();
+        adicionarMaterialBtn = new javax.swing.JButton();
+        excluirAcessorioBtn = new javax.swing.JButton();
+        alterarAcessorioBtn = new javax.swing.JButton();
+        adicionarAcessorioBtn = new javax.swing.JButton();
         jSeparator1 = new javax.swing.JSeparator();
         jLabel2 = new javax.swing.JLabel();
 
@@ -821,7 +899,7 @@ public class PrincipalGerenteView extends JFrameLAF{
         ));
         jScrollPane5.setViewportView(acessorioTable);
 
-        itemTable.setModel(new javax.swing.table.DefaultTableModel(
+        materialTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -832,11 +910,11 @@ public class PrincipalGerenteView extends JFrameLAF{
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        jScrollPane6.setViewportView(itemTable);
+        jScrollPane6.setViewportView(materialTable);
 
-        item_baixaSelectBox.setBackground(new java.awt.Color(51, 51, 51));
-        item_baixaSelectBox.setForeground(new java.awt.Color(255, 255, 255));
-        item_baixaSelectBox.setText("Estoque em baixa");
+        material_baixaSelectBox.setBackground(new java.awt.Color(51, 51, 51));
+        material_baixaSelectBox.setForeground(new java.awt.Color(255, 255, 255));
+        material_baixaSelectBox.setText("Estoque em baixa");
 
         acessorio_baixaSelectBox.setBackground(new java.awt.Color(51, 51, 51));
         acessorio_baixaSelectBox.setForeground(new java.awt.Color(255, 255, 255));
@@ -846,26 +924,26 @@ public class PrincipalGerenteView extends JFrameLAF{
         jLabel9.setForeground(new java.awt.Color(255, 255, 255));
         jLabel9.setText("Item");
 
-        jButton16.setText("Pesquisar");
+        pesquisarItemBtn.setText("Pesquisar");
 
-        jButton1.setText("Novo Item");
+        novoItemBtn.setText("Novo Item");
 
-        jButton2.setText("Excluir");
+        excluirMaterialBtn.setText("Excluir");
 
-        jButton3.setText("Alterar");
-        jButton3.addActionListener(new java.awt.event.ActionListener() {
+        alterarMaterialBtn.setText("Alterar");
+        alterarMaterialBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton3ActionPerformed(evt);
+                alterarMaterialBtnActionPerformed(evt);
             }
         });
 
-        jButton4.setText("Adicionar Estoque");
+        adicionarMaterialBtn.setText("Adicionar Estoque");
 
-        jButton5.setText("Excluir");
+        excluirAcessorioBtn.setText("Excluir");
 
-        jButton6.setText("Alterar");
+        alterarAcessorioBtn.setText("Alterar");
 
-        jButton7.setText("Adicionar Estoque");
+        adicionarAcessorioBtn.setText("Adicionar Estoque");
 
         jSeparator1.setForeground(new java.awt.Color(255, 255, 255));
 
@@ -879,33 +957,33 @@ public class PrincipalGerenteView extends JFrameLAF{
                     .addGroup(jPanel8Layout.createSequentialGroup()
                         .addComponent(jLabel9)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jTextField9, javax.swing.GroupLayout.PREFERRED_SIZE, 486, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(itemTxt, javax.swing.GroupLayout.PREFERRED_SIZE, 486, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jButton16)
+                        .addComponent(pesquisarItemBtn)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jButton1))
+                        .addComponent(novoItemBtn))
                     .addComponent(jSeparator1)
                     .addGroup(jPanel8Layout.createSequentialGroup()
                         .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel8Layout.createSequentialGroup()
-                                .addComponent(item_baixaSelectBox)
+                                .addComponent(material_baixaSelectBox)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jButton4)
+                                .addComponent(adicionarMaterialBtn)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jButton3)
+                                .addComponent(alterarMaterialBtn)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jButton2))
+                                .addComponent(excluirMaterialBtn))
                             .addComponent(jScrollPane6, javax.swing.GroupLayout.DEFAULT_SIZE, 510, Short.MAX_VALUE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED, 17, Short.MAX_VALUE)
                         .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel8Layout.createSequentialGroup()
                                 .addComponent(acessorio_baixaSelectBox)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jButton7)
+                                .addComponent(adicionarAcessorioBtn)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jButton6)
+                                .addComponent(alterarAcessorioBtn)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jButton5))
+                                .addComponent(excluirAcessorioBtn))
                             .addComponent(jScrollPane5, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 563, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap())
         );
@@ -914,23 +992,23 @@ public class PrincipalGerenteView extends JFrameLAF{
             .addGroup(jPanel8Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton1)
+                    .addComponent(novoItemBtn)
                     .addComponent(jLabel9)
-                    .addComponent(jTextField9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton16))
+                    .addComponent(itemTxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(pesquisarItemBtn))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jButton5)
-                        .addComponent(jButton6)
-                        .addComponent(jButton7))
-                    .addComponent(item_baixaSelectBox, javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addComponent(excluirAcessorioBtn)
+                        .addComponent(alterarAcessorioBtn)
+                        .addComponent(adicionarAcessorioBtn))
+                    .addComponent(material_baixaSelectBox, javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jButton2)
-                        .addComponent(jButton3)
-                        .addComponent(jButton4)
+                        .addComponent(excluirMaterialBtn)
+                        .addComponent(alterarMaterialBtn)
+                        .addComponent(adicionarMaterialBtn)
                         .addComponent(acessorio_baixaSelectBox)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -983,9 +1061,9 @@ public class PrincipalGerenteView extends JFrameLAF{
         // TODO add your handling code here:
     }//GEN-LAST:event_funcionarioTableMouseClicked
 
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+    private void alterarMaterialBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_alterarMaterialBtnActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton3ActionPerformed
+    }//GEN-LAST:event_alterarMaterialBtnActionPerformed
 
     /**
      * @param args the command line arguments
@@ -1026,9 +1104,13 @@ public class PrincipalGerenteView extends JFrameLAF{
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTable acessorioTable;
     private javax.swing.JCheckBox acessorio_baixaSelectBox;
+    private javax.swing.JButton adicionarAcessorioBtn;
+    private javax.swing.JButton adicionarMaterialBtn;
+    private javax.swing.JButton alterarAcessorioBtn;
     private javax.swing.JButton alterarClienteBtn;
     private javax.swing.JButton alterarFornecedorBtn;
     private javax.swing.JButton alterarFuncionarioBtn;
+    private javax.swing.JButton alterarMaterialBtn;
     private javax.swing.JTable clienteTable;
     private javax.swing.JPanel clientesPanel;
     private javax.swing.JButton clientes_clienteBuscaBtn;
@@ -1037,9 +1119,11 @@ public class PrincipalGerenteView extends JFrameLAF{
     private javax.swing.JPanel dashboardPanel;
     private javax.swing.JTextField dataChooser;
     private javax.swing.JPanel estoquePanel;
+    private javax.swing.JButton excluirAcessorioBtn;
     private javax.swing.JButton excluirClienteBtn;
     private javax.swing.JButton excluirFornecedorBtn;
     private javax.swing.JButton excluirFuncionarioBtn;
+    private javax.swing.JButton excluirMaterialBtn;
     private javax.swing.ButtonGroup filtroVendaGroup;
     private javax.swing.JButton fornecedorBuscaBtn;
     private javax.swing.JTable fornecedorTable;
@@ -1049,14 +1133,7 @@ public class PrincipalGerenteView extends JFrameLAF{
     private javax.swing.JButton funcionarios_BuscaBtn;
     private javax.swing.JTextField funcionarios_funcionarioTxt;
     private javax.swing.JButton funcionarios_novoBtn;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton16;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton4;
-    private javax.swing.JButton jButton5;
-    private javax.swing.JButton jButton6;
-    private javax.swing.JButton jButton7;
+    private javax.swing.JTextField itemTxt;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel16;
@@ -1105,12 +1182,13 @@ public class PrincipalGerenteView extends JFrameLAF{
     private javax.swing.JScrollPane jScrollPane7;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JTabbedPane jTabbedPane1;
-    private javax.swing.JTextField jTextField9;
-    private javax.swing.JTable itemTable;
-    private javax.swing.JCheckBox item_baixaSelectBox;
+    private javax.swing.JTable materialTable;
+    private javax.swing.JCheckBox material_baixaSelectBox;
     private javax.swing.JButton mostrarClienteBtn;
     private javax.swing.JButton mostrarFuncionarioBtn;
     private javax.swing.JButton novoFornecedorBtn;
+    private javax.swing.JButton novoItemBtn;
+    private javax.swing.JButton pesquisarItemBtn;
     private javax.swing.JButton sairBtn;
     private javax.swing.JPanel vendasPanel;
     private javax.swing.JTable vendasTable;

@@ -30,7 +30,7 @@ public class ItemDAO implements DAO<Item>{
     @Override
     public void inserir(Item item) {
         String sql = "insert into item (nome, quantidadeatual, precounitario, "
-                + "isacessorio, estoqueminimo) values (?,?,?,?,?,?)";
+                + "isacessorio, estoqueminimo) values (?,?,?,?,?)";
         
         PreparedStatement pst;
         //INSERIR BUSCAR
@@ -56,6 +56,7 @@ public class ItemDAO implements DAO<Item>{
 
     @Override
     public void alterar(Item item) {
+        JOptionPane.showMessageDialog(null, item.getId());
         String sql = "update item set nome=?,quantidadeatual=?,precounitario=?,"
                 + "isacessorio=?, estoqueminimo=? where id=?";
         PreparedStatement pst;
@@ -131,11 +132,10 @@ public class ItemDAO implements DAO<Item>{
         return i;
     }
 
-    @Override
-    public ArrayList<Item> listar() {
+    public ArrayList<Item> listarAcessorio() {
         String sql="select * from item order by nome";
         PreparedStatement pst;
-        ArrayList<Item> listaItem =new ArrayList<Item>();
+        ArrayList<Item> listaAcessorio =new ArrayList<Item>();
         
         try{
             pst= connection.prepareStatement(sql);
@@ -150,17 +150,19 @@ public class ItemDAO implements DAO<Item>{
                 item.setIsAcessorio(rs.getBoolean("isacessorio"));
                 item.setEstoqueMinimo(rs.getInt("estoqueminimo"));
                 
-		listaItem.add(item);
+		if(item.isIsAcessorio()==true){
+                    listaAcessorio.add(item);
+                }
 	    }
 		    
             rs.close();
             pst.close();
 		    
-            return listaItem;
+            return listaAcessorio;
         }catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Não foi possível listar os itens");
             Logger.getLogger(ItemDAO.class.getName()).log(Level.SEVERE, null, ex);
-            return listaItem;
+            return listaAcessorio;
         }
     }
 
@@ -171,8 +173,8 @@ public class ItemDAO implements DAO<Item>{
         String sql="select * from item where nome ilike ?";
         try{
             pst= connection.prepareStatement(sql);
-            ResultSet rs = pst.executeQuery();
             pst.setString(1,"%" + nome + "%"); 
+            ResultSet rs = pst.executeQuery();
 	
             while(rs.next()){
                 Item item = new Item();
@@ -194,7 +196,41 @@ public class ItemDAO implements DAO<Item>{
             Logger.getLogger(ItemDAO.class.getName()).log(Level.SEVERE, null, ex);
             return buscaItem;
         }
-    }  
+    } 
+    
+    public ArrayList<Item> listarMaterial() {
+        String sql="select * from item order by nome";
+        PreparedStatement pst;
+        ArrayList<Item> listaMaterial =new ArrayList<Item>();
+        
+        try{
+            pst= connection.prepareStatement(sql);
+            ResultSet rs = pst.executeQuery();
+		    
+           while(rs.next()){		 	
+                Item item = new Item();
+                item.setId(rs.getInt("id"));
+                item.setNome(rs.getString("nome"));
+                item.setQuantidadeAtual(rs.getInt("quantidadeatual"));
+                item.setPrecoUnitario(rs.getDouble("precounitario"));
+                item.setIsAcessorio(rs.getBoolean("isacessorio"));
+                item.setEstoqueMinimo(rs.getInt("estoqueminimo"));
+                
+                if(item.isIsAcessorio()==false){
+                    listaMaterial.add(item);
+                }
+	    }
+		    
+            rs.close();
+            pst.close();
+		    
+            return listaMaterial;
+        }catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Não foi possível listar os itens");
+            Logger.getLogger(ItemDAO.class.getName()).log(Level.SEVERE, null, ex);
+            return listaMaterial;
+        }
+    }
 
     Item buscarById(int id) {
         String sql = "SELECT * FROM item WHERE id = ?";
@@ -229,6 +265,11 @@ public class ItemDAO implements DAO<Item>{
         
         return i;
     }
-    
+
+    @Override
+    public ArrayList<Item> listar() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
     
 }

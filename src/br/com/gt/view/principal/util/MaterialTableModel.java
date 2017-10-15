@@ -5,8 +5,7 @@
  */
 package br.com.gt.view.principal.util;
 
-import br.com.gt.model.Fornecedor;
-import java.util.ArrayList;
+import br.com.gt.model.Item;
 import java.util.Arrays;
 import java.util.List;
 import javax.swing.table.AbstractTableModel;
@@ -15,14 +14,14 @@ import javax.swing.table.AbstractTableModel;
  *
  * @author Luciano Júnior
  */
-public class FornecedorTableModel extends AbstractTableModel{
+public class MaterialTableModel extends AbstractTableModel{
     
-    private List<Fornecedor> fornecedores;
+    private List<Item> materiais;
     private List<String> colunas;
     
-    public FornecedorTableModel(List<Fornecedor> fornecedores){
-        this.fornecedores = fornecedores;
-        colunas = Arrays.asList("Nome", "CNPJ","Email");
+    public MaterialTableModel(List<Item> materiais){
+        this.materiais = materiais;
+        colunas = Arrays.asList("Nome", "Quantidade Atual","Estoque Minimo", "Preço Unitário");
     }
     
     
@@ -33,7 +32,7 @@ public class FornecedorTableModel extends AbstractTableModel{
     
     @Override
     public int getRowCount() {
-        return fornecedores.size();
+        return materiais.size();
     }
 
     @Override
@@ -43,24 +42,23 @@ public class FornecedorTableModel extends AbstractTableModel{
 
     @Override
     public Object getValueAt(int rowIndex, int columnIndex) {
-        Fornecedor fornecedor = fornecedores.get(rowIndex);
+        Item material = materiais.get(rowIndex);
         switch(columnIndex){
             
-            case 0: return fornecedor.getNome();
-            case 1: return fornecedor.getCnpj();
-            case 2: return fornecedor.getEmail();
+            case 0: return material.getNome();
+            case 1: return material.getQuantidadeAtual();
+            case 2: return material.getEstoqueMinimo();
+            case 3: return material.getPrecoUnitario();
             
         }
         return null;
     }
     
-    public List<Fornecedor> getFornecedores() {
-        return fornecedores;
+    public List<Item> getMateriais() {
+        return materiais;
     }
 
-    public void setFornecedores(List<Fornecedor> fornecedores) {
-        this.fornecedores = fornecedores;
+    public void setMateriais(List<Item> materiais) {
+        this.materiais = materiais;
     }
-
-   
 }

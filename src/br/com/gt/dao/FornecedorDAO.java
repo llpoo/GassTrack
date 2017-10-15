@@ -205,11 +205,11 @@ public class FornecedorDAO implements DAO<Fornecedor>{
     public ArrayList<Fornecedor> pesquisar(String nome) {
         ArrayList<Fornecedor> buscaFornecedor = new ArrayList<Fornecedor>(); 
 	PreparedStatement pst;
-        String sql="select * from fornecedor where nome ilike ?";
+        String sql="select * from fornecedor where nome ~* ?";
         try{
             pst= connection.prepareStatement(sql);
+            pst.setString(1, nome); 
             ResultSet rs = pst.executeQuery();
-            pst.setString(1,"%" + nome + "%"); 
             EnderecoDAO eDao = new EnderecoDAO(this.connection);
 	
             while(rs.next()){
