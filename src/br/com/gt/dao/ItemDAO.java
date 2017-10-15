@@ -168,10 +168,10 @@ public class ItemDAO implements DAO<Item>{
     public ArrayList<Item> pesquisar(String nome) {
         ArrayList<Item> buscaItem = new ArrayList<Item>(); 
 	PreparedStatement pst;
-        String sql="select * from item where nome ilike ?";
+        String sql="select * from item where nome ~* ?";
         try{
             pst= connection.prepareStatement(sql);
-            pst.setString(1,"%" + nome + "%"); 
+            pst.setString(1,nome); 
             ResultSet rs = pst.executeQuery();
 	
             while(rs.next()){

@@ -243,14 +243,27 @@ public class PrincipalGerenteController implements ActionListener{
         
         if(evento.getSource().equals(this.telaPrincipal.getPesquisarItemBtn()) ||
            evento.getSource().equals(this.telaPrincipal.getItemTxt())){
-            String nomeItem = this.telaPrincipal.getItemTxt().getText();            
-            if(nomeItem.length() == 0){
+            String itemNome = this.telaPrincipal.getItemTxt().getText();
+            
+            if(itemNome.length() == 0){
                 atualizaTableAcessorio(null);
                 atualizaTableMaterial(null);
             }else{
-                this.acessorios = itemDao.pesquisar(nomeItem);
+                ArrayList<Item> itens = itemDao.pesquisar(itemNome);
+                this.acessorios.clear();
+                this.materiais.clear();
+                
+                for(int i=0; i<itens.size(); i++){
+                    if(itens.get(i).isIsAcessorio() == true){
+                        this.acessorios.add(itens.get(i));
+                    }else{
+                        if(itens.get(i).isIsAcessorio() == false){
+                            this.materiais.add(itens.get(i));
+                        }
+                    }
+                }
+                
                 atualizaTableAcessorio(this.acessorios);
-                this.materiais = itemDao.pesquisar(nomeItem);
                 atualizaTableMaterial(this.materiais);
             }
         }
