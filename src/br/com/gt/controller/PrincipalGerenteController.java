@@ -24,6 +24,8 @@ import br.com.gt.view.principal.util.FuncionarioTableModel;
 import br.com.gt.view.principal.util.MaterialTableModel;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.sql.Connection;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
@@ -32,7 +34,7 @@ import javax.swing.JOptionPane;
  *
  * @author lucas
  */
-public class PrincipalGerenteController implements ActionListener{
+public class PrincipalGerenteController implements ActionListener, MouseListener{
 
     private PrincipalGerenteView telaPrincipal;
     private ArrayList<Funcionario> funcionarios;
@@ -268,6 +270,7 @@ public class PrincipalGerenteController implements ActionListener{
             }
         }
         
+        
         if(evento.getSource().equals(this.telaPrincipal.getPesquisarItemBtn()) ||
            evento.getSource().equals(this.telaPrincipal.getItemTxt())){
             String itemNome = this.telaPrincipal.getItemTxt().getText();
@@ -292,6 +295,7 @@ public class PrincipalGerenteController implements ActionListener{
                 
                 atualizaTableAcessorio(this.acessorios);
                 atualizaTableMaterial(this.materiais);
+                
             }
         }
         
@@ -359,6 +363,7 @@ public class PrincipalGerenteController implements ActionListener{
     
     private void adicionaEventos(){
         this.telaPrincipal.getAlterarAcessoBtn().addActionListener(this);
+        this.telaPrincipal.getFuncionarioTable().addMouseListener(this);
         
         this.telaPrincipal.getSairBtn().addActionListener(this);
         this.telaPrincipal.getFuncionarios_novoBtn().addActionListener(this);
@@ -450,5 +455,35 @@ public class PrincipalGerenteController implements ActionListener{
             AcessorioTableModel acessorioModel = new AcessorioTableModel(acessorios);
             this.telaPrincipal.getAcessorioTable().setModel(acessorioModel);
         }
+    }
+
+    @Override
+    public void mouseClicked(MouseEvent e) {
+        if(e.getSource().equals(this.telaPrincipal.getFuncionarioTable())){
+            if(e.getClickCount() == 2){
+                int index = this.telaPrincipal.getFuncionarioTable().getSelectedRow();
+                MostrarFuncionarioController mostrarFuncionarioController = new MostrarFuncionarioController(this.connection,this.funcionarios.get(index));
+             }
+        }
+    }
+
+    @Override
+    public void mousePressed(MouseEvent e) {
+        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void mouseReleased(MouseEvent e) {
+        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void mouseEntered(MouseEvent e) {
+        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void mouseExited(MouseEvent e) {
+        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 } 

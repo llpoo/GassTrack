@@ -588,9 +588,11 @@ public class PrincipalFuncionarioView extends JFrameLAF {
 
         jButton18.setText("Pesquisar");
 
+        jCheckBox1.setBackground(new java.awt.Color(51, 51, 51));
         jCheckBox1.setForeground(new java.awt.Color(255, 255, 255));
         jCheckBox1.setText("Apenas acessórios em baixa");
 
+        jCheckBox2.setBackground(new java.awt.Color(51, 51, 51));
         jCheckBox2.setForeground(new java.awt.Color(255, 255, 255));
         jCheckBox2.setText("Apenas materiais em baixa");
 
