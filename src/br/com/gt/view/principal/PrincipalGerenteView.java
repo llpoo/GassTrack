@@ -35,16 +35,32 @@ public class PrincipalGerenteView extends JFrameLAF{
         return adicionarAcessorioBtn;
     }
 
-    public void setAdicionarAcessorioBtn(JButton adicionarAcessorioBtn) {
-        this.adicionarAcessorioBtn = adicionarAcessorioBtn;
+    public void setMostrarAcessorioBtn(JButton mostrarAcessorioBtn) {
+        this.mostrarAcessorioBtn = mostrarAcessorioBtn;
     }
 
-    public JButton getAdicionarMaterialBtn() {
-        return adicionarMaterialBtn;
+    public JButton getMostrarMaterialBtn() {
+        return mostrarMaterialBtn;
     }
 
-    public void setAdicionarMaterialBtn(JButton adicionarMaterialBtn) {
-        this.adicionarMaterialBtn = adicionarMaterialBtn;
+    public void setMostrarMaterialBtn(JButton mostrarMaterialBtn) {
+        this.mostrarMaterialBtn = mostrarMaterialBtn;
+    }
+    
+    public JButton getAddAceEstoqueBtn() {
+        return addAceEstoqueBtn;
+    }
+
+    public void setAddAceEstoqueBtn(JButton addAceEstoqueBtn) {
+        this.addAceEstoqueBtn = addAceEstoqueBtn;
+    }
+
+    public JButton getAddMatEstoqueBtn() {
+        return addMatEstoqueBtn;
+    }
+
+    public void setAddMatEstoqueBtn(JButton addMatEstoqueBtn) {
+        this.addMatEstoqueBtn = addMatEstoqueBtn;
     }
 
     public JButton getAlterarAcessorioBtn() {
@@ -295,6 +311,15 @@ public class PrincipalGerenteView extends JFrameLAF{
     public void setFuncionarios_novoBtn(JButton funcionarios_novoBtn) {
         this.funcionarios_novoBtn = funcionarios_novoBtn;
     }
+
+    public JButton getMostrarFornecedorBtn() {
+        return mostrarFornecedorBtn;
+    }
+
+    public void setMostrarFornecedorBtn(JButton mostrarFornecedorBtn) {
+        this.mostrarFornecedorBtn = mostrarFornecedorBtn;
+    }
+    
     
     
     
@@ -385,6 +410,7 @@ public class PrincipalGerenteView extends JFrameLAF{
         excluirFornecedorBtn = new javax.swing.JButton();
         alterarFornecedorBtn = new javax.swing.JButton();
         novoFornecedorBtn = new javax.swing.JButton();
+        mostrarFornecedorBtn = new javax.swing.JButton();
         estoquePanel = new javax.swing.JPanel();
         jLabel32 = new javax.swing.JLabel();
         jPanel17 = new javax.swing.JPanel();
@@ -403,11 +429,14 @@ public class PrincipalGerenteView extends JFrameLAF{
         novoItemBtn = new javax.swing.JButton();
         excluirMaterialBtn = new javax.swing.JButton();
         alterarMaterialBtn = new javax.swing.JButton();
-        adicionarMaterialBtn = new javax.swing.JButton();
+        addMatEstoqueBtn = new javax.swing.JButton();
         excluirAcessorioBtn = new javax.swing.JButton();
         alterarAcessorioBtn = new javax.swing.JButton();
-        adicionarAcessorioBtn = new javax.swing.JButton();
+        addAceEstoqueBtn = new javax.swing.JButton();
         jSeparator1 = new javax.swing.JSeparator();
+        mostrarMaterialBtn = new javax.swing.JButton();
+        mostrarAcessorioBtn = new javax.swing.JButton();
+        jLabel2 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
         setTitle("GlassTrack");
@@ -841,6 +870,13 @@ public class PrincipalGerenteView extends JFrameLAF{
             }
         });
 
+        mostrarFornecedorBtn.setText("Detalhar");
+        mostrarFornecedorBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mostrarFornecedorBtnActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
         jPanel7.setLayout(jPanel7Layout);
         jPanel7Layout.setHorizontalGroup(
@@ -857,7 +893,9 @@ public class PrincipalGerenteView extends JFrameLAF{
                         .addComponent(fornecedorTxt, javax.swing.GroupLayout.PREFERRED_SIZE, 324, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(fornecedorBuscaBtn)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 407, Short.MAX_VALUE)
+                        .addGap(18, 18, 18)
+                        .addComponent(mostrarFornecedorBtn)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 316, Short.MAX_VALUE)
                         .addComponent(novoFornecedorBtn)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(alterarFornecedorBtn)
@@ -875,7 +913,8 @@ public class PrincipalGerenteView extends JFrameLAF{
                     .addComponent(fornecedorBuscaBtn)
                     .addComponent(excluirFornecedorBtn)
                     .addComponent(alterarFornecedorBtn)
-                    .addComponent(novoFornecedorBtn))
+                    .addComponent(novoFornecedorBtn)
+                    .addComponent(mostrarFornecedorBtn))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 419, Short.MAX_VALUE)
                 .addContainerGap())
@@ -960,15 +999,24 @@ public class PrincipalGerenteView extends JFrameLAF{
             }
         });
 
-        adicionarMaterialBtn.setText("Adicionar Estoque");
+        addMatEstoqueBtn.setText("Adicionar Estoque");
 
         excluirAcessorioBtn.setText("Excluir");
 
         alterarAcessorioBtn.setText("Alterar");
 
-        adicionarAcessorioBtn.setText("Adicionar Estoque");
+        addAceEstoqueBtn.setText("Adicionar Estoque");
 
         jSeparator1.setForeground(new java.awt.Color(255, 255, 255));
+
+        mostrarMaterialBtn.setText("Mostrar Detalhes");
+        mostrarMaterialBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mostrarMaterialBtnActionPerformed(evt);
+            }
+        });
+
+        mostrarAcessorioBtn.setText("Mostrar Detalhes");
 
         javax.swing.GroupLayout jPanel8Layout = new javax.swing.GroupLayout(jPanel8);
         jPanel8.setLayout(jPanel8Layout);
@@ -990,19 +1038,23 @@ public class PrincipalGerenteView extends JFrameLAF{
                         .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel8Layout.createSequentialGroup()
                                 .addComponent(material_baixaSelectBox)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(adicionarMaterialBtn)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(mostrarMaterialBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(addMatEstoqueBtn)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(alterarMaterialBtn)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(excluirMaterialBtn))
                             .addComponent(jScrollPane6, javax.swing.GroupLayout.DEFAULT_SIZE, 510, Short.MAX_VALUE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED, 17, Short.MAX_VALUE)
+                        .addGap(17, 17, 17)
                         .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel8Layout.createSequentialGroup()
                                 .addComponent(acessorio_baixaSelectBox)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(adicionarAcessorioBtn)
+                                .addComponent(mostrarAcessorioBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(addAceEstoqueBtn)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(alterarAcessorioBtn)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -1026,13 +1078,15 @@ public class PrincipalGerenteView extends JFrameLAF{
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(excluirAcessorioBtn)
                         .addComponent(alterarAcessorioBtn)
-                        .addComponent(adicionarAcessorioBtn))
+                        .addComponent(addAceEstoqueBtn)
+                        .addComponent(mostrarAcessorioBtn))
                     .addComponent(material_baixaSelectBox, javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(excluirMaterialBtn)
                         .addComponent(alterarMaterialBtn)
-                        .addComponent(adicionarMaterialBtn)
-                        .addComponent(acessorio_baixaSelectBox)))
+                        .addComponent(addMatEstoqueBtn)
+                        .addComponent(acessorio_baixaSelectBox)
+                        .addComponent(mostrarMaterialBtn)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane6, javax.swing.GroupLayout.DEFAULT_SIZE, 370, Short.MAX_VALUE)
@@ -1078,6 +1132,14 @@ public class PrincipalGerenteView extends JFrameLAF{
     private void alterarMaterialBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_alterarMaterialBtnActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_alterarMaterialBtnActionPerformed
+
+    private void mostrarFornecedorBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mostrarFornecedorBtnActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_mostrarFornecedorBtnActionPerformed
+
+    private void mostrarMaterialBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mostrarMaterialBtnActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_mostrarMaterialBtnActionPerformed
 
     /**
      * @param args the command line arguments
@@ -1199,8 +1261,11 @@ public class PrincipalGerenteView extends JFrameLAF{
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JTable materialTable;
     private javax.swing.JCheckBox material_baixaSelectBox;
+    private javax.swing.JButton mostrarAcessorioBtn;
     private javax.swing.JButton mostrarClienteBtn;
+    private javax.swing.JButton mostrarFornecedorBtn;
     private javax.swing.JButton mostrarFuncionarioBtn;
+    private javax.swing.JButton mostrarMaterialBtn;
     private javax.swing.JButton novoFornecedorBtn;
     private javax.swing.JButton novoItemBtn;
     private javax.swing.JButton pesquisarItemBtn;

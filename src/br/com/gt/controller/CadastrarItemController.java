@@ -38,7 +38,7 @@ public class CadastrarItemController implements ActionListener{
         
         if(evento.getSource().equals(this.telaCadastro.getSalvarBtn())){
             this.item.setNome(this.telaCadastro.getNomeTxt().getText());
-            this.item.setQuantidadeAtual(Integer.parseInt(this.telaCadastro.getQtdeAtualTxt().getText()));
+            this.item.setQuantidadeAtual(0);
             this.item.setPrecoUnitario(Double.parseDouble(this.telaCadastro.getPrecoUnitarioTxt().getText()));
             this.item.setIsAcessorio(this.telaCadastro.getIsAcessorioCheckBox().isSelected());
             this.item.setEstoqueMinimo(Integer.parseInt(this.telaCadastro.getEstoqueMinimoTxt().getText()));

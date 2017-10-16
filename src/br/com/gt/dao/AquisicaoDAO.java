@@ -41,7 +41,9 @@ public class AquisicaoDAO implements DAO<Aquisicao>{
         try {
             pst = connection.prepareStatement(sql);
             
-            pst.setDate(1, (Date) aquisicao.getData());
+            java.sql.Date dataSql = new java.sql.Date(aquisicao.getData().getTime());
+            
+            pst.setDate(1, dataSql);
             pst.setDouble(2, aquisicao.getValorUitario());
             pst.setInt(3, aquisicao.getQuantidadeItem());
             pst.setDouble(4, aquisicao.getValorTotal());
@@ -71,6 +73,8 @@ public class AquisicaoDAO implements DAO<Aquisicao>{
             aquisicao.getItem().setId(item.getId());
             
             pst.setInt(6, aquisicao.getItem().getId());
+            
+            itemDAO.addEstoque(aquisicao.getQuantidadeItem(), aquisicao.getItem().getId());
             
             pst.execute();
             pst.close();

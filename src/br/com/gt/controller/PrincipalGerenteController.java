@@ -44,6 +44,9 @@ public class PrincipalGerenteController implements ActionListener{
     private ItemDAO itemDao;
     private ArrayList<Item> materiais;
     private ArrayList<Item> acessorios;
+    private AquisicaoDAO aquisicaoDao;
+   // private ArrayList<Aquisicao> aquisicoes;
+    
     Connection connection;
     Usuario usuario;
     LoginView telaLogin;
@@ -67,6 +70,9 @@ public class PrincipalGerenteController implements ActionListener{
         this.itemDao = new ItemDAO(this.connection);
         atualizaTableMaterial(null);
         atualizaTableAcessorio(null);
+        
+        this.aquisicaoDao= new AquisicaoDAO(this.connection);
+        //atualizaTableAquisicao(null);
         
         telaPrincipal.setVisible(true);
     }
@@ -164,7 +170,10 @@ public class PrincipalGerenteController implements ActionListener{
             }
         }
         
-        
+        if(evento.getSource().equals(this.telaPrincipal.getMostrarFornecedorBtn())){
+            int index = this.telaPrincipal.getFornecedorTable().getSelectedRow();
+            MostrarFornecedorController mostrarFornecedorController = new MostrarFornecedorController(this.connection,this.fornecedores.get(index));
+        }      
         
         if(evento.getSource().equals(this.telaPrincipal.getClientes_novoBtn())){
             CadastrarClienteController cadastrarClienteController = new CadastrarClienteController(this.connection);
@@ -285,7 +294,68 @@ public class PrincipalGerenteController implements ActionListener{
                 atualizaTableMaterial(this.materiais);
             }
         }
+        
+        if(evento.getSource().equals(this.telaPrincipal.getAcessorio_baixaSelectBox())){
+            if(this.telaPrincipal.getAcessorio_baixaSelectBox().isSelected()==true){
+                ArrayList<Item> itens = itemDao.listarAcessorioBaixa();
+                this.acessorios.clear();
+                for(int i=0; i<itens.size(); i++){
+                    this.acessorios.add(itens.get(i));
+                }
+                atualizaTableAcessorio(this.acessorios);
+            }else{
+                this.acessorios.clear();
+                ArrayList<Item> itens = itemDao.listarAcessorio();
+                for(int i=0; i<itens.size(); i++){
+                    this.acessorios.add(itens.get(i));
+                }
+                atualizaTableAcessorio(acessorios);
+            }
+        }
+        
+        if(evento.getSource().equals(this.telaPrincipal.getMaterial_baixaSelectBox())){
+            if(this.telaPrincipal.getMaterial_baixaSelectBox().isSelected()==true){
+                ArrayList<Item> itens = itemDao.listarMaterialBaixa();
+                this.materiais.clear();
+                for(int i=0; i<itens.size(); i++){
+                    this.materiais.add(itens.get(i));
+                }
+                atualizaTableMaterial(this.materiais);
+            }else{
+                this.materiais.clear();
+                ArrayList<Item> itens = itemDao.listarMaterial();
+                for(int i=0; i<itens.size(); i++){
+                    this.materiais.add(itens.get(i));
+                }
+                atualizaTableMaterial(materiais);
+            }
+        }
+        
+        if(evento.getSource().equals(this.telaPrincipal.getAddAceEstoqueBtn())){
+            Item item = this.acessorios.get(this.telaPrincipal.getAcessorioTable().getSelectedRow());
+            Aquisicao aquisicao= new Aquisicao();
+            CadastrarAquisicaoController cadastrarControllerAquisicao = new CadastrarAquisicaoController(this.connection, aquisicao, item);
+        }
+        
+        if(evento.getSource().equals(this.telaPrincipal.getAddMatEstoqueBtn())){
+            Item item = this.materiais.get(this.telaPrincipal.getMaterialTable().getSelectedRow());
+            Aquisicao aquisicao= new Aquisicao();
+            CadastrarAquisicaoController cadastrarControllerAquisicao = new CadastrarAquisicaoController(this.connection, aquisicao, item);
+        } 
+        
+        if(evento.getSource().equals(this.telaPrincipal.getMostrarAcessorioBtn())){
+            int index = this.telaPrincipal.getAcessorioTable().getSelectedRow();
+            MostrarItemController mostrarAcessorioController = new MostrarItemController(this.connection,this.acessorios.get(index));
+        }
+        
+        if(evento.getSource().equals(this.telaPrincipal.getMostrarMaterialBtn())){
+            int index = this.telaPrincipal.getMaterialTable().getSelectedRow();
+            MostrarItemController mostrarMaterialController = new MostrarItemController(this.connection,this.materiais.get(index));
+        }
+        
     }
+    
+    
     
     private void adicionaEventos(){
         this.telaPrincipal.getAlterarAcessoBtn().addActionListener(this);
@@ -302,6 +372,7 @@ public class PrincipalGerenteController implements ActionListener{
         this.telaPrincipal.getAlterarFornecedorBtn().addActionListener(this);
         this.telaPrincipal.getExcluirFornecedorBtn().addActionListener(this);
         this.telaPrincipal.getFornecedorBuscaBtn().addActionListener(this);
+        this.telaPrincipal.getMostrarFornecedorBtn().addActionListener(this);
         this.telaPrincipal.getFornecedorTxt().addActionListener(this);
         
         this.telaPrincipal.getClientes_novoBtn().addActionListener(this);
@@ -318,6 +389,12 @@ public class PrincipalGerenteController implements ActionListener{
         this.telaPrincipal.getExcluirMaterialBtn().addActionListener(this);
         this.telaPrincipal.getPesquisarItemBtn().addActionListener(this);
         this.telaPrincipal.getItemTxt().addActionListener(this);
+        this.telaPrincipal.getMaterial_baixaSelectBox().addActionListener(this);
+        this.telaPrincipal.getAcessorio_baixaSelectBox().addActionListener(this);
+        this.telaPrincipal.getMostrarAcessorioBtn().addActionListener(this);
+        this.telaPrincipal.getMostrarMaterialBtn().addActionListener(this);
+        this.telaPrincipal.getAddAceEstoqueBtn().addActionListener(this);
+        this.telaPrincipal.getAddMatEstoqueBtn().addActionListener(this);
     }
 
     private void atualizaTableFuncionario(ArrayList<Funcionario> funcionarios) {

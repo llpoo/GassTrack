@@ -55,14 +55,6 @@ public class AlterarItemView extends javax.swing.JDialog {
         this.precoUnitarioTxt = precoUnitarioTxt;
     }
 
-    public JTextField getQtdeAtualTxt() {
-        return qtdeAtualTxt;
-    }
-
-    public void setQtdeAtualTxt(JTextField qtdeAtualTxt) {
-        this.qtdeAtualTxt = qtdeAtualTxt;
-    }
-
     public JButton getSalvarBtn() {
         return salvarBtn;
     }
@@ -96,8 +88,6 @@ public class AlterarItemView extends javax.swing.JDialog {
         cancelarBtn = new javax.swing.JButton();
         nomeTxt = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
-        qtdeAtualTxt = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
         estoqueMinimoTxt = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
@@ -151,15 +141,6 @@ public class AlterarItemView extends javax.swing.JDialog {
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setText("Nome");
 
-        jLabel2.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel2.setText("Quantidade Atual");
-
-        qtdeAtualTxt.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                qtdeAtualTxtActionPerformed(evt);
-            }
-        });
-
         jLabel3.setForeground(new java.awt.Color(255, 255, 255));
         jLabel3.setText("Estoque Mínimo");
 
@@ -193,11 +174,10 @@ public class AlterarItemView extends javax.swing.JDialog {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(59, 59, 59)
+                .addGap(69, 69, 69)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jLabel1)
                     .addComponent(jLabel3)
-                    .addComponent(jLabel2)
                     .addComponent(jLabel4))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -209,8 +189,7 @@ public class AlterarItemView extends javax.swing.JDialog {
                         .addComponent(nomeTxt, javax.swing.GroupLayout.PREFERRED_SIZE, 313, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                             .addComponent(precoUnitarioTxt, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 83, Short.MAX_VALUE)
-                            .addComponent(estoqueMinimoTxt, javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(qtdeAtualTxt, javax.swing.GroupLayout.Alignment.LEADING))
+                            .addComponent(estoqueMinimoTxt, javax.swing.GroupLayout.Alignment.LEADING))
                         .addComponent(isAcessorioCheckBox)))
                 .addGap(0, 36, Short.MAX_VALUE))
         );
@@ -223,11 +202,7 @@ public class AlterarItemView extends javax.swing.JDialog {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
                     .addComponent(nomeTxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel2)
-                    .addComponent(qtdeAtualTxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
                     .addComponent(estoqueMinimoTxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -241,7 +216,7 @@ public class AlterarItemView extends javax.swing.JDialog {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(cancelarBtn)
                     .addComponent(salvarBtn))
-                .addContainerGap(32, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -263,10 +238,6 @@ public class AlterarItemView extends javax.swing.JDialog {
     private void nomeTxtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nomeTxtActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_nomeTxtActionPerformed
-
-    private void qtdeAtualTxtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_qtdeAtualTxtActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_qtdeAtualTxtActionPerformed
 
     private void estoqueMinimoTxtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_estoqueMinimoTxtActionPerformed
         // TODO add your handling code here:
@@ -335,14 +306,12 @@ public class AlterarItemView extends javax.swing.JDialog {
     private javax.swing.JCheckBox isAcessorioCheckBox;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel17;
-    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JTextField nomeTxt;
     private javax.swing.JTextField precoUnitarioTxt;
-    private javax.swing.JTextField qtdeAtualTxt;
     private javax.swing.JButton salvarBtn;
     // End of variables declaration//GEN-END:variables
 }

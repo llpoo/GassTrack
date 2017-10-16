@@ -126,8 +126,7 @@ public class FornecedorDAO implements DAO<Fornecedor>{
 
     @Override
     public Fornecedor buscar(Fornecedor fornecedor) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-        /*String sql = "SELECT * FROM fornecedor WHERE cnpj= ?";
+        String sql = "SELECT * FROM fornecedor WHERE nome= ?";
         
         Fornecedor f = new Fornecedor();
         
@@ -137,13 +136,14 @@ public class FornecedorDAO implements DAO<Fornecedor>{
         try {
             pst = connection.prepareStatement(sql);
             
-            pst.setString(1, fornecedor.getCnpj());
+            pst.setString(1, fornecedor.getNome());
             
             rs = pst.executeQuery();
             EnderecoDAO eDao = new EnderecoDAO(this.connection);
             
             while(rs.next()){
                 Endereco e = new Endereco();
+                f.setId(rs.getInt("id"));
                 f.setNome(rs.getString("nome"));
                 f.setCnpj(rs.getString("cnpj"));
                 f.setEmail(rs.getString("email"));
@@ -161,7 +161,7 @@ public class FornecedorDAO implements DAO<Fornecedor>{
             Logger.getLogger(FornecedorDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
         
-        return f;*/
+        return f;
     }
 
     @Override
@@ -237,7 +237,7 @@ public class FornecedorDAO implements DAO<Fornecedor>{
         }
     }
 
-    Fornecedor buscarById(int id) {
+    public Fornecedor buscarById(int id) {
         String sql = "SELECT * FROM fornecedor WHERE id = ?";
         
         Fornecedor f = new Fornecedor();
@@ -249,6 +249,45 @@ public class FornecedorDAO implements DAO<Fornecedor>{
             pst = connection.prepareStatement(sql);
             
             pst.setInt(1, id);
+            
+            rs = pst.executeQuery();
+            EnderecoDAO eDao = new EnderecoDAO(this.connection);
+            
+            while(rs.next()){
+                f.setId(rs.getInt("id"));
+                f.setNome(rs.getString("nome"));
+                f.setCnpj(rs.getString("cnpj"));
+                f.setEmail(rs.getString("email"));
+                f.setTelefone(rs.getString("telefone"));
+		
+                Endereco e =new Endereco();
+                e.setId(rs.getInt("endereco_id"));
+                
+                f.setEndereco(eDao.buscarById(e.getId())); 
+            }
+            
+            rs.close();
+            pst.close();
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Não foi possível buscar o endereço");
+            Logger.getLogger(FornecedorDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        return f;
+    }
+    
+    public Fornecedor buscarByNome(String nome) {
+        String sql = "SELECT * FROM fornecedor WHERE nome = ?";
+        
+        Fornecedor f = new Fornecedor();
+        
+        PreparedStatement pst;
+        ResultSet rs;
+        
+        try {
+            pst = connection.prepareStatement(sql);
+            
+            pst.setString(1, nome);
             
             rs = pst.executeQuery();
             EnderecoDAO eDao = new EnderecoDAO(this.connection);

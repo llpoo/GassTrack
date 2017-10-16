@@ -988,7 +988,9 @@
                                       <Component id="fornecedorTxt" min="-2" pref="324" max="-2" attributes="0"/>
                                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
                                       <Component id="fornecedorBuscaBtn" min="-2" max="-2" attributes="0"/>
-                                      <EmptySpace pref="407" max="32767" attributes="0"/>
+                                      <EmptySpace type="separate" max="-2" attributes="0"/>
+                                      <Component id="mostrarFornecedorBtn" min="-2" max="-2" attributes="0"/>
+                                      <EmptySpace pref="316" max="32767" attributes="0"/>
                                       <Component id="novoFornecedorBtn" min="-2" max="-2" attributes="0"/>
                                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
                                       <Component id="alterarFornecedorBtn" min="-2" max="-2" attributes="0"/>
@@ -1011,6 +1013,7 @@
                                   <Component id="excluirFornecedorBtn" alignment="3" min="-2" max="-2" attributes="0"/>
                                   <Component id="alterarFornecedorBtn" alignment="3" min="-2" max="-2" attributes="0"/>
                                   <Component id="novoFornecedorBtn" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="mostrarFornecedorBtn" alignment="3" min="-2" max="-2" attributes="0"/>
                               </Group>
                               <EmptySpace max="-2" attributes="0"/>
                               <Component id="jScrollPane4" pref="419" max="32767" attributes="0"/>
@@ -1072,6 +1075,14 @@
                       </Properties>
                       <Events>
                         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="novoFornecedorBtnActionPerformed"/>
+                      </Events>
+                    </Component>
+                    <Component class="javax.swing.JButton" name="mostrarFornecedorBtn">
+                      <Properties>
+                        <Property name="text" type="java.lang.String" value="Detalhar"/>
+                      </Properties>
+                      <Events>
+                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="mostrarFornecedorBtnActionPerformed"/>
                       </Events>
                     </Component>
                   </SubComponents>
@@ -1193,8 +1204,10 @@
                                       <Group type="103" groupAlignment="0" attributes="0">
                                           <Group type="102" attributes="0">
                                               <Component id="material_baixaSelectBox" min="-2" max="-2" attributes="0"/>
-                                              <EmptySpace max="32767" attributes="0"/>
-                                              <Component id="adicionarMaterialBtn" min="-2" max="-2" attributes="0"/>
+                                              <EmptySpace max="-2" attributes="0"/>
+                                              <Component id="mostrarMaterialBtn" max="32767" attributes="0"/>
+                                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                                              <Component id="addMatEstoqueBtn" min="-2" max="-2" attributes="0"/>
                                               <EmptySpace type="unrelated" max="-2" attributes="0"/>
                                               <Component id="alterarMaterialBtn" min="-2" max="-2" attributes="0"/>
                                               <EmptySpace type="unrelated" max="-2" attributes="0"/>
@@ -1202,12 +1215,14 @@
                                           </Group>
                                           <Component id="jScrollPane6" pref="510" max="32767" attributes="0"/>
                                       </Group>
-                                      <EmptySpace type="unrelated" pref="17" max="32767" attributes="0"/>
+                                      <EmptySpace min="-2" pref="17" max="-2" attributes="0"/>
                                       <Group type="103" groupAlignment="0" max="-2" attributes="0">
                                           <Group type="102" alignment="1" attributes="0">
                                               <Component id="acessorio_baixaSelectBox" min="-2" max="-2" attributes="0"/>
                                               <EmptySpace max="32767" attributes="0"/>
-                                              <Component id="adicionarAcessorioBtn" min="-2" max="-2" attributes="0"/>
+                                              <Component id="mostrarAcessorioBtn" min="-2" pref="127" max="-2" attributes="0"/>
+                                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                                              <Component id="addAceEstoqueBtn" min="-2" max="-2" attributes="0"/>
                                               <EmptySpace type="unrelated" max="-2" attributes="0"/>
                                               <Component id="alterarAcessorioBtn" min="-2" max="-2" attributes="0"/>
                                               <EmptySpace type="unrelated" max="-2" attributes="0"/>
@@ -1238,14 +1253,16 @@
                                   <Group type="103" alignment="1" groupAlignment="3" attributes="0">
                                       <Component id="excluirAcessorioBtn" alignment="3" min="-2" max="-2" attributes="0"/>
                                       <Component id="alterarAcessorioBtn" alignment="3" min="-2" max="-2" attributes="0"/>
-                                      <Component id="adicionarAcessorioBtn" alignment="3" min="-2" max="-2" attributes="0"/>
+                                      <Component id="addAceEstoqueBtn" alignment="3" min="-2" max="-2" attributes="0"/>
+                                      <Component id="mostrarAcessorioBtn" alignment="3" min="-2" max="-2" attributes="0"/>
                                   </Group>
                                   <Component id="material_baixaSelectBox" alignment="1" min="-2" max="-2" attributes="0"/>
                                   <Group type="103" alignment="1" groupAlignment="3" attributes="0">
                                       <Component id="excluirMaterialBtn" alignment="3" min="-2" max="-2" attributes="0"/>
                                       <Component id="alterarMaterialBtn" alignment="3" min="-2" max="-2" attributes="0"/>
-                                      <Component id="adicionarMaterialBtn" alignment="3" min="-2" max="-2" attributes="0"/>
+                                      <Component id="addMatEstoqueBtn" alignment="3" min="-2" max="-2" attributes="0"/>
                                       <Component id="acessorio_baixaSelectBox" alignment="3" min="-2" max="-2" attributes="0"/>
+                                      <Component id="mostrarMaterialBtn" alignment="3" min="-2" max="-2" attributes="0"/>
                                   </Group>
                               </Group>
                               <EmptySpace type="unrelated" max="-2" attributes="0"/>
@@ -1358,7 +1375,7 @@
                         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="alterarMaterialBtnActionPerformed"/>
                       </Events>
                     </Component>
-                    <Component class="javax.swing.JButton" name="adicionarMaterialBtn">
+                    <Component class="javax.swing.JButton" name="addMatEstoqueBtn">
                       <Properties>
                         <Property name="text" type="java.lang.String" value="Adicionar Estoque"/>
                       </Properties>
@@ -1373,7 +1390,7 @@
                         <Property name="text" type="java.lang.String" value="Alterar"/>
                       </Properties>
                     </Component>
-                    <Component class="javax.swing.JButton" name="adicionarAcessorioBtn">
+                    <Component class="javax.swing.JButton" name="addAceEstoqueBtn">
                       <Properties>
                         <Property name="text" type="java.lang.String" value="Adicionar Estoque"/>
                       </Properties>
@@ -1383,6 +1400,19 @@
                         <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                           <Color blue="ff" green="ff" red="ff" type="rgb"/>
                         </Property>
+                      </Properties>
+                    </Component>
+                    <Component class="javax.swing.JButton" name="mostrarMaterialBtn">
+                      <Properties>
+                        <Property name="text" type="java.lang.String" value="Mostrar Detalhes"/>
+                      </Properties>
+                      <Events>
+                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="mostrarMaterialBtnActionPerformed"/>
+                      </Events>
+                    </Component>
+                    <Component class="javax.swing.JButton" name="mostrarAcessorioBtn">
+                      <Properties>
+                        <Property name="text" type="java.lang.String" value="Mostrar Detalhes"/>
                       </Properties>
                     </Component>
                   </SubComponents>
