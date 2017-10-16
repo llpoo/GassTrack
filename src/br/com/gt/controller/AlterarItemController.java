@@ -44,7 +44,6 @@ public class AlterarItemController implements ActionListener{
         
         if(evento.getSource().equals(this.telaAlterar.getSalvarBtn())){
             this.item.setNome(this.telaAlterar.getNomeTxt().getText());
-            this.item.setQuantidadeAtual(Integer.parseInt(this.telaAlterar.getQtdeAtualTxt().getText()));
             this.item.setPrecoUnitario(Double.parseDouble(this.telaAlterar.getPrecoUnitarioTxt().getText()));
             if(this.telaAlterar.getIsAcessorioCheckBox().isSelected()){
                 this.item.setIsAcessorio(true);
@@ -62,7 +61,6 @@ public class AlterarItemController implements ActionListener{
 
     private void preencheCampos() {
         this.telaAlterar.getNomeTxt().setText(this.item.getNome());
-        this.telaAlterar.getQtdeAtualTxt().setText(Integer.toString(this.item.getQuantidadeAtual()));
         this.telaAlterar.getPrecoUnitarioTxt().setText(Double.toString(this.item.getPrecoUnitario()));
         this.telaAlterar.getIsAcessorioCheckBox().setSelected(this.item.isIsAcessorio());
         this.telaAlterar.getEstoqueMinimoTxt().setText(Integer.toString(this.item.getEstoqueMinimo()));

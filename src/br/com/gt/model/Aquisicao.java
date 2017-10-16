@@ -63,7 +63,7 @@ public class Aquisicao {
     }
 
     public double getValorTotal() {
-        return valorTotal;
+        return quantidadeItem*valorUitario;
     }
 
     public void setValorTotal(double valorTotal) {

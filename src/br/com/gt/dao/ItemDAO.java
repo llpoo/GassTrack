@@ -33,7 +33,6 @@ public class ItemDAO implements DAO<Item>{
                 + "isacessorio, estoqueminimo) values (?,?,?,?,?)";
         
         PreparedStatement pst;
-        //INSERIR BUSCAR
         
         try {
             pst = connection.prepareStatement(sql);
@@ -148,9 +147,9 @@ public class ItemDAO implements DAO<Item>{
                 item.setIsAcessorio(rs.getBoolean("isacessorio"));
                 item.setEstoqueMinimo(rs.getInt("estoqueminimo"));
                 
-		if(item.isIsAcessorio()==true){
-                    listaAcessorio.add(item);
-                }
+		
+                listaAcessorio.add(item);
+                
 	    }
 		    
             rs.close();
@@ -214,9 +213,9 @@ public class ItemDAO implements DAO<Item>{
                 item.setIsAcessorio(rs.getBoolean("isacessorio"));
                 item.setEstoqueMinimo(rs.getInt("estoqueminimo"));
                 
-                if(item.isIsAcessorio()==false){
-                    listaMaterial.add(item);
-                }
+              
+                listaMaterial.add(item);
+                
 	    }
 		    
             rs.close();
@@ -230,7 +229,7 @@ public class ItemDAO implements DAO<Item>{
         }
     }
 
-    Item buscarById(int id) {
+    public Item buscarById(int id) {
         String sql = "SELECT * FROM item WHERE id = ?";
         
         Item i = new Item();
@@ -266,8 +265,153 @@ public class ItemDAO implements DAO<Item>{
 
     @Override
     public ArrayList<Item> listar() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        String sql="select * from item order by nome";
+        PreparedStatement pst;
+        ArrayList<Item> listaAcessorio =new ArrayList<Item>();
+        
+        try{
+            pst= connection.prepareStatement(sql);
+            ResultSet rs = pst.executeQuery();
+		    
+           while(rs.next()){		 	
+                Item item = new Item();
+                item.setId(rs.getInt("id"));
+                item.setNome(rs.getString("nome"));
+                item.setQuantidadeAtual(rs.getInt("quantidadeatual"));
+                item.setPrecoUnitario(rs.getDouble("precounitario"));
+                item.setIsAcessorio(rs.getBoolean("isacessorio"));
+                item.setEstoqueMinimo(rs.getInt("estoqueminimo"));
+                
+                listaAcessorio.add(item);
+                
+	    }
+		    
+            rs.close();
+            pst.close();
+		    
+            return listaAcessorio;
+        }catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Não foi possível listar os itens");
+            Logger.getLogger(ItemDAO.class.getName()).log(Level.SEVERE, null, ex);
+            return listaAcessorio;
+        }
     }
-
     
+    
+    public ArrayList<Item> listarMaterialBaixa() {
+        String sql="select * from item where isacessorio = false and quantidadeatual<=estoqueminimo order by nome";
+        PreparedStatement pst;
+        ArrayList<Item> listaMaterial =new ArrayList<Item>();
+        
+        try{
+            pst= connection.prepareStatement(sql);
+            ResultSet rs = pst.executeQuery();
+		    
+           while(rs.next()){		 	
+                Item item = new Item();
+                item.setId(rs.getInt("id"));
+                item.setNome(rs.getString("nome"));
+                item.setQuantidadeAtual(rs.getInt("quantidadeatual"));
+                item.setPrecoUnitario(rs.getDouble("precounitario"));
+                item.setIsAcessorio(rs.getBoolean("isacessorio"));
+                item.setEstoqueMinimo(rs.getInt("estoqueminimo"));
+                
+                listaMaterial.add(item);
+                
+	    }
+		    
+            rs.close();
+            pst.close();
+		    
+            return listaMaterial;
+        }catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Não foi possível listar os itens");
+            Logger.getLogger(ItemDAO.class.getName()).log(Level.SEVERE, null, ex);
+            return listaMaterial;
+        }
+    }
+    
+    
+    public ArrayList<Item> listarAcessorioBaixa() {
+        String sql="select * from item where isacessorio = true and quantidadeatual<=estoqueminimo order by nome;";
+        PreparedStatement pst;
+        ArrayList<Item> listaAcessorio =new ArrayList<Item>();
+        
+        try{
+            pst= connection.prepareStatement(sql);
+            ResultSet rs = pst.executeQuery();
+		    
+           while(rs.next()){		 	
+                Item item = new Item();
+                item.setId(rs.getInt("id"));
+                item.setNome(rs.getString("nome"));
+                item.setQuantidadeAtual(rs.getInt("quantidadeatual"));
+                item.setPrecoUnitario(rs.getDouble("precounitario"));
+                item.setIsAcessorio(rs.getBoolean("isacessorio"));
+                item.setEstoqueMinimo(rs.getInt("estoqueminimo"));
+                
+		listaAcessorio.add(item);
+	    }
+		    
+            rs.close();
+            pst.close();
+		    
+            return listaAcessorio;
+        }catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Não foi possível listar os itens");
+            Logger.getLogger(ItemDAO.class.getName()).log(Level.SEVERE, null, ex);
+            return listaAcessorio;
+        }
+    }
+    
+    public Item buscarByNome(String nome) {
+        String sql = "SELECT * FROM item WHERE nome = ?";
+        
+        Item i = new Item();
+        
+        PreparedStatement pst;
+        ResultSet rs;
+        
+        try {
+            pst = connection.prepareStatement(sql);
+            
+            pst.setString(1, nome);
+            
+            rs = pst.executeQuery();
+            
+            while(rs.next()){
+                i.setId(rs.getInt("id"));
+                i.setNome(rs.getString("nome"));
+                i.setQuantidadeAtual(rs.getInt("quantidadeatual"));
+                i.setPrecoUnitario(rs.getDouble("precounitario"));
+                i.setIsAcessorio(rs.getBoolean("isacessorio"));
+                i.setEstoqueMinimo(rs.getInt("estoqueminimo"));
+            }
+            
+            rs.close();
+            pst.close();
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Não foi possível buscar o item");
+            Logger.getLogger(ItemDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        return i;
+    }
+    
+    public void addEstoque(int q, int id) {
+        String sql = "update item set quantidadeatual= quantidadeatual+? where id=?";
+        PreparedStatement pst;
+        
+        try {
+            pst = connection.prepareStatement(sql);
+            pst.setInt(1, q);
+            pst.setInt(2, id);
+            
+            pst.execute();
+            pst.close(); 
+	} catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Não foi possível alterar a quantidade do item");
+            Logger.getLogger(ItemDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
 }

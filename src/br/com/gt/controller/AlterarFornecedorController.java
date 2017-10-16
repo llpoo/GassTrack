@@ -22,9 +22,7 @@ public class AlterarFornecedorController implements ActionListener{
     Connection connection;
     AlterarFornecedorView telaAlterar;
     Fornecedor fornecedor;
-    ArrayList<Fornecedor> fornecedores;
-    int index;
-    
+   
     public AlterarFornecedorController(Connection con, Fornecedor f){
         this.connection = con;
         this.fornecedor = f;
