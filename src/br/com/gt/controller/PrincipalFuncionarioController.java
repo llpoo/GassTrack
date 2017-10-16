@@ -36,7 +36,7 @@ public class PrincipalFuncionarioController implements ActionListener{
         this.funcionario = funcionarioDAO.buscar(funcionario);
         telaPrincipal = new PrincipalFuncionarioView();
         adicionaEventos();
-        this.telaPrincipal.getInfoUsuarioLabel().setText("Logado como "+this.funcionario.getNome().substring(0, this.funcionario.getNome().lastIndexOf(" ")));
+        this.telaPrincipal.getInfoUsuarioLabel().setText("Logado como "+this.funcionario.getUsuario().getUsuario());
         telaPrincipal.setVisible(true);
     }
     

@@ -37,12 +37,15 @@ public class LoginController implements ActionListener{
             this.usuario.setSenha(this.telaLogin.getSenhaTxt().getText());
             this.usuario.setUsuario(this.telaLogin.getUsuarioTxt().getText());
             
+            
             UsuarioDAO uDao = new UsuarioDAO(this.connection);
             this.usuario = uDao.buscar(usuario);
             
             
             
            if(this.usuario.getId() > 0){
+               this.telaLogin.getSenhaTxt().setText(null);
+               this.telaLogin.getUsuarioTxt().setText(null);
                this.telaLogin.setVisible(false);
                 if(this.usuario.getIsIsGerente() == true){
                     PrincipalGerenteController principalGerenteController = new PrincipalGerenteController(this.connection,this.usuario,this.telaLogin);

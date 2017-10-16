@@ -29,12 +29,6 @@ public class PrincipalGerenteView extends JFrameLAF{
         this.alterarAcessoBtn = alterarAcessoBtn;
     }
 
-    
-    
-    public JButton getAdicionarAcessorioBtn() {
-        return adicionarAcessorioBtn;
-    }
-
     public void setMostrarAcessorioBtn(JButton mostrarAcessorioBtn) {
         this.mostrarAcessorioBtn = mostrarAcessorioBtn;
     }
@@ -46,23 +40,11 @@ public class PrincipalGerenteView extends JFrameLAF{
     public void setMostrarMaterialBtn(JButton mostrarMaterialBtn) {
         this.mostrarMaterialBtn = mostrarMaterialBtn;
     }
+
+    public JButton getMostrarAcessorioBtn() {
+        return mostrarAcessorioBtn;
+    }
     
-    public JButton getAddAceEstoqueBtn() {
-        return addAceEstoqueBtn;
-    }
-
-    public void setAddAceEstoqueBtn(JButton addAceEstoqueBtn) {
-        this.addAceEstoqueBtn = addAceEstoqueBtn;
-    }
-
-    public JButton getAddMatEstoqueBtn() {
-        return addMatEstoqueBtn;
-    }
-
-    public void setAddMatEstoqueBtn(JButton addMatEstoqueBtn) {
-        this.addMatEstoqueBtn = addMatEstoqueBtn;
-    }
-
     public JButton getAlterarAcessorioBtn() {
         return alterarAcessorioBtn;
     }
@@ -143,7 +125,21 @@ public class PrincipalGerenteView extends JFrameLAF{
         this.mostrarClienteBtn = mostrarClienteBtn;
     }
 
-    
+    public JButton getAddAceEstoqueBtn() {
+        return addAceEstoqueBtn;
+    }
+
+    public void setAddAceEstoqueBtn(JButton addAceEstoqueBtn) {
+        this.addAceEstoqueBtn = addAceEstoqueBtn;
+    }
+
+    public JButton getAddMatEstoqueBtn() {
+        return addMatEstoqueBtn;
+    }
+
+    public void setAddMatEstoqueBtn(JButton addMatEstoqueBtn) {
+        this.addMatEstoqueBtn = addMatEstoqueBtn;
+    }
     
     public JButton getMostrarFuncionarioBtn() {
         return mostrarFuncionarioBtn;
@@ -152,8 +148,6 @@ public class PrincipalGerenteView extends JFrameLAF{
     public void setMostrarFuncionarioBtn(JButton mostrarFuncionarioBtn) {
         this.mostrarFuncionarioBtn = mostrarFuncionarioBtn;
     }
-    
-    
     
     public JButton getClientes_novoBtn() {
         return clientes_novoBtn;
@@ -436,7 +430,6 @@ public class PrincipalGerenteView extends JFrameLAF{
         jSeparator1 = new javax.swing.JSeparator();
         mostrarMaterialBtn = new javax.swing.JButton();
         mostrarAcessorioBtn = new javax.swing.JButton();
-        jLabel2 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
         setTitle("GlassTrack");
@@ -1006,6 +999,11 @@ public class PrincipalGerenteView extends JFrameLAF{
         alterarAcessorioBtn.setText("Alterar");
 
         addAceEstoqueBtn.setText("Adicionar Estoque");
+        addAceEstoqueBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                addAceEstoqueBtnActionPerformed(evt);
+            }
+        });
 
         jSeparator1.setForeground(new java.awt.Color(255, 255, 255));
 
@@ -1141,6 +1139,10 @@ public class PrincipalGerenteView extends JFrameLAF{
         // TODO add your handling code here:
     }//GEN-LAST:event_mostrarMaterialBtnActionPerformed
 
+    private void addAceEstoqueBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addAceEstoqueBtnActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_addAceEstoqueBtnActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -1180,8 +1182,8 @@ public class PrincipalGerenteView extends JFrameLAF{
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTable acessorioTable;
     private javax.swing.JCheckBox acessorio_baixaSelectBox;
-    private javax.swing.JButton adicionarAcessorioBtn;
-    private javax.swing.JButton adicionarMaterialBtn;
+    private javax.swing.JButton addAceEstoqueBtn;
+    private javax.swing.JButton addMatEstoqueBtn;
     private javax.swing.JButton alterarAcessoBtn;
     private javax.swing.JButton alterarAcessorioBtn;
     private javax.swing.JButton alterarClienteBtn;
