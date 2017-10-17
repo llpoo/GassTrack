@@ -6,6 +6,7 @@
 package br.com.gt.controller;
 
 import br.com.gt.model.Fornecedor;
+import br.com.gt.view.estoque.ListaEstoqueForView;
 import br.com.gt.view.fornecedor.MostrarFornecedorView;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -18,6 +19,7 @@ import java.sql.Connection;
 public class MostrarFornecedorController implements ActionListener{
     Connection connection;
     MostrarFornecedorView telaMostrar;
+    ListaEstoqueForView telaListarEstoque;
     Fornecedor fornecedor;
     
     public MostrarFornecedorController(Connection con, Fornecedor f) {
@@ -34,10 +36,14 @@ public class MostrarFornecedorController implements ActionListener{
         if(evento.getSource().equals(this.telaMostrar.getOkBtn())){
             this.telaMostrar.dispose();
         }
+        if(evento.getSource().equals(this.telaMostrar.getAquisicoesBtn())){
+            ListarAquisicaoForController listarAquisicaoController = new ListarAquisicaoForController(this.connection,this.fornecedor);
+        }
     }
 
     private void adicionaEventos() {
         this.telaMostrar.getOkBtn().addActionListener(this);
+        this.telaMostrar.getAquisicoesBtn().addActionListener(this);
     }
 
     private void preencheCampos() {

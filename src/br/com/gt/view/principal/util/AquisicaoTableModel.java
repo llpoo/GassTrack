@@ -1,0 +1,56 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package br.com.gt.view.principal.util;
+
+import br.com.gt.model.Aquisicao;
+import java.util.Arrays;
+import java.util.List;
+import javax.swing.table.AbstractTableModel;
+
+/**
+ *
+ * @author Luciano Júnior
+ */
+public class AquisicaoTableModel extends AbstractTableModel{
+    private List<Aquisicao> aquisicoes;
+    private List<String> colunas;
+    
+    public AquisicaoTableModel(List<Aquisicao> aquisicoes){
+        this.aquisicoes = aquisicoes;
+        colunas = Arrays.asList("Data", "Quantidade de Itens","Valor Unitário", "Valor Total");
+    }
+    
+    @Override
+    public String getColumnName(int column) {
+        return colunas.get(column);
+    }    
+    @Override
+    public int getRowCount() {
+        return aquisicoes.size();
+    }
+
+    @Override
+    public int getColumnCount() {
+        return colunas.size();
+    }
+
+    @Override
+    public Object getValueAt(int rowIndex, int columnIndex) {
+        Aquisicao aquisicao = aquisicoes.get(rowIndex);
+        switch(columnIndex){
+            
+            case 0: return aquisicao.getData();
+            case 1: return aquisicao.getQuantidadeItem();
+            case 2: return aquisicao.getValorUitario();
+            case 3: return aquisicao.getValorTotal();
+            
+        }
+        return null;
+        
+        
+    }
+    
+}

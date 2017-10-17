@@ -76,7 +76,6 @@ public class PrincipalGerenteController implements ActionListener, MouseListener
         atualizaTableAcessorio(null);
         
         this.aquisicaoDao= new AquisicaoDAO(this.connection);
-        //atualizaTableAquisicao(null);
         
         telaPrincipal.setVisible(true);
     }

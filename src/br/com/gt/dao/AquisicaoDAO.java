@@ -127,7 +127,7 @@ public class AquisicaoDAO implements DAO<Aquisicao>{
             pst.close(); 
             return true;
 	} catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Não foi possível excluir o fornecedor");
+            JOptionPane.showMessageDialog(null, "Não foi possível excluir a aquisição");
             Logger.getLogger(AquisicaoDAO.class.getName()).log(Level.SEVERE, null, ex);
             return false;
         }
@@ -176,7 +176,7 @@ public class AquisicaoDAO implements DAO<Aquisicao>{
 		    
             return listaAquisicao;
         }catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Não foi possível listar os fornecedores");
+            JOptionPane.showMessageDialog(null, "Não foi possível listar as aquisições");
             Logger.getLogger(AquisicaoDAO.class.getName()).log(Level.SEVERE, null, ex);
             return listaAquisicao;
         }
@@ -186,5 +186,94 @@ public class AquisicaoDAO implements DAO<Aquisicao>{
     public ArrayList<Aquisicao> pesquisar(String objeto) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
+    
+    public ArrayList<Aquisicao> listarByItem(Item item) {
+        String sql="select * from aquisicao where item_id=? order by data";
+        PreparedStatement pst;
+        ArrayList<Aquisicao> listaAquisicao =new ArrayList<Aquisicao>();
+        
+        try{
+            pst= connection.prepareStatement(sql);
+            pst.setInt(1, item.getId());
+            ResultSet rs = pst.executeQuery();
+            FornecedorDAO fornecedorDAO = new FornecedorDAO(connection);
+            ItemDAO itemDAO = new ItemDAO(connection);
+		    
+           while(rs.next()){		 	
+                Aquisicao aquisicao = new Aquisicao();
+                aquisicao.setId(rs.getInt("id"));
+                aquisicao.setData(rs.getDate("data"));
+                aquisicao.setValorUitario(rs.getDouble("valoruitario"));
+                aquisicao.setQuantidadeItem(rs.getInt("quantidadeitem"));
+                aquisicao.setValorTotal(rs.getDouble("valortotal"));
+		
+                Fornecedor f =new Fornecedor();
+                f.setId(rs.getInt("fornecedor_id"));
+                
+                aquisicao.setFornecedor(fornecedorDAO.buscarById(f.getId()));
+                
+                Item m =new Item();
+                m.setId(rs.getInt("item_id"));
+                
+                aquisicao.setItem(itemDAO.buscarById(m.getId()));
+                
+		listaAquisicao.add(aquisicao);
+	    }
+		    
+            rs.close();
+            pst.close();
+		    
+            return listaAquisicao;
+        }catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Não foi possível listar as aquisições");
+            Logger.getLogger(AquisicaoDAO.class.getName()).log(Level.SEVERE, null, ex);
+            return listaAquisicao;
+        }
+    }
+
+    public ArrayList<Aquisicao> listarByFornecedor(Fornecedor fornecedor) {
+        String sql="select * from aquisicao where fornecedor_id=? order by data";
+        PreparedStatement pst;
+        ArrayList<Aquisicao> listaAquisicao =new ArrayList<Aquisicao>();
+        
+        try{
+            pst= connection.prepareStatement(sql);
+            pst.setInt(1, fornecedor.getId());
+            ResultSet rs = pst.executeQuery();
+            FornecedorDAO fornecedorDAO = new FornecedorDAO(connection);
+            ItemDAO itemDAO = new ItemDAO(connection);
+		    
+           while(rs.next()){		 	
+                Aquisicao aquisicao = new Aquisicao();
+                aquisicao.setId(rs.getInt("id"));
+                aquisicao.setData(rs.getDate("data"));
+                aquisicao.setValorUitario(rs.getDouble("valoruitario"));
+                aquisicao.setQuantidadeItem(rs.getInt("quantidadeitem"));
+                aquisicao.setValorTotal(rs.getDouble("valortotal"));
+		
+                Fornecedor f =new Fornecedor();
+                f.setId(rs.getInt("fornecedor_id"));
+                
+                aquisicao.setFornecedor(fornecedorDAO.buscarById(f.getId()));
+                
+                Item m =new Item();
+                m.setId(rs.getInt("item_id"));
+                
+                aquisicao.setItem(itemDAO.buscarById(m.getId()));
+                
+		listaAquisicao.add(aquisicao);
+	    }
+		    
+            rs.close();
+            pst.close();
+		    
+            return listaAquisicao;
+        }catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Não foi possível listar as aquisições");
+            Logger.getLogger(AquisicaoDAO.class.getName()).log(Level.SEVERE, null, ex);
+            return listaAquisicao;
+        }
+    }
+
     
 }

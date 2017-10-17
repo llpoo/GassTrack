@@ -6,6 +6,7 @@
 package br.com.gt.controller;
 
 import br.com.gt.model.Item;
+import br.com.gt.view.estoque.ListaEstoqueView;
 import br.com.gt.view.item.MostrarItemView;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -18,7 +19,9 @@ import java.sql.Connection;
 public class MostrarItemController implements ActionListener{
     Connection connection;
     MostrarItemView telaMostrar;
+    ListaEstoqueView telaListarEstoque;
     Item item;
+    
     
     public MostrarItemController(Connection con, Item i) {
         this.connection = con;
@@ -34,10 +37,14 @@ public class MostrarItemController implements ActionListener{
         if(evento.getSource().equals(this.telaMostrar.getOkBtn())){
             this.telaMostrar.dispose();
         }
+        if(evento.getSource().equals(this.telaMostrar.getAquisicoesItemBtn())){
+            ListaAquisicaoController listarAquisicaoController = new ListaAquisicaoController(this.connection,this.item);
+        }
     }
 
     private void adicionaEventos() {
         this.telaMostrar.getOkBtn().addActionListener(this);
+        this.telaMostrar.getAquisicoesItemBtn().addActionListener(this);
     }
 
     private void preencheCampos() {
