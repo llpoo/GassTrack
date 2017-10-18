@@ -142,7 +142,50 @@ public class ClienteDAO implements DAO<PessoaFisica>{
 
     @Override
     public PessoaFisica buscar(PessoaFisica cliente) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        String sql = "SELECT * FROM cliente where id = ?";
+                
+        PreparedStatement pst;
+        ResultSet rs;
+        
+        PessoaFisica cli = new PessoaFisica();
+        
+        try {
+            pst = connection.prepareStatement(sql);
+            
+            pst.setInt(1, cliente.getId());
+            
+            rs = pst.executeQuery();
+            
+            EnderecoDAO eDao = new EnderecoDAO(this.connection);
+            
+            while(rs.next()){
+                PessoaFisica c = new PessoaFisica();
+                
+                c.setId(rs.getInt("Id"));
+                c.setEmail(rs.getString("email"));
+                c.setNome(rs.getString("nome"));
+                c.setTelefone(rs.getString("telefone"));
+                c.setCpf(rs.getString("cpf"));
+                c.setRg(rs.getString("rg"));
+                
+                Endereco e = new Endereco();
+                
+                e.setId(rs.getInt("endereco_id"));
+                e = eDao.buscarById(e.getId());
+                
+                c.setEndereco(e);
+                
+                cli = c;
+            }
+            
+            rs.close();
+            pst.close();
+            return cli;
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Não foi possível buscar o cliente");
+            Logger.getLogger(UsuarioDAO.class.getName()).log(Level.SEVERE, null, ex);
+            return null;
+        }
     }
 
     @Override

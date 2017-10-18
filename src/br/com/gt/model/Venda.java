@@ -5,8 +5,8 @@
  */
 package br.com.gt.model;
 
+import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 
 /**
  *
@@ -15,14 +15,17 @@ import java.util.List;
 public class Venda {
     private int id;
     private Date dataAbertura;
-    private Date dataPagametno;
+    private Date dataPagamento;
     private boolean situacao;
     private double valorMaoDeObra;
     private double valorTotal;
     private double desconto;
     private String Descricao;
-    private List<Item> itens;
-
+    private ArrayList<Item> itens;
+    private ArrayList<Double> quantidades;
+    private Funcionario funcionario;
+    private PessoaFisica cliente;
+    
     public int getId() {
         return id;
     }
@@ -39,15 +42,15 @@ public class Venda {
         this.dataAbertura = dataAbertura;
     }
 
-    public Date getDataPagametno() {
-        return dataPagametno;
+    public Date getDataPagamento() {
+        return dataPagamento;
     }
 
-    public void setDataPagametno(Date dataPagametno) {
-        this.dataPagametno = dataPagametno;
+    public void setDataPagamento(Date dataPagamento) {
+        this.dataPagamento = dataPagamento;
     }
 
-    public boolean isSituacao() {
+    public boolean getSituacao() {
         return situacao;
     }
 
@@ -87,11 +90,37 @@ public class Venda {
         this.Descricao = Descricao;
     }
 
-    public List<Item> getItens() {
+    public ArrayList<Item> getItens() {
         return itens;
     }
 
-    public void setItens(List<Item> itens) {
+    public void setItens(ArrayList<Item> itens) {
         this.itens = itens;
+    }
+
+    public void setQuantidades(ArrayList<Double> quantidades) {
+        this.quantidades = quantidades;
+    }
+    
+    
+
+    public ArrayList<Double> getQuantidades() {
+        return quantidades;
+    }
+
+    public Funcionario getFuncionario() {
+        return funcionario;
+    }
+
+    public void setFuncionario(Funcionario funcionario) {
+        this.funcionario = funcionario;
+    }
+
+    public PessoaFisica getCliente() {
+        return cliente;
+    }
+
+    public void setCliente(PessoaFisica cliente) {
+        this.cliente = cliente;
     }
 }

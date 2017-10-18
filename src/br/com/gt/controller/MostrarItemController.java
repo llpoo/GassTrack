@@ -52,7 +52,7 @@ public class MostrarItemController implements ActionListener{
         this.telaMostrar.getPrecoUnitarioTxt().setText(Double.toString(this.item.getPrecoUnitario()));
         this.telaMostrar.getIsAcessorioCheckBox().setSelected(this.item.isIsAcessorio());
         this.telaMostrar.getEstoqueMinTxt().setText(Integer.toString(this.item.getEstoqueMinimo()));
-        this.telaMostrar.getQtdeAtualTxt().setText(Integer.toString(this.item.getQuantidadeAtual()));
+        this.telaMostrar.getQtdeAtualTxt().setText(Double.toString(this.item.getQuantidadeAtual()));
     }
 
 }

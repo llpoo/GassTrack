@@ -28,6 +28,7 @@ public class CadastrarAquisicaoController implements ActionListener{
     AdicionarEstoqueView telaCadastro;
     Aquisicao aquisicao;
     Item item;
+    ArrayList<Fornecedor> fornecedores;
     
     public CadastrarAquisicaoController(Connection con, Aquisicao a, Item i) {
         this.connection = con;
@@ -36,10 +37,10 @@ public class CadastrarAquisicaoController implements ActionListener{
         item= i;
         adicionaEventos();
         FornecedorDAO fornecedor= new FornecedorDAO(con);
-        List<Fornecedor> f=fornecedor.listar();
+        fornecedores = fornecedor.listar();
         ItemDAO itemDao= new ItemDAO(con);
         List<Item> listaItem=itemDao.listar();
-        preencheComboBoxFornecedor(f);
+        preencheComboBoxFornecedor(fornecedores);
         preencheComboBoxItem(listaItem);
         telaCadastro.setVisible(true);
     }
@@ -68,7 +69,8 @@ public class CadastrarAquisicaoController implements ActionListener{
             this.aquisicao.setItem(this.item);
             
             FornecedorDAO fornecedor= new FornecedorDAO(this.connection);
-            this.aquisicao.setFornecedor(fornecedor.buscarByNome(this.telaCadastro.getFornecedorComboBox().getSelectedItem().toString()));
+            int index = this.telaCadastro.getFornecedorComboBox().getSelectedIndex();
+            this.aquisicao.setFornecedor(this.fornecedores.get(index));
             
             
             AquisicaoDAO aquiDao = new AquisicaoDAO(this.connection);

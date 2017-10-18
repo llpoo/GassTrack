@@ -85,12 +85,15 @@ public class LoginView extends JFrameLAF {
         jLabel2.setText("Usuário");
         jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 100, -1, -1));
 
+        usuarioTxt.setText("luquinha");
         usuarioTxt.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
                 usuarioTxtFocusGained(evt);
             }
         });
         jPanel1.add(usuarioTxt, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 120, 340, -1));
+
+        senhaTxt.setText("luquinha");
         jPanel1.add(senhaTxt, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 180, 340, -1));
 
         jLabel6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/gt/view/imagens/LogoVidro.png"))); // NOI18N

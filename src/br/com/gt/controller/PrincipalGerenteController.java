@@ -11,12 +11,14 @@ import br.com.gt.dao.FornecedorDAO;
 import br.com.gt.dao.FuncionarioDAO;
 import br.com.gt.dao.ItemDAO;
 import br.com.gt.dao.AquisicaoDAO;
+import br.com.gt.dao.VendaDAO;
 import br.com.gt.model.Fornecedor;
 import br.com.gt.model.Funcionario;
 import br.com.gt.model.Item;
 import br.com.gt.model.Aquisicao;
 import br.com.gt.model.PessoaFisica;
 import br.com.gt.model.Usuario;
+import br.com.gt.model.Venda;
 import br.com.gt.view.acesso.login.LoginView;
 import br.com.gt.view.principal.PrincipalGerenteView;
 import br.com.gt.view.principal.util.AcessorioTableModel;
@@ -24,6 +26,8 @@ import br.com.gt.view.principal.util.ClienteTableModel;
 import br.com.gt.view.principal.util.FornecedorTableModel;
 import br.com.gt.view.principal.util.FuncionarioTableModel;
 import br.com.gt.view.principal.util.MaterialTableModel;
+import br.com.gt.view.principal.util.VendaEmAbertoTableModel;
+import br.com.gt.view.principal.util.VendaTableModel;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
@@ -50,6 +54,8 @@ public class PrincipalGerenteController implements ActionListener, MouseListener
     private ArrayList<Item> acessorios;
     private AquisicaoDAO aquisicaoDao;
    // private ArrayList<Aquisicao> aquisicoes;
+    private ArrayList<Venda> vendas;
+    private VendaDAO vendaDAO;
     
     Connection connection;
     Usuario usuario;
@@ -74,6 +80,9 @@ public class PrincipalGerenteController implements ActionListener, MouseListener
         this.itemDao = new ItemDAO(this.connection);
         atualizaTableMaterial(null);
         atualizaTableAcessorio(null);
+        
+        this.vendaDAO = new VendaDAO(this.connection);
+        atualizaTableVenda(null);
         
         this.aquisicaoDao= new AquisicaoDAO(this.connection);
         
@@ -134,11 +143,6 @@ public class PrincipalGerenteController implements ActionListener, MouseListener
             }
         }
         
-        if(evento.getSource().equals(this.telaPrincipal.getMostrarFuncionarioBtn())){
-            int index = this.telaPrincipal.getFuncionarioTable().getSelectedRow();
-            MostrarFuncionarioController mostrarFuncionarioController = new MostrarFuncionarioController(this.connection,this.funcionarios.get(index));
-        }
-        
         if(evento.getSource().equals(this.telaPrincipal.getNovoFornecedorBtn())){
             Fornecedor fornecedor = new Fornecedor();
             CadastrarFornecedorController cadastrarControllerFornecedor = new CadastrarFornecedorController(this.connection,fornecedor);
@@ -172,11 +176,7 @@ public class PrincipalGerenteController implements ActionListener, MouseListener
                 atualizaTableFornecedor(this.fornecedores);
             }
         }
-        
-        if(evento.getSource().equals(this.telaPrincipal.getMostrarFornecedorBtn())){
-            int index = this.telaPrincipal.getFornecedorTable().getSelectedRow();
-            MostrarFornecedorController mostrarFornecedorController = new MostrarFornecedorController(this.connection,this.fornecedores.get(index));
-        }      
+           
         
         if(evento.getSource().equals(this.telaPrincipal.getClientes_novoBtn())){
             CadastrarClienteController cadastrarClienteController = new CadastrarClienteController(this.connection);
@@ -187,11 +187,6 @@ public class PrincipalGerenteController implements ActionListener, MouseListener
             int index = this.telaPrincipal.getClienteTable().getSelectedRow();
             AlterarClienteController alterarClienteController = new AlterarClienteController(this.connection, this.clientes.get(index));
             atualizaTableCliente(null);
-        }
-        
-        if(evento.getSource().equals(this.telaPrincipal.getMostrarClienteBtn())){
-            int index = this.telaPrincipal.getClienteTable().getSelectedRow();
-            MostrarClienteController MostrarClienteController = new MostrarClienteController(this.connection, this.clientes.get(index));
         }
         
         if(evento.getSource().equals(this.telaPrincipal.getExcluirClienteBtn())){
@@ -340,22 +335,40 @@ public class PrincipalGerenteController implements ActionListener, MouseListener
             Item item = this.acessorios.get(this.telaPrincipal.getAcessorioTable().getSelectedRow());
             Aquisicao aquisicao= new Aquisicao();
             CadastrarAquisicaoController cadastrarControllerAquisicao = new CadastrarAquisicaoController(this.connection, aquisicao, item);
+            atualizaTableAcessorio(null);
         }
         
         if(evento.getSource().equals(this.telaPrincipal.getAddMatEstoqueBtn())){
             Item item = this.materiais.get(this.telaPrincipal.getMaterialTable().getSelectedRow());
             Aquisicao aquisicao= new Aquisicao();
             CadastrarAquisicaoController cadastrarControllerAquisicao = new CadastrarAquisicaoController(this.connection, aquisicao, item);
+            atualizaTableMaterial(null);
         } 
         
-        if(evento.getSource().equals(this.telaPrincipal.getMostrarAcessorioBtn())){
-            int index = this.telaPrincipal.getAcessorioTable().getSelectedRow();
-            MostrarItemController mostrarAcessorioController = new MostrarItemController(this.connection,this.acessorios.get(index));
+        if(evento.getSource().equals(this.telaPrincipal.getVendas_FiltrarPorClienteBtn()) ||
+           evento.getSource().equals(this.telaPrincipal.getVendas_clienteTxt())){
+            if(this.telaPrincipal.getVendas_clienteTxt().getText().length() > 0){
+                atualizaTableVenda(vendaDAO.pesquisar(this.telaPrincipal.getVendas_clienteTxt().getText()));
+            }else{
+                atualizaTableVenda(null);
+            }
         }
         
-        if(evento.getSource().equals(this.telaPrincipal.getMostrarMaterialBtn())){
-            int index = this.telaPrincipal.getMaterialTable().getSelectedRow();
-            MostrarItemController mostrarMaterialController = new MostrarItemController(this.connection,this.materiais.get(index));
+        if(evento.getSource().equals(this.telaPrincipal.getVendas_funcionarioTxt()) ||
+           evento.getSource().equals(this.telaPrincipal.getVendas_filtrarPorFuncionarioBtn())){
+            if(this.telaPrincipal.getVendas_funcionarioTxt().getText().length() > 0){
+                atualizaTableVenda(vendaDAO.pesquisarByFuncionario(this.telaPrincipal.getVendas_funcionarioTxt().getText()));
+            }else{
+                atualizaTableVenda(null);
+            }
+        }
+        
+        if(evento.getSource().equals(this.telaPrincipal.getVendas_FiltrarPorDataBtn())){
+            if(this.telaPrincipal.getVendas_DataTxt().getDate() != null){
+                atualizaTableVenda(vendaDAO.pesquisarByData(this.telaPrincipal.getVendas_DataTxt().getDate()));
+            }else{
+                atualizaTableVenda(null);
+            }
         }
         
     }
@@ -372,18 +385,15 @@ public class PrincipalGerenteController implements ActionListener, MouseListener
         this.telaPrincipal.getExcluirFuncionarioBtn().addActionListener(this);
         this.telaPrincipal.getFuncionarios_BuscaBtn().addActionListener(this);
         this.telaPrincipal.getFuncionarios_funcionarioTxt().addActionListener(this);
-        this.telaPrincipal.getMostrarFuncionarioBtn().addActionListener(this);
         
         this.telaPrincipal.getNovoFornecedorBtn().addActionListener(this);
         this.telaPrincipal.getAlterarFornecedorBtn().addActionListener(this);
         this.telaPrincipal.getExcluirFornecedorBtn().addActionListener(this);
         this.telaPrincipal.getFornecedorBuscaBtn().addActionListener(this);
-        this.telaPrincipal.getMostrarFornecedorBtn().addActionListener(this);
         this.telaPrincipal.getFornecedorTxt().addActionListener(this);
         
         this.telaPrincipal.getClientes_novoBtn().addActionListener(this);
         this.telaPrincipal.getAlterarClienteBtn().addActionListener(this);
-        this.telaPrincipal.getMostrarClienteBtn().addActionListener(this);
         this.telaPrincipal.getExcluirClienteBtn().addActionListener(this);
         this.telaPrincipal.getClientes_clienteBuscaBtn().addActionListener(this);
         this.telaPrincipal.getClientes_clienteTxt().addActionListener(this);
@@ -397,10 +407,18 @@ public class PrincipalGerenteController implements ActionListener, MouseListener
         this.telaPrincipal.getItemTxt().addActionListener(this);
         this.telaPrincipal.getMaterial_baixaSelectBox().addActionListener(this);
         this.telaPrincipal.getAcessorio_baixaSelectBox().addActionListener(this);
-        this.telaPrincipal.getMostrarAcessorioBtn().addActionListener(this);
-        this.telaPrincipal.getMostrarMaterialBtn().addActionListener(this);
         this.telaPrincipal.getAddAceEstoqueBtn().addActionListener(this);
         this.telaPrincipal.getAddMatEstoqueBtn().addActionListener(this);
+        this.telaPrincipal.getVendas_clienteTxt().addActionListener(this);
+        this.telaPrincipal.getVendas_FiltrarPorClienteBtn().addActionListener(this);
+        this.telaPrincipal.getVendas_filtrarPorFuncionarioBtn().addActionListener(this);
+        this.telaPrincipal.getVendas_funcionarioTxt().addActionListener(this);
+        this.telaPrincipal.getVendas_FiltrarPorDataBtn().addActionListener(this);
+        
+        this.telaPrincipal.getFornecedorTable().addMouseListener(this);
+        this.telaPrincipal.getClienteTable().addMouseListener(this);
+        this.telaPrincipal.getMaterialTable().addMouseListener(this);
+        this.telaPrincipal.getAcessorioTable().addMouseListener(this);
     }
 
     private void atualizaTableFuncionario(ArrayList<Funcionario> funcionarios) {
@@ -466,6 +484,34 @@ public class PrincipalGerenteController implements ActionListener, MouseListener
                 MostrarFuncionarioController mostrarFuncionarioController = new MostrarFuncionarioController(this.connection,this.funcionarios.get(index));
              }
         }
+        
+        if(e.getSource().equals(this.telaPrincipal.getClienteTable())){
+            if(e.getClickCount() == 2){
+                int index = this.telaPrincipal.getClienteTable().getSelectedRow();
+                MostrarClienteController MostrarClienteController = new MostrarClienteController(this.connection, this.clientes.get(index));
+            }
+        }
+        
+        if(e.getSource().equals(this.telaPrincipal.getFornecedorTable())){
+            if(e.getClickCount() == 2){
+                int index = this.telaPrincipal.getFornecedorTable().getSelectedRow();
+                MostrarFornecedorController mostrarFornecedorController = new MostrarFornecedorController(this.connection,this.fornecedores.get(index));
+            }
+        }
+        
+        if(e.getSource().equals(this.telaPrincipal.getMaterialTable())){
+            if(e.getClickCount() == 2){
+                int index = this.telaPrincipal.getMaterialTable().getSelectedRow();
+                MostrarItemController mostrarMaterialController = new MostrarItemController(this.connection,this.materiais.get(index));
+            }
+        }
+        
+        if(e.getSource().equals(this.telaPrincipal.getAcessorioTable())){
+            if(e.getClickCount() == 2){
+                int index = this.telaPrincipal.getAcessorioTable().getSelectedRow();
+                MostrarItemController mostrarAcessorioController = new MostrarItemController(this.connection,this.acessorios.get(index));
+            }
+        }
     }
 
     @Override
@@ -486,5 +532,16 @@ public class PrincipalGerenteController implements ActionListener, MouseListener
     @Override
     public void mouseExited(MouseEvent e) {
         //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+    
+    private void atualizaTableVenda(ArrayList<Venda> vendas) {
+        if(vendas == null){
+            this.vendas = vendaDAO.listar();
+            VendaTableModel vendaModel = new VendaTableModel(this.vendas);
+            this.telaPrincipal.getVendasTable().setModel(vendaModel);
+        }else{
+            VendaTableModel vendaModel = new VendaTableModel(vendas);
+            this.telaPrincipal.getVendasTable().setModel(vendaModel);
+        }
     }
 } 

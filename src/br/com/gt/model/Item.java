@@ -13,7 +13,7 @@ package br.com.gt.model;
 public class Item {
     private int id;
     private String nome;
-    private int quantidadeAtual;
+    private double quantidadeAtual;
     private int estoqueMinimo;
     private double precoUnitario;
     private boolean isAcessorio;
@@ -26,20 +26,20 @@ public class Item {
         this.id = id;
     }
 
+    public double getQuantidadeAtual() {
+        return quantidadeAtual;
+    }
+
+    public void setQuantidadeAtual(double quantidadeAtual) {
+        this.quantidadeAtual = quantidadeAtual;
+    }
+
     public String getNome() {
         return nome;
     }
 
     public void setNome(String nome) {
         this.nome = nome;
-    }
-
-    public int getQuantidadeAtual() {
-        return quantidadeAtual;
-    }
-
-    public void setQuantidadeAtual(int quantidadeAtual) {
-        this.quantidadeAtual = quantidadeAtual;
     }
 
     public int getEstoqueMinimo() {

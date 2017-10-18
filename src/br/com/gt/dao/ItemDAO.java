@@ -38,7 +38,7 @@ public class ItemDAO implements DAO<Item>{
             pst = connection.prepareStatement(sql);
            
             pst.setString(1, item.getNome());
-            pst.setInt(2, item.getQuantidadeAtual());
+            pst.setDouble(2, item.getQuantidadeAtual());
             pst.setDouble(3, item.getPrecoUnitario());
             pst.setBoolean(4, item.isIsAcessorio());
             pst.setDouble(5, item.getEstoqueMinimo());
@@ -61,7 +61,7 @@ public class ItemDAO implements DAO<Item>{
         try {
             pst = connection.prepareStatement(sql);
             pst.setString(1,item.getNome());
-            pst.setInt(2,item.getQuantidadeAtual());
+            pst.setDouble(2,item.getQuantidadeAtual());
             pst.setDouble(3,item.getPrecoUnitario());
             pst.setBoolean(4,item.isIsAcessorio());
             pst.setInt(5,item.getEstoqueMinimo());

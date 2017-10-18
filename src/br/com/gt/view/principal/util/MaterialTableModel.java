@@ -43,6 +43,7 @@ public class MaterialTableModel extends AbstractTableModel{
     @Override
     public Object getValueAt(int rowIndex, int columnIndex) {
         Item material = materiais.get(rowIndex);
+        
         switch(columnIndex){
             
             case 0: return material.getNome();
