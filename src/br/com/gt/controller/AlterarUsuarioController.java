@@ -65,7 +65,9 @@ public class AlterarUsuarioController implements ActionListener{
 
                 funcionarioDAO.alterar(this.funcionario);
 
-                this.telaAlterar.dispose();
+                if(funcionarioDAO.alterar(this.funcionario) == true){
+                    this.telaAlterar.dispose();
+                }
             }else{
                 this.usuario.setUsuario(this.telaAlterar.getUsuarioTxt().getText());
                 this.usuario.setSenha(this.telaAlterar.getSenhaTxt().getText());
@@ -73,7 +75,9 @@ public class AlterarUsuarioController implements ActionListener{
                 UsuarioDAO usuarioDAO = new UsuarioDAO(this.connection);
                 usuarioDAO.alterar(this.usuario);
                 
-                this.telaAlterar.dispose();
+                if(usuarioDAO.alterar(this.usuario) == true){
+                    this.telaAlterar.dispose();
+                }
             }
         }
     }

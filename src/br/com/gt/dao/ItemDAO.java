@@ -28,51 +28,63 @@ public class ItemDAO implements DAO<Item>{
     }
 
     @Override
-    public void inserir(Item item) {
+    public boolean inserir(Item item) {
         String sql = "insert into item (nome, quantidadeatual, precounitario, "
                 + "isacessorio, estoqueminimo) values (?,?,?,?,?)";
         
         PreparedStatement pst;
         
-        try {
-            pst = connection.prepareStatement(sql);
-           
-            pst.setString(1, item.getNome());
-            pst.setDouble(2, item.getQuantidadeAtual());
-            pst.setDouble(3, item.getPrecoUnitario());
-            pst.setBoolean(4, item.isIsAcessorio());
-            pst.setDouble(5, item.getEstoqueMinimo());
-            
-            
-            pst.execute();
-            pst.close();
-            
-        } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Não foi possível salvar o item");
-            Logger.getLogger(ItemDAO.class.getName()).log(Level.SEVERE, null, ex);
+        if(validarCampos(item)==true){
+            try {
+                pst = connection.prepareStatement(sql);
+
+                pst.setString(1, item.getNome());
+                pst.setDouble(2, item.getQuantidadeAtual());
+                pst.setDouble(3, item.getPrecoUnitario());
+                pst.setBoolean(4, item.isIsAcessorio());
+                pst.setDouble(5, item.getEstoqueMinimo());
+
+
+                pst.execute();
+                pst.close();
+
+            } catch (SQLException ex) {
+                JOptionPane.showMessageDialog(null, "Não foi possível salvar o item");
+                Logger.getLogger(ItemDAO.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }else{
+            JOptionPane.showMessageDialog(null, "Preencha todos os campos do item");
+            return false;
         }
+        return false;
     }
 
     @Override
-    public void alterar(Item item) {
+    public boolean alterar(Item item) {
         String sql = "update item set nome=?,quantidadeatual=?,precounitario=?,isacessorio=?, estoqueminimo=? where id=?";
         PreparedStatement pst;
         
-        try {
-            pst = connection.prepareStatement(sql);
-            pst.setString(1,item.getNome());
-            pst.setDouble(2,item.getQuantidadeAtual());
-            pst.setDouble(3,item.getPrecoUnitario());
-            pst.setBoolean(4,item.isIsAcessorio());
-            pst.setInt(5,item.getEstoqueMinimo());
-            pst.setInt(6,item.getId());
-            
-            pst.execute();
-            pst.close(); 
-	} catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Não foi possível editar o item");
-            Logger.getLogger(ItemDAO.class.getName()).log(Level.SEVERE, null, ex);
+        if(validarCampos(item)==true){
+            try {
+                pst = connection.prepareStatement(sql);
+                pst.setString(1,item.getNome());
+                pst.setDouble(2,item.getQuantidadeAtual());
+                pst.setDouble(3,item.getPrecoUnitario());
+                pst.setBoolean(4,item.isIsAcessorio());
+                pst.setInt(5,item.getEstoqueMinimo());
+                pst.setInt(6,item.getId());
+
+                pst.execute();
+                pst.close(); 
+            } catch (SQLException ex) {
+                JOptionPane.showMessageDialog(null, "Não foi possível editar o item");
+                Logger.getLogger(ItemDAO.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }else{
+            JOptionPane.showMessageDialog(null, "Preencha todos os campos do item");
+            return false;
         }
+        return false;
     }
 
     @Override
@@ -412,6 +424,15 @@ public class ItemDAO implements DAO<Item>{
 	} catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Não foi possível alterar a quantidade do item");
             Logger.getLogger(ItemDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    private boolean validarCampos(Item item) {
+        if(item.getNome()!=null && item.getEstoqueMinimo()!=0 &&
+            item.getPrecoUnitario()!=0 && item.getQuantidadeAtual()!=0){
+                return true;
+        }else{
+            return false;
         }
     }
 }

@@ -56,7 +56,9 @@ public class CadastrarUsuarioController implements ActionListener{
             
             fDao.inserir(this.funcionario);
             
-            this.telaCadastro.dispose();
+            if(fDao.inserir(this.funcionario) == true){
+                this.telaCadastro.dispose();
+            }
         }
     }
     

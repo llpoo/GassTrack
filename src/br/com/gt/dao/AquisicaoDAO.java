@@ -31,90 +31,103 @@ public class AquisicaoDAO implements DAO<Aquisicao>{
     }
 
     @Override
-    public void inserir(Aquisicao aquisicao) {
+    public boolean inserir(Aquisicao aquisicao) {
         String sql = "insert into aquisicao (data, valoruitario, "
                 + "quantidadeitem, valortotal, fornecedor_id, item_id) "
                 + "values (?,?,?,?,?,?)";
         
         PreparedStatement pst;
         
-        try {
-            pst = connection.prepareStatement(sql);
-            
-            java.sql.Date dataSql = new java.sql.Date(aquisicao.getData().getTime());
-            
-            pst.setDate(1, dataSql);
-            pst.setDouble(2, aquisicao.getValorUitario());
-            pst.setInt(3, aquisicao.getQuantidadeItem());
-            pst.setDouble(4, aquisicao.getValorTotal());
-            
-            Fornecedor fornecedor = new Fornecedor();
-            FornecedorDAO fornecedorDAO = new FornecedorDAO(connection);
-            fornecedor = fornecedorDAO.buscar(aquisicao.getFornecedor());
-            
-            if(fornecedor.getId() < 1){
-                fornecedorDAO.inserir(aquisicao.getFornecedor());
+        if(validarCampos(aquisicao)==true){
+            try {
+                pst = connection.prepareStatement(sql);
+
+                java.sql.Date dataSql = new java.sql.Date(aquisicao.getData().getTime());
+
+                pst.setDate(1, dataSql);
+                pst.setDouble(2, aquisicao.getValorUitario());
+                pst.setInt(3, aquisicao.getQuantidadeItem());
+                pst.setDouble(4, aquisicao.getValorTotal());
+
+                Fornecedor fornecedor = new Fornecedor();
+                FornecedorDAO fornecedorDAO = new FornecedorDAO(connection);
                 fornecedor = fornecedorDAO.buscar(aquisicao.getFornecedor());
-            }
-            
-            aquisicao.getFornecedor().setId(fornecedor.getId());
-            
-            pst.setInt(5, aquisicao.getFornecedor().getId());
-            
-            Item item = new Item();
-            ItemDAO itemDAO = new ItemDAO(connection);
-            item = itemDAO.buscar(aquisicao.getItem());
-            
-            if(item.getId() < 1){
-                itemDAO.inserir(aquisicao.getItem());
+
+                if(fornecedor.getId() < 1){
+                    fornecedorDAO.inserir(aquisicao.getFornecedor());
+                    fornecedor = fornecedorDAO.buscar(aquisicao.getFornecedor());
+                }
+
+                aquisicao.getFornecedor().setId(fornecedor.getId());
+
+                pst.setInt(5, aquisicao.getFornecedor().getId());
+
+                Item item = new Item();
+                ItemDAO itemDAO = new ItemDAO(connection);
                 item = itemDAO.buscar(aquisicao.getItem());
+
+                if(item.getId() < 1){
+                    itemDAO.inserir(aquisicao.getItem());
+                    item = itemDAO.buscar(aquisicao.getItem());
+                }
+
+                aquisicao.getItem().setId(item.getId());
+
+                pst.setInt(6, aquisicao.getItem().getId());
+
+                itemDAO.addEstoque(aquisicao.getQuantidadeItem(), aquisicao.getItem().getId());
+
+                pst.execute();
+                pst.close();
+                return true;
+
+            } catch (SQLException ex) {
+                JOptionPane.showMessageDialog(null, "Não foi possível salvar a aquisição");
+                Logger.getLogger(AquisicaoDAO.class.getName()).log(Level.SEVERE, null, ex);
             }
-            
-            aquisicao.getItem().setId(item.getId());
-            
-            pst.setInt(6, aquisicao.getItem().getId());
-            
-            itemDAO.addEstoque(aquisicao.getQuantidadeItem(), aquisicao.getItem().getId());
-            
-            pst.execute();
-            pst.close();
-            
-        } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Não foi possível salvar a aquisição");
-            Logger.getLogger(AquisicaoDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }else{
+            JOptionPane.showMessageDialog(null, "Preencha todos os campos de aquisição");
+            return false;
         }
+        return false;
     }
 
     @Override
-    public void alterar(Aquisicao aquisicao) {
+    public boolean alterar(Aquisicao aquisicao) {
         String sql = "update aquisicao set data=?, valoruitario=?, "
                 + "quantidadeitem=?, valortotal=? where id=?";
         PreparedStatement pst;
         
-        try {
-            pst = connection.prepareStatement(sql);
-            java.sql.Date dataSql = new java.sql.Date(aquisicao.getData().getTime());
-            
-            pst.setDate(1, dataSql);
-            pst.setDouble(2, aquisicao.getValorUitario());
-            pst.setInt(3, aquisicao.getQuantidadeItem());
-            pst.setDouble(4, aquisicao.getValorTotal());  
-            
-            FornecedorDAO fornecedorDAO = new FornecedorDAO(connection);
-            fornecedorDAO.alterar(aquisicao.getFornecedor());
-            
-            ItemDAO itemDAO = new ItemDAO(connection);
-            itemDAO.alterar(aquisicao.getItem());
-            
-            pst.setInt(5,aquisicao.getId());
-            
-            //itemDAO.addEstoque(aquisicao.getQuantidadeItem(), aquisicao.getItem().getId());
-            pst.execute();
-            pst.close(); 
-	} catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Não foi possível editar a aquisicão");
-            Logger.getLogger(AquisicaoDAO.class.getName()).log(Level.SEVERE, null, ex);
+        if(validarCampos(aquisicao)==true){
+            try {
+                pst = connection.prepareStatement(sql);
+                java.sql.Date dataSql = new java.sql.Date(aquisicao.getData().getTime());
+
+                pst.setDate(1, dataSql);
+                pst.setDouble(2, aquisicao.getValorUitario());
+                pst.setInt(3, aquisicao.getQuantidadeItem());
+                pst.setDouble(4, aquisicao.getValorTotal());  
+
+                FornecedorDAO fornecedorDAO = new FornecedorDAO(connection);
+                fornecedorDAO.alterar(aquisicao.getFornecedor());
+
+                ItemDAO itemDAO = new ItemDAO(connection);
+                itemDAO.alterar(aquisicao.getItem());
+
+                pst.setInt(5,aquisicao.getId());
+
+                //itemDAO.addEstoque(aquisicao.getQuantidadeItem(), aquisicao.getItem().getId());
+                pst.execute();
+                pst.close(); 
+            } catch (SQLException ex) {
+                JOptionPane.showMessageDialog(null, "Não foi possível editar a aquisicão");
+                Logger.getLogger(AquisicaoDAO.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }else{
+            JOptionPane.showMessageDialog(null, "Preencha todos os campos de aquisição");
+            return false;
         }
+        return false;
     }
 
     @Override
@@ -275,6 +288,15 @@ public class AquisicaoDAO implements DAO<Aquisicao>{
             JOptionPane.showMessageDialog(null, "Não foi possível listar as aquisições");
             Logger.getLogger(AquisicaoDAO.class.getName()).log(Level.SEVERE, null, ex);
             return listaAquisicao;
+        }
+    }
+
+    private boolean validarCampos(Aquisicao aquisicao) {
+        if(aquisicao.getData()!=null && aquisicao.getQuantidadeItem()!=0 && 
+                aquisicao.getValorUitario()!=0){
+            return true;
+        }else{
+            return false;
         }
     }
 

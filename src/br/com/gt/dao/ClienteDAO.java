@@ -30,83 +30,95 @@ public class ClienteDAO implements DAO<PessoaFisica>{
     }
     
     @Override
-    public void inserir(PessoaFisica cliente) {
+    public boolean inserir(PessoaFisica cliente) {
         String sql = "insert into cliente (email,nome,telefone,cpf,rg,endereco_id,sexo) values (?,?,?,?,?,?,?)";
         
         PreparedStatement pst;
         
-        try {
-            pst = connection.prepareStatement(sql);
-            
-            pst.setString(1, cliente.getEmail());
-            pst.setString(2, cliente.getNome());
-            pst.setString(3, cliente.getTelefone());
-            pst.setString(4, cliente.getCpf());
-            pst.setString(5, cliente.getRg());
-            
-            Endereco endereco = new Endereco();
-            EnderecoDAO enderecoDAO = new EnderecoDAO(connection);
-            endereco = enderecoDAO.buscar(cliente.getEndereco());
-            
-            if(endereco.getId() < 1){
-                enderecoDAO.inserir(cliente.getEndereco());
+        if(validarCampos(cliente)==true){
+            try {
+                pst = connection.prepareStatement(sql);
+
+                pst.setString(1, cliente.getEmail());
+                pst.setString(2, cliente.getNome());
+                pst.setString(3, cliente.getTelefone());
+                pst.setString(4, cliente.getCpf());
+                pst.setString(5, cliente.getRg());
+
+                Endereco endereco = new Endereco();
+                EnderecoDAO enderecoDAO = new EnderecoDAO(connection);
                 endereco = enderecoDAO.buscar(cliente.getEndereco());
+
+                if(endereco.getId() < 1){
+                    enderecoDAO.inserir(cliente.getEndereco());
+                    endereco = enderecoDAO.buscar(cliente.getEndereco());
+                }
+
+                cliente.getEndereco().setId(endereco.getId());
+
+                pst.setInt(6, cliente.getEndereco().getId());
+
+                pst.setString(7, cliente.getSexo());
+
+                pst.execute();
+                pst.close();
+                JOptionPane.showMessageDialog(null, "Cadastro efetuado com sucesso");
+            } catch (SQLException ex) {
+                JOptionPane.showMessageDialog(null, "Não foi possível salvar o cliente");
+                Logger.getLogger(FuncionarioDAO.class.getName()).log(Level.SEVERE, null, ex);
             }
-            
-            cliente.getEndereco().setId(endereco.getId());
-            
-            pst.setInt(6, cliente.getEndereco().getId());
-               
-            pst.setString(7, cliente.getSexo());
-            
-            pst.execute();
-            pst.close();
-            JOptionPane.showMessageDialog(null, "Cadastro efetuado com sucesso");
-        } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Não foi possível salvar o cliente");
-            Logger.getLogger(FuncionarioDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }else{
+            JOptionPane.showMessageDialog(null, "Preencha todos os campos do cliente");
+            return false;
         }
+        return false;
     }
 
     @Override
-    public void alterar(PessoaFisica cliente) {
+    public boolean alterar(PessoaFisica cliente) {
         String sql = "update cliente set email = ?, nome = ?, telefone = ?, cpf = ?, rg = ?, endereco_id = ?, sexo = ? where id = ?";
         
         PreparedStatement pst;
         
-        try {
-            pst = connection.prepareStatement(sql);
-            
-            pst.setString(1, cliente.getEmail());
-            pst.setString(2, cliente.getNome());
-            pst.setString(3, cliente.getTelefone());
-            pst.setString(4, cliente.getCpf());
-            pst.setString(5, cliente.getRg());
-            
-            Endereco endereco = new Endereco();
-            EnderecoDAO enderecoDAO = new EnderecoDAO(connection);
-            endereco = enderecoDAO.buscar(cliente.getEndereco());
-            
-            if(endereco.getId() < 1){
-                enderecoDAO.alterar(cliente.getEndereco());
+        if(validarCampos(cliente)==true){
+            try {
+                pst = connection.prepareStatement(sql);
+
+                pst.setString(1, cliente.getEmail());
+                pst.setString(2, cliente.getNome());
+                pst.setString(3, cliente.getTelefone());
+                pst.setString(4, cliente.getCpf());
+                pst.setString(5, cliente.getRg());
+
+                Endereco endereco = new Endereco();
+                EnderecoDAO enderecoDAO = new EnderecoDAO(connection);
                 endereco = enderecoDAO.buscar(cliente.getEndereco());
+
+                if(endereco.getId() < 1){
+                    enderecoDAO.alterar(cliente.getEndereco());
+                    endereco = enderecoDAO.buscar(cliente.getEndereco());
+                }
+
+                cliente.getEndereco().setId(endereco.getId());
+
+                pst.setInt(6, cliente.getEndereco().getId());
+
+                pst.setString(7, cliente.getSexo());
+
+                pst.setInt(8, cliente.getId());
+
+                pst.execute();
+                pst.close();
+                JOptionPane.showMessageDialog(null, "Alteração efetuada com sucesso");
+            } catch (SQLException ex) {
+                JOptionPane.showMessageDialog(null, "Não foi possível alterar o cliente");
+                Logger.getLogger(FuncionarioDAO.class.getName()).log(Level.SEVERE, null, ex);
             }
-            
-            cliente.getEndereco().setId(endereco.getId());
-            
-            pst.setInt(6, cliente.getEndereco().getId());
-            
-            pst.setString(7, cliente.getSexo());
-            
-            pst.setInt(8, cliente.getId());
-            
-            pst.execute();
-            pst.close();
-            JOptionPane.showMessageDialog(null, "Alteração efetuada com sucesso");
-        } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Não foi possível alterar o cliente");
-            Logger.getLogger(FuncionarioDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }else{
+            JOptionPane.showMessageDialog(null, "Preencha todos os campos do cliente");
+            return false;
         }
+        return false;
     }
 
     @Override
@@ -277,6 +289,21 @@ public class ClienteDAO implements DAO<PessoaFisica>{
             JOptionPane.showMessageDialog(null, "Não foi possível buscar o cliente");
             Logger.getLogger(UsuarioDAO.class.getName()).log(Level.SEVERE, null, ex);
             return null;
+        }
+    }
+
+    private boolean validarCampos(PessoaFisica cliente) {
+        if(cliente.getNome()!=null && cliente.getEmail()!=null && 
+            cliente.getCpf()!=null && cliente.getRg()!=null && 
+            cliente.getSexo()!=null && cliente.getTelefone()!=null){
+                EnderecoDAO eDao = new EnderecoDAO(this.connection);
+                if(eDao.validarCampos(cliente.getEndereco()) == true){
+                    return true;
+                }else{
+                    return false;
+                }             
+        }else{
+            return false;
         }
     }
 

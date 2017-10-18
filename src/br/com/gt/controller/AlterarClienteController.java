@@ -68,7 +68,9 @@ public class AlterarClienteController implements ActionListener{
             ClienteDAO clienteDao = new ClienteDAO(this.connection);
             clienteDao.alterar(this.cliente);
             
-            this.telaAlterar.dispose();
+            if(clienteDao.alterar(this.cliente) == true){
+                this.telaAlterar.dispose();
+            }
         }
     }
 

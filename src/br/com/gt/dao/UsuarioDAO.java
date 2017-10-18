@@ -27,51 +27,62 @@ public class UsuarioDAO implements DAO<Usuario>{
     }
 
     @Override
-    public void inserir(Usuario usuario) {
+    public boolean inserir(Usuario usuario) {
         String sql = "insert into usuario (usuario, senha,isgerente) values (?,?,?)";
         
         PreparedStatement pst;
         
-        try {
-            pst = connection.prepareStatement(sql);
-            
-            pst.setString(1, usuario.getUsuario());
-            pst.setString(2, usuario.getSenha());
-            pst.setBoolean(3, false);
-            
-            pst.execute();
-            pst.close();
-        } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Não foi possível salvar o usuário");
-            Logger.getLogger(UsuarioDAO.class.getName()).log(Level.SEVERE, null, ex);
+        if(validarCampos(usuario)==true){
+            try {
+                pst = connection.prepareStatement(sql);
+
+                pst.setString(1, usuario.getUsuario());
+                pst.setString(2, usuario.getSenha());
+                pst.setBoolean(3, false);
+
+                pst.execute();
+                pst.close();
+            } catch (SQLException ex) {
+                JOptionPane.showMessageDialog(null, "Não foi possível salvar o usuário");
+                Logger.getLogger(UsuarioDAO.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }else{
+            JOptionPane.showMessageDialog(null, "Preencha todos os campos do usuário");
+            return false;
         }
-        
+        return false;
     }
 
     @Override
-    public void alterar(Usuario usuario) {
+    public boolean alterar(Usuario usuario) {
         String sql = "update usuario set usuario = ?, senha = ?, isgerente = ? where id = ?";
         
         PreparedStatement pst;
         
-        try {
-            pst = connection.prepareStatement(sql);
-            
-            
-            pst.setString(1, usuario.getUsuario());
-            pst.setString(2, usuario.getSenha());
-            pst.setBoolean(3, usuario.getIsIsGerente());
-            pst.setInt(4, usuario.getId());
-            
-            pst.execute();
-            pst.close();
-            if(usuario.getIsIsGerente() == true){
-                JOptionPane.showMessageDialog(null, "Alteração efetuada com sucesso");
+        if(validarCampos(usuario)==true){
+            try {
+                pst = connection.prepareStatement(sql);
+
+
+                pst.setString(1, usuario.getUsuario());
+                pst.setString(2, usuario.getSenha());
+                pst.setBoolean(3, usuario.getIsIsGerente());
+                pst.setInt(4, usuario.getId());
+
+                pst.execute();
+                pst.close();
+                if(usuario.getIsIsGerente() == true){
+                    JOptionPane.showMessageDialog(null, "Alteração efetuada com sucesso");
+                }
+            } catch (SQLException ex) {
+                JOptionPane.showMessageDialog(null, "Não foi possível alterar o usuário");
+                Logger.getLogger(UsuarioDAO.class.getName()).log(Level.SEVERE, null, ex);
             }
-        } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Não foi possível alterar o usuário");
-            Logger.getLogger(UsuarioDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }else{
+            JOptionPane.showMessageDialog(null, "Preencha todos os campos do usuário");
+            return false;
         }
+        return false;    
     }
 
     @Override
@@ -169,6 +180,14 @@ public class UsuarioDAO implements DAO<Usuario>{
     @Override
     public ArrayList<Usuario> pesquisar(String objeto) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    boolean validarCampos(Usuario usuario) {
+        if(usuario.getUsuario()!=null && usuario.getSenha()!=null){
+                return true;
+        }else{
+            return false;
+        }
     }
     
 }

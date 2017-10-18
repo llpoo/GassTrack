@@ -76,7 +76,9 @@ public class CadastrarAquisicaoController implements ActionListener{
             aquiDao.inserir(this.aquisicao);
             
             this.telaCadastro.setVisible(false);
-            this.telaCadastro.dispose();
+            if(aquiDao.inserir(this.aquisicao) == true){
+                this.telaCadastro.dispose();
+            }
         }
     }
 

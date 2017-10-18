@@ -47,7 +47,9 @@ public class CadastrarItemController implements ActionListener{
             itemDao.inserir(this.item);
             
             this.telaCadastro.setVisible(false);
-            this.telaCadastro.dispose();
+            if(itemDao.inserir(this.item) == true){
+                this.telaCadastro.dispose();
+            }
         }
     }
 

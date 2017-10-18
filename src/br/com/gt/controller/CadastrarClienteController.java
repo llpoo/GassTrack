@@ -67,7 +67,9 @@ public class CadastrarClienteController implements ActionListener{
             
             clienteDAO.inserir(cliente);
             
-            this.telaCadastro.dispose();
+            if(clienteDAO.inserir(cliente) == true){
+                this.telaCadastro.dispose();
+            }
         }
     }
 

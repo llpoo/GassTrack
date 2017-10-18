@@ -55,7 +55,9 @@ public class AlterarItemController implements ActionListener{
             ItemDAO itemDAO = new ItemDAO(this.connection);
             itemDAO.alterar(this.item);
             
-            this.telaAlterar.dispose();
+            if(itemDAO.alterar(this.item) == true){
+                this.telaAlterar.dispose();
+            }
         }
     }
 

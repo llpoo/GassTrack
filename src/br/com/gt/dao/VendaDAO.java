@@ -32,114 +32,126 @@ public class VendaDAO implements DAO<Venda>{
     }
     
     @Override
-    public void inserir(Venda venda) {
+    public boolean inserir(Venda venda) {
        String sql = "insert into venda (descricao,dataabertura,datapagamento,desconto,situacao,valormaodeobra,valortotal,funcionario_id,cliente_id) values (?,?,?,?,?,?,?,?,?)";
         
         PreparedStatement pst;
         ResultSet rs;
         
-        try {
-            pst = connection.prepareStatement(sql);
-            
-            pst.setString(1, venda.getDescricao());
-            
-            java.sql.Date dataAtualSql = new java.sql.Date(venda.getDataAbertura().getTime());
-            
-            pst.setDate(2, dataAtualSql);
-            pst.setDate(3, null);
-            pst.setDouble(4, venda.getDesconto());
-            pst.setBoolean(5, venda.getSituacao());
-            pst.setDouble(6, venda.getValorMaoDeObra());
-            pst.setDouble(7, venda.getValorTotal());
-            pst.setInt(8, venda.getFuncionario().getId());
-            pst.setInt(9, venda.getCliente().getId());
-            pst.execute();
-            pst.close();
-            
-            sql ="select max(id) from venda";
-            
-            pst = connection.prepareStatement(sql);
-            rs = pst.executeQuery();
-            
-            Integer ultimoId = new Integer(0);
-            
-            while(rs.next()){
-                ultimoId = rs.getInt("max");
-            }
-            
-            venda.setId(ultimoId);
-            
-            rs.close();
-            pst.close();
-            
-            
-            sql = "insert into venda_tem_itens (venda_id,item_id,quantidade_item) values (?,?,?)";
-            pst = connection.prepareStatement(sql);
-            
-            for(int i=0; i<venda.getItens().size(); i++){
-                pst.setInt(1, venda.getId());
-                pst.setInt(2, venda.getItens().get(i).getId());
-                pst.setDouble(3, venda.getQuantidades().get(i));
-                
+        if(validarCampos(venda)==true){
+            try {
+                pst = connection.prepareStatement(sql);
+
+                pst.setString(1, venda.getDescricao());
+
+                java.sql.Date dataAtualSql = new java.sql.Date(venda.getDataAbertura().getTime());
+
+                pst.setDate(2, dataAtualSql);
+                pst.setDate(3, null);
+                pst.setDouble(4, venda.getDesconto());
+                pst.setBoolean(5, venda.getSituacao());
+                pst.setDouble(6, venda.getValorMaoDeObra());
+                pst.setDouble(7, venda.getValorTotal());
+                pst.setInt(8, venda.getFuncionario().getId());
+                pst.setInt(9, venda.getCliente().getId());
                 pst.execute();
+                pst.close();
+
+                sql ="select max(id) from venda";
+
+                pst = connection.prepareStatement(sql);
+                rs = pst.executeQuery();
+
+                Integer ultimoId = new Integer(0);
+
+                while(rs.next()){
+                    ultimoId = rs.getInt("max");
+                }
+
+                venda.setId(ultimoId);
+
+                rs.close();
+                pst.close();
+
+
+                sql = "insert into venda_tem_itens (venda_id,item_id,quantidade_item) values (?,?,?)";
+                pst = connection.prepareStatement(sql);
+
+                for(int i=0; i<venda.getItens().size(); i++){
+                    pst.setInt(1, venda.getId());
+                    pst.setInt(2, venda.getItens().get(i).getId());
+                    pst.setDouble(3, venda.getQuantidades().get(i));
+
+                    pst.execute();
+                }
+
+                pst.close();
+                JOptionPane.showMessageDialog(null, "Venda encaminhada com sucesso");
+            } catch (SQLException ex) {
+                JOptionPane.showMessageDialog(null, "Não foi possível salvar a venda");
+                Logger.getLogger(FuncionarioDAO.class.getName()).log(Level.SEVERE, null, ex);
             }
-            
-            pst.close();
-            JOptionPane.showMessageDialog(null, "Venda encaminhada com sucesso");
-        } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Não foi possível salvar a venda");
-            Logger.getLogger(FuncionarioDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }else{
+            JOptionPane.showMessageDialog(null, "Preencha todos os campos da venda");
+            return false;
         }
+        return false;    
     }
 
     @Override
-    public void alterar(Venda venda) {
+    public boolean alterar(Venda venda) {
         String sql = "update venda set descricao = ?,datapagamento = ?,desconto = ?,situacao = ?,valormaodeobra = ?,valortotal = ?,funcionario_id = ?,cliente_id = ? where id = ?";
         
         PreparedStatement pst;
         ResultSet rs;
         
-        try {
-            pst = connection.prepareStatement(sql);
-            
-            pst.setString(1, venda.getDescricao());
-            
-            pst.setDate(2, null);
-            pst.setDouble(3, venda.getDesconto());
-            pst.setBoolean(4, venda.getSituacao());
-            pst.setDouble(5, venda.getValorMaoDeObra());
-            pst.setDouble(6, venda.getValorTotal());
-            pst.setInt(7, venda.getFuncionario().getId());
-            pst.setInt(8, venda.getCliente().getId());
-            pst.setInt(9, venda.getId());
-            pst.execute();
-            pst.close();
-            
-            
-            sql = "delete from venda_tem_itens where venda_id = ?";
-            pst = connection.prepareStatement(sql);
-            pst.setInt(1, venda.getId());
-            
-            pst.execute();
-            pst.close();
-            
-            sql = "insert into venda_tem_itens (venda_id,item_id,quantidade_item) values (?,?,?)";
-            pst = connection.prepareStatement(sql);
-            
-            for(int i=0; i<venda.getItens().size(); i++){
-                pst.setInt(1, venda.getId());
-                pst.setInt(2, venda.getItens().get(i).getId());
-                pst.setDouble(3, venda.getQuantidades().get(i));
-                
+        if(validarCampos(venda)==true){
+            try {
+                pst = connection.prepareStatement(sql);
+
+                pst.setString(1, venda.getDescricao());
+
+                pst.setDate(2, null);
+                pst.setDouble(3, venda.getDesconto());
+                pst.setBoolean(4, venda.getSituacao());
+                pst.setDouble(5, venda.getValorMaoDeObra());
+                pst.setDouble(6, venda.getValorTotal());
+                pst.setInt(7, venda.getFuncionario().getId());
+                pst.setInt(8, venda.getCliente().getId());
+                pst.setInt(9, venda.getId());
                 pst.execute();
+                pst.close();
+
+
+                sql = "delete from venda_tem_itens where venda_id = ?";
+                pst = connection.prepareStatement(sql);
+                pst.setInt(1, venda.getId());
+
+                pst.execute();
+                pst.close();
+
+                sql = "insert into venda_tem_itens (venda_id,item_id,quantidade_item) values (?,?,?)";
+                pst = connection.prepareStatement(sql);
+
+                for(int i=0; i<venda.getItens().size(); i++){
+                    pst.setInt(1, venda.getId());
+                    pst.setInt(2, venda.getItens().get(i).getId());
+                    pst.setDouble(3, venda.getQuantidades().get(i));
+
+                    pst.execute();
+                }
+
+                pst.close();
+                JOptionPane.showMessageDialog(null, "Venda alterada com sucesso");
+            } catch (SQLException ex) {
+                JOptionPane.showMessageDialog(null, "Não foi possível alterar a venda");
+                Logger.getLogger(FuncionarioDAO.class.getName()).log(Level.SEVERE, null, ex);
             }
-            
-            pst.close();
-            JOptionPane.showMessageDialog(null, "Venda alterada com sucesso");
-        } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Não foi possível alterar a venda");
-            Logger.getLogger(FuncionarioDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }else{
+            JOptionPane.showMessageDialog(null, "Preencha todos os campos da venda");
+            return false;
         }
+        return false;    
     }
 
     @Override
@@ -628,6 +640,10 @@ public class VendaDAO implements DAO<Venda>{
             Logger.getLogger(UsuarioDAO.class.getName()).log(Level.SEVERE, null, ex);
             return null;
         }
+    }
+
+    private boolean validarCampos(Venda venda) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
 }

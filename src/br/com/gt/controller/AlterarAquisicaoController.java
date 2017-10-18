@@ -72,7 +72,9 @@ public class AlterarAquisicaoController implements ActionListener{
             AquisicaoDAO aquiDao = new AquisicaoDAO(this.connection);
             aquiDao.alterar(this.aquisicao);
             
-            this.telaAlterar.dispose();
+            if(aquiDao.alterar(this.aquisicao) == true){
+                this.telaAlterar.dispose();
+            }
         }
     }
 
