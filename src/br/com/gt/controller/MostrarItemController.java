@@ -19,7 +19,6 @@ import java.sql.Connection;
 public class MostrarItemController implements ActionListener{
     Connection connection;
     MostrarItemView telaMostrar;
-    ListaEstoqueView telaListarEstoque;
     Item item;
     
     

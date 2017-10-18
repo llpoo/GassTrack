@@ -159,11 +159,10 @@ public class AlterarAdicaoView extends javax.swing.JDialog {
         jLabel8.setText("Fornecedor");
 
         fornecedorComboBox.setEditable(true);
-        fornecedorComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        fornecedorComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1" }));
 
         salvarBtn.setText("Salvar");
 
-        itemComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
         itemComboBox.setEnabled(false);
         itemComboBox.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -192,6 +191,7 @@ public class AlterarAdicaoView extends javax.swing.JDialog {
         jLabel9.setForeground(new java.awt.Color(255, 255, 255));
         jLabel9.setText("Valor Total");
 
+        valorTotalTxt.setEditable(false);
         valorTotalTxt.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 valorTotalTxtActionPerformed(evt);

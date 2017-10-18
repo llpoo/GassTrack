@@ -5,12 +5,74 @@
  */
 package br.com.gt.view.estoque;
 
+import com.toedter.calendar.JDateChooser;
+import javax.swing.JButton;
+import javax.swing.JComboBox;
+import javax.swing.JTextField;
+
 /**
  *
  * @author lucas
  */
 public class MostrarAdicaoView extends javax.swing.JDialog {
 
+    public JDateChooser getDataCalendar() {
+        return dataCalendar;
+    }
+
+    public void setDataCalendar(JDateChooser dataCalendar) {
+        this.dataCalendar = dataCalendar;
+    }
+
+    public JComboBox<String> getFornecedorComboBox() {
+        return fornecedorComboBox;
+    }
+
+    public void setFornecedorComboBox(JComboBox<String> fornecedorComboBox) {
+        this.fornecedorComboBox = fornecedorComboBox;
+    }
+
+    public JComboBox<String> getItemComboBox() {
+        return itemComboBox;
+    }
+
+    public void setItemComboBox(JComboBox<String> itemComboBox) {
+        this.itemComboBox = itemComboBox;
+    }
+
+    public JButton getOkBtn() {
+        return okBtn;
+    }
+
+    public void setOkBtn(JButton okBtn) {
+        this.okBtn = okBtn;
+    }
+
+    public JTextField getQtdeItemTxt() {
+        return qtdeItemTxt;
+    }
+
+    public void setQtdeItemTxt(JTextField qtdeItemTxt) {
+        this.qtdeItemTxt = qtdeItemTxt;
+    }
+
+    public JTextField getValorTotalTxt() {
+        return valorTotalTxt;
+    }
+
+    public void setValorTotalTxt(JTextField valorTotalTxt) {
+        this.valorTotalTxt = valorTotalTxt;
+    }
+
+    public JTextField getValorUnitarioTxt() {
+        return valorUnitarioTxt;
+    }
+
+    public void setValorUnitarioTxt(JTextField valorUnitarioTxt) {
+        this.valorUnitarioTxt = valorUnitarioTxt;
+    }
+    
+    
     /**
      * Creates new form MostraAdicaoView
      */

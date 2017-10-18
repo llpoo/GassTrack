@@ -12,6 +12,8 @@ import br.com.gt.view.estoque.ListaEstoqueForView;
 import br.com.gt.view.principal.util.AquisicaoTableModel;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.sql.Connection;
 import java.util.ArrayList;
 import java.util.List;
@@ -21,7 +23,7 @@ import javax.swing.JOptionPane;
  *
  * @author Luciano Júnior
  */
-public class ListarAquisicaoForController implements ActionListener{
+public class ListarAquisicaoForController implements ActionListener, MouseListener{
     Connection connection;
     ListaEstoqueForView telaListarEstoque;
     Fornecedor fornecedor;
@@ -59,11 +61,42 @@ public class ListarAquisicaoForController implements ActionListener{
 
     private void adicionaEventos() {
         this.telaListarEstoque.getVoltarBtn().addActionListener(this);
+        this.telaListarEstoque.getEstoqueTable().addMouseListener(this);
     }
 
     private void preencheComboBoxItem(Fornecedor fornecedor) {
         this.telaListarEstoque.getFornecedorComboBox().addItem(fornecedor.getNome());
         this.telaListarEstoque.getFornecedorComboBox().setSelectedItem(this.fornecedor.getNome());
+    }
+
+    @Override
+    public void mouseClicked(MouseEvent e) {
+        if(e.getSource().equals(this.telaListarEstoque.getEstoqueTable())){
+            if(e.getClickCount() == 2){
+                int index = this.telaListarEstoque.getEstoqueTable().getSelectedRow();
+                MostrarAquisicaoController mostrarAquisicaoController = new MostrarAquisicaoController(this.connection, this.aquisicoes.get(index));
+            }
+        }
+    }
+
+    @Override
+    public void mousePressed(MouseEvent e) {
+        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void mouseReleased(MouseEvent e) {
+        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void mouseEntered(MouseEvent e) {
+       // throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void mouseExited(MouseEvent e) {
+        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
 }

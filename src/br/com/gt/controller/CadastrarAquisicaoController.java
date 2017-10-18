@@ -68,7 +68,6 @@ public class CadastrarAquisicaoController implements ActionListener{
             
             this.aquisicao.setItem(this.item);
             
-            FornecedorDAO fornecedor= new FornecedorDAO(this.connection);
             int index = this.telaCadastro.getFornecedorComboBox().getSelectedIndex();
             this.aquisicao.setFornecedor(this.fornecedores.get(index));
             

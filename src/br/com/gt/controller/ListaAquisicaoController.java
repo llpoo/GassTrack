@@ -12,6 +12,8 @@ import br.com.gt.view.estoque.ListaEstoqueView;
 import br.com.gt.view.principal.util.AquisicaoTableModel;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.sql.Connection;
 import java.util.ArrayList;
 import java.util.List;
@@ -21,7 +23,7 @@ import javax.swing.JOptionPane;
  *
  * @author Luciano Júnior
  */
-public class ListaAquisicaoController implements ActionListener{
+public class ListaAquisicaoController implements ActionListener, MouseListener{
     Connection connection;
     ListaEstoqueView telaListarEstoque;
     Item item;
@@ -44,6 +46,22 @@ public class ListaAquisicaoController implements ActionListener{
         if(evento.getSource().equals(this.telaListarEstoque.getVoltarBtn())){
             this.telaListarEstoque.dispose();
         }
+        if(evento.getSource().equals(this.telaListarEstoque.getAlterarBtn())){
+            int index = this.telaListarEstoque.getEstoqueTable().getSelectedRow();
+            AlterarAquisicaoController alterarAquisicaoController = new AlterarAquisicaoController(this.connection, this.aquisicoes.get(index));
+            atualizaTableAquisicao(null);
+        }
+        
+        if(evento.getSource().equals(this.telaListarEstoque.getExcluirBtn())){
+            int index = this.telaListarEstoque.getEstoqueTable().getSelectedRow();
+            if (JOptionPane.showConfirmDialog(null, "Deseja excluir o registro do estoque "+
+                    this.aquisicoes.get(index).getItem().getNome()+"?", null, JOptionPane.YES_NO_OPTION) 
+                    == JOptionPane.YES_OPTION){
+                this.aquisicaoDao.excluir(this.aquisicoes.get(index));
+                this.aquisicoes.remove(index);
+                atualizaTableAquisicao(null);
+            }
+        }
     }
 
     private void atualizaTableAquisicao(ArrayList<Aquisicao> aquisicoes) {
@@ -61,11 +79,42 @@ public class ListaAquisicaoController implements ActionListener{
         this.telaListarEstoque.getAlterarBtn().addActionListener(this);
         this.telaListarEstoque.getExcluirBtn().addActionListener(this);
         this.telaListarEstoque.getVoltarBtn().addActionListener(this);
+        this.telaListarEstoque.getEstoqueTable().addMouseListener(this);
     }
 
     private void preencheComboBoxItem(Item item) {
         this.telaListarEstoque.getItemComboBox().addItem(item.getNome());
         this.telaListarEstoque.getItemComboBox().setSelectedItem(this.item.getNome());
+    }
+
+    @Override
+    public void mouseClicked(MouseEvent e) {
+        if(e.getSource().equals(this.telaListarEstoque.getEstoqueTable())){
+            if(e.getClickCount() == 2){
+                int index = this.telaListarEstoque.getEstoqueTable().getSelectedRow();
+                MostrarAquisicaoController mostrarAquisicaoController = new MostrarAquisicaoController(this.connection, this.aquisicoes.get(index));
+            }
+        }
+    }
+
+    @Override
+    public void mousePressed(MouseEvent e) {
+        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void mouseReleased(MouseEvent e) {
+        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void mouseEntered(MouseEvent e) {
+        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void mouseExited(MouseEvent e) {
+        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
 }
