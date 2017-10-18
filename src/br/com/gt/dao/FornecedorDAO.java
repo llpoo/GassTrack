@@ -29,73 +29,86 @@ public class FornecedorDAO implements DAO<Fornecedor>{
     }
 
     @Override
-    public void inserir(Fornecedor fornecedor) {
+    public boolean inserir(Fornecedor fornecedor) {
          String sql = "insert into fornecedor (email,nome,telefone,cnpj,endereco_id) values (?,?,?,?,?)";
         
         PreparedStatement pst;
-        
-        try {
-            pst = connection.prepareStatement(sql);
-            
-            pst.setString(1, fornecedor.getEmail());
-            pst.setString(2, fornecedor.getNome());
-            pst.setString(3, fornecedor.getTelefone());
-            pst.setString(4, fornecedor.getCnpj());
-            
-            Endereco endereco = new Endereco();
-            EnderecoDAO enderecoDAO = new EnderecoDAO(connection);
-            endereco = enderecoDAO.buscar(fornecedor.getEndereco());
-            
-            if(endereco.getId() < 1){
-                enderecoDAO.inserir(fornecedor.getEndereco());
+        if(validarCampos(fornecedor)==true){
+           try {
+                pst = connection.prepareStatement(sql);
+
+                pst.setString(1, fornecedor.getEmail());
+                pst.setString(2, fornecedor.getNome());
+                pst.setString(3, fornecedor.getTelefone());
+                pst.setString(4, fornecedor.getCnpj());
+
+                Endereco endereco = new Endereco();
+                EnderecoDAO enderecoDAO = new EnderecoDAO(connection);
                 endereco = enderecoDAO.buscar(fornecedor.getEndereco());
+
+                if(endereco.getId() < 1){
+                    enderecoDAO.inserir(fornecedor.getEndereco());
+                    endereco = enderecoDAO.buscar(fornecedor.getEndereco());
+                }
+
+                fornecedor.getEndereco().setId(endereco.getId());
+
+                pst.setInt(5, fornecedor.getEndereco().getId());
+
+                pst.execute();
+                pst.close();
+                JOptionPane.showMessageDialog(null, "Cadastro efetuado com sucesso");
+                return true;
+            } catch (SQLException ex) {
+                JOptionPane.showMessageDialog(null, "Não foi possível salvar o fornecedor");
+                Logger.getLogger(FornecedorDAO.class.getName()).log(Level.SEVERE, null, ex);
             }
-            
-            fornecedor.getEndereco().setId(endereco.getId());
-            
-            pst.setInt(5, fornecedor.getEndereco().getId());
-            
-            pst.execute();
-            pst.close();
-            JOptionPane.showMessageDialog(null, "Cadastro efetuado com sucesso");
-        } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Não foi possível salvar o fornecedor");
-            Logger.getLogger(FornecedorDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }else{
+            JOptionPane.showMessageDialog(null, "Preencha todos os campos");
+            return false;
         }
+        return false;
     }
 
     @Override
-    public void alterar(Fornecedor fornecedor) {
+    public boolean alterar(Fornecedor fornecedor) {
         String sql = "update fornecedor set nome=?,email=?,cnpj=?,telefone=?, endereco_id=? where id=?";
         PreparedStatement pst;
         
-        try {
-            pst = connection.prepareStatement(sql);
-            pst.setString(1,fornecedor.getNome());
-            pst.setString(2,fornecedor.getEmail());
-            pst.setString(3,fornecedor.getCnpj());
-            pst.setString(4,fornecedor.getTelefone());  
-            
-            Endereco endereco = new Endereco();
-            EnderecoDAO enderecoDAO = new EnderecoDAO(connection);
-            endereco = enderecoDAO.buscar(fornecedor.getEndereco());
-            
-            if(endereco.getId() < 1){
-                enderecoDAO.alterar(fornecedor.getEndereco());
+        if(validarCampos(fornecedor)==true){        
+            try {
+                pst = connection.prepareStatement(sql);
+                pst.setString(1,fornecedor.getNome());
+                pst.setString(2,fornecedor.getEmail());
+                pst.setString(3,fornecedor.getCnpj());
+                pst.setString(4,fornecedor.getTelefone());  
+
+                Endereco endereco = new Endereco();
+                EnderecoDAO enderecoDAO = new EnderecoDAO(connection);
                 endereco = enderecoDAO.buscar(fornecedor.getEndereco());
+
+                if(endereco.getId() < 1){
+                    enderecoDAO.alterar(fornecedor.getEndereco());
+                    endereco = enderecoDAO.buscar(fornecedor.getEndereco());
+                }
+
+                fornecedor.getEndereco().setId(endereco.getId());
+
+                pst.setInt(5, fornecedor.getEndereco().getId());
+                pst.setInt(6,fornecedor.getId());
+
+                pst.execute();
+                pst.close(); 
+                return true;
+            } catch (SQLException ex) {
+                JOptionPane.showMessageDialog(null, "Não foi possível editar o fornecedor");
+                Logger.getLogger(FornecedorDAO.class.getName()).log(Level.SEVERE, null, ex);
             }
-            
-            fornecedor.getEndereco().setId(endereco.getId());
-            
-            pst.setInt(5, fornecedor.getEndereco().getId());
-            pst.setInt(6,fornecedor.getId());
-            
-            pst.execute();
-            pst.close(); 
-	} catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Não foi possível editar o fornecedor");
-            Logger.getLogger(FornecedorDAO.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        }else{
+            JOptionPane.showMessageDialog(null, "Preencha todos os campos");
+            return false;
+        }    
+        return false;
     }
 
     @Override
@@ -313,6 +326,20 @@ public class FornecedorDAO implements DAO<Fornecedor>{
         }
         
         return f;
+    }
+
+    private boolean validarCampos(Fornecedor fornecedor) {
+        if(fornecedor.getEmail()!=null && fornecedor.getCnpj()!=null && 
+                fornecedor.getNome()!=null && fornecedor.getTelefone()!= null){
+           EnderecoDAO eDao = new EnderecoDAO(this.connection);
+           if(eDao.validarCampos(fornecedor.getEndereco()) == true){
+               return true;
+           }else{
+               return false;
+           } 
+        }else{
+            return false;
+        }
     }
     
 }

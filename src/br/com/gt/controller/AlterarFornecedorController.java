@@ -64,7 +64,9 @@ public class AlterarFornecedorController implements ActionListener{
             fornDAO.alterar(forn);
             
             this.telaAlterar.setVisible(false);
-            this.telaAlterar.dispose();
+            if(fornDAO.alterar(this.fornecedor) == true){
+                this.telaAlterar.dispose();
+            }
         }
     }
 

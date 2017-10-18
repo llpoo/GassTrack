@@ -57,7 +57,9 @@ public class CadastrarFornecedorController implements ActionListener{
             fornDao.inserir(this.fornecedor);
             
             this.telaCadastro.setVisible(false);
-            this.telaCadastro.dispose();
+            if(fornDao.inserir(this.fornecedor) == true){
+                this.telaCadastro.dispose();
+            }
         }
     }
 

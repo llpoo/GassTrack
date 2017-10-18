@@ -30,57 +30,66 @@ public class EnderecoDAO implements DAO<Endereco>{
     }
 
     @Override
-    public void inserir(Endereco endereco) {
+    public boolean inserir(Endereco endereco) {
         String sql = "insert into endereco (cep,cidade,estado,numero,rua,bairro) values (?,?,?,?,?,?)";
         
         PreparedStatement pst;
         
-        Endereco e = this.buscar(endereco);
-        
-        try {
-            pst = connection.prepareStatement(sql);
-            
-            pst.setString(1, endereco.getCep());
-            pst.setString(2, endereco.getCidade());
-            pst.setString(3, endereco.getEstado());
-            pst.setString(4, endereco.getNumero());
-            pst.setString(5, endereco.getRua());
-            pst.setString(6, endereco.getBairro());
-            
-            pst.execute();
-            pst.close();
-        } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Não foi possível salvar o endereço");
-            Logger.getLogger(EnderecoDAO.class.getName()).log(Level.SEVERE, null, ex);
+        if(validarCampos(endereco)==true){
+            try {
+                pst = connection.prepareStatement(sql);
+
+                pst.setString(1, endereco.getCep());
+                pst.setString(2, endereco.getCidade());
+                pst.setString(3, endereco.getEstado());
+                pst.setString(4, endereco.getNumero());
+                pst.setString(5, endereco.getRua());
+                pst.setString(6, endereco.getBairro());
+
+                pst.execute();
+                pst.close();
+                return true;
+            } catch (SQLException ex) {
+                JOptionPane.showMessageDialog(null, "Não foi possível salvar o endereço");
+                Logger.getLogger(EnderecoDAO.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }else{
+            JOptionPane.showMessageDialog(null, "Preencha todos os campos de endereço");
+            return false;
         }
-        
+        return false;
     }
 
     @Override
-    public void alterar(Endereco endereco) {
+    public boolean alterar(Endereco endereco) {
         String sql = "update endereco set cep = ?, cidade= ?, estado= ?, numero= ?, rua= ?, bairro = ? where id = ?";
         
         PreparedStatement pst;
-        
-        Endereco e = this.buscar(endereco);
-        
-        try {
-            pst = connection.prepareStatement(sql);
-            
-            pst.setString(1, endereco.getCep());
-            pst.setString(2, endereco.getCidade());
-            pst.setString(3, endereco.getEstado());
-            pst.setString(4, endereco.getNumero());
-            pst.setString(5, endereco.getRua());
-            pst.setString(6, endereco.getBairro());
-            pst.setInt(7, endereco.getId());
-            
-            pst.execute();
-            pst.close();
-        } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Não foi possível alterar o endereço");
-            Logger.getLogger(EnderecoDAO.class.getName()).log(Level.SEVERE, null, ex);
-        }
+                
+        if(validarCampos(endereco)==true){          
+            try {
+                pst = connection.prepareStatement(sql);
+
+                pst.setString(1, endereco.getCep());
+                pst.setString(2, endereco.getCidade());
+                pst.setString(3, endereco.getEstado());
+                pst.setString(4, endereco.getNumero());
+                pst.setString(5, endereco.getRua());
+                pst.setString(6, endereco.getBairro());
+                pst.setInt(7, endereco.getId());
+
+                pst.execute();
+                pst.close();
+                return true;
+            } catch (SQLException ex) {
+                JOptionPane.showMessageDialog(null, "Não foi possível alterar o endereço");
+                Logger.getLogger(EnderecoDAO.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }else{
+            JOptionPane.showMessageDialog(null, "Preencha todos os campos do endereço");
+            return false;
+        }    
+        return false;
     }
 
     @Override
@@ -285,6 +294,16 @@ public class EnderecoDAO implements DAO<Endereco>{
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Não foi possível buscar o endereço");
             Logger.getLogger(EnderecoDAO.class.getName()).log(Level.SEVERE, null, ex);
+            return false;
+        }
+    }
+
+    boolean validarCampos(Endereco endereco) {
+        if(endereco.getBairro()!=null && endereco.getCep()!=null &&
+            endereco.getCidade()!=null && endereco.getEstado()!=null &&
+            endereco.getNumero()!=null && endereco.getRua()!=null){
+                return true;
+        }else{
             return false;
         }
     }
