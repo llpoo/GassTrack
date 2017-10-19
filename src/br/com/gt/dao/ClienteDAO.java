@@ -88,7 +88,7 @@ public class ClienteDAO implements DAO<PessoaFisica>{
         PreparedStatement pst;
         
         if(validarCampos(cliente)==true){
-            if(existe(cliente)==false){
+            if(existeAlterar(cliente)==false){
                 try {
                     pst = connection.prepareStatement(sql);
 
@@ -368,6 +368,41 @@ public class ClienteDAO implements DAO<PessoaFisica>{
             pst = connection.prepareStatement(sql);
             
             pst.setString(1, cliente.getCpf());
+            
+            rs = pst.executeQuery();
+            
+            while(rs.next()){
+                cli.setId(rs.getInt("Id"));
+            }
+            
+            rs.close();
+            pst.close();
+            
+            if(cli.getId() > 0){
+                return true;
+            }else{
+                return false;
+            }
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Não foi possível buscar o cliente");
+            Logger.getLogger(UsuarioDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return false;
+    }
+    
+    public boolean existeAlterar(PessoaFisica cliente){
+        String sql = "SELECT * FROM cliente where cpf like ? and id != ?";
+                
+        PreparedStatement pst;
+        ResultSet rs;
+        
+        PessoaFisica cli = new PessoaFisica();
+        
+        try {
+            pst = connection.prepareStatement(sql);
+            
+            pst.setString(1, cliente.getCpf());
+            pst.setInt(2, cliente.getId());
             
             rs = pst.executeQuery();
             

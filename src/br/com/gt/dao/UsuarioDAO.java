@@ -28,25 +28,33 @@ public class UsuarioDAO implements DAO<Usuario>{
 
     @Override
     public boolean inserir(Usuario usuario) {
-        String sql = "insert into usuario (usuario, senha,isgerente) values (?,?,?)";
+        String sql = "insert into usuario (senha, usuario,isgerente) values (?,?,?)";
         
         PreparedStatement pst;
         
         if(validarCampos(usuario)==true){
-            try {
-                pst = connection.prepareStatement(sql);
+            if(existe(usuario)==false){
+                try {
+                    pst = connection.prepareStatement(sql);
 
-                pst.setString(1, usuario.getUsuario());
-                pst.setString(2, usuario.getSenha());
-                pst.setBoolean(3, false);
+                    pst.setString(1, usuario.getUsuario());
+                    pst.setString(2, usuario.getSenha());
+                    pst.setBoolean(3, false);
 
-                pst.execute();
-                pst.close();
-                return true;
-            } catch (SQLException ex) {
-                JOptionPane.showMessageDialog(null, "Não foi possível salvar o usuário");
-                Logger.getLogger(UsuarioDAO.class.getName()).log(Level.SEVERE, null, ex);
+                    pst.execute();
+                    pst.close();
+                    return true;
+                } catch (SQLException ex) {
+                    JOptionPane.showMessageDialog(null, "Não foi possível salvar o usuário");
+                    Logger.getLogger(UsuarioDAO.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }else{
+               JOptionPane.showMessageDialog(null, "Já existe um login com este usuário");
+               return false;
             }
+        }else{
+            JOptionPane.showMessageDialog(null, "preencha todos os campos");
+            return false;
         }
         return false;
     }
@@ -58,22 +66,30 @@ public class UsuarioDAO implements DAO<Usuario>{
         PreparedStatement pst;
         
         if(validarCampos(usuario)==true){
-            try {
-                pst = connection.prepareStatement(sql);
+            if(existeAlterar(usuario)==false){    
+                try {
+                    pst = connection.prepareStatement(sql);
 
 
-                pst.setString(1, usuario.getUsuario());
-                pst.setString(2, usuario.getSenha());
-                pst.setBoolean(3, usuario.getIsIsGerente());
-                pst.setInt(4, usuario.getId());
+                    pst.setString(1, usuario.getUsuario());
+                    pst.setString(2, usuario.getSenha());
+                    pst.setBoolean(3, usuario.getIsIsGerente());
+                    pst.setInt(4, usuario.getId());
 
-                pst.execute();
-                pst.close();
-                return true;
-            } catch (SQLException ex) {
-                JOptionPane.showMessageDialog(null, "Não foi possível alterar o usuário");
-                Logger.getLogger(UsuarioDAO.class.getName()).log(Level.SEVERE, null, ex);
+                    pst.execute();
+                    pst.close();
+                    return true;
+                } catch (SQLException ex) {
+                    JOptionPane.showMessageDialog(null, "Não foi possível alterar o usuário");
+                    Logger.getLogger(UsuarioDAO.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }else{
+                JOptionPane.showMessageDialog(null, "Já existe um login com este usuário");
+                return false;
             }
+        }else{
+            JOptionPane.showMessageDialog(null, "preencha todos os campos");
+            return false;
         }
         return false;    
     }
@@ -176,11 +192,80 @@ public class UsuarioDAO implements DAO<Usuario>{
     }
 
     boolean validarCampos(Usuario usuario) {
-        if(usuario.getId() > 0){
+        if(usuario.getUsuario().length() > 0 && usuario.getUsuario().length() > 0){
                 return true;
         }else{
             return false;
         }
+    }
+    
+    public boolean existe(Usuario usuario){
+        String sql = "SELECT * FROM usuario where usuario like ?";
+                
+        PreparedStatement pst;
+        ResultSet rs;
+        
+        Usuario usu = new Usuario();
+        
+        try {
+            pst = connection.prepareStatement(sql);
+            
+            pst.setString(1, usuario.getUsuario());
+            
+            rs = pst.executeQuery();
+            
+            while(rs.next()){
+                usu.setId(rs.getInt("Id"));
+            }
+            
+            rs.close();
+            pst.close();
+            
+            if(usu.getId() > 0){
+                return true;
+            }else{
+                return false;
+            }
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Não foi possível buscar o usuario");
+            Logger.getLogger(UsuarioDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return false;
+    }
+    
+    public boolean existeAlterar(Usuario usuario){
+        String sql = "SELECT * FROM usuario where usuario like ? and id != ?";
+                
+        PreparedStatement pst;
+        ResultSet rs;
+        
+        Usuario usu = new Usuario();
+        
+        try {
+            pst = connection.prepareStatement(sql);
+            
+            pst.setString(1, usuario.getUsuario());
+            pst.setInt(2, usuario.getId());
+            
+            rs = pst.executeQuery();
+            
+            while(rs.next()){
+                usu.setId(rs.getInt("Id"));
+            }
+            
+            rs.close();
+            pst.close();
+            
+            if(usu.getId() > 0){
+                return true;
+            }else{
+                return false;
+            }
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Não foi possível buscar o usuario");
+            Logger.getLogger(UsuarioDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return false;
     }
     
 }

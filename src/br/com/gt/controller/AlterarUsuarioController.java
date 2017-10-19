@@ -63,8 +63,6 @@ public class AlterarUsuarioController implements ActionListener{
 
                 FuncionarioDAO funcionarioDAO = new FuncionarioDAO(this.connection);
 
-                funcionarioDAO.alterar(this.funcionario);
-
                 if(funcionarioDAO.alterar(this.funcionario) == true){
                     this.telaAlterar.dispose();
                 }

@@ -66,7 +66,7 @@ public class FuncionarioDAO implements DAO<Funcionario>{
                     pst.setInt(7, funcionario.getEndereco().getId());
 
                     Usuario usuario = new Usuario();
-                    UsuarioDAO usuarioDAO = new UsuarioDAO(connection);
+                    UsuarioDAO usuarioDAO = new UsuarioDAO(this.connection);
 
                     usuarioDAO.inserir(funcionario.getUsuario());
                     usuario = usuarioDAO.buscar(funcionario.getUsuario());
@@ -103,7 +103,7 @@ public class FuncionarioDAO implements DAO<Funcionario>{
         PreparedStatement pst;
         
         if(validarCampos(funcionario)==true){
-            if(existe(funcionario)==false){
+            if(existeAlterar(funcionario)==false){
                 try {
                     pst = connection.prepareStatement(sql);
 
@@ -132,20 +132,24 @@ public class FuncionarioDAO implements DAO<Funcionario>{
                     pst.setInt(7, funcionario.getEndereco().getId());
 
                     UsuarioDAO usuarioDAO = new UsuarioDAO(this.connection);
-                    usuarioDAO.alterar(funcionario.getUsuario());
 
-                    pst.setString(8, funcionario.getSexo());
+                    if(usuarioDAO.alterar(funcionario.getUsuario())==true){
+                        pst.setString(8, funcionario.getSexo());
 
-                    pst.setInt(9, funcionario.getUsuario().getId());
+                        pst.setInt(9, funcionario.getUsuario().getId());
 
-                    pst.setInt(10, funcionario.getId());
+                        pst.setInt(10, funcionario.getId());
 
-                    pst.execute();
-                    pst.close();
-                    if(funcionario.getUsuario().getId() == 0){
-                        JOptionPane.showMessageDialog(null, "Funcionário desativado com sucesso");
+                        pst.execute();
+                        pst.close();
+                        if(funcionario.getUsuario().getId() == 0){
+                            JOptionPane.showMessageDialog(null, "Funcionário desativado com sucesso");
+                        }else{
+                            JOptionPane.showMessageDialog(null, "Alteração efetuada com sucesso");
+                        }
+                        return true;
                     }else{
-                        JOptionPane.showMessageDialog(null, "Alteração efetuada com sucesso");
+                        return false;
                     }
                 } catch (SQLException ex) {
                     JOptionPane.showMessageDialog(null, "Não foi possível alterar o funcionário");
@@ -428,6 +432,41 @@ public class FuncionarioDAO implements DAO<Funcionario>{
             pst = connection.prepareStatement(sql);
             
             pst.setString(1, funcionario.getCpf());
+            
+            rs = pst.executeQuery();
+            
+            while(rs.next()){
+                fun.setId(rs.getInt("Id"));
+            }
+            
+            rs.close();
+            pst.close();
+            
+            if(fun.getId() > 0){
+                return true;
+            }else{
+                return false;
+            }
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Não foi possível buscar o funcionário");
+            Logger.getLogger(UsuarioDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return false;
+    }
+    
+    public boolean existeAlterar(Funcionario funcionario){
+        String sql = "SELECT * FROM funcionario where cpf like ? and id != ?";
+                
+        PreparedStatement pst;
+        ResultSet rs;
+        
+        Funcionario fun = new Funcionario();
+        
+        try {
+            pst = connection.prepareStatement(sql);
+            
+            pst.setString(1, funcionario.getCpf());
+            pst.setInt(2, funcionario.getId());
             
             rs = pst.executeQuery();
             

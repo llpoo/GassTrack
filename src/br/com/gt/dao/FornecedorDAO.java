@@ -427,4 +427,39 @@ public class FornecedorDAO implements DAO<Fornecedor>{
         return false;
     }
     
+    public boolean existeAlterar(Fornecedor fornecedor){
+        String sql = "SELECT * FROM fornecedor where cnpj like ? and id = ?";
+                
+        PreparedStatement pst;
+        ResultSet rs;
+        
+        Fornecedor forn = new Fornecedor();
+        
+        try {
+            pst = connection.prepareStatement(sql);
+            
+            pst.setString(1, fornecedor.getCnpj());
+            pst.setInt(2, fornecedor.getId());
+            
+            rs = pst.executeQuery();
+            
+            while(rs.next()){
+                forn.setId(rs.getInt("Id"));
+            }
+            
+            rs.close();
+            pst.close();
+            
+            if(forn.getId() > 0){
+                return true;
+            }else{
+                return false;
+            }
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Não foi possível buscar o fornecedor");
+            Logger.getLogger(UsuarioDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return false;
+    }
+    
 }
