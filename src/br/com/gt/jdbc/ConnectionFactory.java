@@ -16,7 +16,7 @@ public class ConnectionFactory {
     public static Connection getConnection(){
         try{
             Class.forName("org.postgresql.Driver");
-            return DriverManager.getConnection("jdbc:postgresql://localhost:5432/gtda"
+            return DriverManager.getConnection("jdbc:postgresql://localhost:5432/gtdb"
                     , "postgres"
                     , "root");
         }catch (Exception e){
