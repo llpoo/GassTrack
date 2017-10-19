@@ -8,6 +8,7 @@ package br.com.gt.dao;
 import br.com.gt.model.Endereco;
 import br.com.gt.model.PessoaFisica;
 import br.com.gt.model.Usuario;
+import br.com.gt.model.Venda;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -36,39 +37,45 @@ public class ClienteDAO implements DAO<PessoaFisica>{
         PreparedStatement pst;
         
         if(validarCampos(cliente)==true){
-            try {
-                pst = connection.prepareStatement(sql);
+            if(existe(cliente)==false){
+                try {
+                    pst = connection.prepareStatement(sql);
 
-                pst.setString(1, cliente.getEmail());
-                pst.setString(2, cliente.getNome());
-                pst.setString(3, cliente.getTelefone());
-                pst.setString(4, cliente.getCpf());
-                pst.setString(5, cliente.getRg());
+                    pst.setString(1, cliente.getEmail());
+                    pst.setString(2, cliente.getNome());
+                    pst.setString(3, cliente.getTelefone());
+                    pst.setString(4, cliente.getCpf());
+                    pst.setString(5, cliente.getRg());
 
-                Endereco endereco = new Endereco();
-                EnderecoDAO enderecoDAO = new EnderecoDAO(connection);
-                endereco = enderecoDAO.buscar(cliente.getEndereco());
-
-                if(endereco.getId() < 1){
-                    enderecoDAO.inserir(cliente.getEndereco());
+                    Endereco endereco = new Endereco();
+                    EnderecoDAO enderecoDAO = new EnderecoDAO(connection);
                     endereco = enderecoDAO.buscar(cliente.getEndereco());
+
+                    if(endereco.getId() < 1){
+                        enderecoDAO.inserir(cliente.getEndereco());
+                        endereco = enderecoDAO.buscar(cliente.getEndereco());
+                    }
+
+                    cliente.getEndereco().setId(endereco.getId());
+
+                    pst.setInt(6, cliente.getEndereco().getId());
+
+                    pst.setString(7, cliente.getSexo());
+
+                    pst.execute();
+                    pst.close();
+                    JOptionPane.showMessageDialog(null, "Cadastro efetuado com sucesso");
+                    return true;
+                } catch (SQLException ex) {
+                    JOptionPane.showMessageDialog(null, "Não foi possível salvar o cliente");
+                    Logger.getLogger(FuncionarioDAO.class.getName()).log(Level.SEVERE, null, ex);
                 }
-
-                cliente.getEndereco().setId(endereco.getId());
-
-                pst.setInt(6, cliente.getEndereco().getId());
-
-                pst.setString(7, cliente.getSexo());
-
-                pst.execute();
-                pst.close();
-                JOptionPane.showMessageDialog(null, "Cadastro efetuado com sucesso");
-            } catch (SQLException ex) {
-                JOptionPane.showMessageDialog(null, "Não foi possível salvar o cliente");
-                Logger.getLogger(FuncionarioDAO.class.getName()).log(Level.SEVERE, null, ex);
+            }else{
+                JOptionPane.showMessageDialog(null, "Já existe cliente registrado com este CPF");
+                return false;
             }
         }else{
-            JOptionPane.showMessageDialog(null, "Preencha todos os campos do cliente");
+            JOptionPane.showMessageDialog(null, "Preencha todos os campos");
             return false;
         }
         return false;
@@ -81,41 +88,46 @@ public class ClienteDAO implements DAO<PessoaFisica>{
         PreparedStatement pst;
         
         if(validarCampos(cliente)==true){
-            try {
-                pst = connection.prepareStatement(sql);
+            if(existe(cliente)==false){
+                try {
+                    pst = connection.prepareStatement(sql);
 
-                pst.setString(1, cliente.getEmail());
-                pst.setString(2, cliente.getNome());
-                pst.setString(3, cliente.getTelefone());
-                pst.setString(4, cliente.getCpf());
-                pst.setString(5, cliente.getRg());
+                    pst.setString(1, cliente.getEmail());
+                    pst.setString(2, cliente.getNome());
+                    pst.setString(3, cliente.getTelefone());
+                    pst.setString(4, cliente.getCpf());
+                    pst.setString(5, cliente.getRg());
 
-                Endereco endereco = new Endereco();
-                EnderecoDAO enderecoDAO = new EnderecoDAO(connection);
-                endereco = enderecoDAO.buscar(cliente.getEndereco());
-
-                if(endereco.getId() < 1){
-                    enderecoDAO.alterar(cliente.getEndereco());
+                    Endereco endereco = new Endereco();
+                    EnderecoDAO enderecoDAO = new EnderecoDAO(connection);
                     endereco = enderecoDAO.buscar(cliente.getEndereco());
+
+                    if(endereco.getId() < 1){
+                        enderecoDAO.inserir(cliente.getEndereco());
+                        endereco = enderecoDAO.buscar(cliente.getEndereco());
+                    }
+
+                    cliente.getEndereco().setId(endereco.getId());
+
+                    pst.setInt(6, cliente.getEndereco().getId());
+
+                    pst.setString(7, cliente.getSexo());
+
+                    pst.setInt(8, cliente.getId());
+
+                    pst.execute();
+                    pst.close();
+                    JOptionPane.showMessageDialog(null, "Alteração efetuada com sucesso");
+                } catch (SQLException ex) {
+                    JOptionPane.showMessageDialog(null, "Não foi possível alterar o cliente");
+                    Logger.getLogger(FuncionarioDAO.class.getName()).log(Level.SEVERE, null, ex);
                 }
-
-                cliente.getEndereco().setId(endereco.getId());
-
-                pst.setInt(6, cliente.getEndereco().getId());
-
-                pst.setString(7, cliente.getSexo());
-
-                pst.setInt(8, cliente.getId());
-
-                pst.execute();
-                pst.close();
-                JOptionPane.showMessageDialog(null, "Alteração efetuada com sucesso");
-            } catch (SQLException ex) {
-                JOptionPane.showMessageDialog(null, "Não foi possível alterar o cliente");
-                Logger.getLogger(FuncionarioDAO.class.getName()).log(Level.SEVERE, null, ex);
+            }else{
+                JOptionPane.showMessageDialog(null, "Já existe cliente registrado com este CPF");
+                return false;
             }
         }else{
-            JOptionPane.showMessageDialog(null, "Preencha todos os campos do cliente");
+            JOptionPane.showMessageDialog(null, "Preencha todos os campos");
             return false;
         }
         return false;
@@ -143,7 +155,6 @@ public class ClienteDAO implements DAO<PessoaFisica>{
                 eDao.excluir(e);
             }
             
-            JOptionPane.showMessageDialog(null, "Cliente excluído com sucesso");
             return true;
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Não foi possível excluir o cliente");
@@ -291,11 +302,49 @@ public class ClienteDAO implements DAO<PessoaFisica>{
             return null;
         }
     }
+    
+    public boolean possuiCompras(PessoaFisica cliente){
+        String sql = "SELECT * FROM venda where cliente_id = ?";
+                
+        PreparedStatement pst;
+        ResultSet rs;
+        
+        Venda venda = new Venda();
+        
+        try {
+            pst = connection.prepareStatement(sql);
+            
+            pst.setInt(1, cliente.getId());
+            
+            rs = pst.executeQuery();
+            
+            while(rs.next()){
+                Venda v = new Venda();
+                
+                v.setId(rs.getInt("Id"));
+                
+                venda = v;
+            }
+            
+            rs.close();
+            pst.close();
+            
+            if(venda.getId() > 0){
+                return true;
+            }else{
+                return false;
+            }
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Não foi possível buscar a venda");
+            Logger.getLogger(UsuarioDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return false;
+    }
 
     private boolean validarCampos(PessoaFisica cliente) {
-        if(cliente.getNome()!=null && cliente.getEmail()!=null && 
-            cliente.getCpf()!=null && cliente.getRg()!=null && 
-            cliente.getSexo()!=null && cliente.getTelefone()!=null){
+        if(cliente.getNome().length() != 0 && cliente.getEmail().length() != 0 && 
+            cliente.getCpf().length()!=0 && cliente.getRg().length()  != 0 && 
+            cliente.getSexo() != null && cliente.getTelefone().length() != 0){
                 EnderecoDAO eDao = new EnderecoDAO(this.connection);
                 if(eDao.validarCampos(cliente.getEndereco()) == true){
                     return true;
@@ -307,4 +356,37 @@ public class ClienteDAO implements DAO<PessoaFisica>{
         }
     }
 
+    public boolean existe(PessoaFisica cliente){
+        String sql = "SELECT * FROM cliente where cpf like ?";
+                
+        PreparedStatement pst;
+        ResultSet rs;
+        
+        PessoaFisica cli = new PessoaFisica();
+        
+        try {
+            pst = connection.prepareStatement(sql);
+            
+            pst.setString(1, cliente.getCpf());
+            
+            rs = pst.executeQuery();
+            
+            while(rs.next()){
+                cli.setId(rs.getInt("Id"));
+            }
+            
+            rs.close();
+            pst.close();
+            
+            if(cli.getId() > 0){
+                return true;
+            }else{
+                return false;
+            }
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Não foi possível buscar o cliente");
+            Logger.getLogger(UsuarioDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return false;
+    }
 }

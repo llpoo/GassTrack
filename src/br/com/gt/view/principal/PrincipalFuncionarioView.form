@@ -239,70 +239,67 @@
                                           </Group>
                                           <Component id="materialComboBox" alignment="0" max="32767" attributes="0"/>
                                       </Group>
-                                      <EmptySpace type="separate" max="-2" attributes="0"/>
+                                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
                                       <Group type="103" groupAlignment="1" attributes="0">
+                                          <Component id="jLabel29" min="-2" max="-2" attributes="0"/>
+                                          <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
+                                          <Component id="jLabel18" alignment="1" min="-2" max="-2" attributes="0"/>
+                                      </Group>
+                                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                                      <Group type="103" groupAlignment="0" attributes="0">
                                           <Group type="102" attributes="0">
-                                              <Group type="103" groupAlignment="1" attributes="0">
-                                                  <Component id="jLabel29" min="-2" max="-2" attributes="0"/>
-                                                  <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
-                                                  <Component id="jLabel18" alignment="1" min="-2" max="-2" attributes="0"/>
-                                              </Group>
+                                              <Component id="cpfClienteTxt" min="-2" pref="207" max="-2" attributes="0"/>
                                               <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                                              <Group type="103" groupAlignment="0" attributes="0">
-                                                  <Group type="102" attributes="0">
-                                                      <Component id="cpfClienteTxt" min="-2" pref="207" max="-2" attributes="0"/>
-                                                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                                                      <Component id="novoClienteBtn" min="-2" max="-2" attributes="0"/>
-                                                      <EmptySpace pref="270" max="32767" attributes="0"/>
-                                                  </Group>
-                                                  <Group type="102" attributes="0">
-                                                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                                          <Component id="acessorioComboBox" min="-2" pref="348" max="-2" attributes="0"/>
-                                                          <Group type="102" attributes="0">
-                                                              <Component id="quantidadeAcessorioTxt" min="-2" pref="65" max="-2" attributes="0"/>
-                                                              <EmptySpace max="32767" attributes="0"/>
-                                                              <Component id="addAcessorioBtn" min="-2" max="-2" attributes="0"/>
-                                                          </Group>
-                                                      </Group>
+                                              <Component id="novoClienteBtn" min="-2" max="-2" attributes="0"/>
+                                              <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                                          </Group>
+                                          <Group type="102" attributes="0">
+                                              <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                                  <Component id="acessorioComboBox" min="-2" pref="348" max="-2" attributes="0"/>
+                                                  <Group type="102" alignment="0" attributes="0">
+                                                      <Component id="quantidadeAcessorioTxt" min="-2" pref="65" max="-2" attributes="0"/>
                                                       <EmptySpace max="32767" attributes="0"/>
-                                                      <Component id="excluirItemBtn" min="-2" max="-2" attributes="0"/>
+                                                      <Component id="addAcessorioBtn" min="-2" max="-2" attributes="0"/>
                                                   </Group>
                                               </Group>
+                                              <EmptySpace max="32767" attributes="0"/>
+                                              <Component id="excluirItemBtn" min="-2" max="-2" attributes="0"/>
                                           </Group>
+                                      </Group>
+                                  </Group>
+                                  <Component id="jScrollPane4" alignment="0" max="32767" attributes="0"/>
+                                  <Group type="102" alignment="0" attributes="0">
+                                      <Component id="jScrollPane3" min="-2" pref="653" max="-2" attributes="0"/>
+                                      <EmptySpace pref="11" max="32767" attributes="0"/>
+                                      <Group type="103" groupAlignment="0" attributes="0">
                                           <Group type="102" alignment="1" attributes="0">
-                                              <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                                               <Component id="encaminharVendaBtn" min="-2" pref="160" max="-2" attributes="0"/>
                                               <EmptySpace type="unrelated" max="-2" attributes="0"/>
                                               <Component id="alterarVendaBtn" min="-2" max="-2" attributes="0"/>
                                               <EmptySpace type="unrelated" max="-2" attributes="0"/>
                                               <Component id="limparBtn" min="-2" max="-2" attributes="0"/>
-                                              <EmptySpace max="-2" attributes="0"/>
                                           </Group>
-                                      </Group>
-                                  </Group>
-                                  <Group type="102" attributes="0">
-                                      <Component id="jLabel19" min="-2" max="-2" attributes="0"/>
-                                      <EmptySpace pref="1034" max="32767" attributes="0"/>
-                                  </Group>
-                                  <Component id="jScrollPane4" alignment="0" max="32767" attributes="0"/>
-                                  <Group type="102" attributes="0">
-                                      <Component id="jScrollPane6" min="-2" pref="646" max="-2" attributes="0"/>
-                                      <EmptySpace max="32767" attributes="0"/>
-                                      <Group type="103" groupAlignment="1" attributes="0">
-                                          <Component id="jLabel26" alignment="1" min="-2" max="-2" attributes="0"/>
+                                          <Group type="102" alignment="1" attributes="0">
+                                              <Component id="jLabel26" min="-2" max="-2" attributes="0"/>
+                                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                                              <Component id="maoDeObraTxt" min="-2" pref="98" max="-2" attributes="0"/>
+                                          </Group>
+                                          <Group type="102" alignment="1" attributes="0">
+                                              <Component id="jLabel25" min="-2" max="-2" attributes="0"/>
+                                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                                              <Component id="valorTotalTxt" min="-2" pref="98" max="-2" attributes="0"/>
+                                          </Group>
                                           <Group type="102" alignment="1" attributes="0">
                                               <Component id="jLabel21" min="-2" max="-2" attributes="0"/>
                                               <EmptySpace type="unrelated" max="-2" attributes="0"/>
                                               <Component id="descontoTxt" min="-2" pref="98" max="-2" attributes="0"/>
-                                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                                              <Component id="jLabel25" min="-2" max="-2" attributes="0"/>
                                           </Group>
                                       </Group>
-                                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                                      <Group type="103" groupAlignment="0" attributes="0">
-                                          <Component id="valorTotalTxt" min="-2" pref="98" max="-2" attributes="0"/>
-                                          <Component id="maoDeObraTxt" min="-2" pref="98" max="-2" attributes="0"/>
-                                      </Group>
+                                      <EmptySpace min="-2" pref="2" max="-2" attributes="0"/>
+                                  </Group>
+                                  <Group type="102" alignment="0" attributes="0">
+                                      <Component id="jLabel19" min="-2" max="-2" attributes="0"/>
+                                      <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                                   </Group>
                               </Group>
                           </Group>
@@ -351,19 +348,22 @@
                                       </Group>
                                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
                                       <Group type="103" groupAlignment="3" attributes="0">
-                                          <Component id="valorTotalTxt" alignment="3" min="-2" max="-2" attributes="0"/>
-                                          <Component id="jLabel25" alignment="3" min="-2" max="-2" attributes="0"/>
                                           <Component id="descontoTxt" alignment="3" min="-2" max="-2" attributes="0"/>
                                           <Component id="jLabel21" alignment="3" min="-2" max="-2" attributes="0"/>
                                       </Group>
-                                      <EmptySpace max="32767" attributes="0"/>
+                                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                                      <Group type="103" groupAlignment="3" attributes="0">
+                                          <Component id="valorTotalTxt" alignment="3" min="-2" max="-2" attributes="0"/>
+                                          <Component id="jLabel25" alignment="3" min="-2" max="-2" attributes="0"/>
+                                      </Group>
+                                      <EmptySpace pref="42" max="32767" attributes="0"/>
                                       <Group type="103" groupAlignment="3" attributes="0">
                                           <Component id="limparBtn" alignment="3" min="-2" max="-2" attributes="0"/>
                                           <Component id="alterarVendaBtn" alignment="3" min="-2" max="-2" attributes="0"/>
                                           <Component id="encaminharVendaBtn" alignment="3" min="-2" max="-2" attributes="0"/>
                                       </Group>
                                   </Group>
-                                  <Component id="jScrollPane6" pref="165" max="32767" attributes="0"/>
+                                  <Component id="jScrollPane3" max="32767" attributes="0"/>
                               </Group>
                               <EmptySpace max="-2" attributes="0"/>
                           </Group>
@@ -383,6 +383,9 @@
                     </Component>
                     <Component class="javax.swing.JButton" name="excluirItemBtn">
                       <Properties>
+                        <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                          <Image iconType="3" name="/br/com/gt/view/imagens/retiraItem.png"/>
+                        </Property>
                         <Property name="text" type="java.lang.String" value="Excluir Item"/>
                       </Properties>
                     </Component>
@@ -435,6 +438,9 @@
                     </Component>
                     <Component class="javax.swing.JButton" name="addAcessorioBtn">
                       <Properties>
+                        <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                          <Image iconType="3" name="/br/com/gt/view/imagens/add.png"/>
+                        </Property>
                         <Property name="text" type="java.lang.String" value="Adicionar acess&#xf3;rio"/>
                       </Properties>
                       <Events>
@@ -446,7 +452,7 @@
                         <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                           <Color blue="ff" green="ff" red="ff" type="rgb"/>
                         </Property>
-                        <Property name="text" type="java.lang.String" value="Descri&#xe7;&#xe3;o"/>
+                        <Property name="text" type="java.lang.String" value="Descri&#xe7;&#xe3;o (N&#xe3;o obrigat&#xf3;rio)"/>
                       </Properties>
                     </Component>
                     <Component class="javax.swing.JLabel" name="jLabel20">
@@ -461,6 +467,9 @@
                     </Component>
                     <Component class="javax.swing.JButton" name="addMaterialBtn">
                       <Properties>
+                        <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                          <Image iconType="3" name="/br/com/gt/view/imagens/add.png"/>
+                        </Property>
                         <Property name="text" type="java.lang.String" value="Adicionar material"/>
                       </Properties>
                       <Events>
@@ -508,6 +517,9 @@
                     </Component>
                     <Component class="javax.swing.JButton" name="limparBtn">
                       <Properties>
+                        <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                          <Image iconType="3" name="/br/com/gt/view/imagens/Cancelar.png"/>
+                        </Property>
                         <Property name="text" type="java.lang.String" value="Cancelar"/>
                       </Properties>
                       <Events>
@@ -516,6 +528,9 @@
                     </Component>
                     <Component class="javax.swing.JButton" name="encaminharVendaBtn">
                       <Properties>
+                        <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                          <Image iconType="3" name="/br/com/gt/view/imagens/salvar.png"/>
+                        </Property>
                         <Property name="text" type="java.lang.String" value="Encaminhar Venda"/>
                       </Properties>
                       <Events>
@@ -551,24 +566,12 @@
                     </Component>
                     <Component class="javax.swing.JButton" name="novoClienteBtn">
                       <Properties>
+                        <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                          <Image iconType="3" name="/br/com/gt/view/imagens/novoCliente.png"/>
+                        </Property>
                         <Property name="text" type="java.lang.String" value="Novo Cliente"/>
                       </Properties>
                     </Component>
-                    <Container class="javax.swing.JScrollPane" name="jScrollPane6">
-                      <AuxValues>
-                        <AuxValue name="autoScrollPane" type="java.lang.Boolean" value="true"/>
-                      </AuxValues>
-
-                      <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
-                      <SubComponents>
-                        <Component class="javax.swing.JTextArea" name="descricaoTxt">
-                          <Properties>
-                            <Property name="columns" type="int" value="20"/>
-                            <Property name="rows" type="int" value="5"/>
-                          </Properties>
-                        </Component>
-                      </SubComponents>
-                    </Container>
                     <Component class="javax.swing.JLabel" name="jLabel31">
                       <Properties>
                         <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
@@ -613,9 +616,27 @@
                     </Component>
                     <Component class="javax.swing.JButton" name="alterarVendaBtn">
                       <Properties>
+                        <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                          <Image iconType="3" name="/br/com/gt/view/imagens/salvar.png"/>
+                        </Property>
                         <Property name="text" type="java.lang.String" value="Salvar altera&#xe7;&#xf5;es"/>
                       </Properties>
                     </Component>
+                    <Container class="javax.swing.JScrollPane" name="jScrollPane3">
+                      <AuxValues>
+                        <AuxValue name="autoScrollPane" type="java.lang.Boolean" value="true"/>
+                      </AuxValues>
+
+                      <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
+                      <SubComponents>
+                        <Component class="javax.swing.JTextArea" name="descricaoTxt">
+                          <Properties>
+                            <Property name="columns" type="int" value="20"/>
+                            <Property name="rows" type="int" value="5"/>
+                          </Properties>
+                        </Component>
+                      </SubComponents>
+                    </Container>
                   </SubComponents>
                 </Container>
               </SubComponents>
@@ -675,13 +696,13 @@
                               <EmptySpace type="unrelated" max="-2" attributes="0"/>
                               <Component id="clienteVendaTxt" min="-2" pref="410" max="-2" attributes="0"/>
                               <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                              <Component id="buscarVendaBtn" min="-2" max="-2" attributes="0"/>
+                              <Component id="jCheckBox1" min="-2" max="-2" attributes="0"/>
                               <EmptySpace max="32767" attributes="0"/>
                               <Component id="finalizarVendaBtn" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace min="-2" pref="119" max="-2" attributes="0"/>
+                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
                               <Component id="cancelarVendaBtn" min="-2" max="-2" attributes="0"/>
                           </Group>
-                          <Component id="jScrollPane7" pref="1100" max="32767" attributes="0"/>
+                          <Component id="jScrollPane7" max="32767" attributes="0"/>
                       </Group>
                     </DimensionLayout>
                     <DimensionLayout dim="1">
@@ -692,8 +713,8 @@
                                   <Component id="finalizarVendaBtn" alignment="3" min="-2" max="-2" attributes="0"/>
                                   <Component id="jLabel35" alignment="3" min="-2" max="-2" attributes="0"/>
                                   <Component id="clienteVendaTxt" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="buscarVendaBtn" alignment="3" min="-2" max="-2" attributes="0"/>
                                   <Component id="cancelarVendaBtn" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="jCheckBox1" alignment="3" min="-2" max="-2" attributes="0"/>
                               </Group>
                               <EmptySpace type="unrelated" max="-2" attributes="0"/>
                               <Component id="jScrollPane7" min="-2" pref="457" max="-2" attributes="0"/>
@@ -730,6 +751,9 @@
                     </Container>
                     <Component class="javax.swing.JButton" name="finalizarVendaBtn">
                       <Properties>
+                        <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                          <Image iconType="3" name="/br/com/gt/view/imagens/finalizarVenda.png"/>
+                        </Property>
                         <Property name="text" type="java.lang.String" value="Pagamento Realizado"/>
                       </Properties>
                     </Component>
@@ -743,14 +767,17 @@
                     </Component>
                     <Component class="javax.swing.JTextField" name="clienteVendaTxt">
                     </Component>
-                    <Component class="javax.swing.JButton" name="buscarVendaBtn">
-                      <Properties>
-                        <Property name="text" type="java.lang.String" value="Pesquisar"/>
-                      </Properties>
-                    </Component>
                     <Component class="javax.swing.JButton" name="cancelarVendaBtn">
                       <Properties>
+                        <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                          <Image iconType="3" name="/br/com/gt/view/imagens/cancelarVenda.png"/>
+                        </Property>
                         <Property name="text" type="java.lang.String" value="Cancelar Venda"/>
+                      </Properties>
+                    </Component>
+                    <Component class="javax.swing.JCheckBox" name="jCheckBox1">
+                      <Properties>
+                        <Property name="text" type="java.lang.String" value="Minhas vendas"/>
                       </Properties>
                     </Component>
                   </SubComponents>
@@ -865,8 +892,6 @@
                                       <Component id="jLabel9" min="-2" max="-2" attributes="0"/>
                                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
                                       <Component id="itemTxt" min="-2" pref="486" max="-2" attributes="0"/>
-                                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                                      <Component id="pesquisarItemBtn" min="-2" max="-2" attributes="0"/>
                                       <EmptySpace max="32767" attributes="0"/>
                                       <Component id="material_baixaSelectBox" min="-2" max="-2" attributes="0"/>
                                   </Group>
@@ -885,7 +910,6 @@
                               <Group type="103" groupAlignment="3" attributes="0">
                                   <Component id="jLabel9" alignment="3" min="-2" max="-2" attributes="0"/>
                                   <Component id="itemTxt" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="pesquisarItemBtn" alignment="3" min="-2" max="-2" attributes="0"/>
                                   <Component id="material_baixaSelectBox" alignment="3" min="-2" max="-2" attributes="0"/>
                               </Group>
                               <EmptySpace type="unrelated" max="-2" attributes="0"/>
@@ -967,11 +991,6 @@
                           <Color blue="ff" green="ff" red="ff" type="rgb"/>
                         </Property>
                         <Property name="text" type="java.lang.String" value="Apenas materiais em baixa"/>
-                      </Properties>
-                    </Component>
-                    <Component class="javax.swing.JButton" name="pesquisarItemBtn">
-                      <Properties>
-                        <Property name="text" type="java.lang.String" value="Pesquisar"/>
                       </Properties>
                     </Component>
                     <Component class="javax.swing.JTextField" name="itemTxt">

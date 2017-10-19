@@ -85,15 +85,17 @@ public class LoginView extends JFrameLAF {
         jLabel2.setText("Usuário");
         jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 100, -1, -1));
 
-        usuarioTxt.setText("luquinha");
         usuarioTxt.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
                 usuarioTxtFocusGained(evt);
             }
         });
+        usuarioTxt.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                usuarioTxtActionPerformed(evt);
+            }
+        });
         jPanel1.add(usuarioTxt, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 120, 340, -1));
-
-        senhaTxt.setText("luquinha");
         jPanel1.add(senhaTxt, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 180, 340, -1));
 
         jLabel6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/gt/view/imagens/LogoVidro.png"))); // NOI18N
@@ -108,7 +110,7 @@ public class LoginView extends JFrameLAF {
         });
         jPanel1.add(entrarBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 220, 90, -1));
 
-        cancelarBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/gt/view/imagens/Cancelar.png"))); // NOI18N
+        cancelarBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/gt/view/imagens/logout.png"))); // NOI18N
         cancelarBtn.setText("Cancelar");
         jPanel1.add(cancelarBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 220, 100, -1));
 
@@ -143,6 +145,10 @@ public class LoginView extends JFrameLAF {
     private void usuarioTxtFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_usuarioTxtFocusGained
         // TODO add your handling code here:
     }//GEN-LAST:event_usuarioTxtFocusGained
+
+    private void usuarioTxtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_usuarioTxtActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_usuarioTxtActionPerformed
 
     /**
      * @param args the command line arguments

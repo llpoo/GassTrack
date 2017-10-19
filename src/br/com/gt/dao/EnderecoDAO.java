@@ -35,7 +35,7 @@ public class EnderecoDAO implements DAO<Endereco>{
         
         PreparedStatement pst;
         
-        if(validarCampos(endereco)==true){
+        //if(validarCampos(endereco)==true){
             try {
                 pst = connection.prepareStatement(sql);
 
@@ -53,10 +53,10 @@ public class EnderecoDAO implements DAO<Endereco>{
                 JOptionPane.showMessageDialog(null, "Não foi possível salvar o endereço");
                 Logger.getLogger(EnderecoDAO.class.getName()).log(Level.SEVERE, null, ex);
             }
-        }else{
-            JOptionPane.showMessageDialog(null, "Preencha todos os campos de endereço");
-            return false;
-        }
+        //}else{
+        //    JOptionPane.showMessageDialog(null, "Preencha todos os campos de endereço");
+        //    return false;
+        //}
         return false;
     }
 
@@ -218,7 +218,7 @@ public class EnderecoDAO implements DAO<Endereco>{
 
     @Override
     public Endereco buscar(Endereco endereco) {
-        String sql = "SELECT * FROM endereco WHERE rua ~* ? AND numero like ? AND cep like ?";
+        String sql = "SELECT * FROM endereco WHERE rua ~* ? AND numero like ? AND cep like ? AND estado = ?";
         
         Endereco e = new Endereco();
         
@@ -231,6 +231,7 @@ public class EnderecoDAO implements DAO<Endereco>{
             pst.setString(1, endereco.getRua());
             pst.setString(2, endereco.getNumero());
             pst.setString(3, endereco.getCep());
+            pst.setString(4, endereco.getEstado());
             
             rs = pst.executeQuery();
             
@@ -264,7 +265,7 @@ public class EnderecoDAO implements DAO<Endereco>{
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
-    boolean existeEmFornecedor(Endereco endereco) {
+    public boolean existeEmFornecedor(Endereco endereco) {
         String sql = "SELECT * FROM fornecedor WHERE endereco_id = ?";
         
         Fornecedor fornecedor = new Fornecedor();
@@ -299,9 +300,9 @@ public class EnderecoDAO implements DAO<Endereco>{
     }
 
     boolean validarCampos(Endereco endereco) {
-        if(endereco.getBairro()!=null && endereco.getCep()!=null &&
-            endereco.getCidade()!=null && endereco.getEstado()!=null &&
-            endereco.getNumero()!=null && endereco.getRua()!=null){
+        if(endereco.getBairro().length() != 0 && endereco.getCep().length() != 0 &&
+            endereco.getCidade().length() != 0 && endereco.getEstado().length() !=0 &&
+            endereco.getNumero().length() != 0 && endereco.getRua().length() != 0){
                 return true;
         }else{
             return false;

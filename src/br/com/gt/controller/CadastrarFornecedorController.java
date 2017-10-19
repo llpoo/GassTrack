@@ -12,6 +12,10 @@ import br.com.gt.view.fornecedor.CadastrarFornecedorView;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.Connection;
+import java.text.ParseException;
+import javax.swing.JOptionPane;
+import javax.swing.text.DefaultFormatterFactory;
+import javax.swing.text.MaskFormatter;
 
 /**
  *
@@ -21,12 +25,16 @@ public class CadastrarFornecedorController implements ActionListener{
     Connection connection;
     CadastrarFornecedorView telaCadastro;
     Fornecedor fornecedor;
+    MaskFormatter mascaraCNPJ;
+    MaskFormatter mascaraTelefone;
+    MaskFormatter mascaraCEP;
     
     public CadastrarFornecedorController(Connection con, Fornecedor f) {
         this.connection = con;
         telaCadastro = new CadastrarFornecedorView(null, true);
         fornecedor = f;
         adicionaEventos();
+        inicializaMascaras();
         telaCadastro.setVisible(true);
     }
 
@@ -54,9 +62,7 @@ public class CadastrarFornecedorController implements ActionListener{
             this.fornecedor.setEndereco(endereco);
             
             FornecedorDAO fornDao = new FornecedorDAO(this.connection);
-            fornDao.inserir(this.fornecedor);
             
-            this.telaCadastro.setVisible(false);
             if(fornDao.inserir(this.fornecedor) == true){
                 this.telaCadastro.dispose();
             }
@@ -66,6 +72,20 @@ public class CadastrarFornecedorController implements ActionListener{
     private void adicionaEventos() {
         this.telaCadastro.getSalvarBtn().addActionListener(this);
         this.telaCadastro.getCancelarBtn().addActionListener(this);
+    }
+
+    private void inicializaMascaras() {
+        try{
+            this.mascaraCEP = new MaskFormatter("#####-###");
+            this.mascaraCNPJ = new MaskFormatter("##.###.###/####-##");
+            this.mascaraTelefone = new MaskFormatter("(##) ####-####");
+            
+            this.telaCadastro.getCnpjTxt().setFormatterFactory(new DefaultFormatterFactory(mascaraCNPJ));
+            this.telaCadastro.getTelefoneTxt().setFormatterFactory(new DefaultFormatterFactory(mascaraTelefone));
+            this.telaCadastro.getCepTxt().setFormatterFactory(new DefaultFormatterFactory(mascaraCEP));
+        }catch(ParseException e){
+            e.printStackTrace();
+        }
     }
     
 }

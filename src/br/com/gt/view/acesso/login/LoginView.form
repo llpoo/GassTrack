@@ -73,11 +73,9 @@
           </Constraints>
         </Component>
         <Component class="javax.swing.JTextField" name="usuarioTxt">
-          <Properties>
-            <Property name="text" type="java.lang.String" value="luquinha"/>
-          </Properties>
           <Events>
             <EventHandler event="focusGained" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="usuarioTxtFocusGained"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="usuarioTxtActionPerformed"/>
           </Events>
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
@@ -86,9 +84,6 @@
           </Constraints>
         </Component>
         <Component class="javax.swing.JPasswordField" name="senhaTxt">
-          <Properties>
-            <Property name="text" type="java.lang.String" value="luquinha"/>
-          </Properties>
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
               <AbsoluteConstraints x="40" y="180" width="340" height="-1"/>
@@ -126,7 +121,7 @@
         <Component class="javax.swing.JButton" name="cancelarBtn">
           <Properties>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="3" name="/br/com/gt/view/imagens/Cancelar.png"/>
+              <Image iconType="3" name="/br/com/gt/view/imagens/logout.png"/>
             </Property>
             <Property name="text" type="java.lang.String" value="Cancelar"/>
           </Properties>

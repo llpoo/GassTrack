@@ -55,12 +55,14 @@ public class PrincipalFuncionarioController implements ActionListener,KeyListene
     private ArrayList<Venda> vendasEmAberto;
     private VendaDAO vendaDAO;
     int index;
+    ArrayList<Venda> minhasVendas;
     
     public PrincipalFuncionarioController(Connection con, Usuario u, LoginView tela) {
         this.connection = con;
         this.telaLogin = tela;
         this.itensDaVenda = new ArrayList<>();
         this.quantidades = new ArrayList<>();
+        this.minhasVendas = new ArrayList<>();
         this.clienteDAO = new ClienteDAO(this.connection);
         this.vendaDAO = new VendaDAO(this.connection);
         this.funcionarioDAO = new FuncionarioDAO(this.connection);
@@ -91,8 +93,7 @@ public class PrincipalFuncionarioController implements ActionListener,KeyListene
         this.telaPrincipal.getSairBtn().addActionListener(this);
         this.telaPrincipal.getMaterial_baixaSelectBox().addActionListener(this);
         this.telaPrincipal.getAcessorio_baixaSelectBox().addActionListener(this);
-        this.telaPrincipal.getPesquisarItemBtn().addActionListener(this);
-        this.telaPrincipal.getItemTxt().addActionListener(this);
+        this.telaPrincipal.getItemTxt().addCaretListener(this);
         this.telaPrincipal.getClienteComboBox().addActionListener(this);
         this.telaPrincipal.getAddMaterialBtn().addActionListener(this);
         this.telaPrincipal.getAddAcessorioBtn().addActionListener(this);
@@ -108,15 +109,30 @@ public class PrincipalFuncionarioController implements ActionListener,KeyListene
         this.telaPrincipal.getLimparBtn().addActionListener(this);
         this.telaPrincipal.getEncaminharVendaBtn().addActionListener(this);
         this.telaPrincipal.getFinalizarVendaBtn().addActionListener(this);
-        this.telaPrincipal.getBuscarVendaBtn().addActionListener(this);
-        this.telaPrincipal.getClienteVendaTxt().addActionListener(this);
+        this.telaPrincipal.getClienteVendaTxt().addCaretListener(this);
         this.telaPrincipal.getCancelarVendaBtn().addActionListener(this);
         this.telaPrincipal.getVendasTable().addMouseListener(this);
         this.telaPrincipal.getAlterarVendaBtn().addActionListener(this);
+        this.telaPrincipal.getMinhasVendasCheckBox().addActionListener(this);
     }
     
     @Override
     public void actionPerformed(ActionEvent evento) {
+        if(evento.getSource().equals(this.telaPrincipal.getMinhasVendasCheckBox())){
+            if(this.telaPrincipal.getMinhasVendasCheckBox().isSelected() == true){
+                for(int i = 0; i<this.vendasEmAberto.size(); i++){
+                    if(this.vendasEmAberto.get(i).getFuncionario().getId() == this.funcionario.getId()){
+                        this.minhasVendas.add(this.vendasEmAberto.get(i));
+                    }
+                }
+
+                atualizaTableVenda(this.minhasVendas);
+            }else{
+                this.minhasVendas.clear();
+                atualizaTableVenda(null);
+            }
+        }
+        
         if(evento.getSource().equals(this.telaPrincipal.getAlterarVendaBtn())){
             Venda venda = new Venda();
             
@@ -151,21 +167,29 @@ public class PrincipalFuncionarioController implements ActionListener,KeyListene
         }
         
         if(evento.getSource().equals(this.telaPrincipal.getCancelarVendaBtn())){
-            if (JOptionPane.showConfirmDialog(null, "Realmente deseja cancelar esta venda?", null, JOptionPane.YES_NO_OPTION) 
+            int index = this.telaPrincipal.getVendasTable().getSelectedRow();
+            
+            if(this.telaPrincipal.getMinhasVendasCheckBox().isSelected() == false){
+                if(this.vendasEmAberto.get(index).getFuncionario().getId() == this.funcionario.getId() ||
+                   this.vendasEmAberto.get(index).getFuncionario().getUsuario().getId() == 0){
+                    if (JOptionPane.showConfirmDialog(null, "Realmente deseja cancelar esta venda?", null, JOptionPane.YES_NO_OPTION) 
                     == JOptionPane.YES_OPTION){
-                int index = this.telaPrincipal.getVendasTable().getSelectedRow();
-                vendaDAO.excluir(this.vendasEmAberto.get(index));
-                atualizaTableVenda(null);
-            }
-        }
-        
-        if(evento.getSource().equals(this.telaPrincipal.getBuscarVendaBtn()) ||
-           evento.getSource().equals(this.telaPrincipal.getClienteVendaTxt())){
-            if(this.telaPrincipal.getClienteVendaTxt().getText().length() > 0){
-                atualizaTableVenda(vendaDAO.pesquisarEmAberto(this.telaPrincipal.getClienteVendaTxt().getText()));
+                
+                        vendaDAO.excluir(this.vendasEmAberto.get(index));
+                        atualizaTableVenda(null);
+                    }
+                }else{
+                    JOptionPane.showMessageDialog(null, "Esta venda não é sua, você não tem permissão para cancelar");
+                }
             }else{
-                atualizaTableVenda(null);
+                if (JOptionPane.showConfirmDialog(null, "Realmente deseja cancelar esta venda?", null, JOptionPane.YES_NO_OPTION) 
+                    == JOptionPane.YES_OPTION){
+                
+                        vendaDAO.excluir(this.minhasVendas.get(index));
+                        atualizaTableVenda(null);
+                    }
             }
+            
         }
         
         if(evento.getSource().equals(this.telaPrincipal.getFinalizarVendaBtn())){
@@ -183,29 +207,40 @@ public class PrincipalFuncionarioController implements ActionListener,KeyListene
             
             venda.setDataAbertura(dataAtual);
             if(this.telaPrincipal.getDescontoTxt().getText().length() == 0){
-                venda.setDesconto(0);
+                venda.setDesconto(-1);
             }else{
                 venda.setDesconto(Double.parseDouble(this.telaPrincipal.getDescontoTxt().getText()));
             }
             venda.setDescricao(this.telaPrincipal.getDescricaoTxt().getText());
+            
             venda.setItens(this.itensDaVenda);
             venda.setQuantidades(this.quantidades);
             venda.setSituacao(false);
             if(this.telaPrincipal.getMaoDeObraTxt().getText().length() == 0){
-                venda.setValorMaoDeObra(0);
+                venda.setValorMaoDeObra(-1);
             }else{
                 venda.setValorMaoDeObra(Double.parseDouble(this.telaPrincipal.getMaoDeObraTxt().getText()));
             }
-            venda.setValorTotal(Double.parseDouble(this.telaPrincipal.getValorTotalTxt().getText()));
+            
+            if(this.telaPrincipal.getValorTotalTxt().getText().length() > 0){
+                venda.setValorTotal(Double.parseDouble(this.telaPrincipal.getValorTotalTxt().getText()));
+            }else{
+                venda.setValorTotal(-1);
+            }
+            
             venda.setFuncionario(this.funcionario);
-            venda.setCliente(this.clientes.get(this.telaPrincipal.getClienteComboBox().getSelectedIndex()));
+            
+            if(this.telaPrincipal.getClienteComboBox().getSelectedIndex() >= 0){
+                venda.setCliente(this.clientes.get(this.telaPrincipal.getClienteComboBox().getSelectedIndex()));
+            }
             
             
+            if(vendaDAO.inserir(venda)==true){
+                limparTudo();
+                atualizaTableVenda(null);
+                this.telaPrincipal.getPainelDeGuias().setSelectedIndex(1);
+            }
             
-            vendaDAO.inserir(venda);
-            limparTudo();
-            atualizaTableVenda(null);
-            this.telaPrincipal.getPainelDeGuias().setSelectedIndex(1);
         }
         
         if(evento.getSource().equals(this.telaPrincipal.getLimparBtn())){
@@ -214,11 +249,18 @@ public class PrincipalFuncionarioController implements ActionListener,KeyListene
         
         if(evento.getSource().equals(this.telaPrincipal.getExcluirItemBtn())){
             int index = this.telaPrincipal.getItensTable().getSelectedRow();
-            this.itensDaVenda.remove(this.itensDaVenda.get(index));
-            this.quantidades.remove(this.quantidades.get(index));
             
-            atualizaItensVenda(null,null);
-            atualizaValorTotal();
+            if(index >= 0){
+                this.itensDaVenda.remove(this.itensDaVenda.get(index));
+                this.quantidades.remove(this.quantidades.get(index));
+
+                atualizaItensVenda(null,null);
+                atualizaValorTotal();
+            }else{
+                JOptionPane.showConfirmDialog(null, "Selecione um item na tabela");
+            }
+            
+            
         }
         
         
@@ -306,33 +348,6 @@ public class PrincipalFuncionarioController implements ActionListener,KeyListene
             }
         }
         
-        if(evento.getSource().equals(this.telaPrincipal.getPesquisarItemBtn()) ||
-           evento.getSource().equals(this.telaPrincipal.getItemTxt())){
-            String itemNome = this.telaPrincipal.getItemTxt().getText();
-            
-            if(itemNome.length() == 0){
-                atualizaTableAcessorio(null);
-                atualizaTableMaterial(null);
-            }else{
-                ArrayList<Item> itens = itemDAO.pesquisar(itemNome);
-                this.acessorios.clear();
-                this.materiais.clear();
-                
-                for(int i=0; i<itens.size(); i++){
-                    if(itens.get(i).isIsAcessorio() == true){
-                        this.acessorios.add(itens.get(i));
-                    }else{
-                        if(itens.get(i).isIsAcessorio() == false){
-                            this.materiais.add(itens.get(i));
-                        }
-                    }
-                }
-                
-                atualizaTableAcessorio(this.acessorios);
-                atualizaTableMaterial(this.materiais);
-                
-            }
-        }
     }
     
     
@@ -443,26 +458,13 @@ public class PrincipalFuncionarioController implements ActionListener,KeyListene
 
     @Override
     public void keyTyped(KeyEvent evento) {
-        if(evento.getSource().equals(this.telaPrincipal.getMaoDeObraTxt())){
-            if(this.telaPrincipal.getMaoDeObraTxt().getText().length() > 0){
-                String caracteres="0987654321.";
-                if(!caracteres.contains(evento.getKeyChar()+"")){
-                    evento.consume();
-                }
-            }
-        }
         
-        if(evento.getSource().equals(this.telaPrincipal.getDescontoTxt())){
-            if(this.telaPrincipal.getDescontoTxt().getText().length() > 0){
-                String caracteres="0987654321.";
-                if(!caracteres.contains(evento.getKeyChar()+"")){
-                    evento.consume();
-                }
-            }
-        }
         
-        if(evento.getSource().equals(this.telaPrincipal.getAlturaMaterialTxt()) ||
-           evento.getSource().equals(this.telaPrincipal.getLarguraMaterialTxt())){
+        if(evento.getSource().equals(this.telaPrincipal.getAlturaMaterialTxt()) || 
+           evento.getSource().equals(this.telaPrincipal.getLarguraMaterialTxt()) || 
+           evento.getSource().equals(this.telaPrincipal.getDescontoTxt()) ||
+           evento.getSource().equals(this.telaPrincipal.getMaoDeObraTxt())){
+                
                 String caracteres="0987654321.";
                 if(!caracteres.contains(evento.getKeyChar()+"")){
                     evento.consume();
@@ -489,8 +491,48 @@ public class PrincipalFuncionarioController implements ActionListener,KeyListene
 
     @Override
     public void caretUpdate(CaretEvent evento) {
+        
         if(evento.getSource().equals(this.telaPrincipal.getMaoDeObraTxt()) || evento.getSource().equals(this.telaPrincipal.getDescontoTxt())){
             atualizaValorTotal();
+        }
+        
+        if(evento.getSource().equals(this.telaPrincipal.getClienteVendaTxt())){
+            if(this.telaPrincipal.getClienteVendaTxt().getText().length() > 0){
+                this.telaPrincipal.getMinhasVendasCheckBox().setSelected(false);
+                atualizaTableVenda(vendaDAO.pesquisarEmAberto(this.telaPrincipal.getClienteVendaTxt().getText()));
+            }else{
+                if(this.telaPrincipal.getMinhasVendasCheckBox().isSelected() == false){
+                    atualizaTableVenda(null);
+                }
+            }
+        }
+        
+        if(evento.getSource().equals(this.telaPrincipal.getItemTxt()) ||
+           evento.getSource().equals(this.telaPrincipal.getItemTxt())){
+            String itemNome = this.telaPrincipal.getItemTxt().getText();
+            
+            if(itemNome.length() == 0){
+                atualizaTableAcessorio(null);
+                atualizaTableMaterial(null);
+            }else{
+                ArrayList<Item> itens = itemDAO.pesquisar(itemNome);
+                this.acessorios.clear();
+                this.materiais.clear();
+                
+                for(int i=0; i<itens.size(); i++){
+                    if(itens.get(i).isIsAcessorio() == true){
+                        this.acessorios.add(itens.get(i));
+                    }else{
+                        if(itens.get(i).isIsAcessorio() == false){
+                            this.materiais.add(itens.get(i));
+                        }
+                    }
+                }
+                
+                atualizaTableAcessorio(this.acessorios);
+                atualizaTableMaterial(this.materiais);
+                
+            }
         }
     }
 
@@ -515,7 +557,7 @@ public class PrincipalFuncionarioController implements ActionListener,KeyListene
             this.telaPrincipal.getVendasTable().setModel(vendaModel);
         }
     }
-
+    
     @Override
     public void mouseClicked(MouseEvent evento) {
         if(evento.getSource().equals(this.telaPrincipal.getVendasTable())){

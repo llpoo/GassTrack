@@ -79,6 +79,7 @@ public class AquisicaoDAO implements DAO<Aquisicao>{
 
                 pst.execute();
                 pst.close();
+                JOptionPane.showMessageDialog(null, "Cadastro efetuado com sucesso");
                 return true;
 
             } catch (SQLException ex) {
@@ -86,7 +87,15 @@ public class AquisicaoDAO implements DAO<Aquisicao>{
                 Logger.getLogger(AquisicaoDAO.class.getName()).log(Level.SEVERE, null, ex);
             }
         }else{
-            JOptionPane.showMessageDialog(null, "Preencha todos os campos de aquisição");
+            if(aquisicao.getQuantidadeItem() == 0){
+                JOptionPane.showMessageDialog(null, "A quantidade da aquisição deve ser maior que zero");
+            }
+            if(aquisicao.getValorUitario() == 0){
+                JOptionPane.showMessageDialog(null, "O preço unitário deve ser maior que zero");
+            }
+            if(aquisicao.getValorUitario() < 0 || aquisicao.getQuantidadeItem() < 0){
+                JOptionPane.showMessageDialog(null, "Preencha todos os campos");
+            }
             return false;
         }
         return false;
@@ -119,13 +128,22 @@ public class AquisicaoDAO implements DAO<Aquisicao>{
                 //itemDAO.addEstoque(aquisicao.getQuantidadeItem(), aquisicao.getItem().getId());
                 pst.execute();
                 pst.close(); 
+                JOptionPane.showMessageDialog(null, "Alteração efetuada com sucesso");
+                return true;
             } catch (SQLException ex) {
                 JOptionPane.showMessageDialog(null, "Não foi possível editar a aquisicão");
                 Logger.getLogger(AquisicaoDAO.class.getName()).log(Level.SEVERE, null, ex);
             }
         }else{
-            JOptionPane.showMessageDialog(null, "Preencha todos os campos de aquisição");
-            return false;
+            if(aquisicao.getQuantidadeItem() == 0){
+                JOptionPane.showMessageDialog(null, "A quantidade da aquisição deve ser maior que zero");
+            }
+            if(aquisicao.getValorUitario() == 0){
+                JOptionPane.showMessageDialog(null, "O preço unitário deve ser maior que zero");
+            }
+            if(aquisicao.getValorUitario() < 0 || aquisicao.getQuantidadeItem() < 0){
+                JOptionPane.showMessageDialog(null, "Preencha todos os campos");
+            }
         }
         return false;
     }
@@ -292,8 +310,8 @@ public class AquisicaoDAO implements DAO<Aquisicao>{
     }
 
     private boolean validarCampos(Aquisicao aquisicao) {
-        if(aquisicao.getData()!=null && aquisicao.getQuantidadeItem()!=0 && 
-                aquisicao.getValorUitario()!=0){
+        if(aquisicao.getData() != null && aquisicao.getQuantidadeItem() > 0 && 
+            aquisicao.getValorUitario() > 0){
             return true;
         }else{
             return false;

@@ -12,6 +12,9 @@ import br.com.gt.view.cliente.CadastrarClienteView;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.Connection;
+import java.text.ParseException;
+import javax.swing.text.DefaultFormatterFactory;
+import javax.swing.text.MaskFormatter;
 
 /**
  *
@@ -21,11 +24,16 @@ public class CadastrarClienteController implements ActionListener{
     
     Connection connection;
     CadastrarClienteView telaCadastro;
+    MaskFormatter mascaraRG;
+    MaskFormatter mascaraCPF;
+    MaskFormatter mascaraTelefone;
+    MaskFormatter mascaraCEP;
     
     public CadastrarClienteController(Connection con) {
         this.connection = con;
         telaCadastro = new CadastrarClienteView(null,true);
         adicionaEventos();
+        inicializaMascaras();
         this.telaCadastro.setVisible(true);
     }
     
@@ -65,8 +73,6 @@ public class CadastrarClienteController implements ActionListener{
             
             ClienteDAO clienteDAO = new ClienteDAO(this.connection);
             
-            clienteDAO.inserir(cliente);
-            
             if(clienteDAO.inserir(cliente) == true){
                 this.telaCadastro.dispose();
             }
@@ -76,6 +82,22 @@ public class CadastrarClienteController implements ActionListener{
     private void adicionaEventos() {
         this.telaCadastro.getSalvarBtn().addActionListener(this);
         this.telaCadastro.getCancelarBtn().addActionListener(this);
+    }
+
+    private void inicializaMascaras() {
+        try{
+            this.mascaraCEP = new MaskFormatter("#####-###");
+            this.mascaraCPF = new MaskFormatter("###.###.###-##");
+            this.mascaraRG = new MaskFormatter("##.###.###-##");
+            this.mascaraTelefone = new MaskFormatter("(##) ####-####");
+            
+            this.telaCadastro.getRgTxt().setFormatterFactory(new DefaultFormatterFactory(mascaraRG));
+            this.telaCadastro.getCpfTxt().setFormatterFactory(new DefaultFormatterFactory(mascaraCPF));
+            this.telaCadastro.getTelefoneTxt().setFormatterFactory(new DefaultFormatterFactory(mascaraTelefone));
+            this.telaCadastro.getCepTxt().setFormatterFactory(new DefaultFormatterFactory(mascaraCEP));
+        }catch(ParseException e){
+            e.printStackTrace();
+        }
     }
     
 }

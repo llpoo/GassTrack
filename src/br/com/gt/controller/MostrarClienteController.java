@@ -56,7 +56,7 @@ public class MostrarClienteController implements ActionListener{
             }
         }
         
-        this.telaMostrar.getEstadoTxt().setText(c.getEndereco().getEstado());
+        this.telaMostrar.getEstadoComboBox().setSelectedItem(c.getEndereco().getEstado().toString());
         this.telaMostrar.getCepTxt().setText(c.getEndereco().getCep());
         this.telaMostrar.getCidadeTxt().setText(c.getEndereco().getCidade());
         this.telaMostrar.getBairroTxt().setText(c.getEndereco().getBairro());

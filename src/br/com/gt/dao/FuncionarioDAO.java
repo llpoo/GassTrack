@@ -37,54 +37,60 @@ public class FuncionarioDAO implements DAO<Funcionario>{
         PreparedStatement pst;
         
         if(validarCampos(funcionario)==true){
-            try {
-                pst = connection.prepareStatement(sql);
+            if(existe(funcionario)==false){
+                try {
+                    pst = connection.prepareStatement(sql);
 
-                pst.setString(1, funcionario.getEmail());
-                pst.setString(2, funcionario.getNome());
-                pst.setString(3, funcionario.getTelefone());
-                pst.setString(4, funcionario.getCpf());
-                pst.setString(5, funcionario.getRg());
+                    pst.setString(1, funcionario.getEmail());
+                    pst.setString(2, funcionario.getNome());
+                    pst.setString(3, funcionario.getTelefone());
+                    pst.setString(4, funcionario.getCpf());
+                    pst.setString(5, funcionario.getRg());
 
-                java.sql.Date dataSql = new java.sql.Date(funcionario.getDataAdmissao().getTime());
+                    java.sql.Date dataSql = new java.sql.Date(funcionario.getDataAdmissao().getTime());
 
-                pst.setDate(6, dataSql);
+                    pst.setDate(6, dataSql);
 
 
-                Endereco endereco = new Endereco();
-                EnderecoDAO enderecoDAO = new EnderecoDAO(connection);
-                endereco = enderecoDAO.buscar(funcionario.getEndereco());
-
-                if(endereco.getId() < 1){
-                    enderecoDAO.inserir(funcionario.getEndereco());
+                    Endereco endereco = new Endereco();
+                    EnderecoDAO enderecoDAO = new EnderecoDAO(connection);
                     endereco = enderecoDAO.buscar(funcionario.getEndereco());
+
+                    if(endereco.getId() < 1){
+                        enderecoDAO.inserir(funcionario.getEndereco());
+                        endereco = enderecoDAO.buscar(funcionario.getEndereco());
+                    }
+
+                    funcionario.getEndereco().setId(endereco.getId());
+
+                    pst.setInt(7, funcionario.getEndereco().getId());
+
+                    Usuario usuario = new Usuario();
+                    UsuarioDAO usuarioDAO = new UsuarioDAO(connection);
+
+                    usuarioDAO.inserir(funcionario.getUsuario());
+                    usuario = usuarioDAO.buscar(funcionario.getUsuario());
+
+                    funcionario.getUsuario().setId(usuario.getId());
+
+                    pst.setInt(8, funcionario.getUsuario().getId());
+
+                    pst.setString(9, funcionario.getSexo());
+
+                    pst.execute();
+                    pst.close();
+                    JOptionPane.showMessageDialog(null, "Cadastro efetuado com sucesso");
+                    return true;
+                } catch (SQLException ex) {
+                    JOptionPane.showMessageDialog(null, "Não foi possível salvar o funcionário");
+                    Logger.getLogger(FuncionarioDAO.class.getName()).log(Level.SEVERE, null, ex);
                 }
-
-                funcionario.getEndereco().setId(endereco.getId());
-
-                pst.setInt(7, funcionario.getEndereco().getId());
-
-                Usuario usuario = new Usuario();
-                UsuarioDAO usuarioDAO = new UsuarioDAO(connection);
-
-                usuarioDAO.inserir(funcionario.getUsuario());
-                usuario = usuarioDAO.buscar(funcionario.getUsuario());
-
-                funcionario.getUsuario().setId(usuario.getId());
-
-                pst.setInt(8, funcionario.getUsuario().getId());
-
-                pst.setString(9, funcionario.getSexo());
-
-                pst.execute();
-                pst.close();
-                JOptionPane.showMessageDialog(null, "Cadastro efetuado com sucesso");
-            } catch (SQLException ex) {
-                JOptionPane.showMessageDialog(null, "Não foi possível salvar o funcionário");
-                Logger.getLogger(FuncionarioDAO.class.getName()).log(Level.SEVERE, null, ex);
+            }else{
+                JOptionPane.showMessageDialog(null, "Já existe um funcionário registrado com este CPF");
+                return false;
             }
         }else{
-            JOptionPane.showMessageDialog(null, "Preencha todos os campos do funcionário");
+            JOptionPane.showMessageDialog(null, "Preencha todos os campos");
             return false;
         }
         return false;
@@ -92,54 +98,65 @@ public class FuncionarioDAO implements DAO<Funcionario>{
 
     @Override
     public boolean alterar(Funcionario funcionario) {
-        String sql = "update funcionario set email = ?, nome = ?, telefone = ?, cpf = ?, rg = ?, dataadmissao = ?, endereco_id = ?, sexo = ? where id = ?";
+        String sql = "update funcionario set email = ?, nome = ?, telefone = ?, cpf = ?, rg = ?, dataadmissao = ?, endereco_id = ?, sexo = ?, usuario_id = ? where id = ?";
         
         PreparedStatement pst;
         
         if(validarCampos(funcionario)==true){
-            try {
-                pst = connection.prepareStatement(sql);
+            if(existe(funcionario)==false){
+                try {
+                    pst = connection.prepareStatement(sql);
 
-                pst.setString(1, funcionario.getEmail());
-                pst.setString(2, funcionario.getNome());
-                pst.setString(3, funcionario.getTelefone());
-                pst.setString(4, funcionario.getCpf());
-                pst.setString(5, funcionario.getRg());
+                    pst.setString(1, funcionario.getEmail());
+                    pst.setString(2, funcionario.getNome());
+                    pst.setString(3, funcionario.getTelefone());
+                    pst.setString(4, funcionario.getCpf());
+                    pst.setString(5, funcionario.getRg());
 
-                java.sql.Date dataSql = new java.sql.Date(funcionario.getDataAdmissao().getTime());
+                    java.sql.Date dataSql = new java.sql.Date(funcionario.getDataAdmissao().getTime());
 
-                pst.setDate(6, dataSql);
+                    pst.setDate(6, dataSql);
 
 
-                Endereco endereco = new Endereco();
-                EnderecoDAO enderecoDAO = new EnderecoDAO(connection);
-                endereco = enderecoDAO.buscar(funcionario.getEndereco());
-
-                if(endereco.getId() < 1){
-                    enderecoDAO.alterar(funcionario.getEndereco());
+                    Endereco endereco = new Endereco();
+                    EnderecoDAO enderecoDAO = new EnderecoDAO(connection);
                     endereco = enderecoDAO.buscar(funcionario.getEndereco());
+
+                    if(endereco.getId() < 1){
+                        enderecoDAO.inserir(funcionario.getEndereco());
+                        endereco = enderecoDAO.buscar(funcionario.getEndereco());
+                    }
+
+                    funcionario.getEndereco().setId(endereco.getId());
+
+                    pst.setInt(7, funcionario.getEndereco().getId());
+
+                    UsuarioDAO usuarioDAO = new UsuarioDAO(this.connection);
+                    usuarioDAO.alterar(funcionario.getUsuario());
+
+                    pst.setString(8, funcionario.getSexo());
+
+                    pst.setInt(9, funcionario.getUsuario().getId());
+
+                    pst.setInt(10, funcionario.getId());
+
+                    pst.execute();
+                    pst.close();
+                    if(funcionario.getUsuario().getId() == 0){
+                        JOptionPane.showMessageDialog(null, "Funcionário desativado com sucesso");
+                    }else{
+                        JOptionPane.showMessageDialog(null, "Alteração efetuada com sucesso");
+                    }
+                } catch (SQLException ex) {
+                    JOptionPane.showMessageDialog(null, "Não foi possível alterar o funcionário");
+                    Logger.getLogger(FuncionarioDAO.class.getName()).log(Level.SEVERE, null, ex);
                 }
-
-                funcionario.getEndereco().setId(endereco.getId());
-
-                pst.setInt(7, funcionario.getEndereco().getId());
-
-                UsuarioDAO usuarioDAO = new UsuarioDAO(this.connection);
-                usuarioDAO.alterar(funcionario.getUsuario());
-
-                pst.setString(8, funcionario.getSexo());
-
-                pst.setInt(9, funcionario.getId());
-
-                pst.execute();
-                pst.close();
-                JOptionPane.showMessageDialog(null, "Alteração efetuada com sucesso");
-            } catch (SQLException ex) {
-                JOptionPane.showMessageDialog(null, "Não foi possível alterar o funcionário");
-                Logger.getLogger(FuncionarioDAO.class.getName()).log(Level.SEVERE, null, ex);
+            }else{
+                JOptionPane.showMessageDialog(null, "Já existe um funcionário registrado com este CPF");
+                return false;
             }
         }else{
-            JOptionPane.showMessageDialog(null, "Preencha todos os campos do funcionário");
+            JOptionPane.showMessageDialog(null, "Preencha todos os campos");
             return false;
         }
         return false;
@@ -170,7 +187,6 @@ public class FuncionarioDAO implements DAO<Funcionario>{
                 eDao.excluir(e);
             }
             
-            JOptionPane.showMessageDialog(null, "Funcionário excluído com sucesso");
             return true;
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Não foi possível excluir o funcionário");
@@ -385,14 +401,12 @@ public class FuncionarioDAO implements DAO<Funcionario>{
     }
 
     private boolean validarCampos(Funcionario funcionario) {
-        if(funcionario.getNome()!=null && funcionario.getEmail()!=null && 
-            funcionario.getCpf()!=null && funcionario.getRg()!=null && 
-            funcionario.getSexo()!=null && funcionario.getTelefone()!=null && 
-            funcionario.getDataAdmissao()!=null){
+        if(funcionario.getNome().length()!= 0 && funcionario.getEmail().length() != 0 && 
+            funcionario.getCpf().length() != 0 && funcionario.getRg().length() != 0 && 
+            funcionario.getSexo() != null && funcionario.getTelefone().length() != 0 && 
+            funcionario.getDataAdmissao() != null){
                 EnderecoDAO eDao = new EnderecoDAO(this.connection);
-                UsuarioDAO uDao =new UsuarioDAO(this.connection);
-                if(eDao.validarCampos(funcionario.getEndereco()) == true &&
-                   uDao.validarCampos(funcionario.getUsuario())==true){
+                if(eDao.validarCampos(funcionario.getEndereco()) == true){
                     return true;
                 }else{
                     return false;
@@ -400,6 +414,40 @@ public class FuncionarioDAO implements DAO<Funcionario>{
         }else{
             return false;
         }
+    }
+    
+    public boolean existe(Funcionario funcionario){
+        String sql = "SELECT * FROM funcionario where cpf like ?";
+                
+        PreparedStatement pst;
+        ResultSet rs;
+        
+        Funcionario fun = new Funcionario();
+        
+        try {
+            pst = connection.prepareStatement(sql);
+            
+            pst.setString(1, funcionario.getCpf());
+            
+            rs = pst.executeQuery();
+            
+            while(rs.next()){
+                fun.setId(rs.getInt("Id"));
+            }
+            
+            rs.close();
+            pst.close();
+            
+            if(fun.getId() > 0){
+                return true;
+            }else{
+                return false;
+            }
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Não foi possível buscar o funcionário");
+            Logger.getLogger(UsuarioDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return false;
     }
     
 }

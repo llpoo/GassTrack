@@ -10,13 +10,15 @@ import br.com.gt.model.Item;
 import br.com.gt.view.item.CadastrarItemView;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.sql.Connection;
 
 /**
  *
  * @author Luciano Júnior
  */
-public class CadastrarItemController implements ActionListener{
+public class CadastrarItemController implements ActionListener,KeyListener{
     
     Connection connection;
     CadastrarItemView telaCadastro;
@@ -39,14 +41,22 @@ public class CadastrarItemController implements ActionListener{
         if(evento.getSource().equals(this.telaCadastro.getSalvarBtn())){
             this.item.setNome(this.telaCadastro.getNomeTxt().getText());
             this.item.setQuantidadeAtual(0);
-            this.item.setPrecoUnitario(Double.parseDouble(this.telaCadastro.getPrecoUnitarioTxt().getText()));
+            if(this.telaCadastro.getPrecoUnitarioTxt().getText().length() > 0){
+                this.item.setPrecoUnitario(Double.parseDouble(this.telaCadastro.getPrecoUnitarioTxt().getText()));
+            }else{
+                this.item.setPrecoUnitario(-1);
+            }
+            
             this.item.setIsAcessorio(this.telaCadastro.getIsAcessorioCheckBox().isSelected());
-            this.item.setEstoqueMinimo(Integer.parseInt(this.telaCadastro.getEstoqueMinimoTxt().getText()));
+            if(this.telaCadastro.getEstoqueMinimoTxt().getText().length() > 0){
+                this.item.setEstoqueMinimo(Integer.parseInt(this.telaCadastro.getEstoqueMinimoTxt().getText()));
+            }else{
+                this.item.setEstoqueMinimo(-1);
+            }
+            
             
             ItemDAO itemDao = new ItemDAO(this.connection);
-            itemDao.inserir(this.item);
             
-            this.telaCadastro.setVisible(false);
             if(itemDao.inserir(this.item) == true){
                 this.telaCadastro.dispose();
             }
@@ -56,6 +66,35 @@ public class CadastrarItemController implements ActionListener{
     private void adicionaEventos() {
         this.telaCadastro.getSalvarBtn().addActionListener(this);
         this.telaCadastro.getCancelarBtn().addActionListener(this);
+        this.telaCadastro.getPrecoUnitarioTxt().addKeyListener(this);
+        this.telaCadastro.getEstoqueMinimoTxt().addKeyListener(this);
+    }
+
+    @Override
+    public void keyTyped(KeyEvent evento) {
+        if(evento.getSource().equals(this.telaCadastro.getEstoqueMinimoTxt())){
+            String caracteres="0987654321";
+            if(!caracteres.contains(evento.getKeyChar()+"")){
+                evento.consume();
+            }
+        }
+        
+        if(evento.getSource().equals(this.telaCadastro.getPrecoUnitarioTxt())){
+            String caracteres="0987654321.";
+            if(!caracteres.contains(evento.getKeyChar()+"")){
+                evento.consume();
+            }
+        }
+    }
+
+    @Override
+    public void keyPressed(KeyEvent e) {
+        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void keyReleased(KeyEvent e) {
+        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
 }

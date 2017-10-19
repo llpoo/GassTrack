@@ -7,6 +7,7 @@ package br.com.gt.dao;
 
 import br.com.gt.model.Endereco;
 import br.com.gt.model.Fornecedor;
+import br.com.gt.model.Aquisicao;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -34,34 +35,39 @@ public class FornecedorDAO implements DAO<Fornecedor>{
         
         PreparedStatement pst;
         if(validarCampos(fornecedor)==true){
-           try {
-                pst = connection.prepareStatement(sql);
+            if(existe(fornecedor)==false){
+                try {
+                     pst = connection.prepareStatement(sql);
 
-                pst.setString(1, fornecedor.getEmail());
-                pst.setString(2, fornecedor.getNome());
-                pst.setString(3, fornecedor.getTelefone());
-                pst.setString(4, fornecedor.getCnpj());
+                     pst.setString(1, fornecedor.getEmail());
+                     pst.setString(2, fornecedor.getNome());
+                     pst.setString(3, fornecedor.getTelefone());
+                     pst.setString(4, fornecedor.getCnpj());
 
-                Endereco endereco = new Endereco();
-                EnderecoDAO enderecoDAO = new EnderecoDAO(connection);
-                endereco = enderecoDAO.buscar(fornecedor.getEndereco());
+                     Endereco endereco = new Endereco();
+                     EnderecoDAO enderecoDAO = new EnderecoDAO(connection);
+                     endereco = enderecoDAO.buscar(fornecedor.getEndereco());
 
-                if(endereco.getId() < 1){
-                    enderecoDAO.inserir(fornecedor.getEndereco());
-                    endereco = enderecoDAO.buscar(fornecedor.getEndereco());
-                }
+                     if(endereco.getId() < 1){
+                         enderecoDAO.inserir(fornecedor.getEndereco());
+                         endereco = enderecoDAO.buscar(fornecedor.getEndereco());
+                     }
 
-                fornecedor.getEndereco().setId(endereco.getId());
+                     fornecedor.getEndereco().setId(endereco.getId());
 
-                pst.setInt(5, fornecedor.getEndereco().getId());
+                     pst.setInt(5, fornecedor.getEndereco().getId());
 
-                pst.execute();
-                pst.close();
-                JOptionPane.showMessageDialog(null, "Cadastro efetuado com sucesso");
-                return true;
-            } catch (SQLException ex) {
-                JOptionPane.showMessageDialog(null, "Não foi possível salvar o fornecedor");
-                Logger.getLogger(FornecedorDAO.class.getName()).log(Level.SEVERE, null, ex);
+                     pst.execute();
+                     pst.close();
+                     JOptionPane.showMessageDialog(null, "Cadastro efetuado com sucesso");
+                     return true;
+                 } catch (SQLException ex) {
+                     JOptionPane.showMessageDialog(null, "Não foi possível salvar o fornecedor");
+                     Logger.getLogger(FornecedorDAO.class.getName()).log(Level.SEVERE, null, ex);
+                 }
+            }else{
+                JOptionPane.showMessageDialog(null, "Já existe um fornecedor registrado com este CNPJ");
+                return false;
             }
         }else{
             JOptionPane.showMessageDialog(null, "Preencha todos os campos");
@@ -72,42 +78,50 @@ public class FornecedorDAO implements DAO<Fornecedor>{
 
     @Override
     public boolean alterar(Fornecedor fornecedor) {
-        String sql = "update fornecedor set nome=?,email=?,cnpj=?,telefone=?, endereco_id=? where id=?";
+        String sql = "update fornecedor set email = ?, nome = ?, telefone = ?, cnpj = ?, endereco_id = ? where id = ?";
+        
         PreparedStatement pst;
         
-        if(validarCampos(fornecedor)==true){        
-            try {
-                pst = connection.prepareStatement(sql);
-                pst.setString(1,fornecedor.getNome());
-                pst.setString(2,fornecedor.getEmail());
-                pst.setString(3,fornecedor.getCnpj());
-                pst.setString(4,fornecedor.getTelefone());  
+        if(validarCampos(fornecedor)==true){
+            if(existe(fornecedor)==false){
+                try {
+                    pst = connection.prepareStatement(sql);
 
-                Endereco endereco = new Endereco();
-                EnderecoDAO enderecoDAO = new EnderecoDAO(connection);
-                endereco = enderecoDAO.buscar(fornecedor.getEndereco());
+                    pst.setString(1, fornecedor.getEmail());
+                    pst.setString(2, fornecedor.getNome());
+                    pst.setString(3, fornecedor.getTelefone());
+                    pst.setString(4, fornecedor.getCnpj());
 
-                if(endereco.getId() < 1){
-                    enderecoDAO.alterar(fornecedor.getEndereco());
+                    Endereco endereco = new Endereco();
+                    EnderecoDAO enderecoDAO = new EnderecoDAO(connection);
                     endereco = enderecoDAO.buscar(fornecedor.getEndereco());
+
+                    if(endereco.getId() < 1){
+                        enderecoDAO.inserir(fornecedor.getEndereco());
+                        endereco = enderecoDAO.buscar(fornecedor.getEndereco());
+                    }
+
+                    fornecedor.getEndereco().setId(endereco.getId());
+
+                    pst.setInt(5, fornecedor.getEndereco().getId());
+
+                    pst.setInt(6, fornecedor.getId());
+
+                    pst.execute();
+                    pst.close();
+                    JOptionPane.showMessageDialog(null, "Alteração efetuada com sucesso");
+                } catch (SQLException ex) {
+                    JOptionPane.showMessageDialog(null, "Não foi possível alterar o cliente");
+                    Logger.getLogger(FuncionarioDAO.class.getName()).log(Level.SEVERE, null, ex);
                 }
-
-                fornecedor.getEndereco().setId(endereco.getId());
-
-                pst.setInt(5, fornecedor.getEndereco().getId());
-                pst.setInt(6,fornecedor.getId());
-
-                pst.execute();
-                pst.close(); 
-                return true;
-            } catch (SQLException ex) {
-                JOptionPane.showMessageDialog(null, "Não foi possível editar o fornecedor");
-                Logger.getLogger(FornecedorDAO.class.getName()).log(Level.SEVERE, null, ex);
+            }else{
+                JOptionPane.showMessageDialog(null, "Já existe um fornecedor registrado com este CNPJ");
+                return false;
             }
         }else{
             JOptionPane.showMessageDialog(null, "Preencha todos os campos");
             return false;
-        }    
+        }
         return false;
     }
 
@@ -327,19 +341,90 @@ public class FornecedorDAO implements DAO<Fornecedor>{
         
         return f;
     }
+    
+    public boolean possuiAquisicoes(Fornecedor fornecedor){
+        String sql = "SELECT * FROM aquisicao where fornecedor_id = ?";
+                
+        PreparedStatement pst;
+        ResultSet rs;
+        
+        Aquisicao aquisicao = new Aquisicao();
+        
+        try {
+            pst = connection.prepareStatement(sql);
+            
+            pst.setInt(1, fornecedor.getId());
+            
+            rs = pst.executeQuery();
+            
+            while(rs.next()){
+                Aquisicao a = new Aquisicao();
+                
+                a.setId(rs.getInt("Id"));
+                
+                aquisicao = a;
+            }
+            
+            rs.close();
+            pst.close();
+            
+            if(aquisicao.getId() > 0){
+                return true;
+            }else{
+                return false;
+            }
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Não foi possível buscar a aquisicao");
+            Logger.getLogger(UsuarioDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return false;
+    }
 
     private boolean validarCampos(Fornecedor fornecedor) {
-        if(fornecedor.getEmail()!=null && fornecedor.getCnpj()!=null && 
-                fornecedor.getNome()!=null && fornecedor.getTelefone()!= null){
+        if(fornecedor.getEmail().length() > 0 && fornecedor.getCnpj().length() > 0 && 
+           fornecedor.getNome().length() > 0 && fornecedor.getTelefone().length() > 0){
            EnderecoDAO eDao = new EnderecoDAO(this.connection);
            if(eDao.validarCampos(fornecedor.getEndereco()) == true){
                return true;
            }else{
                return false;
            } 
-        }else{
-            return false;
         }
+        return false;
+    }
+    
+    public boolean existe(Fornecedor fornecedor){
+        String sql = "SELECT * FROM fornecedor where cnpj like ?";
+                
+        PreparedStatement pst;
+        ResultSet rs;
+        
+        Fornecedor forn = new Fornecedor();
+        
+        try {
+            pst = connection.prepareStatement(sql);
+            
+            pst.setString(1, fornecedor.getCnpj());
+            
+            rs = pst.executeQuery();
+            
+            while(rs.next()){
+                forn.setId(rs.getInt("Id"));
+            }
+            
+            rs.close();
+            pst.close();
+            
+            if(forn.getId() > 0){
+                return true;
+            }else{
+                return false;
+            }
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Não foi possível buscar o fornecedor");
+            Logger.getLogger(UsuarioDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return false;
     }
     
 }

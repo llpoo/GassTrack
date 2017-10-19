@@ -11,6 +11,7 @@ import br.com.gt.dao.FornecedorDAO;
 import br.com.gt.dao.FuncionarioDAO;
 import br.com.gt.dao.ItemDAO;
 import br.com.gt.dao.AquisicaoDAO;
+import br.com.gt.dao.UsuarioDAO;
 import br.com.gt.dao.VendaDAO;
 import br.com.gt.model.Fornecedor;
 import br.com.gt.model.Funcionario;
@@ -30,17 +31,23 @@ import br.com.gt.view.principal.util.VendaEmAbertoTableModel;
 import br.com.gt.view.principal.util.VendaTableModel;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.InputMethodEvent;
+import java.awt.event.InputMethodListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.sql.Connection;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
+import javax.swing.event.CaretEvent;
+import javax.swing.event.CaretListener;
 
 /**
  *
  * @author lucas
  */
-public class PrincipalGerenteController implements ActionListener, MouseListener{
+public class PrincipalGerenteController implements ActionListener, MouseListener,CaretListener{
 
     private PrincipalGerenteView telaPrincipal;
     private ArrayList<Funcionario> funcionarios;
@@ -56,6 +63,7 @@ public class PrincipalGerenteController implements ActionListener, MouseListener
    // private ArrayList<Aquisicao> aquisicoes;
     private ArrayList<Venda> vendas;
     private VendaDAO vendaDAO;
+    private ArrayList<Funcionario> funcionariosDesativados;
     
     Connection connection;
     Usuario usuario;
@@ -65,6 +73,7 @@ public class PrincipalGerenteController implements ActionListener, MouseListener
         this.connection = con;
         this.usuario = u;
         this.telaLogin = tela;
+        this.funcionariosDesativados = new ArrayList<>();
         telaPrincipal = new PrincipalGerenteView();
         adicionaEventos();
         
@@ -117,29 +126,35 @@ public class PrincipalGerenteController implements ActionListener, MouseListener
         }
         
         if(evento.getSource().equals(this.telaPrincipal.getAlterarFuncionarioBtn())){
-            AlterarFuncionarioController alterarController = new AlterarFuncionarioController(this.connection, this.funcionarios.get(this.telaPrincipal.getFuncionarioTable().getSelectedRow()));
-            atualizaTableFuncionario(null);
+            int index = this.telaPrincipal.getFuncionarioTable().getSelectedRow();
+            if(index >= 0){
+                AlterarFuncionarioController alterarController = new AlterarFuncionarioController(this.connection, this.funcionarios.get(index));
+                atualizaTableFuncionario(null);
+            }else{
+                JOptionPane.showMessageDialog(null, "Selecoine um funcionário na tabela");
+            }
+            
         }
         
         if(evento.getSource().equals(this.telaPrincipal.getExcluirFuncionarioBtn())){
             int index = this.telaPrincipal.getFuncionarioTable().getSelectedRow();
-            if (JOptionPane.showConfirmDialog(null, "Deseja excluir o registro do funcionário "+
+            if(index >= 0){
+                if (JOptionPane.showConfirmDialog(null, "Deseja desativar o funcionário "+
                     this.funcionarios.get(index).getNome()+"?", null, JOptionPane.YES_NO_OPTION) 
                     == JOptionPane.YES_OPTION){
-                this.funcionarioDao.excluir(this.funcionarios.get(index));
-                this.funcionarios.remove(index);
+                Usuario u = new Usuario();
+                u.setId(0);
+                
+                UsuarioDAO uDao = new UsuarioDAO(this.connection);
+                uDao.excluir(this.funcionarios.get(index).getUsuario());
+                
+                this.funcionarios.get(index).setUsuario(u);
+                this.funcionarioDao.alterar(this.funcionarios.get(index));
                 atualizaTableFuncionario(null);
+                    atualizaTableVenda(null);
             }
-        }
-        
-        if(evento.getSource().equals(this.telaPrincipal.getFuncionarios_BuscaBtn()) ||
-           evento.getSource().equals(this.telaPrincipal.getFuncionarios_funcionarioTxt())){
-            String nomeFuncionario = this.telaPrincipal.getFuncionarios_funcionarioTxt().getText();
-            if(nomeFuncionario.length() == 0){
-                atualizaTableFuncionario(null);
             }else{
-                this.funcionarios = funcionarioDao.pesquisar(nomeFuncionario);
-                atualizaTableFuncionario(this.funcionarios);
+                JOptionPane.showMessageDialog(null, "Selecoine um funcionário na tabela");
             }
         }
         
@@ -151,32 +166,34 @@ public class PrincipalGerenteController implements ActionListener, MouseListener
         }
         
         if(evento.getSource().equals(this.telaPrincipal.getAlterarFornecedorBtn())){
-            AlterarFornecedorController alterarControllerFornecedor = new AlterarFornecedorController(this.connection, this.fornecedores.get(this.telaPrincipal.getFornecedorTable().getSelectedRow()));
-            atualizaTableFornecedor(null);
+            int index = this.telaPrincipal.getFornecedorTable().getSelectedRow();
+            if(index >= 0){
+                AlterarFornecedorController alterarControllerFornecedor = new AlterarFornecedorController(this.connection, this.fornecedores.get(index));
+                atualizaTableFornecedor(null);
+            }else{
+                JOptionPane.showMessageDialog(null, "Selecione um fornecedor na tabela");
+            }
         }
         
         if(evento.getSource().equals(this.telaPrincipal.getExcluirFornecedorBtn())){
             int index = this.telaPrincipal.getFornecedorTable().getSelectedRow();
-            if (JOptionPane.showConfirmDialog(null, "Deseja excluir o registro do fornecedor "+
+            if(index >= 0){
+                if(this.fornecedorDao.possuiAquisicoes(this.fornecedores.get(index))==true){
+                    JOptionPane.showMessageDialog(null, "O fornecedor não pode ser sxcluído, pois possui aquisições em seu nome");
+                }else{
+                    if (JOptionPane.showConfirmDialog(null, "Deseja excluir o registro do fornecedor "+
                     this.fornecedores.get(index).getNome()+"?", null, JOptionPane.YES_NO_OPTION) 
                     == JOptionPane.YES_OPTION){
-                this.fornecedorDao.excluir(this.fornecedores.get(index));
-                this.fornecedores.remove(index);
-                atualizaTableFornecedor(null);
-            }
-        }
-        
-        if(evento.getSource().equals(this.telaPrincipal.getFornecedorBuscaBtn()) ||
-           evento.getSource().equals(this.telaPrincipal.getFornecedorTxt())){
-            String nomeFornecedor = this.telaPrincipal.getFornecedorTxt().getText();
-            if(nomeFornecedor.length() == 0){
-                atualizaTableFornecedor(null);
+                        this.fornecedorDao.excluir(this.fornecedores.get(index));
+                        this.fornecedores.remove(index);
+                        atualizaTableFornecedor(null);
+                    }
+                }
+                
             }else{
-                this.fornecedores = fornecedorDao.pesquisar(nomeFornecedor);
-                atualizaTableFornecedor(this.fornecedores);
+                JOptionPane.showMessageDialog(null, "Selecione um fornecedor na tabela");
             }
-        }
-           
+        }           
         
         if(evento.getSource().equals(this.telaPrincipal.getClientes_novoBtn())){
             CadastrarClienteController cadastrarClienteController = new CadastrarClienteController(this.connection);
@@ -185,29 +202,30 @@ public class PrincipalGerenteController implements ActionListener, MouseListener
         
         if(evento.getSource().equals(this.telaPrincipal.getAlterarClienteBtn())){
             int index = this.telaPrincipal.getClienteTable().getSelectedRow();
-            AlterarClienteController alterarClienteController = new AlterarClienteController(this.connection, this.clientes.get(index));
-            atualizaTableCliente(null);
+            if(index >= 0){
+                AlterarClienteController alterarClienteController = new AlterarClienteController(this.connection, this.clientes.get(index));
+                atualizaTableCliente(null);
+            }else{
+                JOptionPane.showMessageDialog(null, "Selecione um cliente na tabela");
+            }
         }
         
         if(evento.getSource().equals(this.telaPrincipal.getExcluirClienteBtn())){
             int index = this.telaPrincipal.getClienteTable().getSelectedRow();
-            if (JOptionPane.showConfirmDialog(null, "Deseja excluir o registro do cliente "+
-                    this.clientes.get(index).getNome()+"?", null, JOptionPane.YES_NO_OPTION) 
-                    == JOptionPane.YES_OPTION){
-                this.clienteDao.excluir(this.clientes.get(index));
-                this.clientes.remove(index);
-                atualizaTableCliente(null);
-            }
-        }
-        
-        if(evento.getSource().equals(this.telaPrincipal.getClientes_clienteBuscaBtn()) ||
-           evento.getSource().equals(this.telaPrincipal.getClientes_clienteTxt())){
-            String nomeCliente = this.telaPrincipal.getClientes_clienteTxt().getText();
-            if(nomeCliente.length() == 0){
-                atualizaTableCliente(null);
+            if(index >= 0){
+                if(this.clienteDao.possuiCompras(this.clientes.get(index)) == true){
+                        JOptionPane.showMessageDialog(null, "Este cliente não pode ser excluído, pois possui compras em seu nome");
+                }else{
+                    if (JOptionPane.showConfirmDialog(null, "Deseja excluir o registro do cliente "+
+                        this.clientes.get(index).getNome()+"?", null, JOptionPane.YES_NO_OPTION) 
+                        == JOptionPane.YES_OPTION){
+                            this.clienteDao.excluir(this.clientes.get(index));
+                            this.clientes.remove(index);
+                            atualizaTableCliente(null);
+                        }
+                }
             }else{
-                this.clientes = clienteDao.pesquisar(nomeCliente);
-                atualizaTableCliente(this.clientes);
+                JOptionPane.showMessageDialog(null, "Selecione um cliente na tabela");
             }
         }
         
@@ -225,73 +243,70 @@ public class PrincipalGerenteController implements ActionListener, MouseListener
         }
         
         if(evento.getSource().equals(this.telaPrincipal.getAlterarAcessorioBtn())){
-            Item item= this.acessorios.get(this.telaPrincipal.getAcessorioTable().getSelectedRow());
-            AlterarItemController alterarControllerItem = new AlterarItemController(this.connection, item);
-            
-            if(item.isIsAcessorio()==false){
-                atualizaTableMaterial(null);
+            int index = this.telaPrincipal.getAcessorioTable().getSelectedRow();
+            if(index >= 0){
+                Item item= this.acessorios.get(index);
+                AlterarItemController alterarControllerItem = new AlterarItemController(this.connection, item);
+
+                if(item.isIsAcessorio()==false){
+                    atualizaTableMaterial(null);
+                }else{
+                    atualizaTableAcessorio(null);
+                }
             }else{
-                atualizaTableAcessorio(null);
+                JOptionPane.showMessageDialog(null, "Selecione um acessório na tabela");
             }
         }
         
         if(evento.getSource().equals(this.telaPrincipal.getAlterarMaterialBtn())){
-            Item item= this.materiais.get(this.telaPrincipal.getMaterialTable().getSelectedRow());
-            boolean backupIsAcessorio = item.isIsAcessorio();
-            AlterarItemController alterarControllerItem = new AlterarItemController(this.connection, item);
-            
-            atualizaTableAcessorio(null);
-            atualizaTableMaterial(null);
+            int index = this.telaPrincipal.getMaterialTable().getSelectedRow();
+            if(index >= 0){
+                Item item= this.materiais.get(index);
+                boolean backupIsAcessorio = item.isIsAcessorio();
+                AlterarItemController alterarControllerItem = new AlterarItemController(this.connection, item);
+
+                atualizaTableAcessorio(null);
+                atualizaTableMaterial(null);
+            }else{
+                JOptionPane.showMessageDialog(null, "Selecione um material na tabela");
+            }
         }
         
         if(evento.getSource().equals(this.telaPrincipal.getExcluirAcessorioBtn())){
             int index = this.telaPrincipal.getAcessorioTable().getSelectedRow();
-            if (JOptionPane.showConfirmDialog(null, "Deseja excluir o registro do acessorio "+
+            if(index >= 0){
+                if(this.itemDao.foiVendido(this.acessorios.get(index)) == true){
+                    JOptionPane.showMessageDialog(null, "Este acessório não pode ser excluído, possui está presente em uma ou mais vendas");
+                }else{
+                    if (JOptionPane.showConfirmDialog(null, "Deseja excluir o registro do acessorio "+
                     this.acessorios.get(index).getNome()+"?", null, JOptionPane.YES_NO_OPTION) 
                     == JOptionPane.YES_OPTION){
-                this.itemDao.excluir(this.acessorios.get(index));
-                this.acessorios.remove(index);
-                atualizaTableAcessorio(null);
+                        this.itemDao.excluir(this.acessorios.get(index));
+                        this.acessorios.remove(index);
+                        atualizaTableAcessorio(null);
+                    }
+                }
+            }else{
+                JOptionPane.showMessageDialog(null, "Selecione um acessório na tabela");
             }
         }
         
         if(evento.getSource().equals(this.telaPrincipal.getExcluirMaterialBtn())){
             int index = this.telaPrincipal.getMaterialTable().getSelectedRow();
-            if (JOptionPane.showConfirmDialog(null, "Deseja excluir o registro do material "+
+            if(index >= 0){
+                if(this.itemDao.foiVendido(this.materiais.get(index)) == true){
+                    JOptionPane.showMessageDialog(null, "Este material não pode ser excluído, pois está presente em uma ou mais vendas");
+                }else{
+                    if (JOptionPane.showConfirmDialog(null, "Deseja excluir o registro do material "+
                     this.materiais.get(index).getNome()+"?", null, JOptionPane.YES_NO_OPTION) 
                     == JOptionPane.YES_OPTION){
-                this.itemDao.excluir(this.materiais.get(index));
-                this.materiais.remove(index);
-                atualizaTableMaterial(null);
-            }
-        }
-        
-        
-        if(evento.getSource().equals(this.telaPrincipal.getPesquisarItemBtn()) ||
-           evento.getSource().equals(this.telaPrincipal.getItemTxt())){
-            String itemNome = this.telaPrincipal.getItemTxt().getText();
-            
-            if(itemNome.length() == 0){
-                atualizaTableAcessorio(null);
-                atualizaTableMaterial(null);
-            }else{
-                ArrayList<Item> itens = itemDao.pesquisar(itemNome);
-                this.acessorios.clear();
-                this.materiais.clear();
-                
-                for(int i=0; i<itens.size(); i++){
-                    if(itens.get(i).isIsAcessorio() == true){
-                        this.acessorios.add(itens.get(i));
-                    }else{
-                        if(itens.get(i).isIsAcessorio() == false){
-                            this.materiais.add(itens.get(i));
-                        }
+                        this.itemDao.excluir(this.materiais.get(index));
+                        this.materiais.remove(index);
+                        atualizaTableMaterial(null);
                     }
                 }
-                
-                atualizaTableAcessorio(this.acessorios);
-                atualizaTableMaterial(this.materiais);
-                
+            }else{
+                JOptionPane.showMessageDialog(null, "Selecione um material na tabela");
             }
         }
         
@@ -332,45 +347,61 @@ public class PrincipalGerenteController implements ActionListener, MouseListener
         }
         
         if(evento.getSource().equals(this.telaPrincipal.getAddAceEstoqueBtn())){
-            Item item = this.acessorios.get(this.telaPrincipal.getAcessorioTable().getSelectedRow());
-            Aquisicao aquisicao= new Aquisicao();
-            CadastrarAquisicaoController cadastrarControllerAquisicao = new CadastrarAquisicaoController(this.connection, aquisicao, item);
-            atualizaTableAcessorio(null);
+            int index = this.telaPrincipal.getAcessorioTable().getSelectedRow();
+            if(index >= 0){
+                Item item = this.acessorios.get(index);
+                Aquisicao aquisicao= new Aquisicao();
+                CadastrarAquisicaoController cadastrarControllerAquisicao = new CadastrarAquisicaoController(this.connection, aquisicao, item);
+                atualizaTableAcessorio(null);
+            }else{
+                JOptionPane.showMessageDialog(null, "Selecione um acessório na tabela");
+            }
         }
         
         if(evento.getSource().equals(this.telaPrincipal.getAddMatEstoqueBtn())){
-            Item item = this.materiais.get(this.telaPrincipal.getMaterialTable().getSelectedRow());
-            Aquisicao aquisicao= new Aquisicao();
-            CadastrarAquisicaoController cadastrarControllerAquisicao = new CadastrarAquisicaoController(this.connection, aquisicao, item);
-            atualizaTableMaterial(null);
+            int index = this.telaPrincipal.getMaterialTable().getSelectedRow();
+            if(index >= 0){
+                Item item = this.materiais.get(index);
+                Aquisicao aquisicao= new Aquisicao();
+                CadastrarAquisicaoController cadastrarControllerAquisicao = new CadastrarAquisicaoController(this.connection, aquisicao, item);
+                atualizaTableMaterial(null);
+            }else{
+                JOptionPane.showMessageDialog(null, "Selecione um material na tabela");
+            }
+            
         } 
         
-        if(evento.getSource().equals(this.telaPrincipal.getVendas_FiltrarPorClienteBtn()) ||
-           evento.getSource().equals(this.telaPrincipal.getVendas_clienteTxt())){
-            if(this.telaPrincipal.getVendas_clienteTxt().getText().length() > 0){
-                atualizaTableVenda(vendaDAO.pesquisar(this.telaPrincipal.getVendas_clienteTxt().getText()));
-            }else{
-                atualizaTableVenda(null);
-            }
-        }
-        
-        if(evento.getSource().equals(this.telaPrincipal.getVendas_funcionarioTxt()) ||
-           evento.getSource().equals(this.telaPrincipal.getVendas_filtrarPorFuncionarioBtn())){
-            if(this.telaPrincipal.getVendas_funcionarioTxt().getText().length() > 0){
-                atualizaTableVenda(vendaDAO.pesquisarByFuncionario(this.telaPrincipal.getVendas_funcionarioTxt().getText()));
-            }else{
-                atualizaTableVenda(null);
-            }
+        if(evento.getSource().equals(this.telaPrincipal.getVendas_LimparBtn())){
+            this.telaPrincipal.getVendas_DataTxt().setDate(null);
+            this.telaPrincipal.getVendas_clienteTxt().setText(null);
+            this.telaPrincipal.getVendas_funcionarioTxt().setText(null);
+            atualizaTableVenda(null);
         }
         
         if(evento.getSource().equals(this.telaPrincipal.getVendas_FiltrarPorDataBtn())){
             if(this.telaPrincipal.getVendas_DataTxt().getDate() != null){
                 atualizaTableVenda(vendaDAO.pesquisarByData(this.telaPrincipal.getVendas_DataTxt().getDate()));
             }else{
-                atualizaTableVenda(null);
+                JOptionPane.showMessageDialog(null, "Selecione uma data");
             }
         }
         
+        
+        if(evento.getSource().equals(this.telaPrincipal.getApenasDesativadosCheckBox())){
+            if(this.telaPrincipal.getApenasDesativadosCheckBox().isSelected() == true){
+                this.telaPrincipal.getFuncionarios_funcionarioTxt().setText(null);
+                for(int i = 0; i<this.funcionarios.size(); i++){
+                    if(this.funcionarios.get(i).getUsuario().getId() == 0){
+                        this.funcionariosDesativados.add(this.funcionarios.get(i));
+                    }
+                }
+
+                atualizaTableFuncionario(this.funcionariosDesativados);
+            }else{
+                this.funcionariosDesativados.clear();
+                atualizaTableFuncionario(null);
+            }
+        }
     }
     
     
@@ -383,35 +414,29 @@ public class PrincipalGerenteController implements ActionListener, MouseListener
         this.telaPrincipal.getFuncionarios_novoBtn().addActionListener(this);
         this.telaPrincipal.getAlterarFuncionarioBtn().addActionListener(this);
         this.telaPrincipal.getExcluirFuncionarioBtn().addActionListener(this);
-        this.telaPrincipal.getFuncionarios_BuscaBtn().addActionListener(this);
-        this.telaPrincipal.getFuncionarios_funcionarioTxt().addActionListener(this);
+        this.telaPrincipal.getFuncionarios_funcionarioTxt().addCaretListener(this);
         
         this.telaPrincipal.getNovoFornecedorBtn().addActionListener(this);
         this.telaPrincipal.getAlterarFornecedorBtn().addActionListener(this);
         this.telaPrincipal.getExcluirFornecedorBtn().addActionListener(this);
-        this.telaPrincipal.getFornecedorBuscaBtn().addActionListener(this);
-        this.telaPrincipal.getFornecedorTxt().addActionListener(this);
+        this.telaPrincipal.getFornecedorTxt().addCaretListener(this);
         
         this.telaPrincipal.getClientes_novoBtn().addActionListener(this);
         this.telaPrincipal.getAlterarClienteBtn().addActionListener(this);
         this.telaPrincipal.getExcluirClienteBtn().addActionListener(this);
-        this.telaPrincipal.getClientes_clienteBuscaBtn().addActionListener(this);
-        this.telaPrincipal.getClientes_clienteTxt().addActionListener(this);
+        this.telaPrincipal.getClientes_clienteTxt().addCaretListener(this);
         
         this.telaPrincipal.getNovoItemBtn().addActionListener(this);
         this.telaPrincipal.getAlterarAcessorioBtn().addActionListener(this);
         this.telaPrincipal.getAlterarMaterialBtn().addActionListener(this);
         this.telaPrincipal.getExcluirAcessorioBtn().addActionListener(this);
         this.telaPrincipal.getExcluirMaterialBtn().addActionListener(this);
-        this.telaPrincipal.getPesquisarItemBtn().addActionListener(this);
-        this.telaPrincipal.getItemTxt().addActionListener(this);
+        this.telaPrincipal.getItemTxt().addCaretListener(this);
         this.telaPrincipal.getMaterial_baixaSelectBox().addActionListener(this);
         this.telaPrincipal.getAcessorio_baixaSelectBox().addActionListener(this);
         this.telaPrincipal.getAddAceEstoqueBtn().addActionListener(this);
         this.telaPrincipal.getAddMatEstoqueBtn().addActionListener(this);
         this.telaPrincipal.getVendas_clienteTxt().addActionListener(this);
-        this.telaPrincipal.getVendas_FiltrarPorClienteBtn().addActionListener(this);
-        this.telaPrincipal.getVendas_filtrarPorFuncionarioBtn().addActionListener(this);
         this.telaPrincipal.getVendas_funcionarioTxt().addActionListener(this);
         this.telaPrincipal.getVendas_FiltrarPorDataBtn().addActionListener(this);
         
@@ -419,6 +444,12 @@ public class PrincipalGerenteController implements ActionListener, MouseListener
         this.telaPrincipal.getClienteTable().addMouseListener(this);
         this.telaPrincipal.getMaterialTable().addMouseListener(this);
         this.telaPrincipal.getAcessorioTable().addMouseListener(this);
+        
+        this.telaPrincipal.getVendas_clienteTxt().addCaretListener(this);
+        this.telaPrincipal.getVendas_funcionarioTxt().addCaretListener(this);
+        this.telaPrincipal.getVendas_LimparBtn().addActionListener(this);
+        
+        this.telaPrincipal.getApenasDesativadosCheckBox().addActionListener(this);
     }
 
     private void atualizaTableFuncionario(ArrayList<Funcionario> funcionarios) {
@@ -426,6 +457,7 @@ public class PrincipalGerenteController implements ActionListener, MouseListener
             this.funcionarios = funcionarioDao.listar();
             FuncionarioTableModel funcionarioModel = new FuncionarioTableModel(this.funcionarios);
             this.telaPrincipal.getFuncionarioTable().setModel(funcionarioModel);
+            this.telaPrincipal.getApenasDesativadosCheckBox().setSelected(false);
         }else{
             FuncionarioTableModel funcionarioModel = new FuncionarioTableModel(funcionarios);
             this.telaPrincipal.getFuncionarioTable().setModel(funcionarioModel);
@@ -503,6 +535,8 @@ public class PrincipalGerenteController implements ActionListener, MouseListener
             if(e.getClickCount() == 2){
                 int index = this.telaPrincipal.getMaterialTable().getSelectedRow();
                 MostrarItemController mostrarMaterialController = new MostrarItemController(this.connection,this.materiais.get(index));
+                atualizaTableMaterial(null);
+                atualizaTableAcessorio(null);
             }
         }
         
@@ -510,6 +544,14 @@ public class PrincipalGerenteController implements ActionListener, MouseListener
             if(e.getClickCount() == 2){
                 int index = this.telaPrincipal.getAcessorioTable().getSelectedRow();
                 MostrarItemController mostrarAcessorioController = new MostrarItemController(this.connection,this.acessorios.get(index));
+            }
+        }
+        
+        if(e.getSource().equals(this.telaPrincipal.getVendas_DataTxt())){
+            if(this.telaPrincipal.getVendas_DataTxt().getDate() != null){
+                atualizaTableVenda(vendaDAO.pesquisarByData(this.telaPrincipal.getVendas_DataTxt().getDate()));
+            }else{
+                atualizaTableVenda(null);
             }
         }
     }
@@ -542,6 +584,87 @@ public class PrincipalGerenteController implements ActionListener, MouseListener
         }else{
             VendaTableModel vendaModel = new VendaTableModel(vendas);
             this.telaPrincipal.getVendasTable().setModel(vendaModel);
+        }
+    }
+
+    @Override
+    public void caretUpdate(CaretEvent evento) {
+        if(evento.getSource().equals(this.telaPrincipal.getVendas_clienteTxt())){
+            if(this.telaPrincipal.getVendas_clienteTxt().getText().length() > 0){
+                atualizaTableVenda(vendaDAO.pesquisar(this.telaPrincipal.getVendas_clienteTxt().getText()));
+            }else{
+                if(this.telaPrincipal.getVendas_funcionarioTxt().getText().length() == 0)
+                atualizaTableVenda(null);
+            }
+        }
+        
+        if(evento.getSource().equals(this.telaPrincipal.getVendas_funcionarioTxt())){
+            
+            if(this.telaPrincipal.getVendas_funcionarioTxt().getText().length() > 0){
+                atualizaTableVenda(vendaDAO.pesquisarByFuncionario(this.telaPrincipal.getVendas_funcionarioTxt().getText()));
+            }else{
+                if(this.telaPrincipal.getVendas_clienteTxt().getText().length() == 0){
+                    atualizaTableVenda(null);
+                }
+                
+            }
+        }
+        
+        if(evento.getSource().equals(this.telaPrincipal.getFuncionarios_funcionarioTxt())){
+            String nomeFuncionario = this.telaPrincipal.getFuncionarios_funcionarioTxt().getText();
+            if(nomeFuncionario.length() == 0){
+                atualizaTableFuncionario(null);
+            }else{
+                this.funcionarios = funcionarioDao.pesquisar(nomeFuncionario);
+                atualizaTableFuncionario(this.funcionarios);
+            }
+        }
+        
+        if(evento.getSource().equals(this.telaPrincipal.getFornecedorTxt())){
+            String nomeFornecedor = this.telaPrincipal.getFornecedorTxt().getText();
+            if(nomeFornecedor.length() == 0){
+                atualizaTableFornecedor(null);
+            }else{
+                this.fornecedores = fornecedorDao.pesquisar(nomeFornecedor);
+                atualizaTableFornecedor(this.fornecedores);
+            }
+        }
+        
+        if(evento.getSource().equals(this.telaPrincipal.getClientes_clienteTxt())){
+            String nomeCliente = this.telaPrincipal.getClientes_clienteTxt().getText();
+            if(nomeCliente.length() == 0){
+                atualizaTableCliente(null);
+            }else{
+                this.clientes = clienteDao.pesquisar(nomeCliente);
+                atualizaTableCliente(this.clientes);
+            }
+        }
+        
+        if(evento.getSource().equals(this.telaPrincipal.getItemTxt())){
+            String itemNome = this.telaPrincipal.getItemTxt().getText();
+            
+            if(itemNome.length() == 0){
+                atualizaTableAcessorio(null);
+                atualizaTableMaterial(null);
+            }else{
+                ArrayList<Item> itens = itemDao.pesquisar(itemNome);
+                this.acessorios.clear();
+                this.materiais.clear();
+                
+                for(int i=0; i<itens.size(); i++){
+                    if(itens.get(i).isIsAcessorio() == true){
+                        this.acessorios.add(itens.get(i));
+                    }else{
+                        if(itens.get(i).isIsAcessorio() == false){
+                            this.materiais.add(itens.get(i));
+                        }
+                    }
+                }
+                
+                atualizaTableAcessorio(this.acessorios);
+                atualizaTableMaterial(this.materiais);
+                
+            }
         }
     }
 } 

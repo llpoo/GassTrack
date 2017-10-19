@@ -5,6 +5,7 @@
  */
 package br.com.gt.view.fornecedor;
 
+import br.com.gt.view.lookandfeel.JDialogLAF;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JTextField;
@@ -13,7 +14,7 @@ import javax.swing.JTextField;
  *
  * @author lucas
  */
-public class MostrarFornecedorView extends javax.swing.JDialog {
+public class MostrarFornecedorView extends JDialogLAF {
 
     public JButton getAquisicoesBtn() {
         return aquisicoesBtn;
@@ -119,6 +120,7 @@ public class MostrarFornecedorView extends javax.swing.JDialog {
     public MostrarFornecedorView(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
+        this.setLocationRelativeTo(this);
     }
 
     /**
@@ -157,7 +159,9 @@ public class MostrarFornecedorView extends javax.swing.JDialog {
         estadoComboBox1 = new javax.swing.JComboBox<>();
         aquisicoesBtn = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
+        setTitle("GlassTrack");
+        setResizable(false);
 
         jPanel1.setBackground(new java.awt.Color(51, 51, 51));
 
@@ -165,7 +169,6 @@ public class MostrarFornecedorView extends javax.swing.JDialog {
 
         jLabel17.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
         jLabel17.setForeground(new java.awt.Color(255, 255, 153));
-        jLabel17.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/gt/view/imagens/novoFuncionario.png"))); // NOI18N
         jLabel17.setText("Dados Fornecedor");
         jLabel17.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
         jLabel17.setInheritsPopupMenu(false);
@@ -187,6 +190,7 @@ public class MostrarFornecedorView extends javax.swing.JDialog {
                 .addComponent(jLabel17, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
+        OkBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/gt/view/imagens/salvar.png"))); // NOI18N
         OkBtn.setText("Ok");
         OkBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -273,6 +277,7 @@ public class MostrarFornecedorView extends javax.swing.JDialog {
         estadoComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Acre", "Alagoas", "Amapá", "Amazonas", "Bahia", "Ceará", "Distrito Federal", "Espírito Santo", "Goiás", "Maranhão", "Mato Grosso", "Mato Grosso do Sul", "Minas Gerais", "Pará", "Paraíba", "Paraná", "Pernambuco", "Piauí", "Rio de Janeiro", "Rio Grande do Norte", "Rio Grande do Sul", "Rondônia", "Roraima", "Santa Catarina", "São Paulo", "Sergipe", "Tocantins" }));
         estadoComboBox1.setEnabled(false);
 
+        aquisicoesBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/gt/view/imagens/lupa.png"))); // NOI18N
         aquisicoesBtn.setText("Mostrar Aquisições");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);

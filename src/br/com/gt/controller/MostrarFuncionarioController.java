@@ -58,7 +58,7 @@ public class MostrarFuncionarioController implements ActionListener{
         
         this.telaMostrar.getDataAdmissaoTxt().setText(this.funcionario.getDataAdmissao().toString());
         
-        this.telaMostrar.getEstadoTxt().setText(this.funcionario.getEndereco().getEstado());
+        this.telaMostrar.getEstadoComboBox().setSelectedItem(this.funcionario.getEndereco().getEstado());
         this.telaMostrar.getCepTxt().setText(this.funcionario.getEndereco().getCep());
         this.telaMostrar.getCidadeTxt().setText(this.funcionario.getEndereco().getCidade());
         this.telaMostrar.getBairroTxt().setText(this.funcionario.getEndereco().getBairro());

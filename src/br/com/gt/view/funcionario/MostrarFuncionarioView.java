@@ -7,6 +7,7 @@ package br.com.gt.view.funcionario;
 
 import br.com.gt.view.lookandfeel.JDialogLAF;
 import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JFormattedTextField;
 import javax.swing.JRadioButton;
 import javax.swing.JTextField;
@@ -67,14 +68,11 @@ public class MostrarFuncionarioView extends JDialogLAF {
         this.emailTxt = emailTxt;
     }
 
-    public JTextField getEstadoTxt() {
-        return estadoTxt;
+    public JComboBox<String> getEstadoComboBox() {
+        return estadoComboBox;
     }
-
-    public void setEstadoTxt(JTextField estadoTxt) {
-        this.estadoTxt = estadoTxt;
-    }
-
+    
+    
     public JTextField getNomeTxt() {
         return nomeTxt;
     }
@@ -187,11 +185,12 @@ public class MostrarFuncionarioView extends JDialogLAF {
         jLabel6 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
         jLabel14 = new javax.swing.JLabel();
-        estadoTxt = new javax.swing.JTextField();
         dataAdmissaoTxt = new javax.swing.JFormattedTextField();
+        estadoComboBox = new javax.swing.JComboBox<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
         setTitle("GlassTrack");
+        setResizable(false);
 
         jPanel1.setBackground(new java.awt.Color(51, 51, 51));
 
@@ -199,7 +198,6 @@ public class MostrarFuncionarioView extends JDialogLAF {
 
         jLabel17.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
         jLabel17.setForeground(new java.awt.Color(255, 255, 153));
-        jLabel17.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/gt/view/imagens/novoFuncionario.png"))); // NOI18N
         jLabel17.setText("Detalhes do Funcionário");
         jLabel17.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
         jLabel17.setInheritsPopupMenu(false);
@@ -314,6 +312,7 @@ public class MostrarFuncionarioView extends JDialogLAF {
         numeroTxt.setEditable(false);
         numeroTxt.setBackground(new java.awt.Color(255, 255, 255));
 
+        okBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/gt/view/imagens/salvar.png"))); // NOI18N
         okBtn.setText("OK");
         okBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -342,12 +341,12 @@ public class MostrarFuncionarioView extends JDialogLAF {
         jLabel14.setForeground(new java.awt.Color(255, 255, 255));
         jLabel14.setText("ENDEREÇO");
 
-        estadoTxt.setEditable(false);
-        estadoTxt.setBackground(new java.awt.Color(255, 255, 255));
-
         dataAdmissaoTxt.setEditable(false);
         dataAdmissaoTxt.setBackground(new java.awt.Color(255, 255, 255));
         dataAdmissaoTxt.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.DateFormatter()));
+
+        estadoComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Acre", "Alagoas", "Amapá", "Amazonas", "Bahia", "Ceará", "Distrito Federal", "Espírito Santo", "Goiás", "Maranhão", "Mato Grosso", "Mato Grosso do Sul", "Minas Gerais", "Pará", "Paraíba", "Paraná", "Pernambuco", "Piauí", "Rio de Janeiro", "Rio Grande do Norte", "Rio Grande do Sul", "Rondônia", "Roraima", "Santa Catarina", "São Paulo", "Sergipe", "Tocantins" }));
+        estadoComboBox.setEnabled(false);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -406,11 +405,11 @@ public class MostrarFuncionarioView extends JDialogLAF {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(numeroTxt, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                .addComponent(estadoTxt, javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(cepTxt, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 186, Short.MAX_VALUE))
-                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                                 .addComponent(dataAdmissaoTxt, javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(telefoneTxt, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 172, Short.MAX_VALUE)))))
+                                .addComponent(telefoneTxt, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 172, Short.MAX_VALUE))
+                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                .addComponent(estadoComboBox, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(cepTxt, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 186, Short.MAX_VALUE)))))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
@@ -452,7 +451,7 @@ public class MostrarFuncionarioView extends JDialogLAF {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel8)
-                    .addComponent(estadoTxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(estadoComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(cepTxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -567,7 +566,7 @@ public class MostrarFuncionarioView extends JDialogLAF {
     private javax.swing.JTextField cpfTxt;
     private javax.swing.JFormattedTextField dataAdmissaoTxt;
     private javax.swing.JTextField emailTxt;
-    private javax.swing.JTextField estadoTxt;
+    private javax.swing.JComboBox<String> estadoComboBox;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;

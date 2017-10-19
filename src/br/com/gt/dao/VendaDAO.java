@@ -87,12 +87,13 @@ public class VendaDAO implements DAO<Venda>{
 
                 pst.close();
                 JOptionPane.showMessageDialog(null, "Venda encaminhada com sucesso");
+                return true;
             } catch (SQLException ex) {
                 JOptionPane.showMessageDialog(null, "Não foi possível salvar a venda");
                 Logger.getLogger(FuncionarioDAO.class.getName()).log(Level.SEVERE, null, ex);
             }
         }else{
-            JOptionPane.showMessageDialog(null, "Preencha todos os campos da venda");
+            JOptionPane.showMessageDialog(null, "Preencha todos os campos");
             return false;
         }
         return false;    
@@ -143,12 +144,13 @@ public class VendaDAO implements DAO<Venda>{
 
                 pst.close();
                 JOptionPane.showMessageDialog(null, "Venda alterada com sucesso");
+                return true;
             } catch (SQLException ex) {
                 JOptionPane.showMessageDialog(null, "Não foi possível alterar a venda");
                 Logger.getLogger(FuncionarioDAO.class.getName()).log(Level.SEVERE, null, ex);
             }
         }else{
-            JOptionPane.showMessageDialog(null, "Preencha todos os campos da venda");
+            JOptionPane.showMessageDialog(null, "Preencha todos os campos");
             return false;
         }
         return false;    
@@ -177,7 +179,6 @@ public class VendaDAO implements DAO<Venda>{
             pst.execute();
             pst.close();
             
-            JOptionPane.showMessageDialog(null, "Venda cancelada com sucesso");
             return true;
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Não foi possível excluir a venda");
@@ -643,7 +644,14 @@ public class VendaDAO implements DAO<Venda>{
     }
 
     private boolean validarCampos(Venda venda) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        if(venda.getCliente() != null && venda.getDesconto() >= 0 &&
+           venda.getFuncionario() != null && venda.getItens().size() > 0 &&
+           venda.getQuantidades().size() > 0 && venda.getValorMaoDeObra() >= 0 &&
+           venda.getValorTotal() > 0){
+            return true;
+        }else{
+            return false;
+        }
     }
     
 }

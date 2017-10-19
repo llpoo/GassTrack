@@ -7,6 +7,7 @@ package br.com.gt.view.cliente;
 
 import br.com.gt.view.lookandfeel.JDialogLAF;
 import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JRadioButton;
 import javax.swing.JTextField;
 
@@ -58,14 +59,12 @@ public class MostrarClienteView extends JDialogLAF {
         this.emailTxt = emailTxt;
     }
 
-    public JTextField getEstadoTxt() {
-        return estadoTxt;
+    public JComboBox<String> getEstadoComboBox() {
+        return estadoComboBox;
     }
-
-    public void setEstadoTxt(JTextField estadoTxt) {
-        this.estadoTxt = estadoTxt;
-    }
-
+    
+    
+    
     public JRadioButton getFemininoRadio() {
         return femininoRadio;
     }
@@ -177,9 +176,11 @@ public class MostrarClienteView extends JDialogLAF {
         masculinoRadio = new javax.swing.JRadioButton();
         femininoRadio = new javax.swing.JRadioButton();
         jLabel6 = new javax.swing.JLabel();
-        estadoTxt = new javax.swing.JTextField();
+        estadoComboBox = new javax.swing.JComboBox<>();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
+        setTitle("GlassTrack");
+        setResizable(false);
 
         jPanel1.setBackground(new java.awt.Color(51, 51, 51));
 
@@ -187,7 +188,6 @@ public class MostrarClienteView extends JDialogLAF {
 
         jLabel17.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
         jLabel17.setForeground(new java.awt.Color(255, 255, 153));
-        jLabel17.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/gt/view/imagens/novoFuncionario.png"))); // NOI18N
         jLabel17.setText("Detalhes do Cliente");
         jLabel17.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
         jLabel17.setInheritsPopupMenu(false);
@@ -209,6 +209,7 @@ public class MostrarClienteView extends JDialogLAF {
                 .addComponent(jLabel17, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
+        okBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/gt/view/imagens/salvar.png"))); // NOI18N
         okBtn.setText("OK");
 
         nomeTxt.setEditable(false);
@@ -320,8 +321,9 @@ public class MostrarClienteView extends JDialogLAF {
         jLabel6.setForeground(new java.awt.Color(255, 255, 255));
         jLabel6.setText("ENDEREÇO");
 
-        estadoTxt.setEditable(false);
-        estadoTxt.setBackground(new java.awt.Color(255, 255, 255));
+        estadoComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Acre", "Alagoas", "Amapá", "Amazonas", "Bahia", "Ceará", "Distrito Federal", "Espírito Santo", "Goiás", "Maranhão", "Mato Grosso", "Mato Grosso do Sul", "Minas Gerais", "Pará", "Paraíba", "Paraná", "Pernambuco", "Piauí", "Rio de Janeiro", "Rio Grande do Norte", "Rio Grande do Sul", "Rondônia", "Roraima", "Santa Catarina", "São Paulo", "Sergipe", "Tocantins" }));
+        estadoComboBox.setToolTipText("");
+        estadoComboBox.setEnabled(false);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -380,7 +382,7 @@ public class MostrarClienteView extends JDialogLAF {
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                         .addComponent(numeroTxt, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE))
                                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                        .addComponent(estadoTxt, javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(estadoComboBox, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                         .addComponent(cidadeTxt, javax.swing.GroupLayout.Alignment.LEADING)
                                         .addComponent(cepTxt, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 164, Short.MAX_VALUE)))))))
                 .addContainerGap())
@@ -420,7 +422,7 @@ public class MostrarClienteView extends JDialogLAF {
                 .addGap(6, 6, 6)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel8)
-                    .addComponent(estadoTxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(estadoComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(cepTxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -533,7 +535,7 @@ public class MostrarClienteView extends JDialogLAF {
     private javax.swing.JTextField cidadeTxt;
     private javax.swing.JTextField cpfTxt;
     private javax.swing.JTextField emailTxt;
-    private javax.swing.JTextField estadoTxt;
+    private javax.swing.JComboBox<String> estadoComboBox;
     private javax.swing.JRadioButton femininoRadio;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;

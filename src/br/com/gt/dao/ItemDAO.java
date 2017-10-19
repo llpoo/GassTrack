@@ -47,13 +47,19 @@ public class ItemDAO implements DAO<Item>{
 
                 pst.execute();
                 pst.close();
-
+                
+                JOptionPane.showMessageDialog(null, "Cadastro efetuado com sucesso");
+                return true;
             } catch (SQLException ex) {
                 JOptionPane.showMessageDialog(null, "Não foi possível salvar o item");
                 Logger.getLogger(ItemDAO.class.getName()).log(Level.SEVERE, null, ex);
             }
         }else{
-            JOptionPane.showMessageDialog(null, "Preencha todos os campos do item");
+            if(item.getPrecoUnitario() == 0){
+                JOptionPane.showMessageDialog(null, "O preço unitário deve ser maior que zero");
+            }else{
+                JOptionPane.showMessageDialog(null, "Preencha todos os campos");
+            }
             return false;
         }
         return false;
@@ -76,12 +82,17 @@ public class ItemDAO implements DAO<Item>{
 
                 pst.execute();
                 pst.close(); 
+                return true;
             } catch (SQLException ex) {
                 JOptionPane.showMessageDialog(null, "Não foi possível editar o item");
                 Logger.getLogger(ItemDAO.class.getName()).log(Level.SEVERE, null, ex);
             }
         }else{
-            JOptionPane.showMessageDialog(null, "Preencha todos os campos do item");
+            if(item.getPrecoUnitario() == 0){
+                JOptionPane.showMessageDialog(null, "O preço unitário deve ser maior que zero");
+            }else{
+                JOptionPane.showMessageDialog(null, "Preencha todos os campos");
+            }
             return false;
         }
         return false;
@@ -89,7 +100,7 @@ public class ItemDAO implements DAO<Item>{
 
     @Override
     public boolean excluir(Item item) {
-        String sql = "delete from item where id=?";
+        String sql = "delete from aquisicao where item_id = ?";
         PreparedStatement pst;
         
         try {
@@ -97,7 +108,15 @@ public class ItemDAO implements DAO<Item>{
             pst.setInt(1, item.getId());
             
             pst.execute();
+            pst.close();
+            
+            sql = "delete from item where id=?";
+            pst = connection.prepareStatement(sql);
+            pst.setInt(1, item.getId());
+            
+            pst.execute();
             pst.close(); 
+            
             return true;
 	} catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Não foi possível excluir o item");
@@ -426,10 +445,44 @@ public class ItemDAO implements DAO<Item>{
             Logger.getLogger(ItemDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
+    
+    public boolean foiVendido(Item item){
+        String sql = "SELECT * FROM venda_tem_itens where item_id = ?";
+                
+        PreparedStatement pst;
+        ResultSet rs;
+        
+        int idItem = 0;
+        
+        try {
+            pst = connection.prepareStatement(sql);
+            
+            pst.setInt(1, item.getId());
+            
+            rs = pst.executeQuery();
+            
+            while(rs.next()){
+                idItem = rs.getInt("item_id");
+            }
+            
+            rs.close();
+            pst.close();
+            
+            if(idItem > 0){
+                return true;
+            }else{
+                return false;
+            }
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Não foi possível buscar o item");
+            Logger.getLogger(UsuarioDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return false;
+    }
 
     private boolean validarCampos(Item item) {
-        if(item.getNome()!=null && item.getEstoqueMinimo()!=0 &&
-            item.getPrecoUnitario()!=0 && item.getQuantidadeAtual()!=0){
+        if(item.getNome().length() != 0 && item.getEstoqueMinimo() >= 0 &&
+           item.getPrecoUnitario() > 0 && item.getQuantidadeAtual() >= 0){
                 return true;
         }else{
             return false;

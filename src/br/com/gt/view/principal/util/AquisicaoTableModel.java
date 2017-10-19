@@ -6,7 +6,10 @@
 package br.com.gt.view.principal.util;
 
 import br.com.gt.model.Aquisicao;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.List;
 import javax.swing.table.AbstractTableModel;
 
@@ -42,7 +45,7 @@ public class AquisicaoTableModel extends AbstractTableModel{
         Aquisicao aquisicao = aquisicoes.get(rowIndex);
         switch(columnIndex){
             
-            case 0: return aquisicao.getData();
+            case 0: return getFormatDate(aquisicao.getData());
             case 1: return aquisicao.getQuantidadeItem();
             case 2: return aquisicao.getValorUitario();
             case 3: return aquisicao.getValorTotal();
@@ -51,6 +54,16 @@ public class AquisicaoTableModel extends AbstractTableModel{
         return null;
         
         
+    }
+    
+    private String getFormatDate(Date data) { 
+        DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+        return dateFormat.format(data); 
+    }
+    
+    private String getFormatTime(Date data) { 
+        DateFormat dateFormat = new SimpleDateFormat("HH:mm");
+        return dateFormat.format(data); 
     }
     
 }

@@ -22,7 +22,7 @@ public class FornecedorTableModel extends AbstractTableModel{
     
     public FornecedorTableModel(List<Fornecedor> fornecedores){
         this.fornecedores = fornecedores;
-        colunas = Arrays.asList("Nome", "CNPJ","Email");
+        colunas = Arrays.asList("Nome", "CNPJ","Telefone");
     }
     
     
@@ -48,7 +48,7 @@ public class FornecedorTableModel extends AbstractTableModel{
             
             case 0: return fornecedor.getNome();
             case 1: return fornecedor.getCnpj();
-            case 2: return fornecedor.getEmail();
+            case 2: return fornecedor.getTelefone();
             
         }
         return null;

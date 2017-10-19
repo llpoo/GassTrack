@@ -42,13 +42,11 @@ public class UsuarioDAO implements DAO<Usuario>{
 
                 pst.execute();
                 pst.close();
+                return true;
             } catch (SQLException ex) {
                 JOptionPane.showMessageDialog(null, "Não foi possível salvar o usuário");
                 Logger.getLogger(UsuarioDAO.class.getName()).log(Level.SEVERE, null, ex);
             }
-        }else{
-            JOptionPane.showMessageDialog(null, "Preencha todos os campos do usuário");
-            return false;
         }
         return false;
     }
@@ -71,16 +69,11 @@ public class UsuarioDAO implements DAO<Usuario>{
 
                 pst.execute();
                 pst.close();
-                if(usuario.getIsIsGerente() == true){
-                    JOptionPane.showMessageDialog(null, "Alteração efetuada com sucesso");
-                }
+                return true;
             } catch (SQLException ex) {
                 JOptionPane.showMessageDialog(null, "Não foi possível alterar o usuário");
                 Logger.getLogger(UsuarioDAO.class.getName()).log(Level.SEVERE, null, ex);
             }
-        }else{
-            JOptionPane.showMessageDialog(null, "Preencha todos os campos do usuário");
-            return false;
         }
         return false;    
     }
@@ -183,7 +176,7 @@ public class UsuarioDAO implements DAO<Usuario>{
     }
 
     boolean validarCampos(Usuario usuario) {
-        if(usuario.getUsuario()!=null && usuario.getSenha()!=null){
+        if(usuario.getId() > 0){
                 return true;
         }else{
             return false;

@@ -5,6 +5,7 @@
  */
 package br.com.gt.view.estoque;
 
+import br.com.gt.view.lookandfeel.JDialogLAF;
 import com.toedter.calendar.JDateChooser;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -14,7 +15,7 @@ import javax.swing.JTextField;
  *
  * @author lucas
  */
-public class AlterarAdicaoView extends javax.swing.JDialog {
+public class AlterarAdicaoView extends JDialogLAF {
     
     public JButton getCancelarBtn() {
         return cancelarBtn;
@@ -88,6 +89,7 @@ public class AlterarAdicaoView extends javax.swing.JDialog {
     public AlterarAdicaoView(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
+        this.setLocationRelativeTo(this);
     }
 
     /**
@@ -117,7 +119,9 @@ public class AlterarAdicaoView extends javax.swing.JDialog {
         valorTotalTxt = new javax.swing.JTextField();
         dataCalendar = new com.toedter.calendar.JDateChooser();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
+        setTitle("GlassTrack");
+        setResizable(false);
 
         jPanel1.setBackground(new java.awt.Color(51, 51, 51));
 
@@ -125,7 +129,6 @@ public class AlterarAdicaoView extends javax.swing.JDialog {
 
         jLabel17.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
         jLabel17.setForeground(new java.awt.Color(255, 255, 153));
-        jLabel17.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/gt/view/imagens/novoFuncionario.png"))); // NOI18N
         jLabel17.setText("Alterar no Estoque");
         jLabel17.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
         jLabel17.setInheritsPopupMenu(false);
@@ -147,6 +150,7 @@ public class AlterarAdicaoView extends javax.swing.JDialog {
                 .addComponent(jLabel17, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
+        cancelarBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/gt/view/imagens/Cancelar.png"))); // NOI18N
         cancelarBtn.setText("Cancelar");
 
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
@@ -161,6 +165,7 @@ public class AlterarAdicaoView extends javax.swing.JDialog {
         fornecedorComboBox.setEditable(true);
         fornecedorComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1" }));
 
+        salvarBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/gt/view/imagens/salvar.png"))); // NOI18N
         salvarBtn.setText("Salvar");
 
         itemComboBox.setEnabled(false);
@@ -272,7 +277,7 @@ public class AlterarAdicaoView extends javax.swing.JDialog {
                     .addComponent(jLabel8))
                 .addGap(88, 88, 88)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(cancelarBtn)
+                    .addComponent(cancelarBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(salvarBtn))
                 .addContainerGap(21, Short.MAX_VALUE))
         );

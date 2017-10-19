@@ -14,16 +14,20 @@ import br.com.gt.model.Item;
 import br.com.gt.view.estoque.AdicionarEstoqueView;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.sql.Connection;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JOptionPane;
+import javax.swing.event.CaretEvent;
+import javax.swing.event.CaretListener;
 
 /**
  *
  * @author Luciano Júnior
  */
-public class CadastrarAquisicaoController implements ActionListener{
+public class CadastrarAquisicaoController implements ActionListener,CaretListener,KeyListener{
     Connection connection;
     AdicionarEstoqueView telaCadastro;
     Aquisicao aquisicao;
@@ -54,17 +58,26 @@ public class CadastrarAquisicaoController implements ActionListener{
         if(evento.getSource().equals(this.telaCadastro.getSalvarBtn())){
             this.aquisicao.setData(this.telaCadastro.getDataCalendar().getDate());
             
-            Double valor;
-            valor = Double.parseDouble(this.telaCadastro.getValorUnitarioTxt().getText());
-            this.aquisicao.setValorUitario(valor);
+            if(this.telaCadastro.getValorUnitarioTxt().getText().length() > 0){
+                this.aquisicao.setValorUitario(Double.parseDouble(this.telaCadastro.getValorUnitarioTxt().getText()));
+            }else{
+                this.telaCadastro.getValorUnitarioTxt().setText(null);
+                this.aquisicao.setValorUitario(-1);
+            }
             
-            int quantidade;
-            quantidade = Integer.parseInt(this.telaCadastro.getQtdeItemTxt().getText());
-            this.aquisicao.setQuantidadeItem(quantidade);
+            if(this.telaCadastro.getQtdeItemTxt().getText().length() > 0){
+                this.aquisicao.setQuantidadeItem(Integer.parseInt(this.telaCadastro.getQtdeItemTxt().getText()));
+            }else{
+                this.telaCadastro.getQtdeItemTxt().setText(null);
+                this.aquisicao.setQuantidadeItem(-1);
+            }
             
-            Double total=valor*quantidade;
-            this.telaCadastro.getValorUnitarioTxt().setText(Double.toString(total));            
-            this.aquisicao.setValorTotal(total);
+            if(this.telaCadastro.getValorTotalTxt().getText().length() > 0){
+               this.aquisicao.setValorTotal(Double.parseDouble(this.telaCadastro.getValorTotalTxt().getText())); 
+            }else{
+                this.telaCadastro.getValorTotalTxt().setText(null);
+                this.aquisicao.setValorTotal(-1);
+            }
             
             this.aquisicao.setItem(this.item);
             
@@ -73,9 +86,7 @@ public class CadastrarAquisicaoController implements ActionListener{
             
             
             AquisicaoDAO aquiDao = new AquisicaoDAO(this.connection);
-            aquiDao.inserir(this.aquisicao);
             
-            this.telaCadastro.setVisible(false);
             if(aquiDao.inserir(this.aquisicao) == true){
                 this.telaCadastro.dispose();
             }
@@ -85,6 +96,11 @@ public class CadastrarAquisicaoController implements ActionListener{
     private void adicionaEventos() {
         this.telaCadastro.getSalvarBtn().addActionListener(this);
         this.telaCadastro.getCancelarBtn().addActionListener(this);
+        this.telaCadastro.getQtdeItemTxt().addCaretListener(this);
+        this.telaCadastro.getValorUnitarioTxt().addCaretListener(this);
+        this.telaCadastro.getQtdeItemTxt().addKeyListener(this);
+        this.telaCadastro.getValorUnitarioTxt().addKeyListener(this);
+        this.telaCadastro.getDataCalendar().addKeyListener(this);
     }
     
     private void preencheComboBoxFornecedor(List<Fornecedor> fornecedores){
@@ -114,6 +130,45 @@ public class CadastrarAquisicaoController implements ActionListener{
            
            this.telaCadastro.getItemComboBox().setSelectedItem(this.item.getNome());
     }
-            
 
+    @Override
+    public void caretUpdate(CaretEvent evento) {
+        if(evento.getSource().equals(this.telaCadastro.getQtdeItemTxt()) ||
+           evento.getSource().equals(this.telaCadastro.getValorUnitarioTxt())){
+            if(this.telaCadastro.getQtdeItemTxt().getText().length() > 0 &&
+               this.telaCadastro.getValorUnitarioTxt().getText().length() > 0){
+                Double valor = (Double.parseDouble(this.telaCadastro.getQtdeItemTxt().getText()))*(Double.parseDouble(this.telaCadastro.getValorUnitarioTxt().getText()));
+                this.telaCadastro.getValorTotalTxt().setText(valor.toString());
+            }else{
+                this.telaCadastro.getValorTotalTxt().setText(null);
+            }
+        }
+    }
+
+    @Override
+    public void keyTyped(KeyEvent evento) {
+        if(evento.getSource().equals(this.telaCadastro.getQtdeItemTxt())){
+            String caracteres="0987654321";
+            if(!caracteres.contains(evento.getKeyChar()+"")){
+                evento.consume();
+            }
+        }
+        
+        if(evento.getSource().equals(this.telaCadastro.getValorUnitarioTxt())){
+            String caracteres="0987654321.";
+            if(!caracteres.contains(evento.getKeyChar()+"")){
+                evento.consume();
+            }
+        }
+    }
+
+    @Override
+    public void keyPressed(KeyEvent e) {
+        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void keyReleased(KeyEvent e) {
+        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
 }

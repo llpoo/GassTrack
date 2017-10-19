@@ -5,6 +5,7 @@
  */
 package br.com.gt.view.estoque;
 
+import br.com.gt.view.lookandfeel.JDialogLAF;
 import com.toedter.calendar.JDateChooser;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -14,7 +15,7 @@ import javax.swing.JTextField;
  *
  * @author lucas
  */
-public class MostrarAdicaoView extends javax.swing.JDialog {
+public class MostrarAdicaoView extends JDialogLAF {
 
     public JDateChooser getDataCalendar() {
         return dataCalendar;
@@ -79,6 +80,7 @@ public class MostrarAdicaoView extends javax.swing.JDialog {
     public MostrarAdicaoView(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
+        this.setLocationRelativeTo(this);
     }
 
     /**
@@ -107,7 +109,9 @@ public class MostrarAdicaoView extends javax.swing.JDialog {
         valorTotalTxt = new javax.swing.JTextField();
         dataCalendar = new com.toedter.calendar.JDateChooser();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
+        setTitle("GlassTrack");
+        setResizable(false);
 
         jPanel1.setBackground(new java.awt.Color(51, 51, 51));
 
@@ -115,7 +119,6 @@ public class MostrarAdicaoView extends javax.swing.JDialog {
 
         jLabel17.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
         jLabel17.setForeground(new java.awt.Color(255, 255, 153));
-        jLabel17.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/gt/view/imagens/novoFuncionario.png"))); // NOI18N
         jLabel17.setText("Detalhes do Estoque");
         jLabel17.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
         jLabel17.setInheritsPopupMenu(false);
@@ -137,7 +140,8 @@ public class MostrarAdicaoView extends javax.swing.JDialog {
                 .addComponent(jLabel17, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
-        okBtn.setText("Ok");
+        okBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/gt/view/imagens/salvar.png"))); // NOI18N
+        okBtn.setText("OK");
         okBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 okBtnActionPerformed(evt);

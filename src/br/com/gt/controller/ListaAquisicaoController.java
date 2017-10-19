@@ -6,6 +6,7 @@
 package br.com.gt.controller;
 
 import br.com.gt.dao.AquisicaoDAO;
+import br.com.gt.dao.ItemDAO;
 import br.com.gt.model.Aquisicao;
 import br.com.gt.model.Item;
 import br.com.gt.view.estoque.ListaEstoqueView;
@@ -48,18 +49,39 @@ public class ListaAquisicaoController implements ActionListener, MouseListener{
         }
         if(evento.getSource().equals(this.telaListarEstoque.getAlterarBtn())){
             int index = this.telaListarEstoque.getEstoqueTable().getSelectedRow();
-            AlterarAquisicaoController alterarAquisicaoController = new AlterarAquisicaoController(this.connection, this.aquisicoes.get(index));
-            atualizaTableAquisicao(null);
+            
+            if(index >= 0){
+                AlterarAquisicaoController alterarAquisicaoController = new AlterarAquisicaoController(this.connection, this.aquisicoes.get(index));
+                atualizaTableAquisicao(null);
+            }else{
+                JOptionPane.showMessageDialog(null, "Selecione uma aquisição na tabela");
+            }
         }
         
         if(evento.getSource().equals(this.telaListarEstoque.getExcluirBtn())){
             int index = this.telaListarEstoque.getEstoqueTable().getSelectedRow();
-            if (JOptionPane.showConfirmDialog(null, "Deseja excluir o registro do estoque "+
-                    this.aquisicoes.get(index).getItem().getNome()+"?", null, JOptionPane.YES_NO_OPTION) 
-                    == JOptionPane.YES_OPTION){
-                this.aquisicaoDao.excluir(this.aquisicoes.get(index));
-                this.aquisicoes.remove(index);
-                atualizaTableAquisicao(null);
+            
+            if(index >= 0){
+                int quantidadeTeste = this.aquisicoes.get(index).getQuantidadeItem();
+            
+                if(quantidadeTeste > this.aquisicoes.get(index).getItem().getQuantidadeAtual()){
+                    JOptionPane.showMessageDialog(null, "Esta aquisição não pode ser excluída, pois irá resultar em estoque negativo");
+                }else{
+                    if (JOptionPane.showConfirmDialog(null, "Deseja excluir o registro do estoque "+
+                        this.aquisicoes.get(index).getItem().getNome()+"?", null, JOptionPane.YES_NO_OPTION) 
+                        == JOptionPane.YES_OPTION){
+
+                            Item item = this.aquisicoes.get(index).getItem();
+                            ItemDAO iDao = new ItemDAO(this.connection);
+                            item.setQuantidadeAtual(item.getQuantidadeAtual()-this.aquisicoes.get(index).getQuantidadeItem());
+                            iDao.alterar(item);
+                            this.aquisicaoDao.excluir(this.aquisicoes.get(index));
+                            this.aquisicoes.remove(index);
+                            atualizaTableAquisicao(null);
+                    }
+                }
+            }else{
+                JOptionPane.showMessageDialog(null, "Selecione uma aquisição na tabela");
             }
         }
     }

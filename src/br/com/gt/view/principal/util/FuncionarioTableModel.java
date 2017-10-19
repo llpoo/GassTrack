@@ -24,7 +24,7 @@ public class FuncionarioTableModel extends AbstractTableModel{
     
     public FuncionarioTableModel(List<Funcionario> funcionarios){
         this.funcionarios = funcionarios;
-        colunas = Arrays.asList("Nome", "CPF","Data de admissão");
+        colunas = Arrays.asList("Nome", "CPF","Data de admissão","Situação");
     }
 
     @Override
@@ -52,6 +52,12 @@ public class FuncionarioTableModel extends AbstractTableModel{
             case 0: return funcionario.getNome();
             case 1: return funcionario.getCpf();
             case 2: return getFormatDate(funcionario.getDataAdmissao());
+            case 3:
+                if(funcionario.getUsuario().getId() == 0){
+                    return "Desativado";
+                }else{
+                    return "Ativo";
+                }
             
         }
         return null;

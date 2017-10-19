@@ -9,6 +9,7 @@ import br.com.gt.view.lookandfeel.JDialogLAF;
 import com.toedter.calendar.JDateChooser;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
+import javax.swing.JFormattedTextField;
 import javax.swing.JRadioButton;
 import javax.swing.JTextField;
 
@@ -24,6 +25,22 @@ public class AlterarFuncionarioView extends JDialogLAF{
 
     public void setDataAdmissaoCalendar(JDateChooser dataAdmissaoCalendar) {
         this.dataAdmissaoCalendar = dataAdmissaoCalendar;
+    }
+
+    public JFormattedTextField getCepTxt() {
+        return cepTxt;
+    }
+
+    public JFormattedTextField getCpfTxt() {
+        return cpfTxt;
+    }
+
+    public JFormattedTextField getRgTxt() {
+        return rgTxt;
+    }
+
+    public JFormattedTextField getTelefoneTxt() {
+        return telefoneTxt;
     }
     
     
@@ -44,14 +61,6 @@ public class AlterarFuncionarioView extends JDialogLAF{
         this.cancelarBtn = cancelarBtn;
     }
 
-    public JTextField getCepTxt() {
-        return cepTxt;
-    }
-
-    public void setCepTxt(JTextField cepTxt) {
-        this.cepTxt = cepTxt;
-    }
-
     public JTextField getCidadeTxt() {
         return cidadeTxt;
     }
@@ -60,13 +69,6 @@ public class AlterarFuncionarioView extends JDialogLAF{
         this.cidadeTxt = cidadeTxt;
     }
 
-    public JTextField getCpfTxt() {
-        return cpfTxt;
-    }
-
-    public void setCpfTxt(JTextField cpfTxt) {
-        this.cpfTxt = cpfTxt;
-    }
 
     public JTextField getEmailTxt() {
         return emailTxt;
@@ -123,15 +125,7 @@ public class AlterarFuncionarioView extends JDialogLAF{
     public void setRadioMasculino(JRadioButton radioMasculino) {
         this.radioMasculino = radioMasculino;
     }
-
-    public JTextField getRgTxt() {
-        return rgTxt;
-    }
-
-    public void setRgTxt(JTextField rgTxt) {
-        this.rgTxt = rgTxt;
-    }
-
+    
     public JTextField getRuaTxt() {
         return ruaTxt;
     }
@@ -140,16 +134,9 @@ public class AlterarFuncionarioView extends JDialogLAF{
         this.ruaTxt = ruaTxt;
     }
 
-    public JTextField getTelefoneTxt() {
-        return telefoneTxt;
-    }
-
     /**
      * Creates new form AlterarFuncionarioView
      */
-    public void setTelefoneTxt(JTextField telefoneTxt) {
-        this.telefoneTxt = telefoneTxt;
-    }
 
     public AlterarFuncionarioView(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
@@ -173,17 +160,13 @@ public class AlterarFuncionarioView extends JDialogLAF{
         nomeTxt = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        rgTxt = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
-        cpfTxt = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
         emailTxt = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
-        telefoneTxt = new javax.swing.JTextField();
         jLabel8 = new javax.swing.JLabel();
         estadoComboBox = new javax.swing.JComboBox<>();
         jLabel9 = new javax.swing.JLabel();
-        cepTxt = new javax.swing.JTextField();
         jLabel10 = new javax.swing.JLabel();
         cidadeTxt = new javax.swing.JTextField();
         jLabel11 = new javax.swing.JLabel();
@@ -200,9 +183,14 @@ public class AlterarFuncionarioView extends JDialogLAF{
         jLabel7 = new javax.swing.JLabel();
         jLabel14 = new javax.swing.JLabel();
         dataAdmissaoCalendar = new com.toedter.calendar.JDateChooser();
+        rgTxt = new javax.swing.JFormattedTextField();
+        cpfTxt = new javax.swing.JFormattedTextField();
+        telefoneTxt = new javax.swing.JFormattedTextField();
+        cepTxt = new javax.swing.JFormattedTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
         setTitle("GlassTrack");
+        setResizable(false);
 
         jPanel1.setBackground(new java.awt.Color(51, 51, 51));
 
@@ -210,7 +198,6 @@ public class AlterarFuncionarioView extends JDialogLAF{
 
         jLabel17.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
         jLabel17.setForeground(new java.awt.Color(255, 255, 153));
-        jLabel17.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/gt/view/imagens/novoFuncionario.png"))); // NOI18N
         jLabel17.setText("Alterar Funcionário");
         jLabel17.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
         jLabel17.setInheritsPopupMenu(false);
@@ -244,20 +231,8 @@ public class AlterarFuncionarioView extends JDialogLAF{
         jLabel2.setForeground(new java.awt.Color(255, 255, 255));
         jLabel2.setText("RG");
 
-        rgTxt.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                rgTxtActionPerformed(evt);
-            }
-        });
-
         jLabel3.setForeground(new java.awt.Color(255, 255, 255));
         jLabel3.setText("CPF");
-
-        cpfTxt.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cpfTxtActionPerformed(evt);
-            }
-        });
 
         jLabel4.setForeground(new java.awt.Color(255, 255, 255));
         jLabel4.setText("Email");
@@ -271,12 +246,6 @@ public class AlterarFuncionarioView extends JDialogLAF{
         jLabel5.setForeground(new java.awt.Color(255, 255, 255));
         jLabel5.setText("Telefone");
 
-        telefoneTxt.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                telefoneTxtActionPerformed(evt);
-            }
-        });
-
         jLabel8.setForeground(new java.awt.Color(255, 255, 255));
         jLabel8.setText("Estado");
 
@@ -284,12 +253,6 @@ public class AlterarFuncionarioView extends JDialogLAF{
 
         jLabel9.setForeground(new java.awt.Color(255, 255, 255));
         jLabel9.setText("Cep");
-
-        cepTxt.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cepTxtActionPerformed(evt);
-            }
-        });
 
         jLabel10.setForeground(new java.awt.Color(255, 255, 255));
         jLabel10.setText("Cidade");
@@ -303,8 +266,10 @@ public class AlterarFuncionarioView extends JDialogLAF{
         jLabel13.setForeground(new java.awt.Color(255, 255, 255));
         jLabel13.setText("Nº");
 
+        proximoBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/gt/view/imagens/proximo.png"))); // NOI18N
         proximoBtn.setText("Próximo");
 
+        cancelarBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/gt/view/imagens/Cancelar.png"))); // NOI18N
         cancelarBtn.setText("Cancelar");
         cancelarBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -375,18 +340,11 @@ public class AlterarFuncionarioView extends JDialogLAF{
                                     .addComponent(jLabel12))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)))
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(nomeTxt)
-                                .addComponent(emailTxt)
-                                .addComponent(cpfTxt)
-                                .addComponent(rgTxt, javax.swing.GroupLayout.PREFERRED_SIZE, 313, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addComponent(radioMasculino)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(radioFeminino))
                             .addComponent(jLabel14)
-                            .addComponent(estadoComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 143, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(cepTxt, javax.swing.GroupLayout.PREFERRED_SIZE, 186, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(cidadeTxt, javax.swing.GroupLayout.PREFERRED_SIZE, 186, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
@@ -396,9 +354,17 @@ public class AlterarFuncionarioView extends JDialogLAF{
                                 .addComponent(jLabel13)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(numeroTxt, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(nomeTxt, javax.swing.GroupLayout.DEFAULT_SIZE, 313, Short.MAX_VALUE)
+                                .addComponent(emailTxt))
                             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                .addComponent(dataAdmissaoCalendar, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(telefoneTxt, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 172, Short.MAX_VALUE)))))
+                                .addComponent(cpfTxt, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 173, Short.MAX_VALUE)
+                                .addComponent(rgTxt, javax.swing.GroupLayout.Alignment.LEADING))
+                            .addComponent(estadoComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 143, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                .addComponent(cepTxt, javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(telefoneTxt, javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(dataAdmissaoCalendar, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 172, Short.MAX_VALUE)))))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
@@ -412,20 +378,20 @@ public class AlterarFuncionarioView extends JDialogLAF{
                     .addComponent(jLabel1))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(rgTxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel2))
+                    .addComponent(jLabel2)
+                    .addComponent(rgTxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(cpfTxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel3))
+                    .addComponent(jLabel3)
+                    .addComponent(cpfTxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(emailTxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel4))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(telefoneTxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel5))
+                    .addComponent(jLabel5)
+                    .addComponent(telefoneTxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel6)
@@ -443,8 +409,8 @@ public class AlterarFuncionarioView extends JDialogLAF{
                     .addComponent(jLabel8))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(cepTxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel9))
+                    .addComponent(jLabel9)
+                    .addComponent(cepTxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(cidadeTxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -461,7 +427,7 @@ public class AlterarFuncionarioView extends JDialogLAF{
                     .addComponent(numeroTxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(cancelarBtn)
+                    .addComponent(cancelarBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(proximoBtn))
                 .addContainerGap())
         );
@@ -484,25 +450,9 @@ public class AlterarFuncionarioView extends JDialogLAF{
         // TODO add your handling code here:
     }//GEN-LAST:event_nomeTxtActionPerformed
 
-    private void rgTxtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rgTxtActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_rgTxtActionPerformed
-
-    private void cpfTxtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cpfTxtActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_cpfTxtActionPerformed
-
     private void emailTxtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_emailTxtActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_emailTxtActionPerformed
-
-    private void telefoneTxtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_telefoneTxtActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_telefoneTxtActionPerformed
-
-    private void cepTxtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cepTxtActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_cepTxtActionPerformed
 
     private void cancelarBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelarBtnActionPerformed
         // TODO add your handling code here:
@@ -554,9 +504,9 @@ public class AlterarFuncionarioView extends JDialogLAF{
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextField bairroTxt;
     private javax.swing.JButton cancelarBtn;
-    private javax.swing.JTextField cepTxt;
+    private javax.swing.JFormattedTextField cepTxt;
     private javax.swing.JTextField cidadeTxt;
-    private javax.swing.JTextField cpfTxt;
+    private javax.swing.JFormattedTextField cpfTxt;
     private com.toedter.calendar.JDateChooser dataAdmissaoCalendar;
     private javax.swing.JTextField emailTxt;
     private javax.swing.JComboBox<String> estadoComboBox;
@@ -582,9 +532,9 @@ public class AlterarFuncionarioView extends JDialogLAF{
     private javax.swing.JButton proximoBtn;
     private javax.swing.JRadioButton radioFeminino;
     private javax.swing.JRadioButton radioMasculino;
-    private javax.swing.JTextField rgTxt;
+    private javax.swing.JFormattedTextField rgTxt;
     private javax.swing.JTextField ruaTxt;
     private javax.swing.ButtonGroup sexoGroup;
-    private javax.swing.JTextField telefoneTxt;
+    private javax.swing.JFormattedTextField telefoneTxt;
     // End of variables declaration//GEN-END:variables
 }

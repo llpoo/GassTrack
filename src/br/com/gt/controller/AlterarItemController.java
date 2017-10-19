@@ -10,13 +10,16 @@ import br.com.gt.model.Item;
 import br.com.gt.view.item.AlterarItemView;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.sql.Connection;
+import javax.swing.JOptionPane;
 
 /**
  *
  * @author Luciano Júnior
  */
-public class AlterarItemController implements ActionListener{
+public class AlterarItemController implements ActionListener,KeyListener{
     
     Connection connection;
     AlterarItemView telaAlterar;
@@ -34,6 +37,8 @@ public class AlterarItemController implements ActionListener{
     private void adicionaEventos(){
         this.telaAlterar.getSalvarBtn().addActionListener(this);
         this.telaAlterar.getCancelarBtn().addActionListener(this);
+        this.telaAlterar.getPrecoUnitarioTxt().addKeyListener(this);
+        this.telaAlterar.getEstoqueMinimoTxt().addKeyListener(this);
     }
 
     @Override
@@ -44,20 +49,32 @@ public class AlterarItemController implements ActionListener{
         
         if(evento.getSource().equals(this.telaAlterar.getSalvarBtn())){
             this.item.setNome(this.telaAlterar.getNomeTxt().getText());
-            this.item.setPrecoUnitario(Double.parseDouble(this.telaAlterar.getPrecoUnitarioTxt().getText()));
+            if(this.telaAlterar.getPrecoUnitarioTxt().getText().length() > 0){
+                this.item.setPrecoUnitario(Double.parseDouble(this.telaAlterar.getPrecoUnitarioTxt().getText()));
+            }else{
+                this.item.setPrecoUnitario(-1);
+            }
+            
             if(this.telaAlterar.getIsAcessorioCheckBox().isSelected()){
                 this.item.setIsAcessorio(true);
             }else{
                 this.item.setIsAcessorio(false);
             }
-            this.item.setEstoqueMinimo(Integer.parseInt(this.telaAlterar.getEstoqueMinimoTxt().getText()));
+            
+            if(this.telaAlterar.getEstoqueMinimoTxt().getText().length() > 0){
+                this.item.setEstoqueMinimo(Integer.parseInt(this.telaAlterar.getEstoqueMinimoTxt().getText()));
+            }else{
+                this.item.setEstoqueMinimo(-1);
+            }
+            
             
             ItemDAO itemDAO = new ItemDAO(this.connection);
-            itemDAO.alterar(this.item);
             
             if(itemDAO.alterar(this.item) == true){
+                JOptionPane.showMessageDialog(null, "Alteração efetuada com sucesso");
                 this.telaAlterar.dispose();
             }
+            
         }
     }
 
@@ -68,4 +85,30 @@ public class AlterarItemController implements ActionListener{
         this.telaAlterar.getEstoqueMinimoTxt().setText(Integer.toString(this.item.getEstoqueMinimo()));
     }
     
+    @Override
+    public void keyTyped(KeyEvent evento) {
+        if(evento.getSource().equals(this.telaAlterar.getEstoqueMinimoTxt())){
+            String caracteres="0987654321";
+            if(!caracteres.contains(evento.getKeyChar()+"")){
+                evento.consume();
+            }
+        }
+        
+        if(evento.getSource().equals(this.telaAlterar.getPrecoUnitarioTxt())){
+            String caracteres="0987654321.";
+            if(!caracteres.contains(evento.getKeyChar()+"")){
+                evento.consume();
+            }
+        }
+    }
+
+    @Override
+    public void keyPressed(KeyEvent e) {
+        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void keyReleased(KeyEvent e) {
+        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
 }
