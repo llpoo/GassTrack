@@ -83,7 +83,7 @@ public class FornecedorDAO implements DAO<Fornecedor>{
         PreparedStatement pst;
         
         if(validarCampos(fornecedor)==true){
-            if(existe(fornecedor)==false){
+            if(existeAlterar(fornecedor)==false){
                 try {
                     pst = connection.prepareStatement(sql);
 
@@ -428,7 +428,7 @@ public class FornecedorDAO implements DAO<Fornecedor>{
     }
     
     public boolean existeAlterar(Fornecedor fornecedor){
-        String sql = "SELECT * FROM fornecedor where cnpj like ? and id = ?";
+        String sql = "SELECT * FROM fornecedor where cnpj like ? and id != ?";
                 
         PreparedStatement pst;
         ResultSet rs;
