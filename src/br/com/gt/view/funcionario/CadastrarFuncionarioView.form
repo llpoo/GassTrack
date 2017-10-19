@@ -65,7 +65,7 @@
                       <Group type="102" attributes="0">
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Group type="102" attributes="0">
-                                  <EmptySpace min="-2" pref="16" max="-2" attributes="0"/>
+                                  <EmptySpace min="-2" pref="19" max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="0" attributes="0">
                                       <Group type="102" alignment="1" attributes="0">
                                           <Component id="jLabel2" min="-2" max="-2" attributes="0"/>
@@ -81,7 +81,6 @@
                                               <Component id="jLabel3" min="-2" max="-2" attributes="0"/>
                                               <Component id="jLabel5" min="-2" max="-2" attributes="0"/>
                                               <Component id="jLabel6" alignment="1" min="-2" max="-2" attributes="0"/>
-                                              <Component id="jLabel7" alignment="1" min="-2" max="-2" attributes="0"/>
                                           </Group>
                                           <EmptySpace type="unrelated" max="-2" attributes="0"/>
                                       </Group>
@@ -89,14 +88,15 @@
                               </Group>
                               <Group type="102" alignment="1" attributes="0">
                                   <EmptySpace max="-2" attributes="0"/>
-                                  <Group type="103" groupAlignment="1" attributes="0">
-                                      <Component id="jLabel9" min="-2" max="-2" attributes="0"/>
-                                      <Component id="jLabel8" min="-2" max="-2" attributes="0"/>
+                                  <Group type="103" groupAlignment="0" attributes="0">
+                                      <Component id="jLabel9" alignment="1" min="-2" max="-2" attributes="0"/>
+                                      <Component id="jLabel8" alignment="1" min="-2" max="-2" attributes="0"/>
                                       <Component id="jLabel10" alignment="1" min="-2" max="-2" attributes="0"/>
                                       <Component id="jLabel11" alignment="1" min="-2" max="-2" attributes="0"/>
                                       <Component id="jLabel12" alignment="1" min="-2" max="-2" attributes="0"/>
+                                      <Component id="jLabel7" alignment="1" min="-2" max="-2" attributes="0"/>
                                   </Group>
-                                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                                  <EmptySpace max="-2" attributes="0"/>
                               </Group>
                           </Group>
                           <Group type="103" groupAlignment="0" attributes="0">
@@ -175,9 +175,9 @@
                       <Component id="radioFeminino" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="jLabel7" min="-2" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="1" attributes="0">
                       <Component id="dataAdmissaoCalendar" min="-2" max="-2" attributes="0"/>
+                      <Component id="jLabel7" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="jLabel14" min="-2" max="-2" attributes="0"/>
