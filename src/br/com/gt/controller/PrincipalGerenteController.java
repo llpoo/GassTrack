@@ -63,7 +63,7 @@ public class PrincipalGerenteController implements ActionListener, MouseListener
    // private ArrayList<Aquisicao> aquisicoes;
     private ArrayList<Venda> vendas;
     private VendaDAO vendaDAO;
-    private ArrayList<Funcionario> funcionariosDesativados;
+    private ArrayList<Funcionario> funcionariosAtivos;
     
     Connection connection;
     Usuario usuario;
@@ -73,7 +73,7 @@ public class PrincipalGerenteController implements ActionListener, MouseListener
         this.connection = con;
         this.usuario = u;
         this.telaLogin = tela;
-        this.funcionariosDesativados = new ArrayList<>();
+        this.funcionariosAtivos = new ArrayList<>();
         telaPrincipal = new PrincipalGerenteView();
         adicionaEventos();
         
@@ -148,10 +148,8 @@ public class PrincipalGerenteController implements ActionListener, MouseListener
                 UsuarioDAO uDao = new UsuarioDAO(this.connection);
                 uDao.excluir(this.funcionarios.get(index).getUsuario());
                 
-                this.funcionarios.get(index).setUsuario(u);
-                this.funcionarioDao.alterar(this.funcionarios.get(index));
                 atualizaTableFuncionario(null);
-                    atualizaTableVenda(null);
+                atualizaTableVenda(null);
             }
             }else{
                 JOptionPane.showMessageDialog(null, "Selecoine um funcionário na tabela");
@@ -387,18 +385,18 @@ public class PrincipalGerenteController implements ActionListener, MouseListener
         }
         
         
-        if(evento.getSource().equals(this.telaPrincipal.getApenasDesativadosCheckBox())){
-            if(this.telaPrincipal.getApenasDesativadosCheckBox().isSelected() == true){
+        if(evento.getSource().equals(this.telaPrincipal.getApenasAtivosCheckBox())){
+            if(this.telaPrincipal.getApenasAtivosCheckBox().isSelected() == true){
                 this.telaPrincipal.getFuncionarios_funcionarioTxt().setText(null);
                 for(int i = 0; i<this.funcionarios.size(); i++){
-                    if(this.funcionarios.get(i).getUsuario().getId() == 0){
-                        this.funcionariosDesativados.add(this.funcionarios.get(i));
+                    if(this.funcionarios.get(i).getUsuario().getId() > 0){
+                        this.funcionariosAtivos.add(this.funcionarios.get(i));
                     }
                 }
 
-                atualizaTableFuncionario(this.funcionariosDesativados);
+                atualizaTableFuncionario(this.funcionariosAtivos);
             }else{
-                this.funcionariosDesativados.clear();
+                this.funcionariosAtivos.clear();
                 atualizaTableFuncionario(null);
             }
         }
@@ -449,7 +447,8 @@ public class PrincipalGerenteController implements ActionListener, MouseListener
         this.telaPrincipal.getVendas_funcionarioTxt().addCaretListener(this);
         this.telaPrincipal.getVendas_LimparBtn().addActionListener(this);
         
-        this.telaPrincipal.getApenasDesativadosCheckBox().addActionListener(this);
+        this.telaPrincipal.getApenasAtivosCheckBox().addActionListener(this);
+        this.telaPrincipal.getVendasTable().addMouseListener(this);
     }
 
     private void atualizaTableFuncionario(ArrayList<Funcionario> funcionarios) {
@@ -457,7 +456,7 @@ public class PrincipalGerenteController implements ActionListener, MouseListener
             this.funcionarios = funcionarioDao.listar();
             FuncionarioTableModel funcionarioModel = new FuncionarioTableModel(this.funcionarios);
             this.telaPrincipal.getFuncionarioTable().setModel(funcionarioModel);
-            this.telaPrincipal.getApenasDesativadosCheckBox().setSelected(false);
+            this.telaPrincipal.getApenasAtivosCheckBox().setSelected(false);
         }else{
             FuncionarioTableModel funcionarioModel = new FuncionarioTableModel(funcionarios);
             this.telaPrincipal.getFuncionarioTable().setModel(funcionarioModel);
@@ -510,6 +509,13 @@ public class PrincipalGerenteController implements ActionListener, MouseListener
 
     @Override
     public void mouseClicked(MouseEvent e) {
+        if(e.getSource().equals(this.telaPrincipal.getVendasTable())){
+            if(e.getClickCount() == 2){
+                 int index = this.telaPrincipal.getVendasTable().getSelectedRow();
+                 MostrarVendaController mostrarVendaController = new MostrarVendaController(this.connection,this.vendas.get(index));
+            }
+        }
+        
         if(e.getSource().equals(this.telaPrincipal.getFuncionarioTable())){
             if(e.getClickCount() == 2){
                 int index = this.telaPrincipal.getFuncionarioTable().getSelectedRow();

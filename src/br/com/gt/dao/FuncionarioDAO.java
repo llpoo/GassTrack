@@ -68,19 +68,23 @@ public class FuncionarioDAO implements DAO<Funcionario>{
                     Usuario usuario = new Usuario();
                     UsuarioDAO usuarioDAO = new UsuarioDAO(this.connection);
 
-                    usuarioDAO.inserir(funcionario.getUsuario());
-                    usuario = usuarioDAO.buscar(funcionario.getUsuario());
+                    if(usuarioDAO.inserir(funcionario.getUsuario())==true){
+                        usuario = usuarioDAO.buscar(funcionario.getUsuario());
 
-                    funcionario.getUsuario().setId(usuario.getId());
+                        funcionario.getUsuario().setId(usuario.getId());
 
-                    pst.setInt(8, funcionario.getUsuario().getId());
+                        pst.setInt(8, funcionario.getUsuario().getId());
 
-                    pst.setString(9, funcionario.getSexo());
+                        pst.setString(9, funcionario.getSexo());
 
-                    pst.execute();
-                    pst.close();
-                    JOptionPane.showMessageDialog(null, "Cadastro efetuado com sucesso");
-                    return true;
+                        pst.execute();
+                        pst.close();
+                        JOptionPane.showMessageDialog(null, "Cadastro efetuado com sucesso");
+                        return true;
+                    }else{
+                        return false;
+                    }
+                    
                 } catch (SQLException ex) {
                     JOptionPane.showMessageDialog(null, "Não foi possível salvar o funcionário");
                     Logger.getLogger(FuncionarioDAO.class.getName()).log(Level.SEVERE, null, ex);
@@ -132,25 +136,48 @@ public class FuncionarioDAO implements DAO<Funcionario>{
                     pst.setInt(7, funcionario.getEndereco().getId());
 
                     UsuarioDAO usuarioDAO = new UsuarioDAO(this.connection);
+                    
+                    if(funcionario.getUsuario().getId() == 0){
+                        Usuario usuario = new Usuario();
+                        if(usuarioDAO.inserir(funcionario.getUsuario())==true){
+                            usuario = usuarioDAO.buscar(funcionario.getUsuario());
 
-                    if(usuarioDAO.alterar(funcionario.getUsuario())==true){
-                        pst.setString(8, funcionario.getSexo());
+                            funcionario.getUsuario().setId(usuario.getId());
 
-                        pst.setInt(9, funcionario.getUsuario().getId());
+                            pst.setString(8, funcionario.getSexo());
+                            
+                            pst.setInt(9, funcionario.getUsuario().getId());
 
-                        pst.setInt(10, funcionario.getId());
-
-                        pst.execute();
-                        pst.close();
-                        if(funcionario.getUsuario().getId() == 0){
-                            JOptionPane.showMessageDialog(null, "Funcionário desativado com sucesso");
-                        }else{
+                            pst.setInt(10, funcionario.getId());
+                            
+                            pst.execute();
+                            pst.close();
                             JOptionPane.showMessageDialog(null, "Alteração efetuada com sucesso");
+                            return true;
                         }
-                        return true;
                     }else{
-                        return false;
+                        if(usuarioDAO.alterar(funcionario.getUsuario())==true){
+                            pst.setString(8, funcionario.getSexo());
+                            
+                            pst.setInt(9, funcionario.getUsuario().getId());
+
+                            pst.setInt(10, funcionario.getId());
+
+
+                            pst.execute();
+                            pst.close();
+                            if(funcionario.getUsuario().getId() == 0){
+                                JOptionPane.showMessageDialog(null, "Funcionário desativado com sucesso");
+                            }else{
+                                JOptionPane.showMessageDialog(null, "Alteração efetuada com sucesso");
+                            }
+                            return true;
+                        }else{
+                            return false;
+                        }
                     }
+                    
+                    
                 } catch (SQLException ex) {
                     JOptionPane.showMessageDialog(null, "Não foi possível alterar o funcionário");
                     Logger.getLogger(FuncionarioDAO.class.getName()).log(Level.SEVERE, null, ex);
@@ -164,6 +191,35 @@ public class FuncionarioDAO implements DAO<Funcionario>{
             return false;
         }
         return false;
+    }
+    
+    public Funcionario buscarPorUsuario(int idUsuario){
+        String sql = "SELECT * FROM funcionario WHERE usuario_id = ?";
+        
+        PreparedStatement pst;
+        ResultSet rs;
+        
+        Funcionario f = new Funcionario();
+        
+        try {
+            pst = connection.prepareStatement(sql);
+            
+            pst.setInt(1, idUsuario);
+            
+            rs = pst.executeQuery();
+            
+            while(rs.next()){
+                f.setId(rs.getInt("id"));
+            }
+            
+            rs.close();
+            pst.close();
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Não foi possível buscar o usuário");
+            Logger.getLogger(UsuarioDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        return f;
     }
 
     @Override

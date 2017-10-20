@@ -110,6 +110,7 @@ public class FornecedorDAO implements DAO<Fornecedor>{
                     pst.execute();
                     pst.close();
                     JOptionPane.showMessageDialog(null, "Alteração efetuada com sucesso");
+                    return true;
                 } catch (SQLException ex) {
                     JOptionPane.showMessageDialog(null, "Não foi possível alterar o cliente");
                     Logger.getLogger(FuncionarioDAO.class.getName()).log(Level.SEVERE, null, ex);

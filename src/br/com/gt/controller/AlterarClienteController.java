@@ -14,6 +14,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.Connection;
 import java.text.ParseException;
+import javax.swing.JOptionPane;
 import javax.swing.text.DefaultFormatterFactory;
 import javax.swing.text.MaskFormatter;
 
@@ -95,6 +96,8 @@ public class AlterarClienteController implements ActionListener{
 
     private void preencheCampos(PessoaFisica c) {
         String aux = "";
+        this.cliente.setId(c.getId());
+        JOptionPane.showMessageDialog(null, this.cliente.getId());
         this.telaAlterar.getNomeTxt().setText(c.getNome());
         aux = (String) c.getRg().subSequence(0, 2) + (String) c.getRg().subSequence(3, 6)+
               (String) c.getRg().subSequence(7, 10) + (String) c.getRg().subSequence(11, 13);

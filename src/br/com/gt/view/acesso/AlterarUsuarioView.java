@@ -16,6 +16,10 @@ import javax.swing.JTextField;
  */
 public class AlterarUsuarioView extends JDialogLAF {
 
+    public JButton getVoltarBtn() {
+        return voltarBtn;
+    }
+
     
     
     public JButton getCancelarBtn() {
@@ -75,8 +79,9 @@ public class AlterarUsuarioView extends JDialogLAF {
         jLabel2 = new javax.swing.JLabel();
         usuarioTxt = new javax.swing.JTextField();
         senhaTxt = new javax.swing.JPasswordField();
-        salvarBtn = new javax.swing.JButton();
         cancelarBtn = new javax.swing.JButton();
+        salvarBtn = new javax.swing.JButton();
+        voltarBtn = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
         setTitle("GlassTrack");
@@ -88,7 +93,7 @@ public class AlterarUsuarioView extends JDialogLAF {
 
         jLabel17.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
         jLabel17.setForeground(new java.awt.Color(255, 255, 153));
-        jLabel17.setText("Novo Usuário");
+        jLabel17.setText("Alterar usuário");
         jLabel17.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
         jLabel17.setInheritsPopupMenu(false);
         jLabel17.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
@@ -100,7 +105,7 @@ public class AlterarUsuarioView extends JDialogLAF {
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addGap(32, 32, 32)
                 .addComponent(jLabel17, javax.swing.GroupLayout.PREFERRED_SIZE, 187, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(110, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -115,11 +120,14 @@ public class AlterarUsuarioView extends JDialogLAF {
         jLabel2.setForeground(new java.awt.Color(255, 255, 255));
         jLabel2.setText("Senha");
 
+        cancelarBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/gt/view/imagens/Cancelar.png"))); // NOI18N
+        cancelarBtn.setText("Cancelar");
+
         salvarBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/gt/view/imagens/salvar.png"))); // NOI18N
         salvarBtn.setText("Salvar");
 
-        cancelarBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/gt/view/imagens/Cancelar.png"))); // NOI18N
-        cancelarBtn.setText("Cancelar");
+        voltarBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/gt/view/imagens/voltar.png"))); // NOI18N
+        voltarBtn.setText("Voltar");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -127,25 +135,23 @@ public class AlterarUsuarioView extends JDialogLAF {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addContainerGap()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addContainerGap()
+                        .addComponent(voltarBtn)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 31, Short.MAX_VALUE)
+                        .addComponent(salvarBtn)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(cancelarBtn))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabel1)
+                            .addComponent(jLabel2))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(jLabel1)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(usuarioTxt))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                                .addGap(0, 0, Short.MAX_VALUE)
-                                .addComponent(salvarBtn)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(cancelarBtn))))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(14, 14, 14)
-                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(senhaTxt)))
-                .addContainerGap())
+                            .addComponent(senhaTxt)
+                            .addComponent(usuarioTxt))))
+                .addGap(14, 14, 14))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -160,11 +166,12 @@ public class AlterarUsuarioView extends JDialogLAF {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
                     .addComponent(senhaTxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(cancelarBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(salvarBtn))
-                .addContainerGap(12, Short.MAX_VALUE))
+                    .addComponent(salvarBtn)
+                    .addComponent(voltarBtn))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -233,5 +240,6 @@ public class AlterarUsuarioView extends JDialogLAF {
     private javax.swing.JButton salvarBtn;
     private javax.swing.JPasswordField senhaTxt;
     private javax.swing.JTextField usuarioTxt;
+    private javax.swing.JButton voltarBtn;
     // End of variables declaration//GEN-END:variables
 }

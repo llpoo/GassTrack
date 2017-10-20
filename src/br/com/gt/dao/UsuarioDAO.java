@@ -5,6 +5,7 @@
  */
 package br.com.gt.dao;
 
+import br.com.gt.model.Funcionario;
 import br.com.gt.model.Usuario;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -96,7 +97,7 @@ public class UsuarioDAO implements DAO<Usuario>{
 
     @Override
     public boolean excluir(Usuario usuario) {
-        String sql = "delete from usuario where id = ?";
+        String sql="update funcionario set usuario_id = 0 where usuario_id = ?";
         
         PreparedStatement pst;
         
@@ -107,6 +108,15 @@ public class UsuarioDAO implements DAO<Usuario>{
             
             pst.execute();
             pst.close();
+            
+            sql = "delete from usuario where id = ?";
+            pst = connection.prepareStatement(sql);
+            
+            pst.setInt(1, usuario.getId());
+            
+            pst.execute();
+            pst.close();
+            
             return true;
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Não foi possível excluir o usuário");

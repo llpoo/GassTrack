@@ -6,6 +6,7 @@
 package br.com.gt.view.estoque;
 
 import br.com.gt.view.lookandfeel.JDialogLAF;
+import com.toedter.calendar.JDateChooser;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JTable;
@@ -55,6 +56,21 @@ public class ListaEstoqueView extends JDialogLAF {
     public void setVoltarBtn(JButton voltarBtn) {
         this.voltarBtn = voltarBtn;
     }
+
+    public JButton getAtualizarBtn() {
+        return atualizarBtn;
+    }
+
+    public JButton getBuscarDataBtn() {
+        return buscarDataBtn;
+    }
+
+    public JDateChooser getDataTxt() {
+        return dataTxt;
+    }
+    
+    
+    
     
     
     /**
@@ -85,6 +101,9 @@ public class ListaEstoqueView extends JDialogLAF {
         estoqueTable = new javax.swing.JTable();
         alterarBtn = new javax.swing.JButton();
         excluirBtn = new javax.swing.JButton();
+        dataTxt = new com.toedter.calendar.JDateChooser();
+        buscarDataBtn = new javax.swing.JButton();
+        atualizarBtn = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
         setTitle("GlassTrack");
@@ -109,7 +128,7 @@ public class ListaEstoqueView extends JDialogLAF {
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addGap(32, 32, 32)
                 .addComponent(jLabel17, javax.swing.GroupLayout.PREFERRED_SIZE, 254, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(489, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -150,43 +169,70 @@ public class ListaEstoqueView extends JDialogLAF {
         excluirBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/gt/view/imagens/Cancelar.png"))); // NOI18N
         excluirBtn.setText("Excluir");
 
+        dataTxt.setBackground(new java.awt.Color(51, 51, 51));
+
+        buscarDataBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/gt/view/imagens/lupa.png"))); // NOI18N
+        buscarDataBtn.setText("Buscar por Data");
+        buscarDataBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buscarDataBtnActionPerformed(evt);
+            }
+        });
+
+        atualizarBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/gt/view/imagens/atualizar.png"))); // NOI18N
+        atualizarBtn.setText("Atualizar");
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(41, 41, 41)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(voltarBtn)
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(jPanel1Layout.createSequentialGroup()
-                            .addComponent(jLabel2)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                            .addComponent(itemComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 246, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                            .addComponent(alterarBtn)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                            .addComponent(excluirBtn))
-                        .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 665, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(atualizarBtn)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(voltarBtn))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jLabel2)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(itemComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 246, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(dataTxt, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(buscarDataBtn)
+                        .addGap(74, 74, 74)
+                        .addComponent(alterarBtn)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(excluirBtn)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addComponent(jScrollPane6))
+                .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(24, 24, 24)
                 .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(27, 27, 27)
+                .addGap(18, 18, 18)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(buscarDataBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(alterarBtn)
+                        .addComponent(excluirBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(dataTxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(itemComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED, 15, Short.MAX_VALUE)
+                .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 267, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(itemComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(alterarBtn)
-                    .addComponent(excluirBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 252, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(voltarBtn)
-                .addContainerGap(12, Short.MAX_VALUE))
+                    .addComponent(voltarBtn)
+                    .addComponent(atualizarBtn))
+                .addContainerGap(20, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -206,6 +252,10 @@ public class ListaEstoqueView extends JDialogLAF {
     private void itemComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemComboBoxActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_itemComboBoxActionPerformed
+
+    private void buscarDataBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buscarDataBtnActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_buscarDataBtnActionPerformed
 
     /**
      * @param args the command line arguments
@@ -251,6 +301,9 @@ public class ListaEstoqueView extends JDialogLAF {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton alterarBtn;
+    private javax.swing.JButton atualizarBtn;
+    private javax.swing.JButton buscarDataBtn;
+    private com.toedter.calendar.JDateChooser dataTxt;
     private javax.swing.JTable estoqueTable;
     private javax.swing.JButton excluirBtn;
     private javax.swing.JComboBox<String> itemComboBox;

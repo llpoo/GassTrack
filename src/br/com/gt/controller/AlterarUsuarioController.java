@@ -5,11 +5,13 @@
  */
 package br.com.gt.controller;
 
+import br.com.gt.dao.EnderecoDAO;
 import br.com.gt.dao.FuncionarioDAO;
 import br.com.gt.dao.UsuarioDAO;
 import br.com.gt.model.Funcionario;
 import br.com.gt.model.Usuario;
 import br.com.gt.view.acesso.AlterarUsuarioView;
+import br.com.gt.view.funcionario.AlterarFuncionarioView;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.Connection;
@@ -27,6 +29,11 @@ public class AlterarUsuarioController implements ActionListener{
     Usuario usuario;
     boolean isGerente;
     AlterarUsuarioView telaAlterar;
+    AlterarFuncionarioView telaVolta;
+
+    public AlterarUsuarioView getTelaAlterar() {
+        return telaAlterar;
+    }
 
     public AlterarUsuarioController(Connection connection, Usuario usuario) {
         this.connection = connection;
@@ -38,9 +45,10 @@ public class AlterarUsuarioController implements ActionListener{
         this.telaAlterar.setVisible(true);
     }
     
-    public AlterarUsuarioController(Connection con, Funcionario f) {
+    public AlterarUsuarioController(Connection con, Funcionario f, AlterarFuncionarioView telaVolta) {
         this.connection = con;
         this.funcionario = f;
+        this.telaVolta = telaVolta;
         isGerente = false;
         this.telaAlterar = new AlterarUsuarioView(null, true);
         adicionaEventos();
@@ -57,9 +65,16 @@ public class AlterarUsuarioController implements ActionListener{
         
         if(evento.getSource().equals(this.telaAlterar.getSalvarBtn())){
             if(this.isGerente == false){
-                this.funcionario.getUsuario().setUsuario(this.telaAlterar.getUsuarioTxt().getText());
-                this.funcionario.getUsuario().setSenha(this.telaAlterar.getSenhaTxt().getText());
-                this.funcionario.getUsuario().setIsGerente(false);
+                Usuario usuario = new Usuario();
+                if(this.usuario != null){
+                    usuario.setId(this.usuario.getId());
+                }else{
+                    usuario.setId(0);
+                }
+                usuario.setUsuario(this.telaAlterar.getUsuarioTxt().getText());
+                usuario.setSenha(this.telaAlterar.getSenhaTxt().getText());
+                usuario.setIsGerente(false);
+                this.funcionario.setUsuario(usuario);
 
                 FuncionarioDAO funcionarioDAO = new FuncionarioDAO(this.connection);
 
@@ -74,15 +89,26 @@ public class AlterarUsuarioController implements ActionListener{
                 usuarioDAO.alterar(this.usuario);
                 
                 if(usuarioDAO.alterar(this.usuario) == true){
+                    EnderecoDAO eDao = new EnderecoDAO(this.connection);
+                if(eDao.existeEmFuncionario(this.funcionario.getEndereco()) == false){
+                    eDao.excluir((this.funcionario.getEndereco()));
+                }
+                this.telaAlterar.dispose();
                     this.telaAlterar.dispose();
                 }
             }
+        }
+        
+        if(evento.getSource().equals(this.telaAlterar.getVoltarBtn())){
+            this.telaAlterar.setVisible(false);
+            this.telaVolta.setVisible(true);
         }
     }
 
     private void adicionaEventos() {
         this.telaAlterar.getSalvarBtn().addActionListener(this);
         this.telaAlterar.getCancelarBtn().addActionListener(this);
+        this.telaAlterar.getVoltarBtn().addActionListener(this);
     }
 
     private void preencheCampos() {

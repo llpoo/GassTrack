@@ -455,14 +455,13 @@
                               <EmptySpace type="unrelated" max="-2" attributes="0"/>
                               <Component id="funcionarios_funcionarioTxt" min="-2" pref="387" max="-2" attributes="0"/>
                               <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                              <Component id="apenasDesativadosCheckBox" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace pref="156" max="32767" attributes="0"/>
+                              <Component id="apenasAtivosCheckBox" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace pref="212" max="32767" attributes="0"/>
                               <Component id="funcionarios_novoBtn" min="-2" max="-2" attributes="0"/>
                               <EmptySpace type="unrelated" max="-2" attributes="0"/>
                               <Component id="alterarFuncionarioBtn" min="-2" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
                               <Component id="excluirFuncionarioBtn" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace min="-2" pref="28" max="-2" attributes="0"/>
                           </Group>
                       </Group>
                     </DimensionLayout>
@@ -477,7 +476,7 @@
                                       <Component id="funcionarios_funcionarioTxt" alignment="3" min="-2" max="-2" attributes="0"/>
                                       <Component id="alterarFuncionarioBtn" alignment="3" min="-2" max="-2" attributes="0"/>
                                       <Component id="funcionarios_novoBtn" alignment="3" min="-2" max="-2" attributes="0"/>
-                                      <Component id="apenasDesativadosCheckBox" alignment="3" min="-2" max="-2" attributes="0"/>
+                                      <Component id="apenasAtivosCheckBox" alignment="3" min="-2" max="-2" attributes="0"/>
                                   </Group>
                               </Group>
                               <EmptySpace type="unrelated" max="-2" attributes="0"/>
@@ -552,7 +551,7 @@
                         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="excluirFuncionarioBtnActionPerformed"/>
                       </Events>
                     </Component>
-                    <Component class="javax.swing.JCheckBox" name="apenasDesativadosCheckBox">
+                    <Component class="javax.swing.JCheckBox" name="apenasAtivosCheckBox">
                       <Properties>
                         <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                           <Color blue="33" green="33" red="33" type="rgb"/>
@@ -560,7 +559,7 @@
                         <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                           <Color blue="ff" green="ff" red="ff" type="rgb"/>
                         </Property>
-                        <Property name="text" type="java.lang.String" value="Apenas funcion&#xe1;rios desativados"/>
+                        <Property name="text" type="java.lang.String" value="Apenas funcion&#xe1;rios ativos"/>
                       </Properties>
                     </Component>
                   </SubComponents>
@@ -668,7 +667,7 @@
                   <Layout>
                     <DimensionLayout dim="0">
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Group type="102" alignment="0" attributes="0">
+                          <Group type="102" attributes="0">
                               <EmptySpace max="-2" attributes="0"/>
                               <Component id="jLabel6" min="-2" max="-2" attributes="0"/>
                               <EmptySpace type="unrelated" max="-2" attributes="0"/>
@@ -679,9 +678,8 @@
                               <Component id="alterarClienteBtn" min="-2" max="-2" attributes="0"/>
                               <EmptySpace type="unrelated" max="-2" attributes="0"/>
                               <Component id="excluirClienteBtn" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace max="-2" attributes="0"/>
                           </Group>
-                          <Component id="jScrollPane3" alignment="1" pref="1110" max="32767" attributes="0"/>
+                          <Component id="jScrollPane3" pref="1110" max="32767" attributes="0"/>
                       </Group>
                     </DimensionLayout>
                     <DimensionLayout dim="1">
@@ -864,24 +862,19 @@
                   <Layout>
                     <DimensionLayout dim="0">
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Group type="102" alignment="1" attributes="0">
+                          <Group type="102" attributes="0">
                               <EmptySpace max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="1" attributes="0">
-                                  <Component id="jScrollPane4" pref="1090" max="32767" attributes="0"/>
-                                  <Group type="102" attributes="0">
-                                      <Component id="jLabel7" min="-2" max="-2" attributes="0"/>
-                                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                                      <Component id="fornecedorTxt" min="-2" pref="390" max="-2" attributes="0"/>
-                                      <EmptySpace max="32767" attributes="0"/>
-                                      <Component id="novoFornecedorBtn" min="-2" max="-2" attributes="0"/>
-                                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                                      <Component id="alterarFornecedorBtn" min="-2" max="-2" attributes="0"/>
-                                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                                      <Component id="excluirFornecedorBtn" min="-2" max="-2" attributes="0"/>
-                                  </Group>
-                              </Group>
-                              <EmptySpace max="-2" attributes="0"/>
+                              <Component id="jLabel7" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                              <Component id="fornecedorTxt" min="-2" pref="390" max="-2" attributes="0"/>
+                              <EmptySpace pref="372" max="32767" attributes="0"/>
+                              <Component id="novoFornecedorBtn" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                              <Component id="alterarFornecedorBtn" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                              <Component id="excluirFornecedorBtn" min="-2" max="-2" attributes="0"/>
                           </Group>
+                          <Component id="jScrollPane4" max="32767" attributes="0"/>
                       </Group>
                     </DimensionLayout>
                     <DimensionLayout dim="1">
@@ -896,7 +889,7 @@
                                   <Component id="novoFornecedorBtn" alignment="3" min="-2" max="-2" attributes="0"/>
                               </Group>
                               <EmptySpace max="-2" attributes="0"/>
-                              <Component id="jScrollPane4" pref="413" max="32767" attributes="0"/>
+                              <Component id="jScrollPane4" pref="410" max="32767" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
                           </Group>
                       </Group>
@@ -1076,7 +1069,6 @@
                                       <EmptySpace max="32767" attributes="0"/>
                                       <Component id="novoItemBtn" min="-2" max="-2" attributes="0"/>
                                   </Group>
-                                  <Component id="jSeparator1" max="32767" attributes="0"/>
                                   <Group type="102" alignment="0" attributes="0">
                                       <Group type="103" groupAlignment="0" attributes="0">
                                           <Group type="102" attributes="0">
@@ -1118,9 +1110,7 @@
                                   <Component id="jLabel9" alignment="3" min="-2" max="-2" attributes="0"/>
                                   <Component id="itemTxt" alignment="3" min="-2" max="-2" attributes="0"/>
                               </Group>
-                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                              <Component id="jSeparator1" min="-2" pref="10" max="-2" attributes="0"/>
-                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                              <EmptySpace min="-2" pref="32" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
                                   <Group type="103" alignment="1" groupAlignment="3" attributes="0">
                                       <Component id="excluirAcessorioBtn" alignment="3" min="-2" pref="32" max="-2" attributes="0"/>
@@ -1283,13 +1273,6 @@
                       <Events>
                         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="addAceEstoqueBtnActionPerformed"/>
                       </Events>
-                    </Component>
-                    <Component class="javax.swing.JSeparator" name="jSeparator1">
-                      <Properties>
-                        <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-                          <Color blue="ff" green="ff" red="ff" type="rgb"/>
-                        </Property>
-                      </Properties>
                     </Component>
                   </SubComponents>
                 </Container>

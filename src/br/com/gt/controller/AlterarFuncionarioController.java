@@ -99,7 +99,7 @@ public class AlterarFuncionarioController implements ActionListener{
             fun.setUsuario(usu);
             
             this.telaAlterar.setVisible(false);
-            AlterarUsuarioController alterarUsuarioController = new AlterarUsuarioController(this.connection,fun);
+            AlterarUsuarioController alterarUsuarioController = new AlterarUsuarioController(this.connection,fun,this.telaAlterar);
             
             EnderecoDAO eDao = new EnderecoDAO(this.connection);
             if(eDao.existeEmFuncionario(auxEndereco)==false){

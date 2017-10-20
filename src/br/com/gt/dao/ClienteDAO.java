@@ -108,22 +108,21 @@ public class ClienteDAO implements DAO<PessoaFisica>{
                     }
 
                     cliente.getEndereco().setId(endereco.getId());
-
                     pst.setInt(6, cliente.getEndereco().getId());
-
                     pst.setString(7, cliente.getSexo());
-
                     pst.setInt(8, cliente.getId());
 
                     pst.execute();
                     pst.close();
                     JOptionPane.showMessageDialog(null, "Alteração efetuada com sucesso");
+                    return true;
+                    
                 } catch (SQLException ex) {
-                    JOptionPane.showMessageDialog(null, "Não foi possível alterar o cliente");
+                    JOptionPane.showMessageDialog(null, "Não foi possível alterar o funcionário");
                     Logger.getLogger(FuncionarioDAO.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }else{
-                JOptionPane.showMessageDialog(null, "Já existe cliente registrado com este CPF");
+                JOptionPane.showMessageDialog(null, "Já existe um cliente registrado com este CPF");
                 return false;
             }
         }else{
@@ -391,7 +390,7 @@ public class ClienteDAO implements DAO<PessoaFisica>{
     }
     
     public boolean existeAlterar(PessoaFisica cliente){
-        String sql = "SELECT * FROM cliente where cpf like ? and id != ?";
+        String sql = "SELECT * FROM cliente where cpf like ?";
                 
         PreparedStatement pst;
         ResultSet rs;
@@ -402,7 +401,6 @@ public class ClienteDAO implements DAO<PessoaFisica>{
             pst = connection.prepareStatement(sql);
             
             pst.setString(1, cliente.getCpf());
-            pst.setInt(2, cliente.getId());
             
             rs = pst.executeQuery();
             
@@ -413,10 +411,10 @@ public class ClienteDAO implements DAO<PessoaFisica>{
             rs.close();
             pst.close();
             
-            if(cli.getId() > 0){
-                return true;
-            }else{
+            if(cli.getId() == cliente.getId()){
                 return false;
+            }else{
+                return true;
             }
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Não foi possível buscar o cliente");

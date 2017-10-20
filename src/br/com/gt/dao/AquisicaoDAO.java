@@ -170,6 +170,103 @@ public class AquisicaoDAO implements DAO<Aquisicao>{
     @Override
     public Aquisicao buscar(Aquisicao aquisicao) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    };
+    
+    public ArrayList<Aquisicao> buscarByDataAndFornecedor(Fornecedor fornecedor, java.util.Date data){
+        String sql="select * from aquisicao where fornecedor_id = ? and data = ?";
+        PreparedStatement pst;
+        ArrayList<Aquisicao> listaAquisicao =new ArrayList<Aquisicao>();
+        
+        try{
+            pst= connection.prepareStatement(sql);
+            
+            java.sql.Date dataCorreta = new java.sql.Date(data.getTime());
+            pst.setInt(1, fornecedor.getId());
+            pst.setDate(2, dataCorreta);
+            
+            ResultSet rs = pst.executeQuery();
+            FornecedorDAO fornecedorDAO = new FornecedorDAO(connection);
+            ItemDAO itemDAO = new ItemDAO(connection);
+		    
+           while(rs.next()){		 	
+                Aquisicao aquisicao = new Aquisicao();
+                aquisicao.setId(rs.getInt("id"));
+                aquisicao.setData(rs.getDate("data"));
+                aquisicao.setValorUitario(rs.getDouble("valoruitario"));
+                aquisicao.setQuantidadeItem(rs.getInt("quantidadeitem"));
+                aquisicao.setValorTotal(rs.getDouble("valortotal"));
+		
+                Fornecedor f =new Fornecedor();
+                f.setId(rs.getInt("fornecedor_id"));
+                
+                aquisicao.setFornecedor(fornecedorDAO.buscarById(f.getId()));
+                
+                Item m =new Item();
+                m.setId(rs.getInt("item_id"));
+                
+                aquisicao.setItem(itemDAO.buscarById(m.getId()));
+                
+		listaAquisicao.add(aquisicao);
+	    }
+		    
+            rs.close();
+            pst.close();
+		    
+            return listaAquisicao;
+        }catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Não foi possível listar as aquisições");
+            Logger.getLogger(AquisicaoDAO.class.getName()).log(Level.SEVERE, null, ex);
+            return listaAquisicao;
+        }
+    }
+
+
+    public ArrayList<Aquisicao> buscarByDataAndItem(Item item, java.util.Date data){
+        String sql="select * from aquisicao where item_id = ? and data = ?";
+        PreparedStatement pst;
+        ArrayList<Aquisicao> listaAquisicao =new ArrayList<Aquisicao>();
+        
+        try{
+            pst= connection.prepareStatement(sql);
+            
+            java.sql.Date dataCorreta = new java.sql.Date(data.getTime());
+            pst.setInt(1, item.getId());
+            pst.setDate(2, dataCorreta);
+            
+            ResultSet rs = pst.executeQuery();
+            FornecedorDAO fornecedorDAO = new FornecedorDAO(connection);
+            ItemDAO itemDAO = new ItemDAO(connection);
+		    
+           while(rs.next()){		 	
+                Aquisicao aquisicao = new Aquisicao();
+                aquisicao.setId(rs.getInt("id"));
+                aquisicao.setData(rs.getDate("data"));
+                aquisicao.setValorUitario(rs.getDouble("valoruitario"));
+                aquisicao.setQuantidadeItem(rs.getInt("quantidadeitem"));
+                aquisicao.setValorTotal(rs.getDouble("valortotal"));
+		
+                Fornecedor f =new Fornecedor();
+                f.setId(rs.getInt("fornecedor_id"));
+                
+                aquisicao.setFornecedor(fornecedorDAO.buscarById(f.getId()));
+                
+                Item m =new Item();
+                m.setId(rs.getInt("item_id"));
+                
+                aquisicao.setItem(itemDAO.buscarById(m.getId()));
+                
+		listaAquisicao.add(aquisicao);
+	    }
+		    
+            rs.close();
+            pst.close();
+		    
+            return listaAquisicao;
+        }catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Não foi possível listar as aquisições");
+            Logger.getLogger(AquisicaoDAO.class.getName()).log(Level.SEVERE, null, ex);
+            return listaAquisicao;
+        }
     }
 
     @Override
@@ -220,6 +317,7 @@ public class AquisicaoDAO implements DAO<Aquisicao>{
     public ArrayList<Aquisicao> pesquisar(String objeto) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
+    
     
     public ArrayList<Aquisicao> listarByItem(Item item) {
         String sql="select * from aquisicao where item_id=? order by data";

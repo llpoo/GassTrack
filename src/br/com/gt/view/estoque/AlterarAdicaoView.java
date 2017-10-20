@@ -129,7 +129,7 @@ public class AlterarAdicaoView extends JDialogLAF {
 
         jLabel17.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
         jLabel17.setForeground(new java.awt.Color(255, 255, 153));
-        jLabel17.setText("Alterar no Estoque");
+        jLabel17.setText("Alterar aquisição");
         jLabel17.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
         jLabel17.setInheritsPopupMenu(false);
         jLabel17.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
@@ -141,7 +141,7 @@ public class AlterarAdicaoView extends JDialogLAF {
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addGap(32, 32, 32)
                 .addComponent(jLabel17, javax.swing.GroupLayout.PREFERRED_SIZE, 254, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(149, Short.MAX_VALUE))
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -164,6 +164,11 @@ public class AlterarAdicaoView extends JDialogLAF {
 
         fornecedorComboBox.setEditable(true);
         fornecedorComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1" }));
+        fornecedorComboBox.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                fornecedorComboBoxActionPerformed(evt);
+            }
+        });
 
         salvarBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/gt/view/imagens/salvar.png"))); // NOI18N
         salvarBtn.setText("Salvar");
@@ -176,7 +181,7 @@ public class AlterarAdicaoView extends JDialogLAF {
         });
 
         jLabel6.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel6.setText("Valor Unitário");
+        jLabel6.setText("Valor Unitário (R$)");
 
         valorUnitarioTxt.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -185,7 +190,7 @@ public class AlterarAdicaoView extends JDialogLAF {
         });
 
         jLabel7.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel7.setText("Quantidade de Item");
+        jLabel7.setText("Quantidade");
 
         qtdeItemTxt.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -194,9 +199,10 @@ public class AlterarAdicaoView extends JDialogLAF {
         });
 
         jLabel9.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel9.setText("Valor Total");
+        jLabel9.setText("Valor Total (R$)");
 
         valorTotalTxt.setEditable(false);
+        valorTotalTxt.setBackground(new java.awt.Color(255, 255, 255));
         valorTotalTxt.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 valorTotalTxtActionPerformed(evt);
@@ -211,37 +217,28 @@ public class AlterarAdicaoView extends JDialogLAF {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGap(13, 13, 13)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(283, 283, 283)
                         .addComponent(salvarBtn)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(cancelarBtn))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(84, 84, 84)
-                        .addComponent(jLabel1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(dataCalendar, javax.swing.GroupLayout.PREFERRED_SIZE, 143, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                        .addGroup(jPanel1Layout.createSequentialGroup()
-                            .addContainerGap()
-                            .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(itemComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 143, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
-                            .addGap(14, 14, 14)
-                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                .addComponent(jLabel8)
-                                .addComponent(jLabel7)
-                                .addComponent(jLabel6)
-                                .addComponent(jLabel9))
-                            .addGap(1, 1, 1)
-                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(qtdeItemTxt, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(valorUnitarioTxt, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(valorTotalTxt, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(fornecedorComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGap(3, 3, 3))))
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabel8)
+                            .addComponent(jLabel2)
+                            .addComponent(jLabel7)
+                            .addComponent(jLabel6)
+                            .addComponent(jLabel9)
+                            .addComponent(jLabel1))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(qtdeItemTxt, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(valorTotalTxt, javax.swing.GroupLayout.DEFAULT_SIZE, 289, Short.MAX_VALUE)
+                            .addComponent(valorUnitarioTxt)
+                            .addComponent(dataCalendar, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(itemComboBox, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(fornecedorComboBox, 0, 289, Short.MAX_VALUE))))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
@@ -250,34 +247,34 @@ public class AlterarAdicaoView extends JDialogLAF {
                 .addGap(24, 24, 24)
                 .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jLabel1)
-                    .addComponent(dataCalendar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(9, 9, 9)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel2)
-                    .addComponent(itemComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                    .addComponent(itemComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel2))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(valorUnitarioTxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel6))
+                    .addComponent(fornecedorComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel8))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(qtdeItemTxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel7))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(valorUnitarioTxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel6))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(valorTotalTxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel9))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel8)
-                    .addComponent(fornecedorComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(88, 88, 88)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(dataCalendar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel1))
+                .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(cancelarBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(salvarBtn))
-                .addContainerGap(21, Short.MAX_VALUE))
+                .addContainerGap(25, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -294,17 +291,21 @@ public class AlterarAdicaoView extends JDialogLAF {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void fornecedorComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fornecedorComboBoxActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_fornecedorComboBoxActionPerformed
+
     private void itemComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemComboBoxActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_itemComboBoxActionPerformed
 
-    private void qtdeItemTxtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_qtdeItemTxtActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_qtdeItemTxtActionPerformed
-
     private void valorUnitarioTxtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_valorUnitarioTxtActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_valorUnitarioTxtActionPerformed
+
+    private void qtdeItemTxtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_qtdeItemTxtActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_qtdeItemTxtActionPerformed
 
     private void valorTotalTxtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_valorTotalTxtActionPerformed
         // TODO add your handling code here:

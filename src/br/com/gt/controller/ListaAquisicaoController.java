@@ -44,6 +44,19 @@ public class ListaAquisicaoController implements ActionListener, MouseListener{
 
     @Override
     public void actionPerformed(ActionEvent evento) {
+        if(evento.getSource().equals(this.telaListarEstoque.getAtualizarBtn())){
+            this.telaListarEstoque.getDataTxt().setDate(null);
+            atualizaTableAquisicao(null);
+        }
+        
+        if(evento.getSource().equals(this.telaListarEstoque.getBuscarDataBtn())){
+            if(this.telaListarEstoque.getDataTxt().getDate() != null){
+                atualizaTableAquisicao(this.aquisicaoDao.buscarByDataAndItem(this.item, this.telaListarEstoque.getDataTxt().getDate()));
+            }else{
+                JOptionPane.showMessageDialog(null, "Selecione uma data");
+            }
+        }
+        
         if(evento.getSource().equals(this.telaListarEstoque.getVoltarBtn())){
             this.telaListarEstoque.dispose();
         }
@@ -102,6 +115,8 @@ public class ListaAquisicaoController implements ActionListener, MouseListener{
         this.telaListarEstoque.getExcluirBtn().addActionListener(this);
         this.telaListarEstoque.getVoltarBtn().addActionListener(this);
         this.telaListarEstoque.getEstoqueTable().addMouseListener(this);
+        this.telaListarEstoque.getAtualizarBtn().addActionListener(this);
+        this.telaListarEstoque.getBuscarDataBtn().addActionListener(this);
     }
 
     private void preencheComboBoxItem(Item item) {

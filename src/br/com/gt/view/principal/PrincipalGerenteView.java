@@ -22,12 +22,12 @@ import javax.swing.JTextField;
  */
 public class PrincipalGerenteView extends JFrameLAF{
 
-    public JCheckBox getApenasDesativadosCheckBox() {
-        return apenasDesativadosCheckBox;
+    public JCheckBox getApenasAtivosCheckBox() {
+        return apenasAtivosCheckBox;
     }
 
     public void setApenasDesativadosCheckBox(JCheckBox apenasDesativadosCheckBox) {
-        this.apenasDesativadosCheckBox = apenasDesativadosCheckBox;
+        this.apenasAtivosCheckBox = apenasDesativadosCheckBox;
     }
 
     
@@ -321,7 +321,7 @@ public class PrincipalGerenteView extends JFrameLAF{
         funcionarios_novoBtn = new javax.swing.JButton();
         alterarFuncionarioBtn = new javax.swing.JButton();
         excluirFuncionarioBtn = new javax.swing.JButton();
-        apenasDesativadosCheckBox = new javax.swing.JCheckBox();
+        apenasAtivosCheckBox = new javax.swing.JCheckBox();
         clientesPanel = new javax.swing.JPanel();
         jLabel31 = new javax.swing.JLabel();
         jPanel16 = new javax.swing.JPanel();
@@ -369,7 +369,6 @@ public class PrincipalGerenteView extends JFrameLAF{
         excluirAcessorioBtn = new javax.swing.JButton();
         alterarAcessorioBtn = new javax.swing.JButton();
         addAceEstoqueBtn = new javax.swing.JButton();
-        jSeparator1 = new javax.swing.JSeparator();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
         setTitle("GlassTrack");
@@ -574,9 +573,9 @@ public class PrincipalGerenteView extends JFrameLAF{
             }
         });
 
-        apenasDesativadosCheckBox.setBackground(new java.awt.Color(51, 51, 51));
-        apenasDesativadosCheckBox.setForeground(new java.awt.Color(255, 255, 255));
-        apenasDesativadosCheckBox.setText("Apenas funcionários desativados");
+        apenasAtivosCheckBox.setBackground(new java.awt.Color(51, 51, 51));
+        apenasAtivosCheckBox.setForeground(new java.awt.Color(255, 255, 255));
+        apenasAtivosCheckBox.setText("Apenas funcionários ativos");
 
         javax.swing.GroupLayout jPanel11Layout = new javax.swing.GroupLayout(jPanel11);
         jPanel11.setLayout(jPanel11Layout);
@@ -588,14 +587,13 @@ public class PrincipalGerenteView extends JFrameLAF{
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(funcionarios_funcionarioTxt, javax.swing.GroupLayout.PREFERRED_SIZE, 387, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(apenasDesativadosCheckBox)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 156, Short.MAX_VALUE)
+                .addComponent(apenasAtivosCheckBox)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 212, Short.MAX_VALUE)
                 .addComponent(funcionarios_novoBtn)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(alterarFuncionarioBtn)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(excluirFuncionarioBtn)
-                .addGap(28, 28, 28))
+                .addComponent(excluirFuncionarioBtn))
         );
         jPanel11Layout.setVerticalGroup(
             jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -608,7 +606,7 @@ public class PrincipalGerenteView extends JFrameLAF{
                         .addComponent(funcionarios_funcionarioTxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(alterarFuncionarioBtn)
                         .addComponent(funcionarios_novoBtn)
-                        .addComponent(apenasDesativadosCheckBox)))
+                        .addComponent(apenasAtivosCheckBox)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane7, javax.swing.GroupLayout.DEFAULT_SIZE, 419, Short.MAX_VALUE))
         );
@@ -680,9 +678,8 @@ public class PrincipalGerenteView extends JFrameLAF{
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(alterarClienteBtn)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(excluirClienteBtn)
-                .addContainerGap())
-            .addComponent(jScrollPane3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 1110, Short.MAX_VALUE)
+                .addComponent(excluirClienteBtn))
+            .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 1110, Short.MAX_VALUE)
         );
         jPanel6Layout.setVerticalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -761,21 +758,18 @@ public class PrincipalGerenteView extends JFrameLAF{
         jPanel7.setLayout(jPanel7Layout);
         jPanel7Layout.setHorizontalGroup(
             jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel7Layout.createSequentialGroup()
+            .addGroup(jPanel7Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 1090, Short.MAX_VALUE)
-                    .addGroup(jPanel7Layout.createSequentialGroup()
-                        .addComponent(jLabel7)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(fornecedorTxt, javax.swing.GroupLayout.PREFERRED_SIZE, 390, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(novoFornecedorBtn)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(alterarFornecedorBtn)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(excluirFornecedorBtn)))
-                .addContainerGap())
+                .addComponent(jLabel7)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(fornecedorTxt, javax.swing.GroupLayout.PREFERRED_SIZE, 390, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 372, Short.MAX_VALUE)
+                .addComponent(novoFornecedorBtn)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(alterarFornecedorBtn)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(excluirFornecedorBtn))
+            .addComponent(jScrollPane4)
         );
         jPanel7Layout.setVerticalGroup(
             jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -788,7 +782,7 @@ public class PrincipalGerenteView extends JFrameLAF{
                     .addComponent(alterarFornecedorBtn)
                     .addComponent(novoFornecedorBtn))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 413, Short.MAX_VALUE)
+                .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 410, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -889,8 +883,6 @@ public class PrincipalGerenteView extends JFrameLAF{
             }
         });
 
-        jSeparator1.setForeground(new java.awt.Color(255, 255, 255));
-
         javax.swing.GroupLayout jPanel8Layout = new javax.swing.GroupLayout(jPanel8);
         jPanel8.setLayout(jPanel8Layout);
         jPanel8Layout.setHorizontalGroup(
@@ -904,7 +896,6 @@ public class PrincipalGerenteView extends JFrameLAF{
                         .addComponent(itemTxt, javax.swing.GroupLayout.PREFERRED_SIZE, 480, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(novoItemBtn))
-                    .addComponent(jSeparator1)
                     .addGroup(jPanel8Layout.createSequentialGroup()
                         .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel8Layout.createSequentialGroup()
@@ -937,9 +928,7 @@ public class PrincipalGerenteView extends JFrameLAF{
                     .addComponent(novoItemBtn)
                     .addComponent(jLabel9)
                     .addComponent(itemTxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(32, 32, 32)
                 .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(excluirAcessorioBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -1056,7 +1045,7 @@ public class PrincipalGerenteView extends JFrameLAF{
     private javax.swing.JButton alterarFornecedorBtn;
     private javax.swing.JButton alterarFuncionarioBtn;
     private javax.swing.JButton alterarMaterialBtn;
-    private javax.swing.JCheckBox apenasDesativadosCheckBox;
+    private javax.swing.JCheckBox apenasAtivosCheckBox;
     private javax.swing.JTable clienteTable;
     private javax.swing.JPanel clientesPanel;
     private javax.swing.JTextField clientes_clienteTxt;
@@ -1115,7 +1104,6 @@ public class PrincipalGerenteView extends JFrameLAF{
     private javax.swing.JScrollPane jScrollPane5;
     private javax.swing.JScrollPane jScrollPane6;
     private javax.swing.JScrollPane jScrollPane7;
-    private javax.swing.JSeparator jSeparator1;
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JTable materialTable;
     private javax.swing.JCheckBox material_baixaSelectBox;

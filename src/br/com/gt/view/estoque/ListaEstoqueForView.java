@@ -6,6 +6,7 @@
 package br.com.gt.view.estoque;
 
 import br.com.gt.view.lookandfeel.JDialogLAF;
+import com.toedter.calendar.JDateChooser;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JTable;
@@ -16,6 +17,20 @@ import javax.swing.JTable;
  */
 public class ListaEstoqueForView extends JDialogLAF {
 
+    public JButton getAtualizarBtn() {
+        return atualizarBtn;
+    }
+
+    public JButton getBuscarDataBtn() {
+        return buscarDataBtn;
+    }
+
+    public JDateChooser getDataTxt() {
+        return dataTxt;
+    }
+
+    
+    
     public JTable getEstoqueTable() {
         return estoqueTable;
     }
@@ -66,6 +81,9 @@ public class ListaEstoqueForView extends JDialogLAF {
         fornecedorComboBox = new javax.swing.JComboBox<>();
         jScrollPane6 = new javax.swing.JScrollPane();
         estoqueTable = new javax.swing.JTable();
+        buscarDataBtn = new javax.swing.JButton();
+        dataTxt = new com.toedter.calendar.JDateChooser();
+        atualizarBtn = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
         setTitle("GlassTrack");
@@ -124,37 +142,64 @@ public class ListaEstoqueForView extends JDialogLAF {
         ));
         jScrollPane6.setViewportView(estoqueTable);
 
+        buscarDataBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/gt/view/imagens/lupa.png"))); // NOI18N
+        buscarDataBtn.setText("Buscar por Data");
+        buscarDataBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buscarDataBtnActionPerformed(evt);
+            }
+        });
+
+        dataTxt.setBackground(new java.awt.Color(51, 51, 51));
+
+        atualizarBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/gt/view/imagens/atualizar.png"))); // NOI18N
+        atualizarBtn.setText("Atualizar");
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(41, 41, 41)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(voltarBtn)
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(jPanel1Layout.createSequentialGroup()
-                            .addComponent(jLabel2)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                            .addComponent(fornecedorComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 237, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 665, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(69, Short.MAX_VALUE))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(30, 30, 30)
+                        .addComponent(jLabel2)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(fornecedorComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 237, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(dataTxt, javax.swing.GroupLayout.PREFERRED_SIZE, 177, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(buscarDataBtn))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(21, 21, 21)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(atualizarBtn)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(voltarBtn))
+                            .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 735, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addContainerGap(19, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(24, 24, 24)
                 .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(28, 28, 28)
+                .addGap(24, 24, 24)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(buscarDataBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(dataTxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(fornecedorComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 254, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(fornecedorComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 252, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(voltarBtn)
-                .addContainerGap(20, Short.MAX_VALUE))
+                    .addComponent(voltarBtn)
+                    .addComponent(atualizarBtn))
+                .addContainerGap(27, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -174,6 +219,10 @@ public class ListaEstoqueForView extends JDialogLAF {
     private void fornecedorComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fornecedorComboBoxActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_fornecedorComboBoxActionPerformed
+
+    private void buscarDataBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buscarDataBtnActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_buscarDataBtnActionPerformed
 
     /**
      * @param args the command line arguments
@@ -219,6 +268,9 @@ public class ListaEstoqueForView extends JDialogLAF {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton atualizarBtn;
+    private javax.swing.JButton buscarDataBtn;
+    private com.toedter.calendar.JDateChooser dataTxt;
     private javax.swing.JTable estoqueTable;
     private javax.swing.JComboBox<String> fornecedorComboBox;
     private javax.swing.JLabel jLabel17;

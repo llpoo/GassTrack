@@ -9,6 +9,7 @@ import br.com.gt.view.lookandfeel.JDialogLAF;
 import com.toedter.calendar.JDateChooser;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
+import javax.swing.JFormattedTextField;
 import javax.swing.JTextField;
 
 /**
@@ -17,14 +18,9 @@ import javax.swing.JTextField;
  */
 public class MostrarAdicaoView extends JDialogLAF {
 
-    public JDateChooser getDataCalendar() {
-        return dataCalendar;
+    public JFormattedTextField getDataTxt() {
+        return dataTxt;
     }
-
-    public void setDataCalendar(JDateChooser dataCalendar) {
-        this.dataCalendar = dataCalendar;
-    }
-
     public JComboBox<String> getFornecedorComboBox() {
         return fornecedorComboBox;
     }
@@ -95,6 +91,7 @@ public class MostrarAdicaoView extends JDialogLAF {
         jPanel1 = new javax.swing.JPanel();
         jPanel4 = new javax.swing.JPanel();
         jLabel17 = new javax.swing.JLabel();
+        okBtn = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
@@ -106,8 +103,7 @@ public class MostrarAdicaoView extends JDialogLAF {
         qtdeItemTxt = new javax.swing.JTextField();
         jLabel9 = new javax.swing.JLabel();
         valorTotalTxt = new javax.swing.JTextField();
-        dataCalendar = new com.toedter.calendar.JDateChooser();
-        okBtn = new javax.swing.JButton();
+        dataTxt = new javax.swing.JFormattedTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
         setTitle("GlassTrack");
@@ -119,7 +115,7 @@ public class MostrarAdicaoView extends JDialogLAF {
 
         jLabel17.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
         jLabel17.setForeground(new java.awt.Color(255, 255, 153));
-        jLabel17.setText("Detalhes do Estoque");
+        jLabel17.setText("Detalhes da aquisição");
         jLabel17.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
         jLabel17.setInheritsPopupMenu(false);
         jLabel17.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
@@ -131,7 +127,7 @@ public class MostrarAdicaoView extends JDialogLAF {
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addGap(32, 32, 32)
                 .addComponent(jLabel17, javax.swing.GroupLayout.PREFERRED_SIZE, 254, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(141, Short.MAX_VALUE))
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -139,6 +135,9 @@ public class MostrarAdicaoView extends JDialogLAF {
                 .addGap(0, 0, Short.MAX_VALUE)
                 .addComponent(jLabel17, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
+
+        okBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/gt/view/imagens/salvar.png"))); // NOI18N
+        okBtn.setText("OK");
 
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setText("Data");
@@ -149,9 +148,13 @@ public class MostrarAdicaoView extends JDialogLAF {
         jLabel8.setForeground(new java.awt.Color(255, 255, 255));
         jLabel8.setText("Fornecedor");
 
-        fornecedorComboBox.setEditable(true);
         fornecedorComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1" }));
         fornecedorComboBox.setEnabled(false);
+        fornecedorComboBox.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                fornecedorComboBoxActionPerformed(evt);
+            }
+        });
 
         itemComboBox.setEnabled(false);
         itemComboBox.addActionListener(new java.awt.event.ActionListener() {
@@ -161,9 +164,10 @@ public class MostrarAdicaoView extends JDialogLAF {
         });
 
         jLabel6.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel6.setText("Valor Unitário");
+        jLabel6.setText("Valor Unitário (R$)");
 
-        valorUnitarioTxt.setEnabled(false);
+        valorUnitarioTxt.setEditable(false);
+        valorUnitarioTxt.setBackground(new java.awt.Color(255, 255, 255));
         valorUnitarioTxt.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 valorUnitarioTxtActionPerformed(evt);
@@ -171,9 +175,10 @@ public class MostrarAdicaoView extends JDialogLAF {
         });
 
         jLabel7.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel7.setText("Quantidade de Item");
+        jLabel7.setText("Quantidade");
 
-        qtdeItemTxt.setEnabled(false);
+        qtdeItemTxt.setEditable(false);
+        qtdeItemTxt.setBackground(new java.awt.Color(255, 255, 255));
         qtdeItemTxt.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 qtdeItemTxtActionPerformed(evt);
@@ -181,21 +186,24 @@ public class MostrarAdicaoView extends JDialogLAF {
         });
 
         jLabel9.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel9.setText("Valor Total");
+        jLabel9.setText("Valor Total (R$)");
 
         valorTotalTxt.setEditable(false);
-        valorTotalTxt.setEnabled(false);
+        valorTotalTxt.setBackground(new java.awt.Color(255, 255, 255));
         valorTotalTxt.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 valorTotalTxtActionPerformed(evt);
             }
         });
 
-        dataCalendar.setBackground(new java.awt.Color(51, 51, 51));
-        dataCalendar.setEnabled(false);
-
-        okBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/gt/view/imagens/salvar.png"))); // NOI18N
-        okBtn.setText("OK");
+        dataTxt.setEditable(false);
+        dataTxt.setBackground(new java.awt.Color(255, 255, 255));
+        dataTxt.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.DateFormatter()));
+        dataTxt.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                dataTxtActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -203,37 +211,29 @@ public class MostrarAdicaoView extends JDialogLAF {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGap(13, 13, 13)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(okBtn)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(84, 84, 84)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabel8)
+                            .addComponent(jLabel2)
+                            .addComponent(jLabel7)
+                            .addComponent(jLabel6)
+                            .addComponent(jLabel9))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(qtdeItemTxt, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(valorTotalTxt, javax.swing.GroupLayout.DEFAULT_SIZE, 289, Short.MAX_VALUE)
+                            .addComponent(valorUnitarioTxt)
+                            .addComponent(itemComboBox, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(fornecedorComboBox, 0, 289, Short.MAX_VALUE)))
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
+                        .addGap(72, 72, 72)
                         .addComponent(jLabel1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(dataCalendar, javax.swing.GroupLayout.PREFERRED_SIZE, 143, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                        .addGroup(jPanel1Layout.createSequentialGroup()
-                            .addContainerGap()
-                            .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(itemComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 143, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
-                            .addGap(14, 14, 14)
-                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                .addComponent(jLabel8)
-                                .addComponent(jLabel7)
-                                .addComponent(jLabel6)
-                                .addComponent(jLabel9))
-                            .addGap(1, 1, 1)
-                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(qtdeItemTxt, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(valorUnitarioTxt, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(valorTotalTxt, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(fornecedorComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGap(3, 3, 3))))
-                .addContainerGap(231, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(okBtn)
-                .addGap(53, 53, 53))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(dataTxt, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -241,32 +241,32 @@ public class MostrarAdicaoView extends JDialogLAF {
                 .addGap(24, 24, 24)
                 .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jLabel1)
-                    .addComponent(dataCalendar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(9, 9, 9)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel2)
-                    .addComponent(itemComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                    .addComponent(itemComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel2))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(valorUnitarioTxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel6))
+                    .addComponent(fornecedorComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel8))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(qtdeItemTxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel7))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(valorUnitarioTxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel6))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(valorTotalTxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel9))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel8)
-                    .addComponent(fornecedorComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 85, Short.MAX_VALUE)
-                .addComponent(okBtn)
-                .addGap(26, 26, 26))
+                    .addComponent(jLabel1)
+                    .addComponent(dataTxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(21, 21, 21)
+                .addComponent(okBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(25, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -283,6 +283,10 @@ public class MostrarAdicaoView extends JDialogLAF {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void fornecedorComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fornecedorComboBoxActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_fornecedorComboBoxActionPerformed
+
     private void itemComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemComboBoxActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_itemComboBoxActionPerformed
@@ -298,6 +302,10 @@ public class MostrarAdicaoView extends JDialogLAF {
     private void valorTotalTxtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_valorTotalTxtActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_valorTotalTxtActionPerformed
+
+    private void dataTxtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_dataTxtActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_dataTxtActionPerformed
 
     /**
      * @param args the command line arguments
@@ -343,7 +351,7 @@ public class MostrarAdicaoView extends JDialogLAF {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private com.toedter.calendar.JDateChooser dataCalendar;
+    private javax.swing.JFormattedTextField dataTxt;
     private javax.swing.JComboBox<String> fornecedorComboBox;
     private javax.swing.JComboBox<String> itemComboBox;
     private javax.swing.JLabel jLabel1;

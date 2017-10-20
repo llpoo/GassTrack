@@ -5,7 +5,7 @@
  */
 package br.com.gt.model;
 
-import java.util.Date;;
+import java.util.Date;
 
 /**
  *

@@ -714,6 +714,8 @@ public class PrincipalFuncionarioView extends JFrameLAF {
         cancelarVendaBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/gt/view/imagens/cancelarVenda.png"))); // NOI18N
         cancelarVendaBtn.setText("Cancelar Venda");
 
+        jCheckBox1.setBackground(new java.awt.Color(51, 51, 51));
+        jCheckBox1.setForeground(new java.awt.Color(255, 255, 255));
         jCheckBox1.setText("Minhas vendas");
 
         javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);

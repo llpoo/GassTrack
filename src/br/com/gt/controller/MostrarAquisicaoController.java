@@ -43,12 +43,12 @@ public class MostrarAquisicaoController implements ActionListener{
     }
 
     private void preencheCampos() {
-        this.telaMostrar.getDataCalendar().setDate(this.aquisicao.getData());
+        this.telaMostrar.getDataTxt().setText(this.aquisicao.getData().toString());
         this.telaMostrar.getItemComboBox().addItem(this.aquisicao.getItem().getNome());
         this.telaMostrar.getItemComboBox().setSelectedItem(this.aquisicao.getItem().getNome());
-        this.telaMostrar.getValorUnitarioTxt().setText(Double.toString(this.aquisicao.getValorUitario()));
+        this.telaMostrar.getValorUnitarioTxt().setText("R$"+Double.toString(this.aquisicao.getValorUitario())+"0");
         this.telaMostrar.getQtdeItemTxt().setText(Integer.toString(this.aquisicao.getQuantidadeItem()));
-        this.telaMostrar.getValorTotalTxt().setText(Double.toString(this.aquisicao.getValorTotal()));
+        this.telaMostrar.getValorTotalTxt().setText("R$"+Double.toString(this.aquisicao.getValorTotal())+"0");
         this.telaMostrar.getFornecedorComboBox().addItem(this.aquisicao.getFornecedor().getNome());
         this.telaMostrar.getFornecedorComboBox().setSelectedItem(this.aquisicao.getFornecedor().getNome());
     }

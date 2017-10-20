@@ -23,7 +23,7 @@ public class AquisicaoTableModel extends AbstractTableModel{
     
     public AquisicaoTableModel(List<Aquisicao> aquisicoes){
         this.aquisicoes = aquisicoes;
-        colunas = Arrays.asList("Data", "Quantidade de Itens","Valor Unitário", "Valor Total");
+        colunas = Arrays.asList("Data","Fornecedor", "Quantidade de Itens","Valor Unitário", "Valor Total");
     }
     
     @Override
@@ -46,9 +46,10 @@ public class AquisicaoTableModel extends AbstractTableModel{
         switch(columnIndex){
             
             case 0: return getFormatDate(aquisicao.getData());
-            case 1: return aquisicao.getQuantidadeItem();
-            case 2: return aquisicao.getValorUitario();
-            case 3: return aquisicao.getValorTotal();
+            case 1: return aquisicao.getFornecedor().getNome();
+            case 2: return aquisicao.getQuantidadeItem();
+            case 3: return aquisicao.getValorUitario();
+            case 4: return aquisicao.getValorTotal();
             
         }
         return null;
